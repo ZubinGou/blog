@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Zubin&#39;s Site</title>
+    <title>Zubin&#39;s Site</title>
     <link>https://zubing.tk/tags/</link>
-    <description>Recent content in Tags on Zubin&#39;s Site</description>
+    <description>Recent content on Zubin&#39;s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Tue, 23 Jul 2019 10:32:48 +0800</lastBuildDate>
@@ -12,21 +12,12 @@
     
     
     <item>
-      <title></title>
-      <link>https://zubing.tk/tags/</link>
+      <title>About</title>
+      <link>https://zubing.tk/about/</link>
       <pubDate>Tue, 23 Jul 2019 10:32:48 +0800</pubDate>
       
-      <guid>https://zubing.tk/tags/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>test</title>
-      <link>https://zubing.tk/tags/test/</link>
-      <pubDate>Mon, 22 Jul 2019 11:32:41 +0800</pubDate>
-      
-      <guid>https://zubing.tk/tags/test/</guid>
-      <description></description>
+      <guid>https://zubing.tk/about/</guid>
+      <description>Zubin Gou😜 BUPT | CS Interests Reading | Movie | Fitness | Programming Blog Record my growth. Tempus fugit: function show_date_time(){ window.setTimeout(&#34;show_date_time()&#34;, 1000); BirthDay=new Date(&#34;7/22/2019 00:00:00&#34;);//日期自己修改 today=new Date(); timeold=(today.getTime()-BirthDay.getTime()); sectimeold=timeold/1000 secondsold=Math.floor(sectimeold); msPerDay=24*60*60*1000 e_daysold=timeold/msPerDay daysold=Math.floor(e_daysold); e_hrsold=(e_daysold-daysold)*24; hrsold=Math.floor(e_hrsold); e_minsold=(e_hrsold-hrsold)*60; minsold=Math.floor((e_hrsold-hrsold)*60); seconds=Math.floor((e_minsold-minsold)*60); span_dt_dt.innerHTML=&#34;&#34;+daysold+&#34;days &#34;+hrsold+&#34;h &#34;+minsold+&#34;min &#34;+seconds+&#34;s&#34;; } show_date_time(); Page View: &amp;nbsp;&amp;nbsp; Unique</description>
     </item>
     
   </channel>
