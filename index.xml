@@ -1,0 +1,182 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zubin&#39;s Site on Zubin&#39;s Site</title>
+    <link>https://zubing.tk/</link>
+    <description>Recent content in Zubin&#39;s Site on Zubin&#39;s Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 23 Jul 2019 10:32:48 +0800</lastBuildDate>
+    <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>About</title>
+      <link>https://zubing.tk/about/</link>
+      <pubDate>Tue, 23 Jul 2019 10:32:48 +0800</pubDate>
+      
+      <guid>https://zubing.tk/about/</guid>
+      <description>
+
+&lt;h3 id=&#34;zubin-gou&#34;&gt;Zubin Gou😜&lt;/h3&gt;
+
+&lt;p&gt;BUPT | CS&lt;/p&gt;
+
+&lt;h3 id=&#34;interests&#34;&gt;Interests&lt;/h3&gt;
+
+&lt;p&gt;Reading | Movie | Fitness | Programming&lt;/p&gt;
+
+&lt;h3 id=&#34;blog&#34;&gt;Blog&lt;/h3&gt;
+
+&lt;p&gt;Record my growth.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;div&gt;
+Tempus fugit: &lt;SPAN id=span_dt_dt style=&#34;color: #0196e3;&#34;&gt;&lt;/SPAN&gt;
+&lt;SCRIPT language=javascript&gt;
+function show_date_time(){
+window.setTimeout(&#34;show_date_time()&#34;, 1000);
+BirthDay=new Date(&#34;7/22/2019 00:00:00&#34;);//日期自己修改
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=Math.floor(e_hrsold);
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=Math.floor((e_hrsold-hrsold)*60);
+seconds=Math.floor((e_minsold-minsold)*60);
+span_dt_dt.innerHTML=&#34;&#34;+daysold+&#34;days &#34;+hrsold+&#34;h &#34;+minsold+&#34;min &#34;+seconds+&#34;s&#34;;
+}
+show_date_time();
+&lt;/SCRIPT&gt;
+&lt;/div&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;span id=&#34;busuanzi_container_site_pv&#34;&gt;Page View: &lt;span id=&#34;busuanzi_value_site_pv&#34;&gt;&lt;/span&gt;&lt;/span&gt;&amp;nbsp;&amp;nbsp;
+&lt;span id=&#34;busuanzi_container_site_pv&#34;&gt;Unique Visitor: &lt;span id=&#34;busuanzi_value_site_uv&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;copyright&#34;&gt;Copyright&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;This work is licensed under a &lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;Creative Commons Attribution-NonCommercial 4.0 International License&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Please indicate the source for non-commercial reprint.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>First</title>
+      <link>https://zubing.tk/2019/first/</link>
+      <pubDate>Mon, 22 Jul 2019 11:32:41 +0800</pubDate>
+      
+      <guid>https://zubing.tk/2019/first/</guid>
+      <description>
+
+&lt;h2 id=&#34;字数统计测试&#34;&gt;字数统计测试&lt;/h2&gt;
+
+&lt;h3 id=&#34;this-is-just-for-test&#34;&gt;this is just for test&lt;/h3&gt;
+
+&lt;h4 id=&#34;span-class-spoiler-隐藏文字测试-span&#34;&gt;&lt;span class=&#34;spoiler&#34; &gt;隐藏文字测试&lt;/span&gt;&lt;/h4&gt;
+
+&lt;h1 id=&#34;进度条测试&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-1&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-2&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-3&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-4&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-5&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-6&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-7&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-8&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-9&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-10&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-11&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-12&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-13&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-14&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-15&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-16&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-17&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-18&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-19&#34;&gt;进度条测试&lt;/h1&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>First</title>
+      <link>https://zubing.tk/2019/second/</link>
+      <pubDate>Mon, 22 Jul 2019 11:32:41 +0800</pubDate>
+      
+      <guid>https://zubing.tk/2019/second/</guid>
+      <description>
+
+&lt;h2 id=&#34;字数统计测试&#34;&gt;字数统计测试&lt;/h2&gt;
+
+&lt;h3 id=&#34;this-is-just-for-test&#34;&gt;this is just for test&lt;/h3&gt;
+
+&lt;h4 id=&#34;span-class-spoiler-隐藏文字测试-span&#34;&gt;&lt;span class=&#34;spoiler&#34; &gt;隐藏文字测试&lt;/span&gt;&lt;/h4&gt;
+
+&lt;h1 id=&#34;进度条测试&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-1&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-2&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-3&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-4&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-5&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-6&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-7&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-8&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-9&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-10&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-11&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-12&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-13&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-14&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-15&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-16&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-17&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-18&#34;&gt;进度条测试&lt;/h1&gt;
+
+&lt;h1 id=&#34;进度条测试-19&#34;&gt;进度条测试&lt;/h1&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

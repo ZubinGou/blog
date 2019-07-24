@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Zubin&#39;s Site</title>
+    <link>https://zubing.tk/tags/</link>
+    <description>Recent content in Tags on Zubin&#39;s Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 23 Jul 2019 10:32:48 +0800</lastBuildDate>
+    
+	<atom:link href="https://zubing.tk/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://zubing.tk/tags/</link>
+      <pubDate>Tue, 23 Jul 2019 10:32:48 +0800</pubDate>
+      
+      <guid>https://zubing.tk/tags/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>test</title>
+      <link>https://zubing.tk/tags/test/</link>
+      <pubDate>Mon, 22 Jul 2019 11:32:41 +0800</pubDate>
+      
+      <guid>https://zubing.tk/tags/test/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

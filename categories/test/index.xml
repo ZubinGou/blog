@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Test on Zubin&#39;s Site</title>
+    <link>https://zubing.tk/categories/test/</link>
+    <description>Recent content in Test on Zubin&#39;s Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 22 Jul 2019 11:32:41 +0800</lastBuildDate>
+    
+	<atom:link href="https://zubing.tk/categories/test/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>First</title>
+      <link>https://zubing.tk/2019/first/</link>
+      <pubDate>Mon, 22 Jul 2019 11:32:41 +0800</pubDate>
+      
+      <guid>https://zubing.tk/2019/first/</guid>
+      <description>字数统计测试 this is just for test 隐藏文字测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条</description>
+    </item>
+    
+    <item>
+      <title>First</title>
+      <link>https://zubing.tk/2019/second/</link>
+      <pubDate>Mon, 22 Jul 2019 11:32:41 +0800</pubDate>
+      
+      <guid>https://zubing.tk/2019/second/</guid>
+      <description>字数统计测试 this is just for test 隐藏文字测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条</description>
+    </item>
+    
+  </channel>
+</rss>
