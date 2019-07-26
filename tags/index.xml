@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Zubin&#39;s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 23 Jul 2019 10:32:48 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jul 2019 11:32:41 +0800</lastBuildDate>
     
 	<atom:link href="https://zubing.tk/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,36 @@
     <item>
       <title></title>
       <link>https://zubing.tk/tags/</link>
-      <pubDate>Tue, 23 Jul 2019 10:32:48 +0800</pubDate>
+      <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
       
       <guid>https://zubing.tk/tags/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>blog</title>
+      <link>https://zubing.tk/tags/blog/</link>
+      <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
+      
+      <guid>https://zubing.tk/tags/blog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>html</title>
+      <link>https://zubing.tk/tags/html/</link>
+      <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
+      
+      <guid>https://zubing.tk/tags/html/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hugo</title>
+      <link>https://zubing.tk/tags/hugo/</link>
+      <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
+      
+      <guid>https://zubing.tk/tags/hugo/</guid>
       <description></description>
     </item>
     

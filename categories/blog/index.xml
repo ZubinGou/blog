@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Zubin&#39;s Site</title>
-    <link>https://zubing.tk/posts/</link>
-    <description>Recent content in Posts on Zubin&#39;s Site</description>
+    <title>Blog on Zubin&#39;s Site</title>
+    <link>https://zubing.tk/categories/blog/</link>
+    <description>Recent content in Blog on Zubin&#39;s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 24 Jul 2019 11:32:41 +0800</lastBuildDate>
     
-	<atom:link href="https://zubing.tk/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://zubing.tk/categories/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>https://zubing.tk/2019/github-pages-hugo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</guid>
       <description>Hugo是用Go编写的静态站点生成器,生成速度（不到1s）比其他生成器快了许多,且配置比Hexo等简单，目前主要存在的缺点是主题不够丰富和成</description>
-    </item>
-    
-    <item>
-      <title>First</title>
-      <link>https://zubing.tk/2019/second/</link>
-      <pubDate>Mon, 22 Jul 2019 11:32:41 +0800</pubDate>
-      
-      <guid>https://zubing.tk/2019/second/</guid>
-      <description>字数统计测试 this is just for test 隐藏文字测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条测试 进度条</description>
     </item>
     
   </channel>

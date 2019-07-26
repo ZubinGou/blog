@@ -6,10 +6,19 @@
     <description>Recent content in Categories on Zubin&#39;s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 22 Jul 2019 11:32:41 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jul 2019 11:32:41 +0800</lastBuildDate>
     
 	<atom:link href="https://zubing.tk/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Blog</title>
+      <link>https://zubing.tk/categories/blog/</link>
+      <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
+      
+      <guid>https://zubing.tk/categories/blog/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Test</title>
