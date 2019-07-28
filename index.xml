@@ -275,12 +275,10 @@ git push
 
 &lt;p&gt;解决方法只需要更改 &lt;code&gt;mysite/themes/LeaveIt/layouts/_default/baseof.html&lt;/code&gt; 的一行代码：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;body class=&amp;quot;{{ if ne $.Site.Params.defaultTheme &amp;quot;light&amp;quot; -}} dark-theme {{- end -}}&amp;quot;&amp;gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;body class=&amp;quot;dark-theme &amp;quot;&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;改后如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/07/25/5d39566b155b029701.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;将默认加载的主题设为黑色即可。&lt;/p&gt;
 
 &lt;h3 id=&#34;站点流量统计&#34;&gt;站点流量统计&lt;/h3&gt;
 

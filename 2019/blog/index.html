@@ -57,7 +57,7 @@
     "datePublished": "2019-07-24 11:32:41 \x2b0800 CST",
     "dateModified" : "2019-07-24 11:32:41 \x2b0800 CST",
     "url" : "https:\/\/zubing.tk\/2019\/blog\/",
-    "wordCount" : "2259",
+    "wordCount" : "2261",
     "keywords" : [ "Blog","Hugo","HTML", "Zubin\x27s Site"]
 }
 </script>
@@ -135,7 +135,7 @@
                         <a href="https://zubing.tk/categories/blog/"> Blog </a>
                         
                 </span>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="post-word-count"><i class="fa fa-file-word-o"></i>&nbsp;2259</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="post-word-count"><i class="fa fa-file-word-o"></i>&nbsp;2261</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;<span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span>
         </div>
     </header>
@@ -415,12 +415,10 @@ git push
 
 <p>解决方法只需要更改 <code>mysite/themes/LeaveIt/layouts/_default/baseof.html</code> 的一行代码：</p>
 
-<pre><code>&lt;body class=&quot;{{ if ne $.Site.Params.defaultTheme &quot;light&quot; -}} dark-theme {{- end -}}&quot;&gt;
+<pre><code>&lt;body class=&quot;dark-theme &quot;&gt;
 </code></pre>
 
-<p>改后如下：</p>
-
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/07/25/5d39566b155b029701.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+<p>将默认加载的主题设为黑色即可。</p>
 
 <h3 id="站点流量统计">站点流量统计</h3>
 
