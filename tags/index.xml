@@ -21,7 +21,7 @@
     </item>
     
     <item>
-      <title>blog</title>
+      <title>Blog</title>
       <link>https://zubing.tk/tags/blog/</link>
       <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
       
@@ -30,7 +30,7 @@
     </item>
     
     <item>
-      <title>html</title>
+      <title>HTML</title>
       <link>https://zubing.tk/tags/html/</link>
       <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
       
@@ -39,7 +39,7 @@
     </item>
     
     <item>
-      <title>hugo</title>
+      <title>Hugo</title>
       <link>https://zubing.tk/tags/hugo/</link>
       <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
       
@@ -48,11 +48,47 @@
     </item>
     
     <item>
-      <title>test</title>
-      <link>https://zubing.tk/tags/test/</link>
-      <pubDate>Mon, 22 Jul 2019 11:32:41 +0800</pubDate>
+      <title>Crawler</title>
+      <link>https://zubing.tk/tags/crawler/</link>
+      <pubDate>Sun, 10 Feb 2019 11:32:41 +0800</pubDate>
       
-      <guid>https://zubing.tk/tags/test/</guid>
+      <guid>https://zubing.tk/tags/crawler/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data Analysis</title>
+      <link>https://zubing.tk/tags/data-analysis/</link>
+      <pubDate>Sun, 10 Feb 2019 11:32:41 +0800</pubDate>
+      
+      <guid>https://zubing.tk/tags/data-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ML</title>
+      <link>https://zubing.tk/tags/ml/</link>
+      <pubDate>Sun, 10 Feb 2019 11:32:41 +0800</pubDate>
+      
+      <guid>https://zubing.tk/tags/ml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://zubing.tk/tags/python/</link>
+      <pubDate>Sun, 10 Feb 2019 11:32:41 +0800</pubDate>
+      
+      <guid>https://zubing.tk/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TensorFlow</title>
+      <link>https://zubing.tk/tags/tensorflow/</link>
+      <pubDate>Sun, 10 Feb 2019 11:32:41 +0800</pubDate>
+      
+      <guid>https://zubing.tk/tags/tensorflow/</guid>
       <description></description>
     </item>
     
