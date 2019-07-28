@@ -11,7 +11,7 @@
   
   
   
-  <link rel="next" href="https://zubing.tk/2019/blog/" />
+  <link rel="next" href="https://zubing.tk/2019/nihilism/" />
   <link rel="shortcut icon" href="/images/me/puppy.jpg"/>
   <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
   <link rel="canonical" href="https://zubing.tk/2019/ai_poet/" />
@@ -57,7 +57,7 @@
     "datePublished": "2019-02-10 11:32:41 \x2b0800 CST",
     "dateModified" : "2019-02-10 11:32:41 \x2b0800 CST",
     "url" : "https:\/\/zubing.tk\/2019\/ai_poet\/",
-    "wordCount" : "5547",
+    "wordCount" : "5534",
     "keywords" : [ "Python","ML","TensorFlow","Crawler","Data Analysis", "Zubin\x27s Site"]
 }
 </script>
@@ -97,7 +97,7 @@
     
      <div class="container">
         <div class="navbar-header">
-            <div>  <a href="https://zubing.tk">Zubin&#39;s Site</a>&nbsp;<a href="javascript:void(0);" class="theme-switch"><i class="fa fa-moon-o"></i></a></div>
+            <div>  <a href="https://zubing.tk">Zubin&#39;s Site</a>&nbsp;&nbsp;<a href="javascript:void(0);" class="theme-switch"><i class="fa fa-moon-o"></i></a></div>
             <div class="menu-toggle">
                 <span></span><span></span><span></span>
             </div>
@@ -135,7 +135,7 @@
                         <a href="https://zubing.tk/categories/project/"> Project </a>
                         
                 </span>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="post-word-count"><i class="fa fa-file-word-o"></i>&nbsp;5547</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="post-word-count"><i class="fa fa-file-word-o"></i>&nbsp;5534</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;<span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span>
         </div>
     </header>
@@ -282,7 +282,7 @@
 
 <ul>
 <li>根据输入的诗人，读模仿其风格创作诗词</li>
-<li>输入：python main.py -m train/test/head -p 李白/杜甫/苏轼/白居易&hellip;&hellip;</li>
+<li>输入：<code>python main.py -m train/test/head -p 李白/杜甫/苏轼/白居易......</code></li>
 <li>输出：模仿该诗人风格的诗词</li>
 <li>创作前首先进行train训练，250个epoch左右就基本拟合了。理论上可以模仿任何产量不是太低的诗人，只需简单修改dataset内的“提取诗人.py”文件，即可提取其诗歌，然后按照上述输入格式运行训练即可，不用更改main.py文件。</li>
 </ul>
@@ -291,7 +291,7 @@
 
 <ul>
 <li>输入语料库类型和开头，自动写歌词/现代诗</li>
-<li>输入：python main.py 0/1 -cd 华语男歌手/华语女歌手/modern/华语乐队与组合</li>
+<li>输入：<code>python main.py 0/1 -cd 华语男歌手/华语女歌手/modern/华语乐队与组合</code></li>
 <li>输出：给定开头的歌词/现代诗</li>
 <li>0表示训练，1表示创作，-cd传入训练的内容，无需更改文件。</li>
 </ul>
@@ -301,10 +301,10 @@
 <ul>
 <li>机器学习创作自由诗、押韵诗、藏头诗、藏字诗</li>
 <li>输入：
-自由诗： python main.py 1
-押韵诗： python main.py 2
-藏头诗： python main.py 3 四个汉字
-藏字诗： python main.py 4 随意数量汉字，将尽可能全部覆盖</li>
+自由诗： <code>python main.py 1</code>
+押韵诗： <code>python main.py 2</code>
+藏头诗： <code>python main.py 3 四个汉字</code>
+藏字诗： <code>python main.py 4 随意数量汉字，将尽可能全部覆盖</code></li>
 <li>更改自github上star上百的在网页上写诗的<a href="https://github.com/norybaby/poet" rel="nofollow noreferrer" target="_blank">小诗姬</a>，改成了命令行版本。</li>
 </ul>
 
@@ -331,7 +331,7 @@
 
 <h3 id="云音乐数据处理与分析">云音乐数据处理与分析</h3>
 
-<p>对网易云爬取的全部诗歌进行了清洗、繁简替换、去重并按照歌手类型整合、分词，接下来进行数据分析，由于生成的是html格式图片，并且有动画效果和详尽标签，下面仅展示截图。
+<p>对网易云爬取的全部诗歌进行了清洗、繁简替换、去重并按照歌手类型整合、分词，接下来进行数据分析，由于生成的是html格式，并有动画效果和详尽标签，下面仅展示截图。
 <figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/07/27/5d3bc991e817d99061.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
 
 <p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/07/27/5d3bca5846deb22046.png" alt="华语女歌手字频" class="lazyload"><figcaption class="image-caption">华语女歌手字频</figcaption></figure></p>
@@ -669,7 +669,7 @@
     <div class="post-nav">
          
         
-        <a href="https://zubing.tk/2019/blog/" class="next" rel="next" title="零基础用 GitHub Pages &#43; Hugo 搭建个人网站">零基础用 GitHub Pages &#43; Hugo 搭建个人网站&nbsp;<i class="iconfont icon-right"></i></a>
+        <a href="https://zubing.tk/2019/nihilism/" class="next" rel="next" title="虚无、意义与存在主义      --《未来简史》读罢的思考">虚无、意义与存在主义      --《未来简史》读罢的思考&nbsp;<i class="iconfont icon-right"></i></a>
         
     </div>
 

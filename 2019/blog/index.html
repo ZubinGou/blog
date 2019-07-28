@@ -10,7 +10,7 @@
   
   
   
-  <link rel="prev" href="https://zubing.tk/2019/ai_poet/" />
+  <link rel="prev" href="https://zubing.tk/2019/nihilism/" />
   
   <link rel="shortcut icon" href="/images/me/puppy.jpg"/>
   <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
@@ -57,7 +57,7 @@
     "datePublished": "2019-07-24 11:32:41 \x2b0800 CST",
     "dateModified" : "2019-07-24 11:32:41 \x2b0800 CST",
     "url" : "https:\/\/zubing.tk\/2019\/blog\/",
-    "wordCount" : "2256",
+    "wordCount" : "2259",
     "keywords" : [ "Blog","Hugo","HTML", "Zubin\x27s Site"]
 }
 </script>
@@ -97,7 +97,7 @@
     
      <div class="container">
         <div class="navbar-header">
-            <div>  <a href="https://zubing.tk">Zubin&#39;s Site</a>&nbsp;<a href="javascript:void(0);" class="theme-switch"><i class="fa fa-moon-o"></i></a></div>
+            <div>  <a href="https://zubing.tk">Zubin&#39;s Site</a>&nbsp;&nbsp;<a href="javascript:void(0);" class="theme-switch"><i class="fa fa-moon-o"></i></a></div>
             <div class="menu-toggle">
                 <span></span><span></span><span></span>
             </div>
@@ -135,7 +135,7 @@
                         <a href="https://zubing.tk/categories/blog/"> Blog </a>
                         
                 </span>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="post-word-count"><i class="fa fa-file-word-o"></i>&nbsp;2256</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="post-word-count"><i class="fa fa-file-word-o"></i>&nbsp;2259</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;<span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span>
         </div>
     </header>
@@ -203,7 +203,7 @@
 <ol>
 <li>在GitHub新建一个Repository命名为[你的GitHub账户名].github.io，其他可以不用填写，直接创建即可。
 <figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/07/25/5d3921d01ab8273139.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></li>
-<li>进入刚创建的Repository，点击右边的Settings，下滑找到GitHub Pages，点击Choose a theme,随意选择一个theme（因为不会用到），点击commit changes就创建完成了。
+<li>进入刚创建的Repository，点击右边的Settings，下滑找到GitHub Pages，点击<code>Choose a theme</code>，随意选择一个theme（因为不会用到），点击<code>commit changes</code>就创建完成了。
 <figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/07/25/5d3921cf7347e79810.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></li>
 </ol>
 
@@ -218,7 +218,7 @@
 
 <h4 id="windows使用chocolatey">Windows使用Chocolatey</h4>
 
-<pre><code>choco install hugo -confirm
+<pre><code class="language-bash">choco install hugo -confirm
 </code></pre>
 
 <p>详见 <a href="https://gohugo.io/getting-started/installing" rel="nofollow noreferrer" target="_blank">https://gohugo.io/getting-started/installing</a></p>
@@ -227,7 +227,7 @@
 
 <p>在<a href="https://git-scm.com/downloads" rel="nofollow noreferrer" target="_blank">Git官网</a>下载安装。</p>
 
-<p>命令行输入 git version 显示 Git 的版本号，说明安装成功。</p>
+<p>命令行输入 <code>git version</code> 显示 Git 的版本号，说明安装成功。</p>
 
 <p><em>注意需要将 Hugo 和 Git 安装目录都加入系统Path环境变量。</em></p>
 
@@ -240,9 +240,9 @@
 <pre><code>hugo new site mysite
 </code></pre>
 
-<p>该命令创建一个名为 mysite 的文件夹来存放你的博客。</p>
+<p>该命令创建一个名为 <code>mysite</code> 的文件夹来存放你的博客。</p>
 
-<p>mysite 的目录结构如下：</p>
+<p><code>mysite</code> 的目录结构如下：</p>
 
 <pre><code>·
 ├── archetypes      // .md 博客原型 模版
@@ -271,12 +271,12 @@
 
 <h3 id="设置模版">设置模版</h3>
 
-<p>回到mysite:</p>
+<p>回到<code>mysite</code>:</p>
 
 <pre><code>cd ..
 </code></pre>
 
-<p>打开 mysite/archetypes 目录下的 模版 default.md ，更改为：</p>
+<p>打开 <code>mysite/archetypes</code> 目录下的 模版 <code>default.md</code> ，更改为：</p>
 
 <pre><code>+++
 title = &quot;{{ replace .Name &quot;-&quot; &quot; &quot; | title }}&quot; # 文章标题
@@ -296,13 +296,13 @@ share = true        # 是否开启分享
 hugo new posts/firstBlog.md
 </code></pre>
 
-<p>在 content 创建 about.md 和 firstBlog.md ，打开他们随意输入些内容。</p>
+<p>在 <code>content</code> 文件夹创建 <code>about.md</code> 和 <code>firstBlog.md</code> ，打开他们随意输入些内容。</p>
 
 <h3 id="配置-config-toml">配置 config.toml</h3>
 
-<p>按照以下 config.toml 模板更改, 不知道的可以先空着。</p>
+<p>按照以下 <code>config.toml</code> 模板更改, 不知道的可以先空着。</p>
 
-<p>在 mysite/static 文件夹中新建 images 文件夹，将你的头像文件放入其中。</p>
+<p>在 <code>mysite/static</code> 文件夹中新建 <code>images</code> 文件夹，将你的头像文件放入其中。</p>
 
 <pre><code>baseURL = &quot;https://[你的GirHub用户名].github.io&quot;
 title = &quot;My Site&quot; # 网站标题
@@ -364,7 +364,7 @@ preserveTaxonomyNames = true
 
 <h3 id="生成草稿网站">生成草稿网站</h3>
 
-<p>配置完 config.toml 后在 mysite 文件夹执行：</p>
+<p>配置完 <code>config.toml</code> 后在 <code>mysite</code> 文件夹执行：</p>
 
 <pre><code>hugo server -D
 </code></pre>
@@ -394,7 +394,7 @@ git commit -m &quot;init commit&quot;
 git push -u origin master -f
 </code></pre>
 
-<p>这里 -u origin master 指定了默认主机，后面可以不加参数直接push了。</p>
+<p>这里 <code>-u origin master</code> 指定了默认主机，后面可以不加参数直接push了。</p>
 
 <p>以后再发布时的命令如下：</p>
 
@@ -413,7 +413,7 @@ git push
 
 <p>切换为黑色主题后，每次打开新页面都会网页都会闪一下，<span class="spoiler" >亮瞎狗眼有没有！</span></p>
 
-<p>解决方法只需要更改 mysite/themes/LeaveIt/layouts/_default/baseof.html 的一行代码：</p>
+<p>解决方法只需要更改 <code>mysite/themes/LeaveIt/layouts/_default/baseof.html</code> 的一行代码：</p>
 
 <pre><code>&lt;body class=&quot;{{ if ne $.Site.Params.defaultTheme &quot;light&quot; -}} dark-theme {{- end -}}&quot;&gt;
 </code></pre>
@@ -429,10 +429,10 @@ git push
 <pre><code>&lt;script async src=&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt;
 </code></pre>
 
-<p>加在 mysite/themes/LeaveIt/layouts/partials/head.html 的head标签中。
+<p>加在 <code>mysite/themes/LeaveIt/layouts/partials/head.html</code> 的<code>head</code>标签中。
 再将以下代码加到需要的位置即可：</p>
 
-<p>网站总访问量Page View:(可以放在partials/footer.html)</p>
+<p>网站总访问量Page View:(可以放在<code>partials/footer.html</code>)</p>
 
 <pre><code> &lt;span id=&quot;busuanzi_container_site_pv&quot;&gt;本站总访问量&lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次&lt;/span&gt;
 </code></pre>
@@ -442,7 +442,7 @@ git push
 <pre><code>&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt;您是第&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;位访客&lt;/span&gt;
 </code></pre>
 
-<p>博客总阅读量:（放在_default/simple.html）</p>
+<p>博客总阅读量:（放在<code>_default/simple.html</code>）</p>
 
 <pre><code>&lt;span id=&quot;busuanzi_container_site_pv&quot;&gt;本文总阅读量&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;次&lt;/span&gt;
 </code></pre>
@@ -507,7 +507,7 @@ git push
 
     <div class="post-nav">
         
-        <a href="https://zubing.tk/2019/ai_poet/" class="prev" rel="prev" title="机器学习写诗项目-AI诗人"><i class="iconfont icon-left"></i>&nbsp;机器学习写诗项目-AI诗人</a>
+        <a href="https://zubing.tk/2019/nihilism/" class="prev" rel="prev" title="虚无、意义与存在主义      --《未来简史》读罢的思考"><i class="iconfont icon-left"></i>&nbsp;虚无、意义与存在主义      --《未来简史》读罢的思考</a>
          
         
     </div>
