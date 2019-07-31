@@ -287,8 +287,9 @@ git push
 &lt;pre&gt;&lt;code&gt;&amp;lt;script async src=&amp;quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;加在 &lt;code&gt;mysite/themes/LeaveIt/layouts/partials/head.html&lt;/code&gt; 的&lt;code&gt;head&lt;/code&gt;标签中。
-再将以下代码加到需要的位置即可：&lt;/p&gt;
+&lt;p&gt;可以加在 &lt;code&gt;mysite/themes/LeaveIt/layouts/partials/js.html&lt;/code&gt; 中。&lt;/p&gt;
+
+&lt;p&gt;再将以下代码加到需要的位置即可：&lt;/p&gt;
 
 &lt;p&gt;网站总访问量Page View:(可以放在&lt;code&gt;partials/footer.html&lt;/code&gt;)&lt;/p&gt;
 
