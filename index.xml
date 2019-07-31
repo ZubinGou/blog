@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Zubin&#39;s Site</title>
+    <title>Zubin`s Site</title>
     <link>https://zubing.tk/</link>
-    <description>Recent content on Zubin&#39;s Site</description>
+    <description>Recent content on Zubin`s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 24 Jul 2019 11:32:41 +0800</lastBuildDate>
@@ -409,7 +409,7 @@ show_date_time();
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 
-&lt;p&gt;后来，我接触了尤瓦尔·赫拉利这位犀利的历史学家，我发现他比我想得通透得多。首先是他击碎了我关于人类自由意志的残余幻想，他指出了自由意志的假象（即物理主义）：简单来讲，人是环境的产物，是自然规律的一部分，镂刻在深处的基因与环境的输入加上一些随机因素，产生的生化反应决定了我们的行为，然后我们再以为这是自己的“自由意志&amp;rdquo;所决定的行为（著名而骇人的裂脑实验）。仿佛人类像个机器学习model，在训练中不断拟合，由广义的应激反应所主宰（诚然我们大多数行为都是潜意识的不自觉行为）。&lt;/p&gt;
+&lt;p&gt;后来，我接触了尤瓦尔·赫拉利这位犀利的历史学家，我发现他比我想得通透得多。首先是他击碎了我关于人类自由意志的残余幻想，他指出了自由意志的假象（即物理主义）：简单来讲，人是环境的产物，是自然规律的一部分，镂刻在深处的基因与环境的输入加上一些随机因素，产生的生化反应决定了我们的行为，然后我们再以为这是自己的“自由意志&amp;rdquo;所决定的行为（著名而骇人的裂脑实验）。人类和其他生物一样，都知识一堆算法，所有的生命都是在进行数据处理。仿佛人类像个机器学习model，在训练中不断拟合，由广义的应激反应所主宰（诚然我们大多数行为都是潜意识的不自觉行为）。&lt;/p&gt;
 
 &lt;p&gt;更有甚者，他直白的谈到:&lt;/p&gt;
 
@@ -924,7 +924,7 @@ show_date_time();
 &lt;li&gt;&lt;a href=&#34;https://github.com/norybaby/poet&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://github.com/norybaby/poet&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;更高级的机器学习写诗，可以参考清华的&lt;a href=&#34;jiuge.thunlp.org/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;九歌&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;更高级的机器学习写诗，可以参考清华的&lt;a href=&#34;http://jiuge.thunlp.org/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;九歌&lt;/a&gt;。&lt;/p&gt;
 </description>
     </item>
     
