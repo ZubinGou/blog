@@ -6,10 +6,46 @@
     <description>Recent content in Tags on Zubin`s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 24 Jul 2019 11:32:41 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 23 Aug 2019 12:03:18 +0800</lastBuildDate>
     
 	<atom:link href="https://zubing.tk/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>BUPT</title>
+      <link>https://zubing.tk/tags/bupt/</link>
+      <pubDate>Fri, 23 Aug 2019 12:03:18 +0800</pubDate>
+      
+      <guid>https://zubing.tk/tags/bupt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Crawler</title>
+      <link>https://zubing.tk/tags/crawler/</link>
+      <pubDate>Fri, 23 Aug 2019 12:03:18 +0800</pubDate>
+      
+      <guid>https://zubing.tk/tags/crawler/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data Analysis</title>
+      <link>https://zubing.tk/tags/data-analysis/</link>
+      <pubDate>Fri, 23 Aug 2019 12:03:18 +0800</pubDate>
+      
+      <guid>https://zubing.tk/tags/data-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://zubing.tk/tags/python/</link>
+      <pubDate>Fri, 23 Aug 2019 12:03:18 +0800</pubDate>
+      
+      <guid>https://zubing.tk/tags/python/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Blog</title>
@@ -57,38 +93,11 @@
     </item>
     
     <item>
-      <title>Crawler</title>
-      <link>https://zubing.tk/tags/crawler/</link>
-      <pubDate>Sun, 10 Feb 2019 11:32:41 +0800</pubDate>
-      
-      <guid>https://zubing.tk/tags/crawler/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Data Analysis</title>
-      <link>https://zubing.tk/tags/data-analysis/</link>
-      <pubDate>Sun, 10 Feb 2019 11:32:41 +0800</pubDate>
-      
-      <guid>https://zubing.tk/tags/data-analysis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>ML</title>
       <link>https://zubing.tk/tags/ml/</link>
       <pubDate>Sun, 10 Feb 2019 11:32:41 +0800</pubDate>
       
       <guid>https://zubing.tk/tags/ml/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
-      <link>https://zubing.tk/tags/python/</link>
-      <pubDate>Sun, 10 Feb 2019 11:32:41 +0800</pubDate>
-      
-      <guid>https://zubing.tk/tags/python/</guid>
       <description></description>
     </item>
     

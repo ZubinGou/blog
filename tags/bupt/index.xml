@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Python on Zubin`s Site</title>
-    <link>https://zubing.tk/tags/python/</link>
-    <description>Recent content in Python on Zubin`s Site</description>
+    <title>BUPT on Zubin`s Site</title>
+    <link>https://zubing.tk/tags/bupt/</link>
+    <description>Recent content in BUPT on Zubin`s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Fri, 23 Aug 2019 12:03:18 +0800</lastBuildDate>
     
-	<atom:link href="https://zubing.tk/tags/python/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://zubing.tk/tags/bupt/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>https://zubing.tk/2019/scs_face/</guid>
       <description>声明：为保护个人隐私，本博文不提供任何学生的个人信息。 偶得管理员账号🤐，分析2019计算机学院迎新页面找到了新生头像存放位置，正好赋闲，于是</description>
-    </item>
-    
-    <item>
-      <title>机器学习写诗项目-AI诗人</title>
-      <link>https://zubing.tk/2019/ai_poet/</link>
-      <pubDate>Sun, 10 Feb 2019 11:32:41 +0800</pubDate>
-      
-      <guid>https://zubing.tk/2019/ai_poet/</guid>
-      <description>这是我大一上学期写的Python期末大作业，主要涉及爬虫、自然语言处理、数据分析与可视化、规则作诗、基于TensorFlow的机器学习写诗（</description>
     </item>
     
   </channel>

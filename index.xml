@@ -5,10 +5,239 @@
     <description>Recent content on Zubin`s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 24 Jul 2019 11:32:41 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 23 Aug 2019 12:03:18 +0800</lastBuildDate>
     
         <atom:link href="https://zubing.tk/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2019北邮计算机学院新生颜值分析</title>
+      <link>https://zubing.tk/2019/scs_face/</link>
+      <pubDate>Fri, 23 Aug 2019 12:03:18 +0800</pubDate>
+      
+      <guid>https://zubing.tk/2019/scs_face/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;声明：为保护个人隐私，本博文不提供任何学生的个人信息。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;偶得管理员账号🤐，分析2019计算机学院迎新页面找到了新生头像存放位置，正好赋闲，于是花了半天功夫，作了个颜值分析，却“意外”有了惊人的发现！&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Talk is cheap. Show me the code.    - Linus Torvalds&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;头像爬取&#34;&gt;头像爬取&lt;/h2&gt;
+
+&lt;p&gt;爬虫基于request，大致思路是模拟登陆 -&amp;gt; 获取LT -&amp;gt; 进入迎新页面获取头像访问权 -&amp;gt; 按照学号逐个爬取头像&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#-*-coding=utf-8-*-
+import os
+import requests
+import json
+from http import cookiejar
+from bs4 import BeautifulSoup as bs
+
+s = requests.Session()
+header = {&#39;User-Agent&#39;:&#39;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0&#39;}
+
+def getLt(str):
+    # 获取LT，相当于免再次登录的流水号，不可或缺
+    lt = bs(str,&#39;html.parser&#39;)
+    dic = {}
+    for inp in lt.form.find_all(&#39;input&#39;):
+        if(inp.get(&#39;name&#39;))!=None:
+            dic[inp.get(&#39;name&#39;)]=inp.get(&#39;value&#39;)
+    return dic
+
+
+def craw(num):
+    base_url = &amp;quot;*************&amp;quot;  # 头像存储地址
+    img_url = base_url + str(num)
+    img_name = str(num)+&#39;.jpg&#39;
+    img_path = os.path.abspath(&amp;quot;.\\2019scs_face&amp;quot;)
+    img_save = img_path + &amp;quot;\\&amp;quot; + img_name
+    if not os.path.isdir(img_path):
+        os.makedirs(img_path)
+
+    img_res = s.get(img_url, headers=header)
+    img = img_res.content
+    f = open(img_save, &amp;quot;wb&amp;quot;)
+    f.write(img)
+    f.close()
+    print(&amp;quot;image of %d saved&amp;quot;%num)
+
+
+def main():
+    r = s.get(&#39;https://auth.bupt.edu.cn/authserver/login?service=http%3A%2F%2Fmy.bupt.edu.cn%2Findex.portal&#39;,headers=header)
+    dic = getLt(r.text)
+    postdata = {
+        &#39;username&#39;:&#39;*************&#39;, #此处为管理员的账号，学生账号无法爬取头像
+        &#39;password&#39;:&#39;*************&#39;, #密码
+        &#39;lt&#39;:dic[&#39;lt&#39;],
+        &#39;execution&#39;:&#39;e1s1&#39;,
+        &#39;_eventId&#39;:&#39;submit&#39;,
+        &#39;rmShown&#39;:&#39;1&#39;
+    }
+    response_login = s.post(&#39;https://auth.bupt.edu.cn/authserver/login?service=http%3A%2F%2Fmy.bupt.edu.cn%2Findex.portal&#39;,data=postdata,headers=header)
+
+    response2 = s.post(&#39;*************&#39;, data=postdata,headers=header) # 获得头像地址访问权
+    # 大类：
+    for num in range(**********, ***********): # 新手学号范围
+        craw(num)
+    # 智科：
+    for num in range(**********, ***********): # 新手学号范围
+        craw(num)
+
+main()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;一共爬取549个头像，按照学号保存。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/08/23/vzR5ESUlCbOgdxB.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;性别划分-颜值评估&#34;&gt;性别划分 + 颜值评估&lt;/h2&gt;
+
+&lt;p&gt;使用了百度AI的&lt;a href=&#34;https://ai.baidu.com/tech/face/detect&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;人脸检测&lt;/a&gt;v3版本的API，在管理控制台中创建应用，获取AppID、API Key和Secret Key：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/08/23/2EboK5963dwvx8i.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;首先安装 baidu-aip :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pip install baidu-aip
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用API分析下载的头像，分析后，按照性别分别保存，为了省事儿，直接将颜值得分加入文件名中，完整代码如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#-*-coding=utf-8-*-
+import time
+import os
+import base64
+
+from PIL import Image
+from aip import AipFace
+
+# 定义常量
+APP_ID = &amp;quot;**********&amp;quot;
+API_KEY = &amp;quot;**********&amp;quot;
+SECRET_KEY = &amp;quot;**********&amp;quot; 
+
+# 初始化AipFace对象
+aipFace = AipFace(APP_ID, API_KEY, SECRET_KEY)  
+
+# 设置参数
+options = {
+    &amp;quot;face_field&amp;quot;: &amp;quot;age,beauty,gender&amp;quot;, 
+    &amp;quot;max_face_num&amp;quot;: 1 ,
+    &amp;quot;face_type&amp;quot;: &amp;quot;CERT&amp;quot;,
+}
+
+imageType = &amp;quot;BASE64&amp;quot;
+
+#将图片进行base64编码，再url编码
+def get_file_content(filePath):  
+    with open(filePath, &#39;rb&#39;) as fp:  
+        image =  fp.read()  
+        image_data = base64.b64encode(image)
+        return image_data.decode(&amp;quot;utf-8&amp;quot;)
+
+def main():
+    img_file = os.walk(&amp;quot;.\\2019scs_face&amp;quot;)
+    for path,dir_list,file_list in img_file:
+        for file_name in file_list:
+            file_path = os.path.join(path, file_name)
+            print(file_name)
+
+            # 调用人脸属性检测接口 
+            result = aipFace.detect(get_file_content(file_path),imageType,options)
+            face_info = result[&#39;result&#39;][&#39;face_list&#39;][0]
+            age = face_info[&#39;age&#39;]
+            beauty = face_info[&#39;beauty&#39;]
+            gender = face_info[&#39;gender&#39;][&#39;type&#39;]
+            print(gender, age, beauty)
+
+            dir_ = &amp;quot;.\\2019scs_face_done&amp;quot;
+            img = Image.open(file_path)
+            if gender == &#39;male&#39;:
+                img.save(dir_ + &amp;quot;\\male\\&amp;quot; + str(beauty) + &#39;_&#39;+ file_name)
+            else:
+                img.save(dir_ + &amp;quot;\\female\\&amp;quot; + str(beauty) + &#39;_&#39;+ file_name)
+            print()
+            time.sleep(0.5) # 降低调用频率，防止QPS超限额
+main()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;分析完成后，目测发现性别划分有5个划分出错（都是将妹子划分成汉子了🤣）。
+因绝大多数新生照片拍摄环境恶劣，都是“清水出芙蓉，天然去雕饰”，而且AI评分很玄乎、准确度不高，所以呢&amp;hellip;&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;没多少人颜值分数及格。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;按照评分的数据显示：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;女生共120人，颜值最高分57.04，最低分9.37（？？？）&lt;/li&gt;
+&lt;li&gt;男生共429人，颜值最高分79.52，最低分30.86（！！！）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;为了更直观的展现新生的颜值，我们使用 Matplotlib 画下颜值分布图。&lt;/p&gt;
+
+&lt;h2 id=&#34;颜值分布图&#34;&gt;颜值分布图&lt;/h2&gt;
+
+&lt;p&gt;代码实现如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import os
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+
+male = []
+female = []
+
+img_file = os.walk(&amp;quot;.\\2019scs_face_done\\male&amp;quot;)
+for path,dir_list,file_list in img_file:
+    for file_name in file_list:
+        val = file_name.split(&#39;_&#39;)[0]
+        male.append(float(val))
+
+img_file = os.walk(&amp;quot;.\\2019scs_face_done\\female&amp;quot;)
+for path,dir_list,file_list in img_file:
+    for file_name in file_list:
+        val = file_name.split(&#39;_&#39;)[0]
+        female.append(float(val))
+
+sns.kdeplot(male, bw=0.5, label=&amp;quot;male&amp;quot;)
+sns.kdeplot(female, bw=0.5, label=&amp;quot;female&amp;quot;)
+plt.title(&amp;quot;Distribution of 2019SCS Face Score&amp;quot;)
+plt.xlabel(&amp;quot;Face Score&amp;quot;)
+plt.ylabel(&amp;quot;Probability&amp;quot;)
+plt.savefig(&amp;quot;./Distribution.jpg&amp;quot;)
+plt.show()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;展现出了下图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/08/23/SX2QiblgGPJEtf9.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;男生平均颜值53.15， 女生平均颜值36.91&lt;/p&gt;
+
+&lt;h2 id=&#34;结果分析&#34;&gt;结果分析&lt;/h2&gt;
+
+&lt;p&gt;女生颜值得分较低的原因很简单，百度人脸检测模型的训练数据来自互联网，而美图工具等的使用大大提高了网络照片的“颜值”（尤其是女性），导致模型的“审美阈值”过高，看到素颜、不加修饰的脸庞，颜值分数也就这么骨感了&amp;hellip;（机器评分仅供参考）&lt;/p&gt;
+
+&lt;p&gt;这便有了所谓的证件照的悲剧。&lt;/p&gt;
+
+&lt;p&gt;同理，影视剧等里的男神女神们，也提高了我们的“审美阈值”，为我们灌输了不健康的审美标准，这直接导致了近年来求偶动力、结婚率乃至全球范围内生育率（来自vczh）的走低😱，也极大了降低了人们的幸福水平，值得警醒和反思。（严肃脸）&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;参考&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://ai.baidu.com/docs#/Face-Detect-V3/top&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://ai.baidu.com/docs#/Face-Detect-V3/top&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/34425618&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://zhuanlan.zhihu.com/p/34425618&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>零基础用 GitHub Pages &#43; Hugo 搭建个人网站</title>

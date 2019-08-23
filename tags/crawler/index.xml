@@ -6,10 +6,19 @@
     <description>Recent content in Crawler on Zubin`s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 10 Feb 2019 11:32:41 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 23 Aug 2019 12:03:18 +0800</lastBuildDate>
     
 	<atom:link href="https://zubing.tk/tags/crawler/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2019北邮计算机学院新生颜值分析</title>
+      <link>https://zubing.tk/2019/scs_face/</link>
+      <pubDate>Fri, 23 Aug 2019 12:03:18 +0800</pubDate>
+      
+      <guid>https://zubing.tk/2019/scs_face/</guid>
+      <description>声明：为保护个人隐私，本博文不提供任何学生的个人信息。 偶得管理员账号🤐，分析2019计算机学院迎新页面找到了新生头像存放位置，正好赋闲，于是</description>
+    </item>
     
     <item>
       <title>机器学习写诗项目-AI诗人</title>
