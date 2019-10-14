@@ -2,7 +2,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
-      <loc>https://zubing.tk/2019/scs_face/</loc>
+      <loc>https://binko.me/2019/scs_face/</loc>
       
       <lastmod>2019-08-23T12:03:18+08:00</lastmod>
       
@@ -12,19 +12,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/tags/bupt/</loc>
-      
-      <lastmod>2019-08-23T12:03:18+08:00</lastmod>
-      
-      
-      
-      <priority>0</priority>
-      
-      
-    </url>
-  
-    <url>
-      <loc>https://zubing.tk/categories/</loc>
+      <loc>https://binko.me/tags/bupt/</loc>
       
       <lastmod>2019-08-23T12:03:18+08:00</lastmod>
       
@@ -36,7 +24,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/tags/crawler/</loc>
+      <loc>https://binko.me/categories/</loc>
       
       <lastmod>2019-08-23T12:03:18+08:00</lastmod>
       
@@ -48,7 +36,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/tags/data-analysis/</loc>
+      <loc>https://binko.me/tags/crawler/</loc>
       
       <lastmod>2019-08-23T12:03:18+08:00</lastmod>
       
@@ -60,7 +48,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/posts/</loc>
+      <loc>https://binko.me/tags/data-analysis/</loc>
       
       <lastmod>2019-08-23T12:03:18+08:00</lastmod>
       
@@ -72,7 +60,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/tags/python/</loc>
+      <loc>https://binko.me/posts/</loc>
       
       <lastmod>2019-08-23T12:03:18+08:00</lastmod>
       
@@ -84,7 +72,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/tags/</loc>
+      <loc>https://binko.me/tags/python/</loc>
       
       <lastmod>2019-08-23T12:03:18+08:00</lastmod>
       
@@ -96,7 +84,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/categories/toy/</loc>
+      <loc>https://binko.me/tags/</loc>
       
       <lastmod>2019-08-23T12:03:18+08:00</lastmod>
       
@@ -108,7 +96,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/</loc>
+      <loc>https://binko.me/categories/toy/</loc>
       
       <lastmod>2019-08-23T12:03:18+08:00</lastmod>
       
@@ -120,7 +108,19 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/tags/blog/</loc>
+      <loc>https://binko.me/</loc>
+      
+      <lastmod>2019-08-23T12:03:18+08:00</lastmod>
+      
+      
+      
+      <priority>0</priority>
+      
+      
+    </url>
+  
+    <url>
+      <loc>https://binko.me/categories/blog/</loc>
       
       <lastmod>2019-07-24T11:32:41+08:00</lastmod>
       
@@ -132,7 +132,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/categories/blog/</loc>
+      <loc>https://binko.me/tags/blog/</loc>
       
       <lastmod>2019-07-24T11:32:41+08:00</lastmod>
       
@@ -144,7 +144,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/tags/html/</loc>
+      <loc>https://binko.me/tags/html/</loc>
       
       <lastmod>2019-07-24T11:32:41+08:00</lastmod>
       
@@ -156,7 +156,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/tags/hugo/</loc>
+      <loc>https://binko.me/tags/hugo/</loc>
       
       <lastmod>2019-07-24T11:32:41+08:00</lastmod>
       
@@ -168,7 +168,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/2019/blog/</loc>
+      <loc>https://binko.me/2019/blog/</loc>
       
       <lastmod>2019-07-24T11:32:41+08:00</lastmod>
       
@@ -178,7 +178,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/about/</loc>
+      <loc>https://binko.me/about/</loc>
       
       <lastmod>2019-07-23T10:32:48+08:00</lastmod>
       
@@ -188,7 +188,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/tags/books/</loc>
+      <loc>https://binko.me/tags/books/</loc>
       
       <lastmod>2019-05-11T08:27:18+08:00</lastmod>
       
@@ -200,7 +200,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/tags/existentialism/</loc>
+      <loc>https://binko.me/tags/existentialism/</loc>
       
       <lastmod>2019-05-11T08:27:18+08:00</lastmod>
       
@@ -212,7 +212,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/categories/philosophy/</loc>
+      <loc>https://binko.me/categories/philosophy/</loc>
       
       <lastmod>2019-05-11T08:27:18+08:00</lastmod>
       
@@ -224,7 +224,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/2019/nihilism/</loc>
+      <loc>https://binko.me/2019/nihilism/</loc>
       
       <lastmod>2019-05-11T08:27:18+08:00</lastmod>
       
@@ -234,7 +234,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/tags/ml/</loc>
+      <loc>https://binko.me/tags/ml/</loc>
       
       <lastmod>2019-02-10T11:32:41+08:00</lastmod>
       
@@ -246,7 +246,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/categories/project/</loc>
+      <loc>https://binko.me/categories/project/</loc>
       
       <lastmod>2019-02-10T11:32:41+08:00</lastmod>
       
@@ -258,7 +258,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/tags/tensorflow/</loc>
+      <loc>https://binko.me/tags/tensorflow/</loc>
       
       <lastmod>2019-02-10T11:32:41+08:00</lastmod>
       
@@ -270,7 +270,7 @@
     </url>
   
     <url>
-      <loc>https://zubing.tk/2019/ai_poet/</loc>
+      <loc>https://binko.me/2019/ai_poet/</loc>
       
       <lastmod>2019-02-10T11:32:41+08:00</lastmod>
       

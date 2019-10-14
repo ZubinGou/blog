@@ -2,111 +2,111 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Zubin`s Site</title>
-    <link>https://zubing.tk/tags/</link>
+    <link>https://binko.me/tags/</link>
     <description>Recent content in Tags on Zubin`s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Fri, 23 Aug 2019 12:03:18 +0800</lastBuildDate>
     
-	<atom:link href="https://zubing.tk/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://binko.me/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>BUPT</title>
-      <link>https://zubing.tk/tags/bupt/</link>
+      <link>https://binko.me/tags/bupt/</link>
       <pubDate>Fri, 23 Aug 2019 12:03:18 +0800</pubDate>
       
-      <guid>https://zubing.tk/tags/bupt/</guid>
+      <guid>https://binko.me/tags/bupt/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Crawler</title>
-      <link>https://zubing.tk/tags/crawler/</link>
+      <link>https://binko.me/tags/crawler/</link>
       <pubDate>Fri, 23 Aug 2019 12:03:18 +0800</pubDate>
       
-      <guid>https://zubing.tk/tags/crawler/</guid>
+      <guid>https://binko.me/tags/crawler/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Data Analysis</title>
-      <link>https://zubing.tk/tags/data-analysis/</link>
+      <link>https://binko.me/tags/data-analysis/</link>
       <pubDate>Fri, 23 Aug 2019 12:03:18 +0800</pubDate>
       
-      <guid>https://zubing.tk/tags/data-analysis/</guid>
+      <guid>https://binko.me/tags/data-analysis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Python</title>
-      <link>https://zubing.tk/tags/python/</link>
+      <link>https://binko.me/tags/python/</link>
       <pubDate>Fri, 23 Aug 2019 12:03:18 +0800</pubDate>
       
-      <guid>https://zubing.tk/tags/python/</guid>
+      <guid>https://binko.me/tags/python/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Blog</title>
-      <link>https://zubing.tk/tags/blog/</link>
+      <link>https://binko.me/tags/blog/</link>
       <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
       
-      <guid>https://zubing.tk/tags/blog/</guid>
+      <guid>https://binko.me/tags/blog/</guid>
       <description></description>
     </item>
     
     <item>
       <title>HTML</title>
-      <link>https://zubing.tk/tags/html/</link>
+      <link>https://binko.me/tags/html/</link>
       <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
       
-      <guid>https://zubing.tk/tags/html/</guid>
+      <guid>https://binko.me/tags/html/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hugo</title>
-      <link>https://zubing.tk/tags/hugo/</link>
+      <link>https://binko.me/tags/hugo/</link>
       <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
       
-      <guid>https://zubing.tk/tags/hugo/</guid>
+      <guid>https://binko.me/tags/hugo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Books</title>
-      <link>https://zubing.tk/tags/books/</link>
+      <link>https://binko.me/tags/books/</link>
       <pubDate>Sat, 11 May 2019 08:27:18 +0800</pubDate>
       
-      <guid>https://zubing.tk/tags/books/</guid>
+      <guid>https://binko.me/tags/books/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Existentialism</title>
-      <link>https://zubing.tk/tags/existentialism/</link>
+      <link>https://binko.me/tags/existentialism/</link>
       <pubDate>Sat, 11 May 2019 08:27:18 +0800</pubDate>
       
-      <guid>https://zubing.tk/tags/existentialism/</guid>
+      <guid>https://binko.me/tags/existentialism/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ML</title>
-      <link>https://zubing.tk/tags/ml/</link>
+      <link>https://binko.me/tags/ml/</link>
       <pubDate>Sun, 10 Feb 2019 11:32:41 +0800</pubDate>
       
-      <guid>https://zubing.tk/tags/ml/</guid>
+      <guid>https://binko.me/tags/ml/</guid>
       <description></description>
     </item>
     
     <item>
       <title>TensorFlow</title>
-      <link>https://zubing.tk/tags/tensorflow/</link>
+      <link>https://binko.me/tags/tensorflow/</link>
       <pubDate>Sun, 10 Feb 2019 11:32:41 +0800</pubDate>
       
-      <guid>https://zubing.tk/tags/tensorflow/</guid>
+      <guid>https://binko.me/tags/tensorflow/</guid>
       <description></description>
     </item>
     

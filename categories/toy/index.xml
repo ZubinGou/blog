@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Toy on Zubin`s Site</title>
-    <link>https://zubing.tk/categories/toy/</link>
+    <link>https://binko.me/categories/toy/</link>
     <description>Recent content in Toy on Zubin`s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Fri, 23 Aug 2019 12:03:18 +0800</lastBuildDate>
     
-	<atom:link href="https://zubing.tk/categories/toy/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://binko.me/categories/toy/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>2019北邮计算机学院新生颜值分析</title>
-      <link>https://zubing.tk/2019/scs_face/</link>
+      <link>https://binko.me/2019/scs_face/</link>
       <pubDate>Fri, 23 Aug 2019 12:03:18 +0800</pubDate>
       
-      <guid>https://zubing.tk/2019/scs_face/</guid>
+      <guid>https://binko.me/2019/scs_face/</guid>
       <description>声明：为保护个人隐私，本博文不提供任何学生的个人信息。 偶得管理员账号🤐，分析2019计算机学院迎新页面找到了新生头像存放位置，正好赋闲，于是</description>
     </item>
     

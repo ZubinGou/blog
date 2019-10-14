@@ -1,21 +1,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zubin`s Site</title>
-    <link>https://zubing.tk/</link>
+    <link>https://binko.me/</link>
     <description>Recent content on Zubin`s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Fri, 23 Aug 2019 12:03:18 +0800</lastBuildDate>
     
-        <atom:link href="https://zubing.tk/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://binko.me/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>2019北邮计算机学院新生颜值分析</title>
-      <link>https://zubing.tk/2019/scs_face/</link>
+      <link>https://binko.me/2019/scs_face/</link>
       <pubDate>Fri, 23 Aug 2019 12:03:18 +0800</pubDate>
       
-      <guid>https://zubing.tk/2019/scs_face/</guid>
+      <guid>https://binko.me/2019/scs_face/</guid>
       <description>
 
 &lt;p&gt;&lt;strong&gt;声明：为保护个人隐私，本博文不提供任何学生的个人信息。&lt;/strong&gt;&lt;/p&gt;
@@ -241,10 +241,10 @@ plt.show()
     
     <item>
       <title>零基础用 GitHub Pages &#43; Hugo 搭建个人网站</title>
-      <link>https://zubing.tk/2019/blog/</link>
+      <link>https://binko.me/2019/blog/</link>
       <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
       
-      <guid>https://zubing.tk/2019/blog/</guid>
+      <guid>https://binko.me/2019/blog/</guid>
       <description>
 
 &lt;p&gt;&lt;a href=&#34;https://gohugo.io/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;Hugo&lt;/a&gt;是用Go编写的静态站点生成器,生成速度（不到1s）比其他生成器快了许多,且配置比Hexo等简单，目前主要存在的缺点是主题不够丰富和成熟、插件较少。&lt;/p&gt;
@@ -551,10 +551,10 @@ git push
     
     <item>
       <title>About</title>
-      <link>https://zubing.tk/about/</link>
+      <link>https://binko.me/about/</link>
       <pubDate>Tue, 23 Jul 2019 10:32:48 +0800</pubDate>
       
-      <guid>https://zubing.tk/about/</guid>
+      <guid>https://binko.me/about/</guid>
       <description>
 
 &lt;h3 id=&#34;zubin-gou&#34;&gt;Zubin Gou😜&lt;/h3&gt;
@@ -609,10 +609,10 @@ show_date_time();
     
     <item>
       <title>虚无、意义与存在主义      --《未来简史》读罢的思考</title>
-      <link>https://zubing.tk/2019/nihilism/</link>
+      <link>https://binko.me/2019/nihilism/</link>
       <pubDate>Sat, 11 May 2019 08:27:18 +0800</pubDate>
       
-      <guid>https://zubing.tk/2019/nihilism/</guid>
+      <guid>https://binko.me/2019/nihilism/</guid>
       <description>&lt;p&gt;我曾一度陷入虚无主义。&lt;/p&gt;
 
 &lt;p&gt;曾几何时，思索、彷徨、恐惧。寄蜉蝣于天地，渺沧海之一粟。哀吾生之须臾，羡长江之无穷。我们终究在茫茫宇宙中消逝，不激起一丝涟漪，荡然无存哉！&lt;/p&gt;
@@ -694,10 +694,10 @@ show_date_time();
     
     <item>
       <title>机器学习写诗项目-AI诗人</title>
-      <link>https://zubing.tk/2019/ai_poet/</link>
+      <link>https://binko.me/2019/ai_poet/</link>
       <pubDate>Sun, 10 Feb 2019 11:32:41 +0800</pubDate>
       
-      <guid>https://zubing.tk/2019/ai_poet/</guid>
+      <guid>https://binko.me/2019/ai_poet/</guid>
       <description>
 
 &lt;p&gt;这是我大一上学期写的Python期末大作业，主要涉及爬虫、自然语言处理、数据分析与可视化、规则作诗、基于TensorFlow的机器学习写诗（改改模版、调调参数、烧烧GPU），以下是实验报告的部分内容，新手诸多谬误，还望指正😂。&lt;/p&gt;
