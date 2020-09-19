@@ -52,9 +52,36 @@
 </script>
  
 
+  <script type="text/javascript" async
+    src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        MathJax.Hub.Config({
+            "HTML-CSS": {preferredFont: "TeX", availableFonts: ["STIX", "TeX"], linebreaks: { automatic: true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+            tex2jax: {inlineMath: [["$", "$"], ["\\(", "\\)"]], processEscapes: true, ignoreClass: "tex2jax_ignore|dno", skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+            TeX: {noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%"} }, Macros: { href: "{}" } },
+            messageStyle: "none"
+        });
+
+        MathJax.Hub.Queue(function () {
+            var all = MathJax.Hub.getAllJax(), i;
+            for (i = 0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += 'has-jax';
+            }
+        });
+    </script>
+
+<style>
+    code.has-jax {
+        font: inherit;
+        font-size: 100%;
+        background: inherit;
+        border: inherit;
+        color: #515151;
+    }
+</style>
 </head>
 
   
+
 
 
   <body class="dark-theme">
@@ -129,7 +156,7 @@
         
         
         
-            &nbsp;<a href=" mailto:1847766162@qq.com" aria-label="Email" >
+            &nbsp;<a href=" mailto:dooggy@qq.com" aria-label="Email" >
                 <i class="fa fa-envelope-o" aria-hidden="true"></i>
             &nbsp;</a>
         
@@ -141,7 +168,7 @@
         
         
         
-            &nbsp;<a href=" https://zubing.tk/index.xml" aria-label="Rss" >
+            &nbsp;<a href=" https://binko.me/index.xml" aria-label="Rss" >
                 <i class="fa fa-feed" aria-hidden="true"></i>
             &nbsp;</a>
         
@@ -158,7 +185,7 @@
     <div class="copyright">
         &copy;
         
-        <span itemprop="copyrightYear">2019 - 2019</span>
+        <span itemprop="copyrightYear">2019 - 2020</span>
         
         
          

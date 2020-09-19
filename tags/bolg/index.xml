@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>HTML on Zubin`s Site</title>
-    <link>https://binko.me/tags/html/</link>
-    <description>Recent content in HTML on Zubin`s Site</description>
+    <title>Bolg on Zubin`s Site</title>
+    <link>https://binko.me/tags/bolg/</link>
+    <description>Recent content in Bolg on Zubin`s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 24 Jul 2019 11:20:00 +0800</lastBuildDate>
     
-	<atom:link href="https://binko.me/tags/html/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://binko.me/tags/bolg/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

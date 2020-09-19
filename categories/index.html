@@ -37,9 +37,36 @@
     <link href="%7balternate%20%7bRSS%20application/rss&#43;xml%20%20index%20alternate%20%20false%20false%20true%20false%20false%200%7d%20/categories/index.xml%20https://binko.me/categories/index.xml%7d" rel="feed" type="application/rss+xml" title="Zubin`s Site" />
  
 
+  <script type="text/javascript" async
+    src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        MathJax.Hub.Config({
+            "HTML-CSS": {preferredFont: "TeX", availableFonts: ["STIX", "TeX"], linebreaks: { automatic: true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+            tex2jax: {inlineMath: [["$", "$"], ["\\(", "\\)"]], processEscapes: true, ignoreClass: "tex2jax_ignore|dno", skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+            TeX: {noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%"} }, Macros: { href: "{}" } },
+            messageStyle: "none"
+        });
+
+        MathJax.Hub.Queue(function () {
+            var all = MathJax.Hub.getAllJax(), i;
+            for (i = 0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += 'has-jax';
+            }
+        });
+    </script>
+
+<style>
+    code.has-jax {
+        font: inherit;
+        font-size: 100%;
+        background: inherit;
+        border: inherit;
+        color: #515151;
+    }
+</style>
 </head>
 
   
+
 
 
   <body class="dark-theme">
@@ -124,6 +151,22 @@
     
          <div class="card-item">
            <div class="categories" >
+             <a href=" https://binko.me/categories/economics/"><h3> <i class="iconfont icon-folder" style="padding-right: 3px"></i> Economics  </h3> </a>
+                  
+                <article class="archive-item">
+                <a href=" https://binko.me/2020/crash_course_economics/" class="archive-item-link">Crash Course Economics Notes</a>
+                </article>
+              
+               
+           </div>
+        </div>
+    
+
+    
+    
+    
+         <div class="card-item">
+           <div class="categories" >
              <a href=" https://binko.me/categories/philosophy/"><h3> <i class="iconfont icon-folder" style="padding-right: 3px"></i> Philosophy  </h3> </a>
                   
                 <article class="archive-item">
@@ -178,7 +221,7 @@
     <div class="copyright">
         &copy;
         
-        <span itemprop="copyrightYear">2019 - 2019</span>
+        <span itemprop="copyrightYear">2019 - 2020</span>
         
         
          

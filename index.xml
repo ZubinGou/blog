@@ -5,10 +5,657 @@
     <description>Recent content on Zubin`s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 23 Aug 2019 12:03:18 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2020 10:16:00 +0800</lastBuildDate>
     
         <atom:link href="https://binko.me/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Crash Course Economics Notes</title>
+      <link>https://binko.me/2020/crash_course_economics/</link>
+      <pubDate>Thu, 20 Aug 2020 10:16:00 +0800</pubDate>
+      
+      <guid>https://binko.me/2020/crash_course_economics/</guid>
+      <description>
+
+&lt;p&gt;&amp;ldquo;Crash Course Economics&amp;rdquo; is pretty awesome for beginners!&lt;/p&gt;
+
+&lt;p&gt;The following notes are basically taken from youtube comments.&lt;/p&gt;
+
+&lt;h2 id=&#34;ch1-fundamentals-of-economics&#34;&gt;CH1 Fundamentals of Economics&lt;/h2&gt;
+
+&lt;h3 id=&#34;s1-intro&#34;&gt;s1 Intro&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ECONOMICS is the study of people and choices.&lt;/li&gt;
+&lt;li&gt;Two assumption
+
+&lt;ul&gt;
+&lt;li&gt;SCARCITY&lt;/li&gt;
+&lt;li&gt;Everything has COST&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;OPPORTUNITY COST is whatever you give up to do something.&lt;/li&gt;
+&lt;li&gt;SCARCITY is the tension between infinite wants and finite resources.&lt;/li&gt;
+&lt;li&gt;INCENTIVES is a set of external (rather than intrinsic) motivators that explain people&amp;rsquo;s choices.&lt;/li&gt;
+&lt;li&gt;MACROECONOMICS is the study of production, employment, prices, and policies on a nationwide scale.&lt;/li&gt;
+&lt;li&gt;MICROECONOMICS is the study of how consumers, workers, and firms interact to generate outcomes in specific markets.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;s2-specialization-and-trade&#34;&gt;s2 Specialization and Trade&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Economics is the study of scarcity and choices. We have limited resources, so we need a way to analyze the best way to use them.&lt;/li&gt;
+&lt;li&gt;Significant sustained increase in people&amp;rsquo;s lives happened after Industrial Revolution.&lt;/li&gt;
+&lt;li&gt;Adam Smith concluded that division of labor made countries wealthy.
+
+&lt;ul&gt;
+&lt;li&gt;Analogy: one pizza takes few people to be created. One prepares ingredients, another puts it in the oven, another one puts it in the box. This division makes each worker more productive, since each one is focused on a thing they do best and they don&amp;rsquo;t need to spend time switching between the tasks.&lt;/li&gt;
+&lt;li&gt;Without specializations, if you want something - you have to make it yourself.&lt;/li&gt;
+&lt;li&gt;So if you are good at producing something - specialize at it and then trade with others.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Production Possibilities Frontier (PPF) shows different combinations of two goods being produced using all resources efficiently.
+
+&lt;ul&gt;
+&lt;li&gt;Every possible combination inside the curve is inefficient. On the curve - efficient. Outside - impossible.&lt;/li&gt;
+&lt;li&gt;The country that can produce more goods of one kind (per time) than another country is having an absolute advantage over another country in production of those goods.&lt;/li&gt;
+&lt;li&gt;Opportunity cost is a cost of production of good, measured in losses in production of another good.&lt;/li&gt;
+&lt;li&gt;Country that can produce good with cheaper opportunity cost, has comparative advantage over another country.&lt;/li&gt;
+&lt;li&gt;Individuals and countries should specialize in producing things in which they have a comparative advantage and then trade with other countries that specialize in something else. This trade is mutually beneficial.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;If there is one point where economists agree it&amp;rsquo;s that specialization and trade makes the world better off.&lt;/li&gt;
+&lt;li&gt;Self-sufficiency is inefficiency&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;s3-economic-systems-and-macroeconomics&#34;&gt;s3 Economic Systems and Macroeconomics&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;As a social order, we have to figure out three things:
+
+&lt;ul&gt;
+&lt;li&gt;What will we produce?&lt;/li&gt;
+&lt;li&gt;How to produce it?&lt;/li&gt;
+&lt;li&gt;Who will get it?&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Two different economic systems: market economies and planned economies.
+
+&lt;ol&gt;
+&lt;li&gt;In planned economy, government controls labor, land and capital.&lt;/li&gt;
+&lt;li&gt;Communism is primarily defined by the lack of private property. Class-lessness is a symptom of having no private property. There are no communist countries in the world.&lt;/li&gt;
+&lt;li&gt;Often socialism has some private property and some public ownership.&lt;/li&gt;
+&lt;li&gt;Command economy is totally controlled by government.&lt;/li&gt;
+&lt;li&gt;In market economies, individuals control production to get profit.
+Invisible hand - the unintended social benefits resulting from individual actions.
+&amp;ldquo;It&amp;rsquo;s not from the benevolence of the butcher, the brewer, or the baker, that we expect our dinner, but from the regard to their own interest.&amp;rdquo;
+The mechanism of the invisible hand is that if you produce unwanted or shoddy products, a competitor will produce better more desirable products and put you out of business. This results in businesses that produce the things that people want/demand most, at lower prices.&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Modern economies are neither completely free market nor planned. There&amp;rsquo;s a spectrum of government involvement.&lt;/li&gt;
+&lt;li&gt;Circular flow model.
+
+&lt;ul&gt;
+&lt;li&gt;Modern economy is made above households (individuals like him and you) and businesses.&lt;/li&gt;
+&lt;li&gt;Businesses sell goods and services to households in product market.&lt;/li&gt;
+&lt;li&gt;Households earn the money by selling labor to businesses.&lt;/li&gt;
+&lt;li&gt;Businesses pay for the resources on resource market.&lt;/li&gt;
+&lt;li&gt;Government also buys products and resources, i.e. to buy cars from businesses and hire policemen to drive them.&lt;/li&gt;
+&lt;li&gt;Government gets the money from taxes, households and businesses (and borrowing).&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;s4-supply-and-demand&#34;&gt;s4 Supply and Demand&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Market: any place where buyers and sellers meet to exchange goods and services.
+
+&lt;ul&gt;
+&lt;li&gt;An owner of a supermaket values the labor of the cashier more than the money she pays him.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Price singnal: the information that markets generate to guide the distribution of the resources.
+
+&lt;ul&gt;
+&lt;li&gt;usinesses, and in particular large corporations , are often villainized as greedy, heartless institutions, that take advantage of consumers, but if markets are transparent and buyers are free to choose, then businesses will have a hard time making advantage of people.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Supply and demand
+
+&lt;ol&gt;
+&lt;li&gt;When the price goes up - people buy less, when the price goes down - people buy more.&lt;/li&gt;
+&lt;li&gt;When the price goes up - the farmer wants to produce more, when the price goes down - the farmer wants to produce less.&lt;/li&gt;
+&lt;li&gt;When quantity supplied = quantity demanded, we get equilibrium price of product.&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Four market behaviors
+
+&lt;ul&gt;
+&lt;li&gt;Supply ↑&lt;/li&gt;
+&lt;li&gt;Supply ↓&lt;/li&gt;
+&lt;li&gt;Demand ↑&lt;/li&gt;
+&lt;li&gt;Demand ↓&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ch2-basic-of-macroeconomics&#34;&gt;CH2 Basic of Macroeconomics&lt;/h2&gt;
+
+&lt;h3 id=&#34;s5-macroeconomics&#34;&gt;s5 Macroeconomics&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Macroeconomics: the study of the entire economy as a whole rather than individual markets.&lt;/li&gt;
+&lt;li&gt;In general policy makers try to achieve three goals:
+
+&lt;ul&gt;
+&lt;li&gt;Keep the economy growing over time (gross domestic product - GDP)&lt;/li&gt;
+&lt;li&gt;Limit unemployment (unemployment rate)&lt;/li&gt;
+&lt;li&gt;Keep prices stable (inflation rate)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;GDP is the value of all final goods and services produced within a country&amp;rsquo;s border in a specific period of time, usually a year.
+
+&lt;ul&gt;
+&lt;li&gt;Transactions where nothing new was produced - don&amp;rsquo;t count as GDP.&lt;/li&gt;
+&lt;li&gt;Also not including illegal activities.&lt;/li&gt;
+&lt;li&gt;Measured in dollars.&lt;/li&gt;
+&lt;li&gt;Nominal GDP is GDP not adjusted for inflation.&lt;/li&gt;
+&lt;li&gt;Real GDP is GDP adjusted for inflation.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Recession: when two successful quarters, or six months, show a decrease in real GDP.
+
+&lt;ul&gt;
+&lt;li&gt;Depression - a severe recession.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Unemployment rate is calculated by taking the number of people that are unemployed and dividing by the number of people in the labor force, times 100.
+
+&lt;ul&gt;
+&lt;li&gt;Discouraged workers - unemployed people that were looking for work, but have given up.&lt;/li&gt;
+&lt;li&gt;There are three types of unemployment:
+
+&lt;ol&gt;
+&lt;li&gt;frictional unemployment - the time period between jobs, when a worker is searching for, or transitioning from one job to another.&lt;/li&gt;
+&lt;li&gt;structural unemployment - unemployment caused by lack of demand for a worker&amp;rsquo;s specific type of labor.&lt;/li&gt;
+&lt;li&gt;cyclical unemployment - unemployment due to recession.&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Natural rate of unemployment - the lowest rate of unemployment that economy can sustain over a long period.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;inflation - an increase in a currency supply relative to the number of people using it, resulting in rising prices of goods and services over time.
+
+&lt;ul&gt;
+&lt;li&gt;Deflation - a decrease in general price level of goods and services.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;s6-productivity-and-growth&#34;&gt;s6 Productivity and Growth&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Why some countries have high GDP and others have low( some countries are rich and other poor):
+
+&lt;ol&gt;
+&lt;li&gt;Lack of natural resources.&lt;/li&gt;
+&lt;li&gt;Corrupt governments.&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;GDP per capita(output per person) is used to tell how wealthy a country is.&lt;/li&gt;
+&lt;li&gt;Countries with high GDP/capita have far less infant mortality, poverty and preventable diseases.&lt;/li&gt;
+&lt;li&gt;Productivity and growth:
+
+&lt;ol&gt;
+&lt;li&gt;The more a worker produces, the more a worker can earn.&lt;/li&gt;
+&lt;li&gt;Economists argue that the main reason that some countries are rich is because of productiivty.&lt;/li&gt;
+&lt;li&gt;Higher value produce also the growth effect.&lt;/li&gt;
+&lt;li&gt;Productivity is key, but there are limits.&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;People in poor countries need food, water, plumbing, hospitals and medicine, and all of those things are needed to get better efficiency.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;How much stuff is produced per person(can be called GDP)&lt;/li&gt;
+&lt;li&gt;Factors of production effect the efficiency:
+
+&lt;ol&gt;
+&lt;li&gt;Land&lt;/li&gt;
+&lt;li&gt;Workers&lt;/li&gt;
+&lt;li&gt;Capital( and also workers education, knowledge aka human capital)&lt;/li&gt;
+&lt;li&gt;Technology: The sum total of knowledge and information that society has acquired concerning the use of resources to produce goods and services. (Connectivity= productivity).&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Increasing Productivity has resulted in increasing standards of living(globally and historically).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ch3-inflation-monetary-and-fiscal-policy&#34;&gt;CH3 Inflation, Monetary and Fiscal Policy&lt;/h2&gt;
+
+&lt;h3 id=&#34;s7-inflation-and-bubbles-and-tulips&#34;&gt;s7 Inflation and Bubbles and Tulips&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Pirchasing power: the amount of physical goods and services that can be bought by a given amount of monney.
+
+&lt;ul&gt;
+&lt;li&gt;Consumer price index(CPI): a statical estimate constructed using the prices of a sample of representative items whose prices are collected preriodically.&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;Real&amp;rdquo; means that prices from the past has been adjust for inflation. Norminal means a price from the past that hasn&amp;rsquo;t been adjust for inflation. So the highest &amp;ldquo;nominal&amp;rdquo; box office receipts list is quite different.&lt;/li&gt;
+&lt;li&gt;Since we have to keep the market basket constant over time, a traditional CPI won&amp;rsquo;t adjust for either new products or increases in product quality.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Inflation:  an increase in a currency supply relative to the number of people using it, resulting in rising prices of goods and services over time.
+
+&lt;ul&gt;
+&lt;li&gt;Demand pull inflation - too much money chasing too few goods.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Bubbles - a market phenomenon characterized by surges in asset prices to levels significantly above the fundamental value of that asset.
+
+&lt;ul&gt;
+&lt;li&gt;Speculation - trading a financial instrument involving high risk, in expectation of significant returns.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;s8-fiscal-policy-and-stimulus&#34;&gt;s8 Fiscal Policy and Stimulus&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Recessionary gap: a situation wherein the real GDP is lower than potential GDP at the full employment level.&lt;/li&gt;
+&lt;li&gt;Inflationary gap: the amount by which the actual gross domestic product (GDP) exceeds potential full-employment GDP.&lt;/li&gt;
+&lt;li&gt;Macroeconomics: the study of the entire economy as a whole rather than individual markets.&lt;/li&gt;
+&lt;li&gt;Fiscal policy: the way a government adjusts its spending levels and tax rates to monitor and influence a nation&amp;rsquo;s economy.
+
+&lt;ul&gt;
+&lt;li&gt;Expansionary Fiscal Policy: stimulates the economy during or anticipation of a business-cycle contraction.&lt;/li&gt;
+&lt;li&gt;Contractionary Fiscal Policy: enacted by a government to reduce the money supply and ultimately the spending in a country.&lt;/li&gt;
+&lt;li&gt;Classical theories assumed that the economy will fix itself in a long run, and that government intervention will, at best, lead to unintended consequences and, at worst, cause massive inflation and debt.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Deficit spending: the government spends more money than it collects in tax revenue.
+
+&lt;ul&gt;
+&lt;li&gt;Crowding out: where increased public sector spending replaces, or drives down,  private sector spending.&lt;/li&gt;
+&lt;li&gt;Keynesian economists maintain that crowding out is only a problem if economy operates at full capacity, where all workers are employed and we&amp;rsquo;re producing as much as we can.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Austerity: raising taxes and cutting government spending to reduce debt. In crisis of 2008 was main policy of EU, which led to worse results than deficit spending policy in US.&lt;/li&gt;
+&lt;li&gt;Multiplier effect: the initial increase in government spending of 100$ might turn out to be 175$ worth of actual spending in the economy.
+a. When the economy is booming, multiplier is close to 1x.
+b. When economy is in recession, the multiplier is around 2x.
+c. Spending on infrastructure, and aid to state &amp;amp; local governments , also seems to have fairly high multiplier, about 1.5. But general cuts to payroll and income taxes seems to have a multiplier of about 1. If the government cuts 100$ in taxes, the economy is going to grow by about 100$.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;s9-deficits-debts&#34;&gt;s9 Deficits &amp;amp; Debts&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Budget deficit: the amount by which a government&amp;rsquo;s spending exceeds it&amp;rsquo;s income over a particular period of time.
+
+&lt;ul&gt;
+&lt;li&gt;Debt: the accumulation of budget deficits.&lt;/li&gt;
+&lt;li&gt;In the same way our GDP grows every year, due to population growth and productivity increases. And our ability to sustain debt grows along with our income.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Default: the investors who loaned the government money lose billions and the government loses all credibility, and it causes massive recession.&lt;/li&gt;
+&lt;li&gt;Debt ceiling: limit on the amount of national debt that can be issued by US Treasury.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;s10-monetary-policy-and-ther-federal-reserve&#34;&gt;s10 Monetary Policy and ther Federal Reserve&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The Federal Reserve is the central bank of US. Europe has the European Central Bank. Most Central Banks have two jobs:
+
+&lt;ol&gt;
+&lt;li&gt;they regulate and oversee the nation&amp;rsquo;s commercial banks by making sure that banks have enough money in reserve to avoid bank runs.&lt;/li&gt;
+&lt;li&gt;they conduct monetary policy which is increasing or decreasing the money supply to speed up or slow down the overall economy.&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;interest rate - the price of borrowing money.
+
+&lt;ul&gt;
+&lt;li&gt;When interest rates are low, borrowers will find it easier to pay back loans so they will borrow more and spend more. When interest rates are high, borrowers borrow less and spend less.&lt;/li&gt;
+&lt;li&gt;Expansionary monetary policy: when central bank wants to speed up the economy, it will increase the money supply, which will decrease interest rates and lead to more borrowing and spending.&lt;/li&gt;
+&lt;li&gt;Contractionary monetary policy: when central bank wants to slow down the economy, they decrease the money supply. Less money available will increase interest rates and decrease borrowing and spending.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Liquid assets: an asset that can be converted into cash quickly and with minimal impact to the price received.&lt;/li&gt;
+&lt;li&gt;3 main ways to change money supply:
+
+&lt;ol&gt;
+&lt;li&gt;Reserve Requirement&lt;/li&gt;
+&lt;li&gt;Discount Rate&lt;/li&gt;
+&lt;li&gt;Open market operations: this is when the federal reserve buys or sells short term government bonds.&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Quantitative easing (Q.E.): when central banks buy longer term assets from banks.&lt;/li&gt;
+&lt;li&gt;Monetary policy: changing money supply to speed up or slow down economy.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;s11-money-and-finance&#34;&gt;s11 Money and Finance&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Money serve three main purposes:
+
+&lt;ul&gt;
+&lt;li&gt;Medium of exchange&lt;/li&gt;
+&lt;li&gt;Store of value&lt;/li&gt;
+&lt;li&gt;Unit of account&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Financial system
+
+&lt;ul&gt;
+&lt;li&gt;Lenders&lt;/li&gt;
+&lt;li&gt;Borrowers&lt;/li&gt;
+&lt;li&gt;Governments&lt;/li&gt;
+&lt;li&gt;Capital: the machinery, tools and factories owned by a business and used in production.&lt;/li&gt;
+&lt;li&gt;Financial system is a network of institutions, markets and contracts that brings lenders and borrowers together.&lt;/li&gt;
+&lt;li&gt;Debt: if you get a loan from the bank, you are obligated to pay back the amount you borrowed plus the amount of interest.&lt;/li&gt;
+&lt;li&gt;Equity: the difference between the value of the assets/interest and the cost of liabilities of something owned.&lt;/li&gt;
+&lt;li&gt;Financial instrument: a tradeable asset of any kind.&lt;/li&gt;
+&lt;li&gt;Financial institution - an establishment that conducts financial transactions such as investments, loans and deposits.&lt;/li&gt;
+&lt;li&gt;Financial markets with instruments like stocks and bonds, allow borrowers to crowdsource the money they need to borrow. They raise their capital from lots of investors, and spread the risk around.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;s12-2008-financial-crisis&#34;&gt;s12 2008 Financial Crisis&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;History doesn&amp;rsquo;t repeat itself, but it often rhymes&amp;rdquo;- Mark Twain&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;s13-recession-hyperinflation-and-stagflation&#34;&gt;s13 Recession, Hyperinflation, and Stagflation&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Hyperinflation: when a country experiences a monthly inflation rate of over 50% or around 13,000% annual inflation.
+
+&lt;ul&gt;
+&lt;li&gt;Extreme inflation also forces people to spend as quickly as possible rather than save of lend, so there is no money available to fund new businesses. And all that uncertainty limits foreign investment and trade.&lt;/li&gt;
+&lt;li&gt;The more money you print, the more inflation you get.&lt;/li&gt;
+&lt;li&gt;Economists call the number of times a dollar is spent per year a velocity of money. When people spend their money as quickly as they get it, that increases velocity, which pushes inflation up even faster.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Depression. After the initial crash in 1929 the federal reserve dropped interest rates to zero, output and prices fell, and regular people started to expect further price declines. Unemployment rose to 25% and the average family income dropped by around 40%.&lt;/li&gt;
+&lt;li&gt;Stagflation: when output slows down or stops, or stagnates at the same time that prices rise. Stagnant economy + inflation = stagflation.
+
+&lt;ul&gt;
+&lt;li&gt;The FED tried to address this by boosting the money supply and cutting interest rates, but output couldn&amp;rsquo;t rise much because of low productivity and the oil shortage. So all that extra money just triggered inflation.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ch4-economic-schools-of-thought&#34;&gt;CH4 Economic Schools of Thought&lt;/h2&gt;
+
+&lt;h3 id=&#34;s14-economic-schools-of-thought&#34;&gt;s14 Economic Schools of Thought&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Economic theories are constantly been proven, disproven and revised. The problem is, when these theories are wrong, millions of people can be adversely affected.&lt;/li&gt;
+&lt;li&gt;The founder of modern economics was a Scottish philosopher, named Adam Smith. In 1776 his book &amp;ldquo;The wealth of nations&amp;rdquo; was published. It was an organized discussion about economic theory.
+
+&lt;ul&gt;
+&lt;li&gt;When both focus on what they&amp;rsquo;re best at and then trade, everyone benefits.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;In 1890 was published a book, called &amp;ldquo;Principles of economics&amp;rdquo; by Alfred Marshall. It embodied classical economics.&lt;/li&gt;
+&lt;li&gt;In 1936 John Maynard Keynes published a book &amp;ldquo;A general theory of money&amp;rdquo; which launched a field of macroeconomics.
+
+&lt;ul&gt;
+&lt;li&gt;They claimed that during recessions it is necessary for the government to get involved by using monetary and fiscal policy to increase output and decrease unemployment.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Socialism: system where the means of producing and distributing goods is owned collectively or by a centralized government.&lt;/li&gt;
+&lt;li&gt;Monetarism: focused on price stability and argue the money supply should be increased slowly and predictably to allow for steady growth.&lt;/li&gt;
+&lt;li&gt;Supply side economics (trickle down economics): advocated deregulation and cutting taxes, especially corporate taxes.&lt;/li&gt;
+&lt;li&gt;New neoclassical synthesis: synthesis of classical economic theories and Keynesian economics.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ch5-economics-in-international-relations-1&#34;&gt;CH5 Economics in International Relations 1&lt;/h2&gt;
+
+&lt;h3 id=&#34;s15-imports-exports-and-exchange-rates&#34;&gt;s15 Imports, Exports, and Exchange Rates&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;concept
+
+&lt;ul&gt;
+&lt;li&gt;Net exports: the annual difference between a country&amp;rsquo;s exports and imports&lt;/li&gt;
+&lt;li&gt;Trade surplus: when a country exports more than it imports&lt;/li&gt;
+&lt;li&gt;Trade deficit: when a country imports more than it exports&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;International trade
+
+&lt;ul&gt;
+&lt;li&gt;It doesn&amp;rsquo;t make sense to make everything on your own if you can trade with other countries that have a comparative advantage.&lt;/li&gt;
+&lt;li&gt;Unsafe and unfair working conditions and environmental degradation.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;NAFTA, 1994
+
+&lt;ul&gt;
+&lt;li&gt;Dropped trade barriers between Canada, the US and Mexico.&lt;/li&gt;
+&lt;li&gt;Increased US trade deficits. Decreased manufacturing jobs.&lt;/li&gt;
+&lt;li&gt;Millions of jobs created. Reduced prices. Net positive impact on 3 countries.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Protectionism: Placing high tariffs on imports and limiting the number of foreign goods to protect local businesses. Limited by the WTO or World Trade Organization.
+
+&lt;ul&gt;
+&lt;li&gt;Exchange rate - how much your currency is worth when you trade it for another country&amp;rsquo;s currency.&lt;/li&gt;
+&lt;li&gt;Currency appreciation - An increase in the value of one currency in terms of another.&lt;/li&gt;
+&lt;li&gt;Currency depreciation - A decrease in the level of a currency in a floating exchange rate system due to market forces. Foreign imports get more expensive, which makes them fall. Exports to other countries get cheaper, which makes them rise.&lt;/li&gt;
+&lt;li&gt;Floating exchange rates - they change based on supply and demand.&lt;/li&gt;
+&lt;li&gt;Balance of payments - accounting statement that records all International transactions in a country. It&amp;rsquo;s made up of two sub-accounts, the current account and the financial account.&lt;/li&gt;
+&lt;li&gt;Current account - records the sale and purchase of goods and services, investment income earned abroad, and other transfers like donations and foreign aid.&lt;/li&gt;
+&lt;li&gt;Financial account - records the purchase and sale of financial assets like stocks and bonds.
+There is a reason why the flow of goods and the flow of money are symmetric. If consumers, businesses and the government want to buy more stuff than their country is producing symmetrically, they have to import it. So there&amp;rsquo;s a trade deficit.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;s16-globalization-and-trade-and-poverty&#34;&gt;s16 Globalization and Trade and Poverty&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Poverty line: Minimum level of income deemed adequate in a particular country.&lt;/li&gt;
+&lt;li&gt;Extreme poverty:  Severe deprivation of basic needs including, food, safe drinking water, sanitation, health, shelter, education and information.&lt;/li&gt;
+&lt;li&gt;UN definition of extreme poverty: People living under &amp;lt;1.25/day (836 mn people as of 2015, down from 1.9 bn in 1950)&lt;/li&gt;
+&lt;li&gt;1 in 7 people still live without electricity.&lt;/li&gt;
+&lt;li&gt;Mobile phones are single most transformative technology to the developing world - Jeffrey Sachs&lt;/li&gt;
+&lt;li&gt;Leapfrogging: Countries can skip straight to more efficient technology without significant costs&lt;/li&gt;
+&lt;li&gt;Hans Rosling (statistician): 1-2 bn suffer from globalization deficiency.&lt;/li&gt;
+&lt;li&gt;Multiplier effect means more&lt;/li&gt;
+&lt;li&gt;Paul Krugman, &amp;ldquo;The Bangladeshi apparel industry is going to consist of what we would consider sweatshops, or it wont exist at all.&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;Outsourcing of jobs, exploitation and oppression, is a form of economic colonialism.&lt;/li&gt;
+&lt;li&gt;Companies don&amp;rsquo;t follow same rules as developing countries. To tackle this public awareness is growing. e.g. US produces annual publication on list of goods produced by child or forced labor.&lt;/li&gt;
+&lt;li&gt;Many experts believe globalization isn&amp;rsquo;t sustainable for the planet because of it&amp;rsquo;s impact on climate change, deforestation and pollution.&lt;/li&gt;
+&lt;li&gt;Microcredit, Muhammad Yunus, small loans ($100) enabled people (especially women) to participate in the economy.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;s17-income-and-wealth-inequality&#34;&gt;s17 Income and Wealth Inequality&lt;/h3&gt;
+
+&lt;p&gt;Two types of economic inequality
+- Wealth (accumulated assets such as savings, pensions, real estate, and stocks minus the liabilities) inequality
+    - The unequal distribution of accumulated assets, minus liabilities
+    - North America and Europe host 20% of the population yet have 67% of the world’s wealth
+    - China hosts 20% of the population wet have 8% of the world’s wealth etcetera
+- Income inequality
+    - The extent to which income is distributed in an uneven matter
+    - Economic Big Bang - “At first countries’ incomes were all bunched together, but with the Industrial Revolution the differences exploded,… [It] pushed some countries forward onto the path  to higher incomes while others stayed where they had been for millennia.” - Branko Milanovic
+        - Industrial Revolution accelerated the gap between the richest and poorest
+    - Globalisation and international trade are further accelerating this disparity
+        - “The triumph of globalisation and market capitalism has improved living standards for billions while concentrating billions among the few.” - Richard Freeman
+    - Skill-biased technological change
+        - Skilled workers that have the education/skills best suited for technological work whereas it has served as a replacement for unskilled workers
+        - Further gap between the poor and the rich and the poor and they rocking class
+            - As economies develop and as manufacturing jobs move overseas, low skill low pay and high skill high pay work are the only jobs left
+    - Other factors in exacerbating widening gap
+        - Reduced influence of unions, tax policies that favour the wealthy, allowance for greater CEO salaries, gender, race
+    - Lorenz curve graph allows us to measure the depth of income inequality
+        - Can be used to calculate the GINI Index - the most commonly used measure of income equality (the size of the gap between the equal distribution of income and actual distribution) with 0 as complete quality and 100 as complete inequality
+    - Critiques of income inequality
+        - Claim all income brackets are making more money but the rich’s share is growing faster
+            - However in the last 20 years, their average income has been falling while the rich have continually gotten richer
+                - “Yes, some level of inequality is built in to capitalism… It is inherent to the system. The question is, what level of inequality is acceptable? And when does inequality start doing more harm than good?” - Bill Gates
+        - Some economists argue greater income inequality is associated with increased violence, drug abuse, incarceration, diluted political equality (rich have disproportionate say in what policies advance and in this have an incentive to promote their own self-interest)
+    - Solutions
+        - Education, increased minimum wage, affordable, high quality childcare, provide a social safety net, adjustment of tax code to redistribute income
+        - Increase income taxes and capital taxes on the rich
+    - Progressive tax - a tax in which the tax rate increases as the taxable amount increases
+    - “One idea is to fix loopholes that the rich use to avoid paying taxes. Other economists argue that taxing the rich won’t be as effective as reducing regulation and bureaucratic red tape.”
+    - No society can surely be flourishing and happy of which the far greater part of the members are poor and miserable - Adam Smith&lt;/p&gt;
+
+&lt;h2 id=&#34;ch6-basics-of-microeconomics&#34;&gt;CH6 Basics of Microeconomics&lt;/h2&gt;
+
+&lt;h3 id=&#34;s18-marginal-analysis-roller-coasters-elasticity-and-van-gogh&#34;&gt;s18 Marginal Analysis, Roller Coasters, Elasticity, and Van Gogh&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Microeconomics: Study of the economic behavior of individual units of an economy (such as a person, household, firm, or industry).&lt;/li&gt;
+&lt;li&gt;Marginal analysis: An analysis of how individuals, businesses and governments make decisions.
+
+&lt;ul&gt;
+&lt;li&gt;Marginal = Additional&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Utility: Satisfaction or happiness people get from consuming a good or service.&lt;/li&gt;
+&lt;li&gt;Law of Diminishing Marginal Utility = Law of Decreasing Additional Satisfaction
+
+&lt;ul&gt;
+&lt;li&gt;Demand curve = Marginal benefit curve&lt;/li&gt;
+&lt;li&gt;Supply curve = Marginal cost curve&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Utils: A unit used to quantify satisfaction; they are completely subjective.&lt;/li&gt;
+&lt;li&gt;Law of supply: An increase in price gives producers an incentive to produce more.&lt;/li&gt;
+&lt;li&gt;Diamond-water paradox: Although water is on the whole more useful, in terms of survival, than diamonds, diamonds command a higher price in the market.&lt;/li&gt;
+&lt;li&gt;Substitution effect: As prices rise consumers will replace expensive items with less costly alternatives.
+
+&lt;ul&gt;
+&lt;li&gt;Elasticity of demand: a measure of the relationship between a change in the quantity demanded of a particular good and a change in its price.&lt;/li&gt;
+&lt;li&gt;Elasticity of supply: a measure of the responsiveness of quantity supplied to a change in price.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;s19-markets-efficiency-and-price-signals&#34;&gt;s19 Markets, Efficiency, and Price Signals&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Central planning is not efficient&lt;/li&gt;
+&lt;li&gt;Two types of efficiency:
+
+&lt;ul&gt;
+&lt;li&gt;Productive Efficiency- The idea that products are made at lowest costs.&lt;/li&gt;
+&lt;li&gt;Allocative Efficiency- State of economy in which production represents consumer&amp;rsquo;s preference.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Central planners are less likely to be allocatively efficient because they have a harder time getting feedback about what people want.&lt;/li&gt;
+&lt;li&gt;Price Signals tells you what consumers are willing to by at higher prices.&lt;/li&gt;
+&lt;li&gt;Price gouging: When sellers sells essential items (e.g water, food etc) at much higher price than reasonable.&lt;/li&gt;
+&lt;li&gt;Below-Cost Pricing: This is also called Predatory Pricing. It&amp;rsquo;s when a business drive out competitors by charging lower prices even at a short-term loss. Competitors that can&amp;rsquo;t sustain such low prices will be forced out of the market giving the surviving businesses more market share and ability to raise prices.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;s20-prices-controls-subsidies-and-the-risks-of-good-intentions&#34;&gt;s20 Prices Controls, Subsidies, and the Risks of Good Intentions&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;President Richard Nixon, 1970s, 90-day price and wage freeze to fight inflation. Milton Friedman, &amp;lsquo;One of those plausible schemes with very pleasing commencement that have shameful conclusions&amp;rsquo;.&lt;/li&gt;
+&lt;li&gt;Price ceiling - Maximum price for a specific good or service&lt;/li&gt;
+&lt;li&gt;Price floor - Minimum price in a specific market. Keeping price artificially high and not allowing price to fall to equilibrium.&lt;/li&gt;
+&lt;li&gt;In terms of helping consumers and producers, price controls are counter-productive. However minimum wage is a better solution.&lt;/li&gt;
+&lt;li&gt;Economists generally agree that rent control results in reduced quantity and quality of housing that is available.&lt;/li&gt;
+&lt;li&gt;A subsidy is a government payment given to individuals, organizations or businesses to offset costs to advance a specific public goal.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;s21-market-failures-taxes-and-subsidies&#34;&gt;s21 Market Failures, Taxes, and Subsidies&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Free riders: people who benefit without paying&lt;/li&gt;
+&lt;li&gt;Responding to incentives: why pay more if I can get it for less?&lt;/li&gt;
+&lt;li&gt;Market failure: when markets fail to provide enough public goods
+Public good - anything having the characteristics of non-exclusion (cannot exclude/disfavour people that do not pay f.ex. those who evade taxes are not exempt from national defence) and non-rivalry (one person’s consumption of the good does not ruin it for others f.ex. public parks)&lt;/li&gt;
+&lt;li&gt;Tragedy of the Commons - the idea that common goods that everyones has access to are often misused and exploited (fuelled by personal incentives that disregard the commonwealth)&lt;/li&gt;
+&lt;li&gt;Environmental problems: deforestation/overfishing&lt;/li&gt;
+&lt;li&gt;Externalities: situations when there are external costs or benefits that accrue to other people or society as a whole
+
+&lt;ul&gt;
+&lt;li&gt;Regulatory policies (rules established by govt decree) + market-based policies (policies designed to manipulate markets, prices, and incentives to correct market failures) can be used to fix externalities&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ch7-environmental-and-education-economics&#34;&gt;CH7 Environmental and Education Economics&lt;/h2&gt;
+
+&lt;h3 id=&#34;s22-evironmentl-econ&#34;&gt;s22 Evironmentl Econ&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;what can the government do?
+
+&lt;ul&gt;
+&lt;li&gt;enforce specific rules outside the market (just limit how much firms can pollute)&lt;/li&gt;
+&lt;li&gt;influence the market through price incentives
+
+&lt;ul&gt;
+&lt;li&gt;add tax on products that cause pollution. (gasoline)&lt;/li&gt;
+&lt;li&gt;subsidize products that reduce pollution (electric cars, renewable energy)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;how can technology help?
+
+&lt;ul&gt;
+&lt;li&gt;since our current technology doesn&amp;rsquo;t provide cheaper renewable energy, we can maximize the use of non renewable energy (energy-efficient cars)&lt;/li&gt;
+&lt;li&gt;rebound effect: efforts to increase energy efficiency creates more available energy that only gets spent into something MORE and MORE.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;what actions are the world taking?
+
+&lt;ol&gt;
+&lt;li&gt;International treatys in which countries commit on reducing greenhouse gases emission. (UN negotiations)&lt;/li&gt;
+&lt;li&gt;funding &amp;ldquo;green&amp;rdquo; research into renewable energy.&lt;/li&gt;
+&lt;li&gt;changes can be brought by individual consumers, along with changes by the government and producers. (turn the lights off when not in use! and other small things).&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;s23-economics-of-education&#34;&gt;s23 Economics of Education&lt;/h3&gt;
+
+&lt;p&gt;omit.&lt;/p&gt;
+
+&lt;h2 id=&#34;ch8-types-of-competition&#34;&gt;CH8 Types of Competition&lt;/h2&gt;
+
+&lt;h3 id=&#34;s24-revenue-profits-and-price&#34;&gt;s24 Revenue, Profits, and Price&lt;/h3&gt;
+
+&lt;p&gt;omit.&lt;/p&gt;
+
+&lt;h3 id=&#34;s25-monopolies-and-anti-competitive-markets&#34;&gt;s25 Monopolies and Anti-Competitive Markets&lt;/h3&gt;
+
+&lt;p&gt;omit.&lt;/p&gt;
+
+&lt;h3 id=&#34;s26-game-theory-and-oligopoly&#34;&gt;s26 Game Theory and Oligopoly&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;4 types of markets
+
+&lt;ol&gt;
+&lt;li&gt;Perfect competition: Low barriers, identical products, no control over price (eg strawberries)&lt;/li&gt;
+&lt;li&gt;Monopoly: There is one large company that produces a product with few substitutes. And because high barriers prevent competition, a monopoly has a lot of control over price.&lt;/li&gt;
+&lt;li&gt;Monopolistic competition: a market with many producers and relatively low barriers; their products are very similar but not identical. (eg furniture stores or fast food)&lt;/li&gt;
+&lt;li&gt;Oligopolies: markets that have high barriers to entry and are controlled by a few large companies. Similar to monopolistic competition, their products are similar but not identical. That gives them some control over their prices. How?&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Non-price competition: Companies focus on things like style, quality, location, or service. The goal is to distinguish their product from their competitors.
+
+&lt;ul&gt;
+&lt;li&gt;The most recognizable form of non-price competition is advertising.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Game theory: the study of strategic decision making.&lt;/li&gt;
+&lt;li&gt;Collusion: If businesses don’t compete at all and they agree to charge the same high price, conspiring to form what economists call a cartel. They split the customers &lt;sup&gt;50&lt;/sup&gt;&amp;frasl;&lt;sub&gt;50&lt;/sub&gt;, but now they make even more profit &amp;ndash; benefiting at the expense of consumers. It’s illegal in the US.&lt;/li&gt;
+&lt;li&gt;Price leadership is when one company changes its prices, and its competitors have to decide if they’re going to follow suit.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Pay off matrix: In game theory, a payoff matrix is a table in which strategies of one player are listed in rows and those of the other player in columns and the cells show payoffs to each player such that the payoff of the row player is listed first.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ch9-how-people-affect-the-economics&#34;&gt;CH9 How People Affect the Economics&lt;/h2&gt;
+
+&lt;h3 id=&#34;s27-behavioral-economics&#34;&gt;s27 Behavioral Economics&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Bounded rationality&lt;/li&gt;
+&lt;li&gt;Lack of information&lt;/li&gt;
+&lt;li&gt;Manipulate non interinsic attributes of price&lt;/li&gt;
+&lt;li&gt;Framing effect&lt;/li&gt;
+&lt;li&gt;Psychological pricing&lt;/li&gt;
+&lt;li&gt;Nudge theory&lt;/li&gt;
+&lt;li&gt;Risk(neutral &amp;amp; averse)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;s28-labor-markets-and-minimum-wage&#34;&gt;s28 Labor Markets and Minimum Wage&lt;/h3&gt;
+
+&lt;p&gt;omit.&lt;/p&gt;
+
+&lt;h3 id=&#34;s29-the-economics-of-healthcare&#34;&gt;s29 The Economics of Healthcare&lt;/h3&gt;
+
+&lt;p&gt;omit.&lt;/p&gt;
+
+&lt;h3 id=&#34;s30-the-economics-of-death&#34;&gt;s30 The Economics of Death&lt;/h3&gt;
+
+&lt;p&gt;omit.&lt;/p&gt;
+
+&lt;h2 id=&#34;ch10-taxes-and-informal-economies&#34;&gt;CH10 Taxes and Informal Economies&lt;/h2&gt;
+
+&lt;h3 id=&#34;s31-taxes&#34;&gt;s31 Taxes&lt;/h3&gt;
+
+&lt;p&gt;omit.&lt;/p&gt;
+
+&lt;h3 id=&#34;s32-the-underground-economy&#34;&gt;s32 The Underground Economy&lt;/h3&gt;
+
+&lt;p&gt;omit.&lt;/p&gt;
+
+&lt;h2 id=&#34;ch11-economics-in-international-relations-2&#34;&gt;CH11 Economics in International Relations 2&lt;/h2&gt;
+
+&lt;h3 id=&#34;the-economics-of-immigration&#34;&gt;The Economics of Immigration&lt;/h3&gt;
+
+&lt;p&gt;omit.&lt;/p&gt;
+
+&lt;h3 id=&#34;foreign-aid-and-remittance&#34;&gt;Foreign Aid and Remittance&lt;/h3&gt;
+
+&lt;p&gt;omit.&lt;/p&gt;
+
+&lt;h2 id=&#34;ch12-economics-of-happiness&#34;&gt;CH12 Economics of Happiness&lt;/h2&gt;
+
+&lt;h3 id=&#34;the-economics-of-happiness&#34;&gt;The Economics of Happiness&lt;/h3&gt;
+
+&lt;p&gt;omit.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>2019北邮计算机学院新生颜值分析</title>
@@ -242,7 +889,7 @@ plt.show()
     <item>
       <title>零基础用 GitHub Pages &#43; Hugo 搭建个人网站</title>
       <link>https://binko.me/2019/blog/</link>
-      <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
+      <pubDate>Wed, 24 Jul 2019 11:20:00 +0800</pubDate>
       
       <guid>https://binko.me/2019/blog/</guid>
       <description>
@@ -601,7 +1248,7 @@ show_date_time();
 &lt;h3 id=&#34;copyright&#34;&gt;Copyright&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;This work is licensed under a &lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;Creative Commons Attribution-NonCommercial 4.0 International License&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;All works are licensed under a &lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;Creative Commons Attribution-NonCommercial 4.0 International License&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;Please indicate the source for non-commercial reprint.&lt;/li&gt;
 &lt;/ul&gt;
 </description>

@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Zubin`s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 23 Aug 2019 12:03:18 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2020 10:16:00 +0800</lastBuildDate>
     
 	<atom:link href="https://binko.me/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Economics</title>
+      <link>https://binko.me/tags/economics/</link>
+      <pubDate>Thu, 20 Aug 2020 10:16:00 +0800</pubDate>
+      
+      <guid>https://binko.me/tags/economics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Notes</title>
+      <link>https://binko.me/tags/notes/</link>
+      <pubDate>Thu, 20 Aug 2020 10:16:00 +0800</pubDate>
+      
+      <guid>https://binko.me/tags/notes/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>BUPT</title>
@@ -48,18 +66,18 @@
     </item>
     
     <item>
-      <title>Blog</title>
-      <link>https://binko.me/tags/blog/</link>
-      <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
+      <title>Bolg</title>
+      <link>https://binko.me/tags/bolg/</link>
+      <pubDate>Wed, 24 Jul 2019 11:20:00 +0800</pubDate>
       
-      <guid>https://binko.me/tags/blog/</guid>
+      <guid>https://binko.me/tags/bolg/</guid>
       <description></description>
     </item>
     
     <item>
       <title>HTML</title>
       <link>https://binko.me/tags/html/</link>
-      <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
+      <pubDate>Wed, 24 Jul 2019 11:20:00 +0800</pubDate>
       
       <guid>https://binko.me/tags/html/</guid>
       <description></description>
@@ -68,7 +86,7 @@
     <item>
       <title>Hugo</title>
       <link>https://binko.me/tags/hugo/</link>
-      <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
+      <pubDate>Wed, 24 Jul 2019 11:20:00 +0800</pubDate>
       
       <guid>https://binko.me/tags/hugo/</guid>
       <description></description>

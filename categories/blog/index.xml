@@ -6,7 +6,7 @@
     <description>Recent content in Blog on Zubin`s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 24 Jul 2019 11:32:41 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jul 2019 11:20:00 +0800</lastBuildDate>
     
 	<atom:link href="https://binko.me/categories/blog/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>零基础用 GitHub Pages &#43; Hugo 搭建个人网站</title>
       <link>https://binko.me/2019/blog/</link>
-      <pubDate>Wed, 24 Jul 2019 11:32:41 +0800</pubDate>
+      <pubDate>Wed, 24 Jul 2019 11:20:00 +0800</pubDate>
       
       <guid>https://binko.me/2019/blog/</guid>
       <description>Hugo是用Go编写的静态站点生成器,生成速度（不到1s）比其他生成器快了许多,且配置比Hexo等简单，目前主要存在的缺点是主题不够丰富和成</description>

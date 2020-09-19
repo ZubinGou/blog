@@ -10,7 +10,7 @@
   <meta name="keywords" content="zubin, blog, Hugo, python, philosophy, books">
   
   <link rel="prev" href="https://binko.me/2019/blog/" />
-  
+  <link rel="next" href="https://binko.me/2020/crash_course_economics/" />
   <link rel="shortcut icon" href="/images/me/puppy.jpg"/>
   <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
   <link rel="canonical" href="https://binko.me/2019/scs_face/" />
@@ -61,9 +61,36 @@
 }
 </script>
 
+  <script type="text/javascript" async
+    src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        MathJax.Hub.Config({
+            "HTML-CSS": {preferredFont: "TeX", availableFonts: ["STIX", "TeX"], linebreaks: { automatic: true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+            tex2jax: {inlineMath: [["$", "$"], ["\\(", "\\)"]], processEscapes: true, ignoreClass: "tex2jax_ignore|dno", skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+            TeX: {noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%"} }, Macros: { href: "{}" } },
+            messageStyle: "none"
+        });
+
+        MathJax.Hub.Queue(function () {
+            var all = MathJax.Hub.getAllJax(), i;
+            for (i = 0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += 'has-jax';
+            }
+        });
+    </script>
+
+<style>
+    code.has-jax {
+        font: inherit;
+        font-size: 100%;
+        background: inherit;
+        border: inherit;
+        color: #515151;
+    }
+</style>
 </head>
 
   
+
 
 
   <body class="dark-theme">
@@ -430,6 +457,8 @@ plt.show()
         <a href="https://binko.me/2019/blog/" class="prev" rel="prev" title="零基础用 GitHub Pages &#43; Hugo 搭建个人网站"><i class="iconfont icon-left"></i>&nbsp;零基础用 GitHub Pages &#43; Hugo 搭建个人网站</a>
          
         
+        <a href="https://binko.me/2020/crash_course_economics/" class="next" rel="next" title="Crash Course Economics Notes">Crash Course Economics Notes&nbsp;<i class="iconfont icon-right"></i></a>
+        
     </div>
 
     <div class="post-comment">
@@ -467,7 +496,7 @@ plt.show()
     <div class="copyright">
         &copy;
         
-        <span itemprop="copyrightYear">2019 - 2019</span>
+        <span itemprop="copyrightYear">2019 - 2020</span>
         
         
          
