@@ -248,8 +248,8 @@
 <h3 id="31-bidirectional-language-models">3.1 Bidirectional language models</h3>
 <p>$$
 \begin{array}{l}
-\sum_{k=1}^{N}\left(\log p\left(t_{k} \mid t_{1}, \ldots, t_{k-1} ; \Theta_{x}, \vec{\Theta}_{L S T M}, \Theta_{s}\right)\right. \\<br>
-\left.\quad+\log p\left(t_{k} \mid t_{k+1}, \ldots, t_{N} ; \Theta_{x}, \overleftarrow{\Theta}_{L S T M}, \Theta_{s}\right)\right)
+\sum_{k=1}^{N}(\log p(t_{k} \mid t_{1}, \ldots, t_{k-1} ; \Theta_{x}, \vec{\Theta}_{L S T M}, \Theta_{s}). \\<br>
+.\quad+\log p(t_{k} \mid t_{k+1}, \ldots, t_{N} ; \Theta_{x}, \overleftarrow{\Theta}_{L S T M}, \Theta_{s}))
 \end{array}
 $$</p>
 <ul>
@@ -259,22 +259,22 @@ $$</p>
 <p>a L-layer biLM computes a set of $2L+1$ representations:
 $$
 \begin{aligned}
-R_{k} &amp;=\left{\mathbf{x}_{k}^{L M}, \overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M} \mid j=1, \ldots, L\right} \\<br>
-&amp;=\left{\mathbf{h}_{k, j}^{L M} \mid j=0, \ldots, L\right}
+R_{k} &amp;={\mathbf{x}_{k}^{L M}, \overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M} \mid j=1, \ldots, L} \\<br>
+&amp;={\mathbf{h}_{k, j}^{L M} \mid j=0, \ldots, L}
 \end{aligned}
 $$</p>
 <p>collapses all layers in $R$ int a single vector:
 $$
-\mathbf{E L M o}_{k}=E\left(R_{k} ; \mathbf{\Theta}_{e}\right)
+\mathbf{E L M o}_{k}=E(R_{k} ; \mathbf{\Theta}_{e})
 $$</p>
 <ol>
 <li>simplest way (as in TagLM (Peters et al., 2017) and CoVe (McCann et al., 2017).):
 $$
-E\left(R_{k}\right)=\mathbf{h}_{k, L}^{L M}
+E(R_{k})=\mathbf{h}_{k, L}^{L M}
 $$</li>
 <li>task specific weighting:
 $$
-\mathbf{E L M o}_{k}^{t a s k}=E\left(R_{k} ; \Theta^{t a s k}\right)=\gamma^{t a s k} \sum_{j=0}^{L} s_{j}^{t a s k} \mathbf{h}_{k, j}^{L M}
+\mathbf{E L M o}_{k}^{t a s k}=E(R_{k} ; \Theta^{t a s k})=\gamma^{t a s k} \sum_{j=0}^{L} s_{j}^{t a s k} \mathbf{h}_{k, j}^{L M}
 $$</li>
 </ol>
 <p>$\mathbf{s}^{\text {task }}$ are softmax-normalized weights and scalar parameter $\gamma^{\text {task }}$ allows the task model to scale the entire ELMo vector.</p>
@@ -283,8 +283,8 @@ $$</li>
 <li>run biLM to get layer representations for each word</li>
 <li>let the end task learn a linear combination of these representations.</li>
 </ol>
-<p>freeze weights of biLM and pass the ELMo enhanced representation $\left[\mathbf{x}_{k} ; \mathbf{E L M o}_{k}^{\text {task }}\right]$ into the task RNN.</p>
-<p>observe further improvements by also including ELMo at the output of the task RNN by introducing another set of output specific linear weights and replacing $\mathbf{h}_k$ with $\left[\mathbf{h}_{k} ; \mathbf{E L M o}_{k}^{\text {task }}\right]$</p>
+<p>freeze weights of biLM and pass the ELMo enhanced representation $[\mathbf{x}_{k} ; \mathbf{E L M o}_{k}^{\text {task }}]$ into the task RNN.</p>
+<p>observe further improvements by also including ELMo at the output of the task RNN by introducing another set of output specific linear weights and replacing $\mathbf{h}_k$ with $[\mathbf{h}_{k} ; \mathbf{E L M o}_{k}^{\text {task }}]$</p>
 <p>prevent overfit:</p>
 <ul>
 <li>moderate amount of dropout</li>

@@ -50,8 +50,8 @@ semi-supervised:
 ### 3.1 Bidirectional language models
 $$
 \begin{array}{l}
-\sum\_{k=1}^{N}\left(\log p\left(t\_{k} \mid t\_{1}, \ldots, t\_{k-1} ; \Theta\_{x}, \vec{\Theta}\_{L S T M}, \Theta\_{s}\right)\right. \\\\
-\left.\quad+\log p\left(t\_{k} \mid t\_{k+1}, \ldots, t\_{N} ; \Theta\_{x}, \overleftarrow{\Theta}\_{L S T M}, \Theta\_{s}\right)\right)
+\sum\_{k=1}^{N}(\log p(t\_{k} \mid t\_{1}, \ldots, t\_{k-1} ; \Theta\_{x}, \vec{\Theta}\_{L S T M}, \Theta\_{s}). \\\\
+.\quad+\log p(t\_{k} \mid t\_{k+1}, \ldots, t\_{N} ; \Theta\_{x}, \overleftarrow{\Theta}\_{L S T M}, \Theta\_{s}))
 \end{array}
 $$
 
@@ -61,22 +61,22 @@ $$
 a L-layer biLM computes a set of $2L+1$ representations:
 $$
 \begin{aligned}
-R\_{k} &=\left\{\mathbf{x}\_{k}^{L M}, \overrightarrow{\mathbf{h}}\_{k, j}^{L M}, \overleftarrow{\mathbf{h}}\_{k, j}^{L M} \mid j=1, \ldots, L\right\} \\\\
-&=\left\{\mathbf{h}\_{k, j}^{L M} \mid j=0, \ldots, L\right\}
+R\_{k} &=\{\mathbf{x}\_{k}^{L M}, \overrightarrow{\mathbf{h}}\_{k, j}^{L M}, \overleftarrow{\mathbf{h}}\_{k, j}^{L M} \mid j=1, \ldots, L\} \\\\
+&=\{\mathbf{h}\_{k, j}^{L M} \mid j=0, \ldots, L\}
 \end{aligned}
 $$
 
 collapses all layers in $R$ int a single vector:
 $$
-\mathbf{E L M o}\_{k}=E\left(R\_{k} ; \mathbf{\Theta}\_{e}\right)
+\mathbf{E L M o}\_{k}=E(R\_{k} ; \mathbf{\Theta}\_{e})
 $$
 1. simplest way (as in TagLM (Peters et al., 2017) and CoVe (McCann et al., 2017).):
 $$
-E\left(R\_{k}\right)=\mathbf{h}\_{k, L}^{L M}
+E(R\_{k})=\mathbf{h}\_{k, L}^{L M}
 $$
 2. task specific weighting:
 $$
-\mathbf{E L M o}\_{k}^{t a s k}=E\left(R\_{k} ; \Theta^{t a s k}\right)=\gamma^{t a s k} \sum\_{j=0}^{L} s\_{j}^{t a s k} \mathbf{h}\_{k, j}^{L M}
+\mathbf{E L M o}\_{k}^{t a s k}=E(R\_{k} ; \Theta^{t a s k})=\gamma^{t a s k} \sum\_{j=0}^{L} s\_{j}^{t a s k} \mathbf{h}\_{k, j}^{L M}
 $$
 
 $\mathbf{s}^{\text {task }}$ are softmax-normalized weights and scalar parameter $\gamma^{\text {task }}$ allows the task model to scale the entire ELMo vector.
@@ -85,9 +85,9 @@ $\mathbf{s}^{\text {task }}$ are softmax-normalized weights and scalar parameter
 1. run biLM to get layer representations for each word
 2. let the end task learn a linear combination of these representations.
 
-freeze weights of biLM and pass the ELMo enhanced representation $\left[\mathbf{x}\_{k} ; \mathbf{E L M o}\_{k}^{\text {task }}\right]$ into the task RNN.
+freeze weights of biLM and pass the ELMo enhanced representation $[\mathbf{x}\_{k} ; \mathbf{E L M o}\_{k}^{\text {task }}]$ into the task RNN.
 
-observe further improvements by also including ELMo at the output of the task RNN by introducing another set of output specific linear weights and replacing $\mathbf{h}_k$ with $\left[\mathbf{h}\_{k} ; \mathbf{E L M o}\_{k}^{\text {task }}\right]$
+observe further improvements by also including ELMo at the output of the task RNN by introducing another set of output specific linear weights and replacing $\mathbf{h}_k$ with $[\mathbf{h}\_{k} ; \mathbf{E L M o}\_{k}^{\text {task }}]$
 
 prevent overfit:
 - moderate amount of dropout
