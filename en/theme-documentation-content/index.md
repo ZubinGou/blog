@@ -342,7 +342,7 @@ Gone camping! :(fas fa-campground fa-fw): Be back soon.
 
 That is so funny! :(far fa-grin-tears):
 
-### Escape character {#escape-character}
+<!-- ### Escape character {#escape-character}
 
 In some special cases (when writing this theme documentation :(far fa-grin-squint-tears):),
 your content will conflict with basic or extended Markdown syntax, and it is inevitable.
@@ -375,5 +375,5 @@ Another example is:
 
 The rendered output looks like this:
 
-**[link{?]}(#escape-character)** instead of **[link](#escape-character)**.
+**[link{?]}(#escape-character)** instead of **[link](#escape-character)**. -->
 

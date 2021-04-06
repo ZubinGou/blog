@@ -341,7 +341,7 @@ $$ \ce{Hg^2+ ->[I-] HgI2 ->[I-] [Hg^{II}I4]^2-} $$
 
 真开心! :(far fa-grin-tears):
 
-### 转义字符 {#escape-character}
+<!-- ### 转义字符 {#escape-character}
 
 在某些特殊情况下 (编写这个主题文档时 :(far fa-grin-squint-tears):),
 你的文章内容会与 Markdown 的基本或者扩展语法冲突, 并且无法避免.
@@ -374,5 +374,5 @@ $$ \ce{Hg^2+ ->[I-] HgI2 ->[I-] [Hg^{II}I4]^2-} $$
 
 呈现的输出效果如下:
 
-**[link{?]}(#escape-character)** 而不是 **[link](#escape-character)**.
+**[link{?]}(#escape-character)** 而不是 **[link](#escape-character)**. -->
 
