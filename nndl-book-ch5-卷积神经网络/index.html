@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《神经网络与深度学习》第5章 - 卷积神经网络 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《神经网络与深度学习》第5章 - 卷积神经网络" />
+<meta property="og:description" content="卷积神经网络（Convolutional Neural Network，CNN 或 ConvNet）：一种具有局部连接、权重共享等特性的深层前馈神经网络 FC处" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://binko.me/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" />
+<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="article:published_time" content="2021-02-15T13:56:11+08:00" />
+<meta property="article:modified_time" content="2021-02-15T13:56:11+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://binko.me/logo.png"/>
+
+<meta name="twitter:title" content="《神经网络与深度学习》第5章 - 卷积神经网络"/>
+<meta name="twitter:description" content="卷积神经网络（Convolutional Neural Network，CNN 或 ConvNet）：一种具有局部连接、权重共享等特性的深层前馈神经网络 FC处"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="prev" href="https://binko.me/nnlp-notes/" /><link rel="next" href="https://binko.me/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《神经网络与深度学习》第5章 - 卷积神经网络",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/binko.me\/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "神经网络与深度学习, NLP, notes, ML","wordcount":  3515 ,
+        "url": "https:\/\/binko.me\/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C\/","datePublished": "2021-02-15T13:56:11+08:00","dateModified": "2021-02-15T13:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          displayMath: [['$$','$$']],
+          processEscapes: true,
+          processEnvironments: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          TeX: {
+              equationNumbers: { autoNumber: "AMS" },
+              extensions: ["AMSmath.js", "AMSsymbols.js"]
+          }
+      }
+  });
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《神经网络与深度学习》第5章 - 卷积神经网络</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/deep-learning/"><i class="far fa-folder fa-fw"></i>Deep Learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-02-15">2021-02-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3515 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;<span id="/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="leancloud_visitors" data-flag-title="《神经网络与深度学习》第5章 - 卷积神经网络">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#51-卷积">5.1 卷积</a>
+      <ul>
+        <li><a href="#511-卷积的定义">5.1.1 卷积的定义</a>
+          <ul>
+            <li><a href="#一维卷积">一维卷积</a></li>
+            <li><a href="#二维卷积">二维卷积</a></li>
+          </ul>
+        </li>
+        <li><a href="#512-互相关">5.1.2 互相关</a></li>
+        <li><a href="#513-卷积的变种">5.1.3 卷积的变种</a></li>
+        <li><a href="#514-卷积的数学性质">5.1.4 卷积的数学性质</a></li>
+      </ul>
+    </li>
+    <li><a href="#52-卷积神经网络">5.2 卷积神经网络</a>
+      <ul>
+        <li><a href="#521-卷积代替全连接">5.2.1 卷积代替全连接</a></li>
+        <li><a href="#522-卷积层">5.2.2 卷积层</a></li>
+        <li><a href="#523-汇聚层">5.2.3 汇聚层</a></li>
+        <li><a href="#524-卷积网络的整体结构">5.2.4 卷积网络的整体结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#53-参数学习">5.3 参数学习</a>
+      <ul>
+        <li><a href="#531-卷积神经网络的反向传播算法">5.3.1 卷积神经网络的反向传播算法</a>
+          <ul>
+            <li><a href="#汇聚层">汇聚层</a></li>
+            <li><a href="#卷积层">卷积层</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#54-几种典型的cnn">5.4 几种典型的CNN</a>
+      <ul>
+        <li><a href="#541-lenet-5">5.4.1 LeNet-5</a></li>
+        <li><a href="#542-alexnet">5.4.2 AlexNet</a></li>
+        <li><a href="#543-inception网络">5.4.3 Inception网络</a></li>
+        <li><a href="#残差网络">残差网络</a></li>
+      </ul>
+    </li>
+    <li><a href="#55-其他卷积方式">5.5 其他卷积方式</a>
+      <ul>
+        <li><a href="#551-转置卷积">5.5.1 转置卷积</a></li>
+        <li><a href="#552-空洞卷积">5.5.2 空洞卷积</a></li>
+      </ul>
+    </li>
+    <li><a href="#习题">习题</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#习题-5-1-1证明公式-56-可以近似为离散信号序列-𝑥𝑡-关于-𝑡-的二阶微分2对于二维卷积设计一种滤波器来近似实现对二维输入信号的二阶微分">习题 5-1 1）证明公式 (5.6) 可以近似为离散信号序列 𝑥(𝑡) 关于 𝑡 的二阶微分；2）对于二维卷积，设计一种滤波器来近似实现对二维输入信号的二阶微分．</a></li>
+            <li><a href="#习题-5-2-证明宽卷积具有交换性即公式-513">习题 5-2 证明宽卷积具有交换性，即公式 (5.13)．</a></li>
+            <li><a href="#习题-5-3-分析卷积神经网络中用-1--1-的卷积核的作用">习题 5-3 分析卷积神经网络中用 1 × 1 的卷积核的作用．</a></li>
+            <li><a href="#习题5-4-对于一个输入为100--100--256的特征映射组使用3--3的卷积核输出为-100--100--256-的特征映射组的卷积层求其时间和空间复杂度如果引入一个-1--1-卷积核先得到-100--100--64-的特征映射再进行-3--3-的卷积得到100--100--256-的特征映射组求其时间和空间复杂度">习题5-4 对于一个输入为100 × 100 × 256的特征映射组，使用3 × 3的卷积核，输出为 100 × 100 × 256 的特征映射组的卷积层，求其时间和空间复杂度．如果引入一个 1 × 1 卷积核，先得到 100 × 100 × 64 的特征映射，再进行 3 × 3 的卷积，得到100 × 100 × 256 的特征映射组，求其时间和空间复杂度．</a></li>
+            <li><a href="#习题-5-5-对于一个二维卷积输入为-3--3卷积核大小为-2--2试将卷积操作重写为仿射变换的形式-参见公式545">习题 5-5 对于一个二维卷积，输入为 3 × 3，卷积核大小为 2 × 2，试将卷积操作重写为仿射变换的形式． 参见公式(5.45)．</a></li>
+            <li><a href="#习题-5-6-计算函数-𝑦--max𝑥1---𝑥𝐷-和函数-𝑦--arg-max𝑥1---𝑥𝐷-的梯度">习题 5-6 计算函数 𝑦 = max(𝑥1, ⋯ , 𝑥𝐷) 和函数 𝑦 = arg max(𝑥1, ⋯ , 𝑥𝐷) 的梯度．</a></li>
+            <li><a href="#习题-5-7-忽略激活函数分析卷积网络中卷积层的前向计算和反向传播公式539是一种转置关系">习题 5-7 忽略激活函数，分析卷积网络中卷积层的前向计算和反向传播（公式(5.39)）是一种转置关系．</a></li>
+            <li><a href="#习题5-8-在空洞卷积中当卷积核大小为𝐾膨胀率为𝐷-时如何设置零填充𝑃-的值以使得卷积为等宽卷积">习题5-8 在空洞卷积中，当卷积核大小为𝐾，膨胀率为𝐷 时，如何设置零填充𝑃 的值以使得卷积为等宽卷积．</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>卷积神经网络（Convolutional Neural Network，CNN 或 ConvNet）：一种具有局部连接、权重共享等特性的深层前馈神经网络</p>
+<p>FC处理图像问题：</p>
+<ol>
+<li>参数过多</li>
+<li>局部不变性</li>
+</ol>
+<p>启发：感受野（Receptive Filed），视觉神经元只接收视网膜特定区域的信号。</p>
+<p>CNN一般组成：卷积层 + 汇聚层 + 全连接层，交叉堆叠</p>
+<p>CNN结构特性：局部连接、权重共享、汇聚</p>
+<ul>
+<li>一定程度的平移、缩放和旋转不变性（？）</li>
+</ul>
+<h2 id="51-卷积">5.1 卷积</h2>
+<h3 id="511-卷积的定义">5.1.1 卷积的定义</h3>
+<h4 id="一维卷积">一维卷积</h4>
+<p>长度K的滤波器与信号序列$x_1,x_2,&hellip;$的卷积：
+$$
+y_{t}=\sum_{k=1}^{K} w_{k} x_{t-k+1}
+$$</p>
+<ul>
+<li>滤波器（Filter）或卷积核（Convolution Kernel）：$w_{1}, w_{2}, \cdots$</li>
+<li>简化：$y=w * x$</li>
+<li>$\boldsymbol{w}=[1 / K, \cdots, 1 / K]$时，卷积相当于简单移动平均</li>
+<li>$\boldsymbol{w}=[1,-2,1]$时，近似信号序列的二阶微分
+$$
+x^{\prime \prime}(t)=x(t+1)+x(t-1)-2 x(t)
+$$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/cccb0297140349709aa69b71464c4e04.png"
+        data-srcset="../../_resources/cccb0297140349709aa69b71464c4e04.png, ../../_resources/cccb0297140349709aa69b71464c4e04.png 1.5x, ../../_resources/cccb0297140349709aa69b71464c4e04.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/cccb0297140349709aa69b71464c4e04.png"
+        title="42392b24f2b3bfe5966f35ec1078d264.png" /></li>
+<li>上图卷积分别检测信号序列的低频和高频信息</li>
+</ul>
+<h4 id="二维卷积">二维卷积</h4>
+<p>给定图像 $\boldsymbol{X} \in \mathbb{R}^{M \times N}$ 和一个滤波器 $\boldsymbol{W} \in \mathbb{R}^{U \times V}$，卷积为：
+$$
+y_{i j}=\sum_{u=1}^{U} \sum_{v=1}^{V} w_{u v} x_{i-u+1, j-v+1}
+$$</p>
+<ul>
+<li>简化：$\boldsymbol{Y}=\boldsymbol{W} * \boldsymbol{X}$</li>
+<li>均值滤波（Mean Filter）即是一种二维卷积</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/cedc8d2749484c6d8e2e683780776bdf.png"
+        data-srcset="../../_resources/cedc8d2749484c6d8e2e683780776bdf.png, ../../_resources/cedc8d2749484c6d8e2e683780776bdf.png 1.5x, ../../_resources/cedc8d2749484c6d8e2e683780776bdf.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/cedc8d2749484c6d8e2e683780776bdf.png"
+        title="9d165e65f8c62b38985d0315ffa315e4.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/d7b3859aa0d14db0930e5eca4bdf398a.png"
+        data-srcset="../../_resources/d7b3859aa0d14db0930e5eca4bdf398a.png, ../../_resources/d7b3859aa0d14db0930e5eca4bdf398a.png 1.5x, ../../_resources/d7b3859aa0d14db0930e5eca4bdf398a.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/d7b3859aa0d14db0930e5eca4bdf398a.png"
+        title="d42af1e0a6c946685e264d2cdbe0a736.png" /></p>
+<ul>
+<li>第一个为高斯滤波器，后俩用来提取边缘特征</li>
+</ul>
+<h3 id="512-互相关">5.1.2 互相关</h3>
+<p>互相关（Cross-Correlation），衡量两个序列相关性的函数，也称为不翻转卷积（相比卷积，卷积核不同翻转）：
+$$
+y_{i j}=\sum_{u=1}^{U} \sum_{v=1}^{V} w_{u v} x_{i+u-1, j+v-1}
+$$
+即：
+$$
+\begin{aligned}
+\boldsymbol{Y} &amp;=\boldsymbol{W} \otimes \boldsymbol{X} \\<br>
+&amp;=\operatorname{rot} 180(\boldsymbol{W}) * \boldsymbol{X}
+\end{aligned}
+$$</p>
+<p>卷积核可学习时，卷积和互相关能力等价，为了实现方便，一般用互相关代替卷积。</p>
+<h3 id="513-卷积的变种">5.1.3 卷积的变种</h3>
+<p>步长（Stride）：卷积核滑动的时间间隔
+零填充（Zero Padding）：输入向量两端补零
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/69c49ec1b0d1492c9142f5b31cb66b08.png"
+        data-srcset="../../_resources/69c49ec1b0d1492c9142f5b31cb66b08.png, ../../_resources/69c49ec1b0d1492c9142f5b31cb66b08.png 1.5x, ../../_resources/69c49ec1b0d1492c9142f5b31cb66b08.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/69c49ec1b0d1492c9142f5b31cb66b08.png"
+        title="49ead6aa388852c7484a5d93b64da0a9.png" /></p>
+<p>设卷积大小为K，常用卷积（步长S均为1）：</p>
+<ol>
+<li>窄卷积（Narrow Convolution）：P=1</li>
+<li>宽卷积（Wide Convolution）：P=K-1</li>
+<li>等宽卷积（Equal-Width Convolution）：P=(K-1)/2</li>
+</ol>
+<h3 id="514-卷积的数学性质">5.1.4 卷积的数学性质</h3>
+<ol>
+<li>交换性</li>
+</ol>
+<ul>
+<li>不限制长度的两个卷积信号的卷积具有交换性：
+$$y=y * x$$</li>
+<li>固定长度信息和卷积核的宽卷积也具有交换性（？证明）：
+$$\operatorname{rot} 180(\boldsymbol{W}) \tilde{\otimes} \boldsymbol{X}=\operatorname{rot} 180(\boldsymbol{X}) \tilde{\otimes} \boldsymbol{W}$$</li>
+</ul>
+<ol start="2">
+<li>导数
+假设 $\boldsymbol{Y}=\boldsymbol{W} \otimes \boldsymbol{X}$，其中 $\boldsymbol{X} \in \mathbb{R}^{M \times N}, \boldsymbol{W} \in \mathbb{R}^{U \times V}, \boldsymbol{Y} \in \mathbb{R}^{(M-U+1) \times(N-V+1)}$，函数  $f(\boldsymbol{Y}) \in \mathbb{R}$ 为一个标量函数, 则：
+$$
+\begin{aligned}
+\frac{\partial f(\boldsymbol{Y})}{\partial w_{u v}} &amp;=\sum_{i=1}^{M-U+1 N-V+1} \frac{\partial y_{i j}}{\partial w_{u v}} \frac{\partial f(\boldsymbol{Y})}{\partial y_{i j}} \\<br>
+&amp;=\sum_{i=1}^{M-U+1} \sum_{j=1}^{N-V+1} x_{i+u-1, j+v-1} \frac{\partial f(\boldsymbol{Y})}{\partial y_{i j}} \\<br>
+&amp;=\sum_{i=1}^{M-U+1} \sum_{j=1}^{N-V+1} \frac{\partial f(\boldsymbol{Y})}{\partial y_{i j}} x_{u+i-1, v+j-1}
+\end{aligned}
+$$</li>
+</ol>
+<p>即$f(Y)$关于$W$的偏导数为$X$和$\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{Y}}$的卷积（互相关）：
+$$
+\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{W}}=\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{Y}} \otimes \boldsymbol{X}
+$$</p>
+<p>同理：
+$$
+\begin{aligned}
+\frac{\partial f(\boldsymbol{Y})}{\partial x_{s t}} &amp;=\sum_{i=1}^{M-U+1} \sum_{j=1}^{N-V+1} \frac{\partial y_{i j}}{\partial x_{s t}} \frac{\partial f(\boldsymbol{Y})}{\partial y_{i j}} \\<br>
+&amp;=\sum_{i=1}^{M-U+1 N-V+1} \sum_{j=1}^{M} w_{S-i+1, t-j+1} \frac{\partial f(\boldsymbol{Y})}{\partial y_{i j}}
+\end{aligned}
+$$</p>
+<p>即$f(Y)$关于$X$的偏导数为$W$和$\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{Y}}$的宽卷积（互相关）：
+$$
+\begin{aligned}
+\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{X}} &amp;=\operatorname{rot} 180\left(\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{Y}}\right) \tilde{\otimes} \boldsymbol{W} \\<br>
+&amp;=\operatorname{rot} 180(\boldsymbol{W}) \tilde{\otimes} \frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{Y}}
+\end{aligned}
+$$</p>
+<h2 id="52-卷积神经网络">5.2 卷积神经网络</h2>
+<h3 id="521-卷积代替全连接">5.2.1 卷积代替全连接</h3>
+<p>$$
+\boldsymbol{z}^{(l)}=\boldsymbol{w}^{(l)} \otimes \boldsymbol{a}^{(l-1)}+b^{(l)}
+$$</p>
+<p>卷积层性质：</p>
+<ul>
+<li>局部连接</li>
+<li>权重共享：可以理解为一个卷积核捕捉一种局部特征</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/3f67c0bd3c0a4977b0a9b74feebe5092.png"
+        data-srcset="../../_resources/3f67c0bd3c0a4977b0a9b74feebe5092.png, ../../_resources/3f67c0bd3c0a4977b0a9b74feebe5092.png 1.5x, ../../_resources/3f67c0bd3c0a4977b0a9b74feebe5092.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/3f67c0bd3c0a4977b0a9b74feebe5092.png"
+        title="b362404d149f1a523d826c16fdc86a29.png" /></p>
+<p>卷积层参数只有K维权重$w^{(l)}$和一维偏置$b^{(l)}$
+神经元数量满足（默认步长1，无零填充）：
+$$
+\text { } M_{l}=M_{l-1}-K+1
+$$</p>
+<h3 id="522-卷积层">5.2.2 卷积层</h3>
+<p>特征映射（Feature Map）：一幅图像（或其他特征映射）在经过卷积提取到的特征，每个特征映射可以作为一类抽取的图像特征
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/8c84ce55a7ac4cf78d5764c21be0799f.png"
+        data-srcset="../../_resources/8c84ce55a7ac4cf78d5764c21be0799f.png, ../../_resources/8c84ce55a7ac4cf78d5764c21be0799f.png 1.5x, ../../_resources/8c84ce55a7ac4cf78d5764c21be0799f.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/8c84ce55a7ac4cf78d5764c21be0799f.png"
+        title="6c90f149f197867324e0a040dee5ff21.png" /></p>
+<p>$$
+X \in \mathbb{R}^{M \times N \times D}
+$$
+$$
+y \in \mathbb{R}^{M^{\prime} \times N^{\prime} \times P}
+$$
+$$
+\mathcal{W} \in \mathbb{R}^{U \times V \times P \times D}
+$$
+$$
+\begin{array}{l}
+\boldsymbol{Z}^{p}=\boldsymbol{W}^{p} \otimes \boldsymbol{X}+b^{p}=\sum_{d=1}^{D} \boldsymbol{W}^{p, d} \otimes \boldsymbol{X}^{d}+b^{p} \\<br>
+\boldsymbol{Y}^{p}=f\left(\boldsymbol{Z}^{p}\right)
+\end{array}
+$$</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/2b93459095c741919e90314518612270.png"
+        data-srcset="../../_resources/2b93459095c741919e90314518612270.png, ../../_resources/2b93459095c741919e90314518612270.png 1.5x, ../../_resources/2b93459095c741919e90314518612270.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/2b93459095c741919e90314518612270.png"
+        title="539df3c8e2119c3438127509404ab4fd.png" /></p>
+<p>参数个数：$P \times D \times(U \times V)+P$</p>
+<h3 id="523-汇聚层">5.2.3 汇聚层</h3>
+<p>汇聚层（Pooling Layer）也叫子采样层（Subsampling Layer）：促进特征选择，降低特征/参数数量，避免过拟合</p>
+<p>汇聚（Pooling）是指对每个区域进行下采样（Down Sampling）得到一个值，作为这个区域的概括</p>
+<p>常用汇聚函数：</p>
+<ol>
+<li>最大汇聚（Maximum Pooling/ Max Pooling）：$y_{m, n}^{d}=\max _{i \in R_{m, n}^{d}} x_{i}$</li>
+<li>平均汇聚（Mean Pooling）：$y_{m, n}^{d}=\frac{1}{\left|R_{m, n}^{d}\right|} \sum_{i \in R_{m, n}^{d}} x_{i}$</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/0f26c6a440c44d15a4e7b6a4ec57de7d.png"
+        data-srcset="../../_resources/0f26c6a440c44d15a4e7b6a4ec57de7d.png, ../../_resources/0f26c6a440c44d15a4e7b6a4ec57de7d.png 1.5x, ../../_resources/0f26c6a440c44d15a4e7b6a4ec57de7d.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/0f26c6a440c44d15a4e7b6a4ec57de7d.png"
+        title="56d213933845758d9f138d631f4c58a2.png" /></p>
+<p>汇聚层可以看作特殊的卷积层：卷积核大小为$K\times K$，步长为$S\times S$，卷积核为max函数或mean函数</p>
+<h3 id="524-卷积网络的整体结构">5.2.4 卷积网络的整体结构</h3>
+<p>一个典型的卷积网络是由卷积层、汇聚层、全连接层交叉堆叠而成</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/073f38173b2b4f2687d04323a8529e4e.png"
+        data-srcset="../../_resources/073f38173b2b4f2687d04323a8529e4e.png, ../../_resources/073f38173b2b4f2687d04323a8529e4e.png 1.5x, ../../_resources/073f38173b2b4f2687d04323a8529e4e.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/073f38173b2b4f2687d04323a8529e4e.png"
+        title="52be94f6d0a339e8782a8c5263e84833.png" />
+（N为1~100或更大，K一般为0~2）</p>
+<p>目前，趋向于使用小卷积核、深结构、少汇聚层的全卷积网络</p>
+<h2 id="53-参数学习">5.3 参数学习</h2>
+<p>CNN参数只有卷积核和偏置，对于：
+$$
+\boldsymbol{Z}^{(l, p)}=\sum_{d=1}^{D} \boldsymbol{W}^{(l, p, d)} \otimes \boldsymbol{X}^{(l-1, d)}+b^{(l, p)}
+$$</p>
+<p>偏导：
+$$
+\begin{aligned}
+\frac{\partial \mathcal{L}}{\partial \boldsymbol{W}^{(l, p, d)}} &amp;=\frac{\partial \mathcal{L}}{\partial \boldsymbol{Z}^{(l, p)}} \otimes \boldsymbol{X}^{(l-1, d)} \\<br>
+&amp;=\delta^{(l, p)} \otimes \boldsymbol{X}^{(l-1, d)}
+\end{aligned}
+$$
+$$
+\frac{\partial \mathcal{L}}{\partial b^{(l, p)}}=\sum_{i, j}\left[\delta^{(l, p)}\right]_{i, j}
+$$</p>
+<h3 id="531-卷积神经网络的反向传播算法">5.3.1 卷积神经网络的反向传播算法</h3>
+<h4 id="汇聚层">汇聚层</h4>
+<p>上采样与l层特征映射的激活值偏导数逐元素相乘：
+$$
+\begin{aligned}
+\delta^{(l, p)} &amp; \triangleq \frac{\partial \mathcal{L}}{\partial Z^{(l, p)}} \\<br>
+&amp;=\frac{\partial X^{(l, p)}}{\partial Z^{(l, p)}} \frac{\partial Z^{(l+1, p)}}{\partial \boldsymbol{X}^{(l, p)}} \frac{\partial \mathcal{L}}{\partial \boldsymbol{Z}^{(l+1, p)}} \\<br>
+&amp;=f_{l}^{\prime}\left(\boldsymbol{Z}^{(l, p)}\right) \odot \operatorname{up}\left(\delta^{(l+1, p)}\right)
+\end{aligned}
+$$</p>
+<h4 id="卷积层">卷积层</h4>
+<p>$$
+\begin{aligned}
+\delta^{(l, p)} &amp; \triangleq \frac{\partial \mathcal{L}}{\partial Z^{(l, p)}} \\<br>
+&amp;=\frac{\partial X^{(l, p)}}{\partial Z^{(l, p)}} \frac{\partial Z^{(l+1, p)}}{\partial \boldsymbol{X}^{(l, p)}} \frac{\partial \mathcal{L}}{\partial \boldsymbol{Z}^{(l+1, p)}} \\<br>
+&amp;=f_{l}^{\prime}\left(\boldsymbol{Z}^{(l, p)}\right) \odot \operatorname{up}\left(\delta^{(l+1, p)}\right)
+\end{aligned}
+$$</p>
+<h2 id="54-几种典型的cnn">5.4 几种典型的CNN</h2>
+<h3 id="541-lenet-5">5.4.1 LeNet-5</h3>
+<p>LeNet-5[LeCun et al., 1998]</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/1bc54a1bb40d4c0c84a4a80d78d7a5b9.png"
+        data-srcset="../../_resources/1bc54a1bb40d4c0c84a4a80d78d7a5b9.png, ../../_resources/1bc54a1bb40d4c0c84a4a80d78d7a5b9.png 1.5x, ../../_resources/1bc54a1bb40d4c0c84a4a80d78d7a5b9.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/1bc54a1bb40d4c0c84a4a80d78d7a5b9.png"
+        title="49c9858119839c413f3c8ccb2d069962.png" /></p>
+<h3 id="542-alexnet">5.4.2 AlexNet</h3>
+<p>AlexNet[Krizhevsky et al., 2012]是第一个现代深度的CNN</p>
+<ul>
+<li>2012 年ImageNet 图像分类冠军</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/71a1560d5ba5426ba28b6b4672cf0bc9.png"
+        data-srcset="../../_resources/71a1560d5ba5426ba28b6b4672cf0bc9.png, ../../_resources/71a1560d5ba5426ba28b6b4672cf0bc9.png 1.5x, ../../_resources/71a1560d5ba5426ba28b6b4672cf0bc9.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/71a1560d5ba5426ba28b6b4672cf0bc9.png"
+        title="bd684df33fe25b753c520ff8d2080023.png" /></p>
+<h3 id="543-inception网络">5.4.3 Inception网络</h3>
+<p>Inception 网络是由有多个 Inception 模块和少量的汇聚层堆叠而成</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/72b4839baca24cacb3b484e7ee6a6f17.png"
+        data-srcset="../../_resources/72b4839baca24cacb3b484e7ee6a6f17.png, ../../_resources/72b4839baca24cacb3b484e7ee6a6f17.png 1.5x, ../../_resources/72b4839baca24cacb3b484e7ee6a6f17.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/72b4839baca24cacb3b484e7ee6a6f17.png"
+        title="81efad8436c1a73921b2cbf9cbb7ece9.png" />
+Inception v1：即GoogLeNet[Szegedy et al., 2015]</p>
+<ul>
+<li>2014 年 ImageNet 图像分类冠军</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/a67bed52c7de4f489668a8d219f674b2.png"
+        data-srcset="../../_resources/a67bed52c7de4f489668a8d219f674b2.png, ../../_resources/a67bed52c7de4f489668a8d219f674b2.png 1.5x, ../../_resources/a67bed52c7de4f489668a8d219f674b2.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/a67bed52c7de4f489668a8d219f674b2.png"
+        title="523e2cd40a48759d78e21d88cb9b4624.png" /></p>
+<p>Inception v3 网络：用多层的小卷积核来替换大的卷积核</p>
+<h3 id="残差网络">残差网络</h3>
+<p>残差网络（Residual Network，ResNet）：通过给非线性的卷积层增加直连边（Shortcut Connection）（也称为残差连接 Residual Connection））的方式来提高信息的传播效率</p>
+<p>将目标函数拆分为两部分：恒等函数（Identity Function）和残差函数（Residue Function）：
+$$
+h(\boldsymbol{x})=\underbrace{\boldsymbol{x}}_{\text {恒等函数 }}+\underbrace{(h(\boldsymbol{x})-\boldsymbol{x})}_{\text {残差函数 }}
+$$</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/7355f8f513b34545882c87b384d1e8a4.png"
+        data-srcset="../../_resources/7355f8f513b34545882c87b384d1e8a4.png, ../../_resources/7355f8f513b34545882c87b384d1e8a4.png 1.5x, ../../_resources/7355f8f513b34545882c87b384d1e8a4.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/7355f8f513b34545882c87b384d1e8a4.png"
+        title="af4e41a34c3babe2823d011c9c969e9e.png" /></p>
+<h2 id="55-其他卷积方式">5.5 其他卷积方式</h2>
+<h3 id="551-转置卷积">5.5.1 转置卷积</h3>
+<p>$$
+\begin{aligned}
+z &amp;=w \otimes x \\<br>
+&amp;=\left[\begin{array}{lllll}
+w_{1} &amp; w_{2} &amp; w_{3} &amp; 0 &amp; 0 \\<br>
+0 &amp; w_{1} &amp; w_{2} &amp; w_{3} &amp; 0 \\<br>
+0 &amp; 0 &amp; w_{1} &amp; w_{2} &amp; w_{3}
+\end{array}\right] \boldsymbol{x} \\<br>
+&amp;=\boldsymbol{C} \boldsymbol{x}
+\end{aligned}
+$$</p>
+<p>反过来，仿射矩阵的转置：
+$$
+\begin{aligned}
+\boldsymbol{x} &amp;=\boldsymbol{C}^{\top} \boldsymbol{z} \\<br>
+&amp;=\left[\begin{array}{lll}
+w_{1} &amp; 0 &amp; 0 \\<br>
+w_{2} &amp; w_{1} &amp; 0 \\<br>
+w_{3} &amp; w_{2} &amp; w_{1} \\<br>
+0 &amp; w_{3} &amp; w_{2} \\<br>
+0 &amp; 0 &amp; w_{3}
+\end{array}\right] \boldsymbol{z} \\<br>
+&amp;=\operatorname{rot} 180(\boldsymbol{w}) \tilde{\otimes} z
+\end{aligned}
+$$</p>
+<p>我们将这种低维特征映射到高维特征的卷积操作成为转置卷积（Transposed Convolution），也称为反卷积（Deconvolution）</p>
+<p>卷积层的前向计算和后向传播也是一种转置关系
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/9b5fe78043854a36a59bd7045bb656bb.png"
+        data-srcset="../../_resources/9b5fe78043854a36a59bd7045bb656bb.png, ../../_resources/9b5fe78043854a36a59bd7045bb656bb.png 1.5x, ../../_resources/9b5fe78043854a36a59bd7045bb656bb.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/9b5fe78043854a36a59bd7045bb656bb.png"
+        title="e3a97d5124dde886cf6458eb45ddb5d5.png" /></p>
+<p>微步卷积：步长 $S\lt 1$ 的转置卷积</p>
+<h3 id="552-空洞卷积">5.5.2 空洞卷积</h3>
+<p>空洞卷积（Atrous Convolution）：不增加参数，增加了输出单元感受野，也成为膨胀（Dilated Convolution）</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/a32ab208685b436bbfc4f4d10f4b46a4.png"
+        data-srcset="../../_resources/a32ab208685b436bbfc4f4d10f4b46a4.png, ../../_resources/a32ab208685b436bbfc4f4d10f4b46a4.png 1.5x, ../../_resources/a32ab208685b436bbfc4f4d10f4b46a4.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/a32ab208685b436bbfc4f4d10f4b46a4.png"
+        title="446b49a96d0043ab3741782300a0c351.png" /></p>
+<blockquote>
+<p>空洞卷积中选择D为半径的圆上的点，感受野是不是更加合理？考虑图像旋转后，方形的点位捕捉特征能力可能受到影响。
+进而，用圆形的卷积效果是否会更好？运算速度呢？</p>
+</blockquote>
+<h2 id="习题">习题</h2>
+<h4 id="习题-5-1-1证明公式-56-可以近似为离散信号序列-𝑥𝑡-关于-𝑡-的二阶微分2对于二维卷积设计一种滤波器来近似实现对二维输入信号的二阶微分">习题 5-1 1）证明公式 (5.6) 可以近似为离散信号序列 𝑥(𝑡) 关于 𝑡 的二阶微分；2）对于二维卷积，设计一种滤波器来近似实现对二维输入信号的二阶微分．</h4>
+<ol>
+<li>由导数定义：$x'(t)=x(t)-x(t-1)$，进一步求二阶导数即可</li>
+<li>Laplace operator
+$$
+\nabla^{2} f=\frac{\partial^{2} f}{\partial x^{2}}+\frac{\partial^{2} f}{\partial y^{2}}
+$$
+$$
+\frac{\partial^{2} f}{\partial x^{2}}=f(x+1, y)+f(x-1, y)-2 f(x, y)
+$$
+$$
+\frac{\partial^{2} f}{\partial y^{2}}=f(x, y+1)+f(x, y-1)-2 f(x, y)
+$$
+$$
+\nabla^{2} f(x, y)=f(x+1, y)+f(x-1, y)+f(x, y+1)+f(x, y-1)-4 f(x, y)
+$$</li>
+</ol>
+<p>所以：
+$$
+\mathrm{L} 0=\left[\begin{array}{ccc}
+0 &amp; -1 &amp; 0 \\<br>
+-1 &amp; 4 &amp; -1 \\<br>
+0 &amp; -1 &amp; 0
+\end{array}\right]
+$$</p>
+<h4 id="习题-5-2-证明宽卷积具有交换性即公式-513">习题 5-2 证明宽卷积具有交换性，即公式 (5.13)．</h4>
+<p>抛开padding，只看有效的重叠部分，因为深度D相同，只考虑平面上观察：本质都是就是遍历了两个方形的所有重合摆放方式，将等式一边的图像均翻转180度，可以想象其遍历顺序完全相同。</p>
+<h4 id="习题-5-3-分析卷积神经网络中用-1--1-的卷积核的作用">习题 5-3 分析卷积神经网络中用 1 × 1 的卷积核的作用．</h4>
+<p>1x1卷积核，又称为网中网（Network in Network），对于三维输入时是一个正方形长条，可以用来升维/降维、接一个ReLU增加非线性、channal变换/通道信息交互</p>
+<h4 id="习题5-4-对于一个输入为100--100--256的特征映射组使用3--3的卷积核输出为-100--100--256-的特征映射组的卷积层求其时间和空间复杂度如果引入一个-1--1-卷积核先得到-100--100--64-的特征映射再进行-3--3-的卷积得到100--100--256-的特征映射组求其时间和空间复杂度">习题5-4 对于一个输入为100 × 100 × 256的特征映射组，使用3 × 3的卷积核，输出为 100 × 100 × 256 的特征映射组的卷积层，求其时间和空间复杂度．如果引入一个 1 × 1 卷积核，先得到 100 × 100 × 64 的特征映射，再进行 3 × 3 的卷积，得到100 × 100 × 256 的特征映射组，求其时间和空间复杂度．</h4>
+<ol>
+<li>直接卷积
+<ul>
+<li>时间：$100\times 100\times 256\times 256\times 3\times 3$</li>
+<li>空间：$100\times 100\times 256$</li>
+<li>参数：$(3\times 3 + 1)\times 256 \times 256$</li>
+</ul>
+</li>
+<li>先1x1卷积：
+<ul>
+<li>时间：$100\times 100\times 256\times 64\times 1\times 1+100\times 64\times 256\times 3 \times 3$</li>
+<li>空间：$100\times 100\times 256+100\times 100\times 64$</li>
+<li>参数：$(1\times 1+1)\times 256\times 64+(3\times 3 + 1)\times 64 \times 256$</li>
+</ul>
+</li>
+</ol>
+<h4 id="习题-5-5-对于一个二维卷积输入为-3--3卷积核大小为-2--2试将卷积操作重写为仿射变换的形式-参见公式545">习题 5-5 对于一个二维卷积，输入为 3 × 3，卷积核大小为 2 × 2，试将卷积操作重写为仿射变换的形式． 参见公式(5.45)．</h4>
+<p>$$
+\left[\begin{array}{lcccccccc}
+w_{11} &amp; w_{12} &amp; 0 &amp; w_{21} &amp; w_{22} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\<br>
+0 &amp; w_{11} &amp; w_{12} &amp; 0 &amp; w_{21} &amp; w_{22} &amp; 0 &amp; 0 &amp; 0 \\<br>
+0 &amp; 0 &amp; 0 &amp; w_{11} &amp; w_{12} &amp; 0 &amp; w_{21} &amp; w_{22} &amp; 0 \\<br>
+0 &amp; 0 &amp; 0 &amp; 0 &amp; w_{11} &amp; w_{12} &amp; 0 &amp; w_{21} &amp; w_{22}
+\end{array}\right]
+$$</p>
+<h4 id="习题-5-6-计算函数-𝑦--max𝑥1---𝑥𝐷-和函数-𝑦--arg-max𝑥1---𝑥𝐷-的梯度">习题 5-6 计算函数 𝑦 = max(𝑥1, ⋯ , 𝑥𝐷) 和函数 𝑦 = arg max(𝑥1, ⋯ , 𝑥𝐷) 的梯度．</h4>
+<p>TODO</p>
+<h4 id="习题-5-7-忽略激活函数分析卷积网络中卷积层的前向计算和反向传播公式539是一种转置关系">习题 5-7 忽略激活函数，分析卷积网络中卷积层的前向计算和反向传播（公式(5.39)）是一种转置关系．</h4>
+<p>前向：
+$$
+z^{(l+1)}=W^{(l+1)} z^{(l)}
+$$</p>
+<p>反向：
+$$
+\delta^{(l)}=\left(W^{(l+1)}\right)^{\top} \delta^{(l+1)}
+$$</p>
+<h4 id="习题5-8-在空洞卷积中当卷积核大小为𝐾膨胀率为𝐷-时如何设置零填充𝑃-的值以使得卷积为等宽卷积">习题5-8 在空洞卷积中，当卷积核大小为𝐾，膨胀率为𝐷 时，如何设置零填充𝑃 的值以使得卷积为等宽卷积．</h4>
+<p>$$P=(K-1)/2\times(1+D)$$</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-02-15</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第5章 - 卷积神经网络" data-hashtags="神经网络与深度学习,NLP,notes,ML"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第5章 - 卷积神经网络"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第5章 - 卷积神经网络"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第5章 - 卷积神经网络"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/notes/">Notes</a>,&nbsp;<a href="/tags/ml/">ML</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/nnlp-notes/" class="prev" rel="prev" title="NNLP: A Primer on Neural Network Models for Natural Language Processing"><i class="fas fa-angle-left fa-fw"></i>NNLP: A Primer on Neural Network Models for Natural Language Processing</a>
+            <a href="/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" class="next" rel="next" title="《神经网络与深度学习》第8章 - 注意力机制和外部记忆">《神经网络与深度学习》第8章 - 注意力机制和外部记忆<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
+
+                
+            </div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"QGzwQXOqs5JOhN4RGPOkR2mR-MdYXbMMI","appKey":"WBmoGyJtbqUswvfLh6L8iEBr","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"serverURLs":"https://leancloud.hugoloveit.com","visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

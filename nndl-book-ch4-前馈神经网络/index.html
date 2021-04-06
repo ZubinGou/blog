@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《神经网络与深度学习》第4章 - 前馈神经网络 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《神经网络与深度学习》第4章 - 前馈神经网络" />
+<meta property="og:description" content="ch4 前馈神经网络 4.1 神经元 $$ \begin{aligned} z &amp;=\sum_{d=1}^{D} w_{d} x_{d}&#43;b \\ &amp;=\boldsymbol{w}^{\top} \boldsymbol{x}&#43;b \end{aligned} $$ 净输入z在经过非线性函数 𝑓(⋅) 后，得到神经元的活性值（Activation）$a=f(z)$ 非" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" />
+<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="article:published_time" content="2021-01-22T17:56:11+08:00" />
+<meta property="article:modified_time" content="2021-01-22T17:56:11+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://binko.me/logo.png"/>
+
+<meta name="twitter:title" content="《神经网络与深度学习》第4章 - 前馈神经网络"/>
+<meta name="twitter:description" content="ch4 前馈神经网络 4.1 神经元 $$ \begin{aligned} z &amp;=\sum_{d=1}^{D} w_{d} x_{d}&#43;b \\ &amp;=\boldsymbol{w}^{\top} \boldsymbol{x}&#43;b \end{aligned} $$ 净输入z在经过非线性函数 𝑓(⋅) 后，得到神经元的活性值（Activation）$a=f(z)$ 非"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="prev" href="https://binko.me/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" /><link rel="next" href="https://binko.me/nlp-papersword2vec/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《神经网络与深度学习》第4章 - 前馈神经网络",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/binko.me\/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "神经网络与深度学习, NLP, notes, DL","wordcount":  3822 ,
+        "url": "https:\/\/binko.me\/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C\/","datePublished": "2021-01-22T17:56:11+08:00","dateModified": "2021-01-22T17:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          displayMath: [['$$','$$']],
+          processEscapes: true,
+          processEnvironments: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          TeX: {
+              equationNumbers: { autoNumber: "AMS" },
+              extensions: ["AMSmath.js", "AMSsymbols.js"]
+          }
+      }
+  });
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《神经网络与深度学习》第4章 - 前馈神经网络</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/deep-learning/"><i class="far fa-folder fa-fw"></i>Deep Learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-22">2021-01-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3822 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;<span id="/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="leancloud_visitors" data-flag-title="《神经网络与深度学习》第4章 - 前馈神经网络">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#41-神经元">4.1 神经元</a>
+      <ul>
+        <li><a href="#411-sigmoid-型函数">4.1.1 Sigmoid 型函数</a>
+          <ul>
+            <li><a href="#4111-hard-logistic-函数和-hard-tanh-函数">4.1.1.1 Hard-Logistic 函数和 Hard-Tanh 函数</a></li>
+          </ul>
+        </li>
+        <li><a href="#412-relu-函数">4.1.2 ReLU 函数</a>
+          <ul>
+            <li><a href="#4121-带泄露的-relu">4.1.2.1 带泄露的 ReLU</a></li>
+            <li><a href="#4122-带参数的-relu">4.1.2.2 带参数的 ReLU</a></li>
+            <li><a href="#4123-elu-函数">4.1.2.3 ELU 函数</a></li>
+            <li><a href="#4124-softplus-函数">4.1.2.4 Softplus 函数</a></li>
+          </ul>
+        </li>
+        <li><a href="#413-swish-函数">4.1.3 Swish 函数</a></li>
+        <li><a href="#414-gelu-函数">4.1.4 GELU 函数</a></li>
+        <li><a href="#415-maxout-单元">4.1.5 Maxout 单元</a></li>
+      </ul>
+    </li>
+    <li><a href="#42-网络结构">4.2 网络结构</a>
+      <ul>
+        <li><a href="#421-前馈网络">4.2.1 前馈网络</a></li>
+        <li><a href="#422-记忆网络">4.2.2 记忆网络</a></li>
+        <li><a href="#423-图网络">4.2.3 图网络</a></li>
+      </ul>
+    </li>
+    <li><a href="#43-前馈神经网络">4.3 前馈神经网络</a>
+      <ul>
+        <li><a href="#431-通用近似定理">4.3.1 通用近似定理</a></li>
+        <li><a href="#432-应用到机器学习">4.3.2 应用到机器学习</a></li>
+        <li><a href="#433-参数学习">4.3.3 参数学习</a></li>
+      </ul>
+    </li>
+    <li><a href="#44-反向传播算法">4.4 反向传播算法</a></li>
+    <li><a href="#45-自动梯度计算">4.5 自动梯度计算</a>
+      <ul>
+        <li><a href="#451-数值微分numerical-differentiation">4.5.1 数值微分（Numerical Differentiation）</a></li>
+        <li><a href="#452-符号微分symbolic-differentiation">4.5.2 符号微分（Symbolic Differentiation）</a></li>
+        <li><a href="#453-自动微分automatic-differentiationad">4.5.3 自动微分（Automatic Differentiation，AD）</a></li>
+      </ul>
+    </li>
+    <li><a href="#46-优化问题">4.6 优化问题</a>
+      <ul>
+        <li><a href="#461-非凸优化问题">4.6.1 非凸优化问题</a></li>
+        <li><a href="#462-梯度消失问题">4.6.2 梯度消失问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#47-总结">4.7 总结</a></li>
+    <li><a href="#习题">习题</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#习题-4-1-对于一个神经元-𝜎𝒘t𝒙--𝑏并使用梯度下降优化参数-𝒘-时如果输入𝒙-恒大于-0其收敛速度会比零均值化的输入更慢">习题 4-1 对于一个神经元 𝜎(𝒘T𝒙 + 𝑏)，并使用梯度下降优化参数 𝒘 时，如果输入𝒙 恒大于 0，其收敛速度会比零均值化的输入更慢</a></li>
+            <li><a href="#习题-4-2-试设计一个前馈神经网络来解决-xor-问题要求该前馈神经网络具有两个隐藏神经元和一个输出神经元并使用-relu-作为激活函数">习题 4-2 试设计一个前馈神经网络来解决 XOR 问题，要求该前馈神经网络具有两个隐藏神经元和一个输出神经元，并使用 ReLU 作为激活函数．</a></li>
+            <li><a href="#习题-4-3-试举例说明死亡-relu-问题并提出解决方法">习题 4-3 试举例说明“死亡 ReLU 问题”，并提出解决方法．</a></li>
+            <li><a href="#习题-4-5-如果限制一个神经网络的总神经元数量不考虑输入层为-𝑁--1输入层大小为-𝑀输出层大小为-1隐藏层的层数为-𝐿每个隐藏层的神经元数量为𝑁𝐿-试分析参数数量和隐藏层层数-𝐿-的关系">习题 4-5 如果限制一个神经网络的总神经元数量（不考虑输入层）为 𝑁 + 1，输入层大小为 𝑀，输出层大小为 1，隐藏层的层数为 𝐿，每个隐藏层的神经元数量为𝑁/𝐿 ，试分析参数数量和隐藏层层数 𝐿 的关系</a></li>
+            <li><a href="#习题-4-7-为什么在神经网络模型的结构化风险函数中不对偏置-𝒃-进行正则化">习题 4-7 为什么在神经网络模型的结构化风险函数中不对偏置 𝒃 进行正则化？</a></li>
+            <li><a href="#习题-4-8-为什么在用反向传播算法进行参数学习时要采用随机参数初始化的方式而不是直接令-𝑾--0-𝒃--0">习题 4-8 为什么在用反向传播算法进行参数学习时要采用随机参数初始化的方式而不是直接令 𝑾 = 0, 𝒃 = 0？</a></li>
+            <li><a href="#习题-4-9-梯度消失问题是否可以通过增加学习率来缓解">习题 4-9 梯度消失问题是否可以通过增加学习率来缓解？</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="ch4-前馈神经网络">ch4 前馈神经网络</h1>
+<h2 id="41-神经元">4.1 神经元</h2>
+<p>$$
+\begin{aligned}
+z &amp;=\sum_{d=1}^{D} w_{d} x_{d}+b \\<br>
+&amp;=\boldsymbol{w}^{\top} \boldsymbol{x}+b
+\end{aligned}
+$$</p>
+<p>净输入z在经过非线性函数 𝑓(⋅) 后，得到神经元的活性值（Activation）$a=f(z)$</p>
+<p>非线性函数 𝑓(⋅) 称为激活函数（Activation Function）
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/765784f8325947438aca3ed2be0d20f1.png"
+        data-srcset="../../_resources/765784f8325947438aca3ed2be0d20f1.png, ../../_resources/765784f8325947438aca3ed2be0d20f1.png 1.5x, ../../_resources/765784f8325947438aca3ed2be0d20f1.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/765784f8325947438aca3ed2be0d20f1.png"
+        title="7d28900fd1d1cc8d2b023a0160ff98f3.png" /></p>
+<p>激活函数：</p>
+<ol>
+<li>连续可导（允许少数点上不可导）的非线性函数
+<ul>
+<li>可导则可以直接利用数值优化方法学习参数</li>
+</ul>
+</li>
+<li>导函数尽可能简单，提高计算效率</li>
+<li>导函数值域区间合适，太大太小影响训练效率和稳定性</li>
+</ol>
+<h3 id="411-sigmoid-型函数">4.1.1 Sigmoid 型函数</h3>
+<p>指一类S型函数，两端饱和（正负无穷导函数趋近0），常用的有Logistic、Tanh</p>
+<p>Logistic 函数：
+$$
+\sigma(x)=\frac{1}{1+\exp (-x)}
+$$
+$$
+\sigma^{\prime}(x)=\sigma(x)(1-\sigma(x))
+$$</p>
+<ol>
+<li>其输出直接可以看作概率分布，使得神经网络可以更好地和统计
+学习模型进行结合．</li>
+<li>其可以看作一个软性门（Soft Gate），用来控制其他神经
+元输出信息的数量</li>
+</ol>
+<p>Tanh 函数：
+$$
+\tanh (x)=\frac{\exp (x)-\exp (-x)}{\exp (x)+\exp (-x)}
+$$
+$$
+\tanh (x)=2 \sigma(2 x)-1
+$$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/4152da1b3afd4f868a1b854c911477b5.png"
+        data-srcset="../../_resources/4152da1b3afd4f868a1b854c911477b5.png, ../../_resources/4152da1b3afd4f868a1b854c911477b5.png 1.5x, ../../_resources/4152da1b3afd4f868a1b854c911477b5.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/4152da1b3afd4f868a1b854c911477b5.png"
+        title="8619ce619f2e3511a119f55472700993.png" /></p>
+<ul>
+<li>Tanh函数输出是零中心化的（Zero-Centered），非零中心化的输出会使得其后一层的神经元的输入发生偏置偏移（Bias Shift），并进一步使得梯度下降的收敛速度变慢．</li>
+</ul>
+<h4 id="4111-hard-logistic-函数和-hard-tanh-函数">4.1.1.1 Hard-Logistic 函数和 Hard-Tanh 函数</h4>
+<p>分段函数近似
+$$
+\begin{aligned}
+\text { hard-logistic }(x)=&amp;\left{\begin{array}{ll}
+1 &amp; g_{l}(x) \geq 1 \\<br>
+g_{l} &amp; 0&lt;g_{l}(x)&lt;1 \\<br>
+0 &amp; g_{l}(x) \leq 0
+\end{array}\right.\<br>
+&amp;=\max \left(\min \left(g_{l}(x), 1\right), 0\right) \\<br>
+&amp;=\max (\min (0.25 x+0.5,1), 0) .
+\end{aligned}
+$$
+$$
+\begin{aligned}
+\operatorname{hard}-\tanh (x) &amp;=\max \left(\min \left(g_{t}(x), 1\right),-1\right) \\<br>
+&amp;=\max (\min (x, 1),-1)
+\end{aligned}
+$$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/b9827de3a4014af5a543d60d04f78914.png"
+        data-srcset="../../_resources/b9827de3a4014af5a543d60d04f78914.png, ../../_resources/b9827de3a4014af5a543d60d04f78914.png 1.5x, ../../_resources/b9827de3a4014af5a543d60d04f78914.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/b9827de3a4014af5a543d60d04f78914.png"
+        title="7764b7a97d7da811d2d779bbf79c8574.png" /></p>
+<h3 id="412-relu-函数">4.1.2 ReLU 函数</h3>
+<p>ReLU（Rectified Linear Unit，修正线性单元），也叫Rectifier函数
+$$
+\begin{aligned}
+\operatorname{ReLU}(x) &amp;=\left{\begin{array}{ll}
+x &amp; x \geq 0 \\<br>
+0 &amp; x&lt;0
+\end{array}\right.\<br>
+&amp;=\max (0, x)
+\end{aligned}
+$$
+优点：</p>
+<ol>
+<li>生物学合理性（Biological Plausibility）</li>
+<li>ReLU 具有很好的稀疏性，大约 50% 的神经元会处于激活状态</li>
+<li>相比于 Sigmoid 型函数的两端饱和，ReLU 函数为左饱和函数，一定程度缓解了梯度消失问题，加速收敛</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>非零中心化，给后一层引入偏置偏移</li>
+<li>死亡 ReLU 问题（Dying ReLU Problem）：一次不当更新引起永世不得激活</li>
+</ol>
+<h4 id="4121-带泄露的-relu">4.1.2.1 带泄露的 ReLU</h4>
+<p>$$
+\text { LeakyReLU( } x)=\max (x, \gamma x)
+$$
+避免永不激活</p>
+<h4 id="4122-带参数的-relu">4.1.2.2 带参数的 ReLU</h4>
+<p>$$
+\begin{aligned}
+\operatorname{PReLU}_{i}(x) &amp;=\left{\begin{array}{ll}
+x &amp; \text { if } x&gt;0 \\<br>
+\gamma_{i} x &amp; \text { if } x \leq 0
+\end{array}\right.\<br>
+&amp;=\max (0, x)+\gamma_{i} \min (0, x)
+\end{aligned}
+$$
+引入可学习参数</p>
+<h4 id="4123-elu-函数">4.1.2.3 ELU 函数</h4>
+<p>ELU（Exponential Linear Unit，指数线性单元）
+$$
+\begin{aligned}
+\operatorname{ELU}(x) &amp;=\left{\begin{array}{ll}
+x &amp; \text { if } x&gt;0 \\<br>
+\gamma(\exp (x)-1) &amp; \text { if } x \leq 0
+\end{array}\right.\<br>
+&amp;=\max (0, x)+\min (0, \gamma(\exp (x)-1)),
+\end{aligned}
+$$
+近似的零中心化的非线性函数</p>
+<h4 id="4124-softplus-函数">4.1.2.4 Softplus 函数</h4>
+<p>$$
+\text { Softplus }(x)=\log (1+\exp (x))
+$$</p>
+<ul>
+<li>ReLU平滑版本</li>
+<li>Softplus 函数其导数刚好是 Logistic 函数</li>
+<li>单侧抑制、宽兴奋边界的特性，却没有稀疏激活性</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/94a0b966fbd94803aed687ab707f176b.png"
+        data-srcset="../../_resources/94a0b966fbd94803aed687ab707f176b.png, ../../_resources/94a0b966fbd94803aed687ab707f176b.png 1.5x, ../../_resources/94a0b966fbd94803aed687ab707f176b.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/94a0b966fbd94803aed687ab707f176b.png"
+        title="e689bd1567b62772d50d4e76fc34b674.png" /></p>
+<h3 id="413-swish-函数">4.1.3 Swish 函数</h3>
+<p>一种自门控（Self-Gated）激活函数
+$$
+\operatorname{swish}(x)=x \sigma(\beta x)
+$$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/a21689c07ebc4a94a02d9f27bc33783b.png"
+        data-srcset="../../_resources/a21689c07ebc4a94a02d9f27bc33783b.png, ../../_resources/a21689c07ebc4a94a02d9f27bc33783b.png 1.5x, ../../_resources/a21689c07ebc4a94a02d9f27bc33783b.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/a21689c07ebc4a94a02d9f27bc33783b.png"
+        title="61c3a15d0ff86603bc42a17984b7b470.png" /></p>
+<ul>
+<li>线性函数和 ReLU 函数之间的非线性插值函数，其程度由参数 𝛽 控制</li>
+</ul>
+<h3 id="414-gelu-函数">4.1.4 GELU 函数</h3>
+<p>GELU（Gaussian Error Linear Unit，高斯误差线性单元），也是门控激活函数
+$$
+\operatorname{GELU}(x)=x P(X \leq x)
+$$</p>
+<h3 id="415-maxout-单元">4.1.5 Maxout 单元</h3>
+<ul>
+<li>一种分段线性函数</li>
+<li>输入是上一层的全部原始输出$\boldsymbol{x}=\left[x_{1} ; x_{2} ; \cdots ; x_{D}\right]$</li>
+<li>采用 Maxout 单元的神经网络也叫作Maxout网络
+$$
+z_{k}=\boldsymbol{w}_{k}^{\top} \boldsymbol{x}+b_{k}
+$$
+$$
+\operatorname{maxout}(\boldsymbol{x})=\max _{k \in[1, K]}\left(z_{k}\right)
+$$</li>
+</ul>
+<h2 id="42-网络结构">4.2 网络结构</h2>
+<h3 id="421-前馈网络">4.2.1 前馈网络</h3>
+<ul>
+<li>包括
+<ul>
+<li>全连接前馈网络</li>
+<li>卷积神经网络</li>
+</ul>
+</li>
+<li>可以看作一个<strong>函数</strong></li>
+</ul>
+<h3 id="422-记忆网络">4.2.2 记忆网络</h3>
+<ul>
+<li>也称反馈网络</li>
+<li>具有记忆功能，可以接受历史信息</li>
+<li>信息传播可以单向或双向，可以用有向循环图或者无向图表示</li>
+<li>包括
+<ul>
+<li>循环神经网络</li>
+<li>Hopfield网络</li>
+<li>玻尔兹曼机</li>
+<li>受限玻尔兹曼机</li>
+</ul>
+</li>
+<li>记忆增强神经网络（Memory Augmented Neural Network，MANN）：为了增强记忆容量，引入外部记忆单元和读写机制，eg. 神经图灵机、记忆网络</li>
+<li>可以看作一个<strong>程序</strong></li>
+</ul>
+<h3 id="423-图网络">4.2.3 图网络</h3>
+<ul>
+<li>前馈网络和记忆网络很难处理图结构的数据，如知识图谱、社交网络、分子（Molecular ）网络</li>
+<li>是前馈网络和记忆网络的泛化，实现方式很多
+<ul>
+<li>图卷积网络（Graph Convolutional Network，GCN）</li>
+<li>图注意力网络（Graph Attention Network，GAT）</li>
+<li>消息传递神经网络（Message Passing Neural Network，MPNN）</li>
+</ul>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/c2ebd71d4bc344e59e5d28abf496db9d.png"
+        data-srcset="../../_resources/c2ebd71d4bc344e59e5d28abf496db9d.png, ../../_resources/c2ebd71d4bc344e59e5d28abf496db9d.png 1.5x, ../../_resources/c2ebd71d4bc344e59e5d28abf496db9d.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/c2ebd71d4bc344e59e5d28abf496db9d.png"
+        title="19fa0ec38c25d4584b0b10ca65795869.png" /></p>
+<h2 id="43-前馈神经网络">4.3 前馈神经网络</h2>
+<p>前馈神经网络（Feedforward Neural Network，FNN），也称多层感知器（Multi-Layer Perceptron，MLP）</p>
+<ul>
+<li>MLP叫法不合理，FNN由多层Logistic回归模型（连续）组成，而非多层感知器（非连续）
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/d679ffef7e89410d8e59bdb282bfb5dc.png"
+        data-srcset="../../_resources/d679ffef7e89410d8e59bdb282bfb5dc.png, ../../_resources/d679ffef7e89410d8e59bdb282bfb5dc.png 1.5x, ../../_resources/d679ffef7e89410d8e59bdb282bfb5dc.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/d679ffef7e89410d8e59bdb282bfb5dc.png"
+        title="52b06c39169b6a0c3206d0aaa62d4e7f.png" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/a97981117c22495f9bc41e33aba50a68.png"
+        data-srcset="../../_resources/a97981117c22495f9bc41e33aba50a68.png, ../../_resources/a97981117c22495f9bc41e33aba50a68.png 1.5x, ../../_resources/a97981117c22495f9bc41e33aba50a68.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/a97981117c22495f9bc41e33aba50a68.png"
+        title="b35906494af58ca7ce3a8d49312ab9d1.png" />
+$$
+\begin{array}{l}
+z^{(l)}=W^{(l)} a^{(l-1)}+b^{(l)} \\<br>
+a^{(l)}=f_{l}\left(z^{(l)}\right)
+\end{array}
+$$</li>
+<li>仿射变换（Affine Transformation，线性变化 + 平移） + 非线性变换</li>
+<li>整个网络可以看作一个复合函数𝜙(𝒙; 𝑾, 𝒃)</li>
+</ul>
+<h3 id="431-通用近似定理">4.3.1 通用近似定理</h3>
+<ul>
+<li>FNN可以近似任何连续非线性函数</li>
+<li>通用近似定理（Universal Approximation Theorem）
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/6e13ea82ba584adf8e3ecadfb38a179a.png"
+        data-srcset="../../_resources/6e13ea82ba584adf8e3ecadfb38a179a.png, ../../_resources/6e13ea82ba584adf8e3ecadfb38a179a.png 1.5x, ../../_resources/6e13ea82ba584adf8e3ecadfb38a179a.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/6e13ea82ba584adf8e3ecadfb38a179a.png"
+        title="9f5f96a110ffa5411875972e7294133e.png" />XML</li>
+</ul>
+<h3 id="432-应用到机器学习">4.3.2 应用到机器学习</h3>
+<p>多层前馈神经网络也可以看成是一种特征转换方法，其输出 𝜙(𝒙) 作为分类器的输入进行分类</p>
+<h3 id="433-参数学习">4.3.3 参数学习</h3>
+<p>梯度下降法需要计算损失函数对参数的偏导数，链式法则逐一求偏导比较低效，常用方向传播算法。</p>
+<h2 id="44-反向传播算法">4.4 反向传播算法</h2>
+<p>第 𝑙 层神经元的误差项：
+$$
+\delta^{(l)} \triangleq \frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{z}^{(l)}} \in \mathbb{R}^{M_{l}}
+$$
+误差项𝛿(𝑙) 也间接反映了不同神经元对网络能力的贡献程度，从而比较好地解决了贡献度分配问题（Credit Assignment Problem，CAP）</p>
+<p>$$
+\begin{aligned}
+\delta^{(l)} &amp; \triangleq \frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{z}^{(l)}} \\<br>
+&amp;=\frac{\partial \boldsymbol{a}^{(l)}}{\partial \boldsymbol{z}^{(l)}} \cdot \cdot \cdot \frac{\partial \boldsymbol{z}^{(l+1)}}{\partial \boldsymbol{a}^{(l)}} \cdot {\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{z}^{(l+1)}}} \\<br>
+&amp;={\operatorname{diag}\left(f_{l}^{\prime}\left(\boldsymbol{z}^{(l)}\right)\right)}\left(\boldsymbol{W}^{(l+1)}\right)^{\mathrm{T}} \cdot {\delta}^{(l+1)} \\<br>
+&amp;=f_{l}^{\prime}\left(\boldsymbol{z}^{(l)}\right) \odot\left(\left(\boldsymbol{W}^{(l+1)}\right)^{\top} \delta^{(l+1)}\right) \quad \in \mathbb{R}^{M}
+\end{aligned}
+$$
+误差的反向传播（BackPropagation，BP）：l层误差通过l+1层误差计算得到</p>
+<p>BP算法内涵：l层一个神经元误差项是所有与该神经元相连的l+1层神经元的误差项的权重和，再乘上该神经元激活函数的梯度</p>
+<p>$$
+\begin{aligned}
+\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial w_{i j}^{(l)}} &amp;=\llbracket_{i}\left(a_{j}^{(l-1)}\right) \delta^{(l)} \\<br>
+&amp;=\left[0, \cdots, a_{j}^{(l-1)}, \cdots, 0\right]\left[\delta_{1}^{(l)}, \cdots, \delta_{i}^{(l)}, \cdots, \delta_{M_{l}}^{(l)}\right]^{\top} \\<br>
+&amp;=\delta_{i}^{(l)} a_{j}^{(l-1)}
+\end{aligned}
+$$
+进一步：
+$$
+\left[\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{W}^{(l)}}\right]_{i j}=\left[\delta^{(l)}\left(\boldsymbol{a}^{(l-1)}\right)^{\top}\right]_{i j}
+$$
+权重梯度：
+$$
+\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{W}^{(l)}}=\delta^{(l)}\left(\boldsymbol{a}^{(l-1)}\right)^{\top} \quad \in \mathbb{R}^{M_{l} \times M_{l-1}}
+$$
+偏置梯度：
+$$
+\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{b}^{(l)}}=\delta^{(l)} \in \mathbb{R}^{M_{l}}
+$$</p>
+<p>BP训练FNN过程：</p>
+<ol>
+<li>前馈计算每一层的净输入 𝒛(𝑙) 和激活值 𝒂(𝑙)，直到最后一层；</li>
+<li>反向传播计算每一层的误差项 𝛿(𝑙)；</li>
+<li>计算每一层参数的偏导数，并更新参数．</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/5e1471e2964a42ff83cf0c89fef16a4f.png"
+        data-srcset="../../_resources/5e1471e2964a42ff83cf0c89fef16a4f.png, ../../_resources/5e1471e2964a42ff83cf0c89fef16a4f.png 1.5x, ../../_resources/5e1471e2964a42ff83cf0c89fef16a4f.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/5e1471e2964a42ff83cf0c89fef16a4f.png"
+        title="b1979b630804acffa86c63beca242ca2.png" /></p>
+<h2 id="45-自动梯度计算">4.5 自动梯度计算</h2>
+<p>自动计算梯度的方法三类：</p>
+<ol>
+<li>数值微分</li>
+<li>符号微分</li>
+<li>自动微分</li>
+</ol>
+<h3 id="451-数值微分numerical-differentiation">4.5.1 数值微分（Numerical Differentiation）</h3>
+<p>$$
+f^{\prime}(x)=\lim _{\Delta x \rightarrow 0} \frac{f(x+\Delta x)-f(x)}{\Delta x}
+$$</p>
+<p>对x加上扰动 Δ𝑥，通过上述定义直接求解。</p>
+<ul>
+<li>找到一个合适的扰动 Δ𝑥 十分困难
+<ul>
+<li>Δ𝑥 过小，会引起数值计算问题，比如舍入误差</li>
+<li>Δ𝑥 过大，会增加截断误差，使得导数计算不准确</li>
+<li>实用性差</li>
+</ul>
+</li>
+<li>实际常用：
+$$
+f^{\prime}(x)=\lim _{\Delta x \rightarrow 0} \frac{f(x+\Delta x)-f(x-\Delta x)}{2 \Delta x}
+$$</li>
+<li>数值微分计算复杂度较高 $O\left(N^{2}\right)$</li>
+</ul>
+<h3 id="452-符号微分symbolic-differentiation">4.5.2 符号微分（Symbolic Differentiation）</h3>
+<p>一种基于符号计算的自动求导方法</p>
+<blockquote>
+<p>符号计算也叫代数计算（对应数值计算），是指用计算机来处理带有变量的数学表达式</p>
+</blockquote>
+<p>优点：</p>
+<ol>
+<li>可以在编译时计算梯度的属性表示，并利用符号计算方法优化</li>
+<li>与平台无关，可以在CPU、GPU上运行</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>编译时间长，尤其是循环</li>
+<li>符号微分需要专门语言表示数学表达式，并预先声明变量（符号）</li>
+<li>调试困难</li>
+</ol>
+<h3 id="453-自动微分automatic-differentiationad">4.5.3 自动微分（Automatic Differentiation，AD）</h3>
+<p>一种可以对一个（程序）函数进行计算导数的方法</p>
+<ul>
+<li>
+<p>符号微分的处理对象是数学表达式，而自动微分的处理对象是一个函数或一段程序</p>
+</li>
+<li>
+<p>思想：链式法则计算复合函数梯度</p>
+</li>
+<li>
+<p>计算图（Computational Graph）：数学运算的图形化表示
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/470a58cee0174ca7810a89249fc8e698.png"
+        data-srcset="../../_resources/470a58cee0174ca7810a89249fc8e698.png, ../../_resources/470a58cee0174ca7810a89249fc8e698.png 1.5x, ../../_resources/470a58cee0174ca7810a89249fc8e698.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/470a58cee0174ca7810a89249fc8e698.png"
+        title="a5b776a74918b4258a5d227e5c7b21c4.png" />
+$$
+\begin{aligned}
+\frac{\partial f(x ; w, b)}{\partial w} &amp;=\frac{\partial f(x ; w, b)}{\partial h_{6}} \frac{\partial h_{6}}{\partial h_{5}} \frac{\partial h_{5}}{\partial h_{4}} \frac{\partial h_{4}}{\partial h_{3}} \frac{\partial h_{3}}{\partial h_{2}} \frac{\partial h_{2}}{\partial h_{1}} \frac{\partial h_{1}}{\partial w} \\<br>
+\frac{\partial f(x ; w, b)}{\partial b} &amp;=\frac{\partial f(x ; w, b)}{\partial h_{6}} \frac{\partial h_{6}}{\partial h_{5}} \frac{\partial h_{5}}{\partial h_{4}} \frac{\partial h_{4}}{\partial h_{3}} \frac{\partial h_{3}}{\partial h_{2}} \frac{\partial h_{2}}{\partial b}
+\end{aligned}
+$$</p>
+</li>
+<li>
+<p>分为前向模式和反向模式，反向模式和反向传播的计算梯度的方式相同</p>
+<ul>
+<li>自下而上，反向模式遍历每个输出，每次自动微分都求出所有相关节点的一个自变量分量 $x_{i}$ 的导数 $\frac{d \cdot}{d x_{i}}$</li>
+<li>自上而下，前向模式遍历每个输入，每次自动求导都是求出函数 $y_{i}(x)$ 关于所有相关节点的导数 $\frac{d y_{i}}{d \cdot}$</li>
+</ul>
+</li>
+<li>
+<p>计算图构建方式</p>
+<ul>
+<li>静态计算图（Static Computational Graph）：编译时构建计算图，构建时可以优化，并行能力强</li>
+<li>动态计算图（Dynamic Computational Graph）：运行时构建集散图，灵活性高</li>
+</ul>
+</li>
+<li>
+<p>符号微分和自动微分
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/22500828ab814d4ea8179b1360647f0f.png"
+        data-srcset="../../_resources/22500828ab814d4ea8179b1360647f0f.png, ../../_resources/22500828ab814d4ea8179b1360647f0f.png 1.5x, ../../_resources/22500828ab814d4ea8179b1360647f0f.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/22500828ab814d4ea8179b1360647f0f.png"
+        title="19b82ad7241055bea42835b51807b852.png" /></p>
+</li>
+</ul>
+<h2 id="46-优化问题">4.6 优化问题</h2>
+<h3 id="461-非凸优化问题">4.6.1 非凸优化问题</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/c833e52307d849a38935b0e4ed3441a9.png"
+        data-srcset="../../_resources/c833e52307d849a38935b0e4ed3441a9.png, ../../_resources/c833e52307d849a38935b0e4ed3441a9.png 1.5x, ../../_resources/c833e52307d849a38935b0e4ed3441a9.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/c833e52307d849a38935b0e4ed3441a9.png"
+        title="c26339589097ba278354bd00149f4111.png" /></p>
+<h3 id="462-梯度消失问题">4.6.2 梯度消失问题</h3>
+<p>误差反向传播的迭代公式为
+$$
+\delta^{(l)}=f_{l}^{\prime}\left(z^{(l)}\right) \odot\left(W^{(l+1)}\right)^{\top} \delta^{(l+1)}
+$$
+每一层都乘以激活函数导数，使用Sigmoid型函数时，其导数：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/6464c9e84f424eaa8c50c5751c68ae31.png"
+        data-srcset="../../_resources/6464c9e84f424eaa8c50c5751c68ae31.png, ../../_resources/6464c9e84f424eaa8c50c5751c68ae31.png 1.5x, ../../_resources/6464c9e84f424eaa8c50c5751c68ae31.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/6464c9e84f424eaa8c50c5751c68ae31.png"
+        title="084e0fa7ea65282d41a08fbc7bcedc34.png" /></p>
+<p>梯度消失问题（Vanishing Gradient Problem）/梯度弥散问题：Sigmoid型函数导数值域小，两端饱和区导数更是接近于0。这样，误差在传递中不断衰减，网络很深时，梯度过小甚至消失，使得网络很难训练。</p>
+<p>解决：使用导数比较大的激活函数，比如 ReLU 等</p>
+<h2 id="47-总结">4.7 总结</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/4d8409a2b29d4af48ec23ea9eaac2131.png"
+        data-srcset="../../_resources/4d8409a2b29d4af48ec23ea9eaac2131.png, ../../_resources/4d8409a2b29d4af48ec23ea9eaac2131.png 1.5x, ../../_resources/4d8409a2b29d4af48ec23ea9eaac2131.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/4d8409a2b29d4af48ec23ea9eaac2131.png"
+        title="988c424ef4fc3d197dcc26862b425928.png" /></p>
+<h2 id="习题">习题</h2>
+<h4 id="习题-4-1-对于一个神经元-𝜎𝒘t𝒙--𝑏并使用梯度下降优化参数-𝒘-时如果输入𝒙-恒大于-0其收敛速度会比零均值化的输入更慢">习题 4-1 对于一个神经元 𝜎(𝒘T𝒙 + 𝑏)，并使用梯度下降优化参数 𝒘 时，如果输入𝒙 恒大于 0，其收敛速度会比零均值化的输入更慢</h4>
+<p>Sigmoid型函数在零点处导数最大，收敛最快。</p>
+<h4 id="习题-4-2-试设计一个前馈神经网络来解决-xor-问题要求该前馈神经网络具有两个隐藏神经元和一个输出神经元并使用-relu-作为激活函数">习题 4-2 试设计一个前馈神经网络来解决 XOR 问题，要求该前馈神经网络具有两个隐藏神经元和一个输出神经元，并使用 ReLU 作为激活函数．</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">keras.optimizers</span> <span class="kn">import</span> <span class="n">SGD</span>
+<span class="kn">from</span> <span class="nn">keras.layers.core</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Activation</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
+<span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
+<span class="n">sgd</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">sgd</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">())</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>随缘，经常遇到死亡ReLU，换成softplus就好了</p>
+<h4 id="习题-4-3-试举例说明死亡-relu-问题并提出解决方法">习题 4-3 试举例说明“死亡 ReLU 问题”，并提出解决方法．</h4>
+<p>BP中，学习率比较大，对较大的梯度，ReLU神经元更新后的权重和偏置为负，下一轮正向传播时Z为负，ReLU输出a为0，后续反向传播时参数永远不再更新。</p>
+<p>解决：Leaky ReLU、PReLU、ELU、Softplus</p>
+<h4 id="习题-4-5-如果限制一个神经网络的总神经元数量不考虑输入层为-𝑁--1输入层大小为-𝑀输出层大小为-1隐藏层的层数为-𝐿每个隐藏层的神经元数量为𝑁𝐿-试分析参数数量和隐藏层层数-𝐿-的关系">习题 4-5 如果限制一个神经网络的总神经元数量（不考虑输入层）为 𝑁 + 1，输入层大小为 𝑀，输出层大小为 1，隐藏层的层数为 𝐿，每个隐藏层的神经元数量为𝑁/𝐿 ，试分析参数数量和隐藏层层数 𝐿 的关系</h4>
+<p>b数量：$N+1$
+w数量：$M \times \frac{N}{L}+(L-1)(\frac{N}{L})^2+\frac{N}{L}$</p>
+<h4 id="习题-4-7-为什么在神经网络模型的结构化风险函数中不对偏置-𝒃-进行正则化">习题 4-7 为什么在神经网络模型的结构化风险函数中不对偏置 𝒃 进行正则化？</h4>
+<p>正则化降低模型空间/复杂性，防止过拟合。w过大对输入数据敏感，b偏置与特征无关，对所有数据都相同。</p>
+<h4 id="习题-4-8-为什么在用反向传播算法进行参数学习时要采用随机参数初始化的方式而不是直接令-𝑾--0-𝒃--0">习题 4-8 为什么在用反向传播算法进行参数学习时要采用随机参数初始化的方式而不是直接令 𝑾 = 0, 𝒃 = 0？</h4>
+<p>对称权重现象：会使每层中的参数相同，不同结点无法学习不同特征</p>
+<h4 id="习题-4-9-梯度消失问题是否可以通过增加学习率来缓解">习题 4-9 梯度消失问题是否可以通过增加学习率来缓解？</h4>
+<p>可以缓解，不能解决，反倒可能使得深层梯度爆炸</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-01-22</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第4章 - 前馈神经网络" data-hashtags="神经网络与深度学习,NLP,notes,DL"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第4章 - 前馈神经网络"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第4章 - 前馈神经网络"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第4章 - 前馈神经网络"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/notes/">Notes</a>,&nbsp;<a href="/tags/dl/">DL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" class="prev" rel="prev" title="《神经网络与深度学习》第2章 - 机器学习概述"><i class="fas fa-angle-left fa-fw"></i>《神经网络与深度学习》第2章 - 机器学习概述</a>
+            <a href="/nlp-papersword2vec/" class="next" rel="next" title="【NLP Papers】word2vec">【NLP Papers】word2vec<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
+
+                
+            </div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"QGzwQXOqs5JOhN4RGPOkR2mR-MdYXbMMI","appKey":"WBmoGyJtbqUswvfLh6L8iEBr","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"serverURLs":"https://leancloud.hugoloveit.com","visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

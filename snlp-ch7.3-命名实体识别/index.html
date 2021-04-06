@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《统计自然语言处理》第7.3章 - 命名实体识别 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《统计自然语言处理》第7.3章 - 命名实体识别" />
+<meta property="og:description" content="7.3 命名实体识别 7.3.1 方法概述 实体概念在文本中的引用（entity mention，指称项）三种形式 命名性指称 名词性指称 代词性指称 “［［中国］乒乓球" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://binko.me/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" />
+<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="article:published_time" content="2021-01-17T18:56:11+08:00" />
+<meta property="article:modified_time" content="2021-01-17T18:56:11+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://binko.me/logo.png"/>
+
+<meta name="twitter:title" content="《统计自然语言处理》第7.3章 - 命名实体识别"/>
+<meta name="twitter:description" content="7.3 命名实体识别 7.3.1 方法概述 实体概念在文本中的引用（entity mention，指称项）三种形式 命名性指称 名词性指称 代词性指称 “［［中国］乒乓球"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" /><link rel="prev" href="https://binko.me/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/" /><link rel="next" href="https://binko.me/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《统计自然语言处理》第7.3章 - 命名实体识别",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/binko.me\/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "统计自然语言处理, NLP, statistics, notes","wordcount":  2260 ,
+        "url": "https:\/\/binko.me\/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB\/","datePublished": "2021-01-17T18:56:11+08:00","dateModified": "2021-01-17T18:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          displayMath: [['$$','$$']],
+          processEscapes: true,
+          processEnvironments: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          TeX: {
+              equationNumbers: { autoNumber: "AMS" },
+              extensions: ["AMSmath.js", "AMSsymbols.js"]
+          }
+      }
+  });
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《统计自然语言处理》第7.3章 - 命名实体识别</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/nlp/"><i class="far fa-folder fa-fw"></i>NLP</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-17">2021-01-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2260 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" class="leancloud_visitors" data-flag-title="《统计自然语言处理》第7.3章 - 命名实体识别">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#73-命名实体识别">7.3 命名实体识别</a>
+      <ul>
+        <li><a href="#731-方法概述">7.3.1 方法概述</a></li>
+        <li><a href="#732-基于crf的命名实体识别">7.3.2 基于CRF的命名实体识别</a></li>
+        <li><a href="#733-基于多特征的命名实体识别">7.3.3 基于多特征的命名实体识别</a>
+          <ul>
+            <li><a href="#1模型描述">（1）模型描述</a></li>
+            <li><a href="#2词形和词性上下文模型">（2）词形和词性上下文模型</a></li>
+            <li><a href="#3实体模型">（3）实体模型</a></li>
+            <li><a href="#4专家知识">（4）专家知识</a></li>
+            <li><a href="#5模型训练">（5）模型训练</a></li>
+            <li><a href="#6测试结果">（6）测试结果</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="73-命名实体识别">7.3 命名实体识别</h2>
+<h3 id="731-方法概述">7.3.1 方法概述</h3>
+<ul>
+<li>实体概念在文本中的引用（entity mention，指称项）三种形式
+<ol>
+<li>命名性指称</li>
+<li>名词性指称</li>
+<li>代词性指称</li>
+</ol>
+<blockquote>
+<p>“［［中国］乒乓球男队主教练］［刘国梁］出席了会议，［他］指出了当前经济工作的重点。”</p>
+<ul>
+<li>实体概念“刘国梁”的指称项有三个</li>
+<li>“中国乒乓球男队主教练”是名词性指称</li>
+<li>“刘国梁”是命名性指称</li>
+<li>“他”是代词性指称</li>
+</ul>
+</blockquote>
+</li>
+<li>任务发展：
+<ul>
+<li>在MUC-6组织NERC任务之前，主要关注的是人名、地名和组织机构名这三类专有名词的识别。</li>
+<li>自MUC-6起，地名被进一步细化为城市、州和国家。后来也有人将人名进一步细分为政治家、艺人等小类</li>
+<li>在CoNLL组织的评测任务中扩大了专有名词的范围，包含了产品名的识别</li>
+<li>在其他一些研究工作中也曾涉及电影名、书名、项目名、研究领域名称、电子邮件地址和电话号码等。尤其值得关注的是，很多学者对生物信息学领域的专用名词（如蛋白质、DNA、RNA等）及其关系识别做了大量研究工作。</li>
+</ul>
+</li>
+<li>本节主要关注人名、地名和组织机构名这三类专有名词的识别方法。</li>
+<li>方法发展：
+<ul>
+<li>早期：规则</li>
+<li>20世纪90年代后期以来：统计机器学习，主要四类方法：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/043013c087f742b7a496a247c2b12705.png"
+        data-srcset="../../_resources/043013c087f742b7a496a247c2b12705.png, ../../_resources/043013c087f742b7a496a247c2b12705.png 1.5x, ../../_resources/043013c087f742b7a496a247c2b12705.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/043013c087f742b7a496a247c2b12705.png"
+        title="d19ef859b61d2198f2bc25c85d54d66a.png" /></li>
+</ul>
+</li>
+</ul>
+<h3 id="732-基于crf的命名实体识别">7.3.2 基于CRF的命名实体识别</h3>
+<ul>
+<li>可以说是命名实体识别最成功的方法</li>
+<li>原理：
+<ul>
+<li>与基于字的汉语分词方法一样，将命名实体识别过程看作序列标注问题</li>
+</ul>
+</li>
+<li>基本思路：
+<ol>
+<li>分词</li>
+<li>人名、简单地名、简单组织机构名识别</li>
+<li>复合地名、复合组织机构名识别</li>
+</ol>
+</li>
+<li>常用标注语料库：北京大学计算语言学研究所标注的现代汉语多级加工语料库</li>
+<li>训练：
+<ol>
+<li>将分词语料的标记符号转化成用于命名实体序列标注的标记
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/d99a6acaada145c18955f31d776832df.png"
+        data-srcset="../../_resources/d99a6acaada145c18955f31d776832df.png, ../../_resources/d99a6acaada145c18955f31d776832df.png 1.5x, ../../_resources/d99a6acaada145c18955f31d776832df.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/d99a6acaada145c18955f31d776832df.png"
+        title="9861d6d13f2678d4a14cd4e1cde7f746.png" /></li>
+<li>确定特征模板：
+<ul>
+<li>观察窗口：以当前位置的前后n（一般取2~3）个位置范围内的字串及其标记作为观察窗口</li>
+<li>由于不同的命名实体一般出现在不同的上下文语境中，因此，对于不同的命名实体识别一般采用不同的特征模板
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/92bf254ebb344521b9a5c2a9e1ad258f.png"
+        data-srcset="../../_resources/92bf254ebb344521b9a5c2a9e1ad258f.png, ../../_resources/92bf254ebb344521b9a5c2a9e1ad258f.png 1.5x, ../../_resources/92bf254ebb344521b9a5c2a9e1ad258f.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/92bf254ebb344521b9a5c2a9e1ad258f.png"
+        title="9a40e67ff3789363f9810f00e8be06d7.png" /></li>
+</ul>
+</li>
+<li>训练CRF模型参数$\lambda$</li>
+</ol>
+</li>
+</ul>
+<h3 id="733-基于多特征的命名实体识别">7.3.3 基于多特征的命名实体识别</h3>
+<ul>
+<li>命名实体识别：各种方法都是充分发现和利用实体上下文特征、实体内部特征，特征颗粒度有大（词性和角色级特征）有小（词形特征）</li>
+<li>[吴友政，2006]基于多特征融合的汉语命名实体识别方法
+<ul>
+<li>在分词和词性标注的基础上进一步进行命名实体识别</li>
+<li>4个子模型
+<ul>
+<li>词形上下文模型：估计在给定词形上下文语境中产生实体的概率</li>
+<li>词性上下文模型：估计在给定词性上下文语境中产生实体的概率</li>
+<li>词形实体模型：估计在给定实体类型的情况下词形串作为实体的概率</li>
+<li>词性实体模型：估计在给定实体类型的情况下词性串作为实体的概率</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="1模型描述">（1）模型描述</h4>
+<ul>
+<li>词形：
+<ol>
+<li>字典中任何一个字或词单独构成一类</li>
+<li>人名（Per）、人名简称（Aper）、地名（Loc）、地名简称（Aloc）、机构名（Org）、时间词（Tim）和数量词（Num）各定义为一类</li>
+</ol>
+<ul>
+<li>词形语言模型定义了$|V|+7$个词形，$|V|$表示词典规模</li>
+<li>词形序列WC：词性构成的序列</li>
+</ul>
+</li>
+<li>词性：
+<ol>
+<li>北大计算语言学研究所开发的汉语文本词性标注标记集</li>
+<li>人名简称词性、地名简称词性</li>
+</ol>
+<ul>
+<li>共47个词性标记</li>
+<li>词性序列TC</li>
+</ul>
+</li>
+<li>命名实体识别
+<ul>
+<li>输入：带有词性标注的词序列
+$\mathrm{WT}=w_{1} / t_{1} \quad w_{2} / t_{2} \quad \cdots \quad w_{i} / t_{i} \quad \cdots \quad w_{n} / t_{n}$</li>
+<li>在分词和标注的基础上：对部分词语拆分、组合（确定实体边界）、和重新分类（确定实体类别）</li>
+<li>输出：最优“词形/词性”序列$WC^*/TC^*$
+$W C^{*} / \mathrm{TC}^{*}=\mathrm{wc}_{1} / \mathrm{tc}_{1} \quad \mathrm{wc}_{2} / \mathrm{tc}_{2} \quad \cdots \quad \mathrm{wc}_{i} / \mathrm{tc}_{i} \quad \cdots \quad \mathrm{wc}_{m} / \mathrm{tc}_{m}$</li>
+<li>算法：
+<ol>
+<li>词形特征模型
+<ul>
+<li>根据词性序列W产生候选命名实体，用Viterbi确定最优词形序列$WC^*$</li>
+</ul>
+</li>
+<li>词性特征模型
+<ul>
+<li>根据词性序列T产生候选命名实体，用Viterbi确定最优词性序列$TC^*$</li>
+</ul>
+</li>
+<li>混合模型/多特征识别算法
+<ul>
+<li>词形和词性混合模型是根据词形序列W和词性序列T产生候选命名实体，一体化确定最优序列WC*/TC*，即本节将要介绍的基于多特征的识别算法</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>多特征识别算法
+<ul>
+<li>输入：
+<ul>
+<li>词序列：$W=w_{1} \quad w_{2} \quad \cdots \quad w_{i} \quad \cdots \quad w$</li>
+<li>词性序列：$t_{1} \quad t_{2} \quad \cdots \quad \cdots \quad t_{i} \quad \cdots \quad t_{n}$</li>
+</ul>
+</li>
+<li>词形特征模型：$\mathrm{WC}^{*}=\underset{\mathrm{WC}}{\operatorname{argmax}} P(\mathrm{WC}) \times P(W \mid \mathrm{WC})$</li>
+<li>词性特征模型：$\mathrm{T} \mathrm{C}^{*}=\underset{\mathrm{TC}}{\operatorname{argmax}} P(\mathrm{TC}) \times P(T \mid \mathrm{TC})$</li>
+<li>混合：$\begin{aligned} &amp;\left(\mathrm{WC}^{*}, \mathrm{TC}^{*}\right) \\=&amp;\left.\operatorname{argmax}_{(\mathrm{WC}, \mathrm{TO}}\right) P(\mathrm{WC}, \mathrm{TC} \mid W, T) \\=&amp; \operatorname{argmax}_{(\mathrm{WC}, \mathrm{TC})} P(\mathrm{WC}, \mathrm{TC}, W, T) / P(W, T) \\ \approx &amp; \operatorname{argmax}_{(\mathrm{WC}, \mathrm{TO}} P(\mathrm{WC}, W) \times[P(\mathrm{TC}, T)]^{\beta} \\ \approx &amp; \operatorname{argmax}_{(\mathrm{WC}, \mathrm{TO}} P(\mathrm{WC}) \times P(W \mid \mathrm{WC}) \times[P(\mathrm{TC}) \times P(T \mid \mathrm{TC})]^{-3} \end{aligned}$
+<ul>
+<li>β是平衡因子，平衡词形特征和词性特征的权重</li>
+<li>词形上下文模型P（WC）</li>
+<li>词性上下文模型P（TC）</li>
+<li>实体词形模型P（W|WC）</li>
+<li>实体词性模型P（T|TC）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2词形和词性上下文模型">（2）词形和词性上下文模型</h4>
+<ul>
+<li>三元语法模型近似：
+<ul>
+<li>$P(\mathrm{WC}) \approx \prod_{i=1}^{m} P\left(\mathrm{wc}_{i} \mid \mathrm{wc}_{i-2} \mathrm{wc}_{i-1}\right)$</li>
+<li>$P(\mathrm{TC}) \approx \prod_{i=1}^{m} P\left(\mathrm{tc}_{i} \mid \mathrm{tc}_{i-2} \mathrm{tc}_{i-1}\right)$</li>
+</ul>
+</li>
+</ul>
+<h4 id="3实体模型">（3）实体模型</h4>
+<ul>
+<li>考虑到每一类命名实体都具有不同的内部特征，因此，不能用一个统一的模型刻画人名、地名和机构名等实体模型。例如，人名识别可采用基于字的三元模型，地名和机构名识别可能更适合于采用基于词的三元模型等。</li>
+<li>为提高外国人名识别性能，划分为日本人名、欧美人名、俄罗斯人名
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/08f13118f9484f60a375ea2a7ea5f68e.png"
+        data-srcset="../../_resources/08f13118f9484f60a375ea2a7ea5f68e.png, ../../_resources/08f13118f9484f60a375ea2a7ea5f68e.png 1.5x, ../../_resources/08f13118f9484f60a375ea2a7ea5f68e.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/08f13118f9484f60a375ea2a7ea5f68e.png"
+        title="7659398db3ee5190f8775b9c097e8657.png" /></li>
+<li>实体模型：
+<ul>
+<li>人名实体模型</li>
+<li>地名和机构名实体模型</li>
+<li>单字地名实体模型</li>
+<li>简称机构名实体模型</li>
+</ul>
+</li>
+</ul>
+<h4 id="4专家知识">（4）专家知识</h4>
+<ul>
+<li>在基于统计模型的命名实体识别中，最大的问题是数据稀疏严重，搜索空间太大，从而影响系统的性能和效率。引入<strong>专家系统</strong>知识来限制候选实体产生：
+<ol>
+<li>人名识别的专家知识</li>
+<li>地名识别的专家知识</li>
+<li>机构名识别的专家知识</li>
+</ol>
+</li>
+</ul>
+<h4 id="5模型训练">（5）模型训练</h4>
+<ul>
+<li>4个参数
+<ul>
+<li>词性上下文模型P（TC）和词形上下文模型P（WC）从《人民日报》标注语料中学习</li>
+<li>中国人名、外国人名、地名、机构名的实体词性和词形模型从实体列表语料中训练</li>
+</ul>
+</li>
+<li>数据稀疏问题严重：Back-off数据平滑，引入逃逸概率计算权值
+$$\begin{aligned} &amp; \hat{P}\left(w_{n} \mid w_{1} \cdots w_{n-1}\right) \\=&amp; \lambda_{N} P\left(w_{n} \mid w_{1} \cdots w_{n-1}\right)+\lambda_{N-1} P\left(w_{n} \mid w_{2} \cdots w_{n-1}\right) \\ &amp;+\cdots+\lambda \cdot P\left(w_{n}\right)+\lambda_{0} p_{0} \end{aligned}$$
+<ul>
+<li>其中$\lambda_{i}=\left(1-e_{i}\right) \sum_{k=i+1}^{n} e_{k}, 0&lt;i&lt;n, \lambda_{n}=1-e_{n}$</li>
+</ul>
+</li>
+</ul>
+<h4 id="6测试结果">（6）测试结果</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/18407802a89b459b9ede7755222ed125.png"
+        data-srcset="../../_resources/18407802a89b459b9ede7755222ed125.png, ../../_resources/18407802a89b459b9ede7755222ed125.png 1.5x, ../../_resources/18407802a89b459b9ede7755222ed125.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/18407802a89b459b9ede7755222ed125.png"
+        title="c6db0176634e7dff6976a9bb0d5441f6.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-01-17</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" data-title="《统计自然语言处理》第7.3章 - 命名实体识别" data-hashtags="统计自然语言处理,NLP,statistics,notes"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" data-hashtag="统计自然语言处理"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" data-title="《统计自然语言处理》第7.3章 - 命名实体识别"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" data-title="《统计自然语言处理》第7.3章 - 命名实体识别"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" data-title="《统计自然语言处理》第7.3章 - 命名实体识别"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%BB%9F%E8%AE%A1%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">统计自然语言处理</a>,&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/statistics/">statistics</a>,&nbsp;<a href="/tags/notes/">Notes</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/" class="prev" rel="prev" title="《统计自然语言处理》第7.1章 - 自动分词"><i class="fas fa-angle-left fa-fw"></i>《统计自然语言处理》第7.1章 - 自动分词</a>
+            <a href="/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/" class="next" rel="next" title="《统计自然语言处理》第7.5章 - 词性标注">《统计自然语言处理》第7.5章 - 词性标注<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
+
+                
+            </div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"QGzwQXOqs5JOhN4RGPOkR2mR-MdYXbMMI","appKey":"WBmoGyJtbqUswvfLh6L8iEBr","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"serverURLs":"https://leancloud.hugoloveit.com","visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>【NLP Papers】ELMo: Deep contextualized word representations - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="【NLP Papers】ELMo: Deep contextualized word representations" />
+<meta property="og:description" content="[Peters et al., NAACL 2018a]
+ use bidirectional language model to train contextual word vector. use these vector as pre-train part of existing models, improve SOTA across six tasks. analysis showing that exposing the deep internals of the pre-trained network is crucial  1 Introduction pre-trained word representations should model both:
+ complex characteristic of word use (e.g., syntax and semantics) how these uses vary across linguistic contexts (i.e., to model polysemy)  ELMo: Embeddings from Language Models" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://binko.me/nlp-paperselmo_-deep-contextualized-word-represe/" />
+<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="article:published_time" content="2021-03-24T13:56:11+08:00" />
+<meta property="article:modified_time" content="2021-03-24T13:56:11+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://binko.me/logo.png"/>
+
+<meta name="twitter:title" content="【NLP Papers】ELMo: Deep contextualized word representations"/>
+<meta name="twitter:description" content="[Peters et al., NAACL 2018a]
+ use bidirectional language model to train contextual word vector. use these vector as pre-train part of existing models, improve SOTA across six tasks. analysis showing that exposing the deep internals of the pre-trained network is crucial  1 Introduction pre-trained word representations should model both:
+ complex characteristic of word use (e.g., syntax and semantics) how these uses vary across linguistic contexts (i.e., to model polysemy)  ELMo: Embeddings from Language Models"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/nlp-paperselmo_-deep-contextualized-word-represe/" /><link rel="prev" href="https://binko.me/nndl-book-ch15-%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" /><link rel="next" href="https://binko.me/nlp-paperscontextual-word-representations_-a-con/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "【NLP Papers】ELMo: Deep contextualized word representations",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/binko.me\/nlp-paperselmo_-deep-contextualized-word-represe\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "NLP, ELMo, Pre-training, notes\u0022","wordcount":  726 ,
+        "url": "https:\/\/binko.me\/nlp-paperselmo_-deep-contextualized-word-represe\/","datePublished": "2021-03-24T13:56:11+08:00","dateModified": "2021-03-24T13:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          displayMath: [['$$','$$']],
+          processEscapes: true,
+          processEnvironments: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          TeX: {
+              equationNumbers: { autoNumber: "AMS" },
+              extensions: ["AMSmath.js", "AMSsymbols.js"]
+          }
+      }
+  });
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/nlp-paperselmo_-deep-contextualized-word-represe/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/nlp-paperselmo_-deep-contextualized-word-represe/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">【NLP Papers】ELMo: Deep contextualized word representations</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/nlp/"><i class="far fa-folder fa-fw"></i>NLP</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-03-24">2021-03-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 726 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/nlp-paperselmo_-deep-contextualized-word-represe/" class="leancloud_visitors" data-flag-title="【NLP Papers】ELMo: Deep contextualized word representations">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-introduction">1 Introduction</a></li>
+    <li><a href="#2-related-work">2 Related work</a></li>
+    <li><a href="#3-elmo-embeddings-from-language-models">3 ELMo: Embeddings from Language Models</a>
+      <ul>
+        <li><a href="#31-bidirectional-language-models">3.1 Bidirectional language models</a></li>
+        <li><a href="#32-elmo">3.2 ELMo</a></li>
+        <li><a href="#33-using-bilms-for-supervised-nlp-tasks">3.3 Using biLMs for supervised NLP tasks</a></li>
+        <li><a href="#34-pre-trained-bidirectional-language-model-architecture">3.4 Pre-trained bidirectional language model architecture</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-evaluation">4 Evaluation</a></li>
+    <li><a href="#5-analysis">5 Analysis</a>
+      <ul>
+        <li><a href="#51-alternate-layer-weighting-schemes">5.1 Alternate layer weighting schemes</a></li>
+        <li><a href="#52-where-to-include-elmo">5.2 Where to include ELMo?</a></li>
+        <li><a href="#53-what-information-is-captured-by-the-bilms-representations">5.3 What information is captured by the biLM&rsquo;s representations?</a></li>
+        <li><a href="#54-sample-efficiency">5.4 Sample efficiency</a></li>
+        <li><a href="#55-visualizatino-of-learned-weights">5.5 Visualizatino of learned weights</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>[Peters et al., NAACL 2018a]</p>
+<ul>
+<li>use bidirectional language model to train contextual word vector.</li>
+<li>use these vector as pre-train part of existing models, improve SOTA across six tasks.</li>
+<li>analysis showing that exposing the deep internals of the pre-trained network is crucial</li>
+</ul>
+<h2 id="1-introduction">1 Introduction</h2>
+<p>pre-trained word representations should model both:</p>
+<ol>
+<li>complex characteristic of word use (e.g., syntax and semantics)</li>
+<li>how these uses vary across linguistic contexts (i.e., to model polysemy)</li>
+</ol>
+<p>ELMo: Embeddings from Language Models</p>
+<p>capture:</p>
+<ul>
+<li>higher-level LSTM states: context-dependent meaning</li>
+<li>lower-level LSTM states: syntax
+<ul>
+<li>e.g., can be used for POS tagging</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-related-work">2 Related work</h2>
+<ol>
+<li>&ldquo;word type&rdquo; embeddings
+<ul>
+<li>(Turian et al., 2010; Mikolov et al., 2013; Pennington et al., 2014)</li>
+</ul>
+</li>
+<li>+subword
+<ul>
+<li>(Wieting et al., 2016; Bojanowski et al., 2017)</li>
+</ul>
+</li>
+<li>&ldquo;word sense&rdquo; embeddings
+<ul>
+<li>(Neelakantan et al., 2014)</li>
+</ul>
+</li>
+<li>context-dependent representations
+<ul>
+<li>context2vec (Melamud et al., 2016)</li>
+<li>CoVe (McCann et al., 2017)</li>
+<li>(Peters et al., 2017)</li>
+</ul>
+</li>
+<li>different layers of biRNNs encode different information
+<ul>
+<li>(Hashimoto et al., 2017)</li>
+<li>(Søgaard and Goldberg, 2016)</li>
+<li>(Belinkov et al. 2017)</li>
+<li>(Melamud et al.,2016)</li>
+</ul>
+</li>
+<li>pretrain
+<ul>
+<li>(Dai and Le, 2015)</li>
+<li>(Ramachandran et al. 2017)</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-elmo-embeddings-from-language-models">3 ELMo: Embeddings from Language Models</h2>
+<p>ELMo word representations are functions of the entire input sentence, computed on top of two-layer biLMs with character convolutions, as a linear function of the internal network states.</p>
+<p>semi-supervised:</p>
+<ol>
+<li>biLM is pretrained as a large scale</li>
+<li>easily incorporated into a wide range of existing neural NLP architectures.</li>
+</ol>
+<h3 id="31-bidirectional-language-models">3.1 Bidirectional language models</h3>
+<p>$$
+\begin{array}{l}
+\sum_{k=1}^{N}\left(\log p\left(t_{k} \mid t_{1}, \ldots, t_{k-1} ; \Theta_{x}, \vec{\Theta}_{L S T M}, \Theta_{s}\right)\right. \\<br>
+\left.\quad+\log p\left(t_{k} \mid t_{k+1}, \ldots, t_{N} ; \Theta_{x}, \overleftarrow{\Theta}_{L S T M}, \Theta_{s}\right)\right)
+\end{array}
+$$</p>
+<ul>
+<li>share some weights between directions</li>
+</ul>
+<h3 id="32-elmo">3.2 ELMo</h3>
+<p>a L-layer biLM computes a set of $2L+1$ representations:
+$$
+\begin{aligned}
+R_{k} &amp;=\left{\mathbf{x}_{k}^{L M}, \overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M} \mid j=1, \ldots, L\right} \\<br>
+&amp;=\left{\mathbf{h}_{k, j}^{L M} \mid j=0, \ldots, L\right}
+\end{aligned}
+$$</p>
+<p>collapses all layers in $R$ int a single vector:
+$$
+\mathbf{E L M o}_{k}=E\left(R_{k} ; \mathbf{\Theta}_{e}\right)
+$$</p>
+<ol>
+<li>simplest way (as in TagLM (Peters et al., 2017) and CoVe (McCann et al., 2017).):
+$$
+E\left(R_{k}\right)=\mathbf{h}_{k, L}^{L M}
+$$</li>
+<li>task specific weighting:
+$$
+\mathbf{E L M o}_{k}^{t a s k}=E\left(R_{k} ; \Theta^{t a s k}\right)=\gamma^{t a s k} \sum_{j=0}^{L} s_{j}^{t a s k} \mathbf{h}_{k, j}^{L M}
+$$</li>
+</ol>
+<p>$\mathbf{s}^{\text {task }}$ are softmax-normalized weights and scalar parameter $\gamma^{\text {task }}$ allows the task model to scale the entire ELMo vector.</p>
+<h3 id="33-using-bilms-for-supervised-nlp-tasks">3.3 Using biLMs for supervised NLP tasks</h3>
+<ol>
+<li>run biLM to get layer representations for each word</li>
+<li>let the end task learn a linear combination of these representations.</li>
+</ol>
+<p>freeze weights of biLM and pass the ELMo enhanced representation $\left[\mathbf{x}_{k} ; \mathbf{E L M o}_{k}^{\text {task }}\right]$ into the task RNN.</p>
+<p>observe further improvements by also including ELMo at the output of the task RNN by introducing another set of output specific linear weights and replacing $\mathbf{h}_k$ with $\left[\mathbf{h}_{k} ; \mathbf{E L M o}_{k}^{\text {task }}\right]$</p>
+<p>prevent overfit:</p>
+<ul>
+<li>moderate amount of dropout</li>
+<li>adding $\lambda|\mathbf{w}|_{2}^{2}$ to the loss</li>
+</ul>
+<h3 id="34-pre-trained-bidirectional-language-model-architecture">3.4 Pre-trained bidirectional language model architecture</h3>
+<p>similar to architectures in J´ozefowicz et al. (2016) and Kim et al. (2015)</p>
+<ul>
+<li>modified to support joint training of both directions</li>
+<li>residual connection</li>
+</ul>
+<p>halved all embedding and hidden dimensions from the single best model CNN-BIG-LSTM in J´ozefowicz et al (2016).</p>
+<blockquote>
+<ul>
+<li>L = 2 biLSTM layers with 4096 units and 512 dimension projections</li>
+<li>residual connections</li>
+</ul>
+</blockquote>
+<p>context insensitive type representation:</p>
+<blockquote>
+<ul>
+<li>2048 character n-gram convolutional filters followed by two highway layers  (Srivastava et al., 2015)</li>
+<li>linear projection down to a 512 representation</li>
+</ul>
+</blockquote>
+<h2 id="4-evaluation">4 Evaluation</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../../_resources/519908af977a440bb92bcfaa123a96ed.png"
+        data-srcset="../../../_resources/519908af977a440bb92bcfaa123a96ed.png, ../../../_resources/519908af977a440bb92bcfaa123a96ed.png 1.5x, ../../../_resources/519908af977a440bb92bcfaa123a96ed.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/519908af977a440bb92bcfaa123a96ed.png"
+        title="e857175ff8b1434e0ca07576a6ef8140.png" /></p>
+<ul>
+<li>Question answering</li>
+<li>Textual entailment</li>
+<li>Semantic role labeling</li>
+<li>Coreference resolution</li>
+<li>Named entity extraction</li>
+<li>Sentiment analysis</li>
+</ul>
+<h2 id="5-analysis">5 Analysis</h2>
+<ol>
+<li>deep contextual representations works better than just top layer</li>
+<li>syntactic information at lower layers while semantic information as higher layers</li>
+</ol>
+<h3 id="51-alternate-layer-weighting-schemes">5.1 Alternate layer weighting schemes</h3>
+<ul>
+<li>previous word on contextual representations: only used last layer, whether it be from biLM or MT encoder</li>
+<li>ablation study:</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../../_resources/8e4ce8032cc841e2a96e39dd8e14c9b0.png"
+        data-srcset="../../../_resources/8e4ce8032cc841e2a96e39dd8e14c9b0.png, ../../../_resources/8e4ce8032cc841e2a96e39dd8e14c9b0.png 1.5x, ../../../_resources/8e4ce8032cc841e2a96e39dd8e14c9b0.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/8e4ce8032cc841e2a96e39dd8e14c9b0.png"
+        title="52d200d883248a661a1e28760d123c77.png" /></p>
+<h3 id="52-where-to-include-elmo">5.2 Where to include ELMo?</h3>
+<ul>
+<li>word emebedings only as input to the lowest layers</li>
+<li>however, including ELMo at the output of biRNN improves for some tasks</li>
+</ul>
+<h3 id="53-what-information-is-captured-by-the-bilms-representations">5.3 What information is captured by the biLM&rsquo;s representations?</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../../_resources/448a8b55c99641acb533735a3340e67a.png"
+        data-srcset="../../../_resources/448a8b55c99641acb533735a3340e67a.png, ../../../_resources/448a8b55c99641acb533735a3340e67a.png 1.5x, ../../../_resources/448a8b55c99641acb533735a3340e67a.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/448a8b55c99641acb533735a3340e67a.png"
+        title="06099455f4f52e8635fb943f2b9ff91d.png" /></p>
+<p><strong>Word sense disambiguation</strong>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../../_resources/7f6d5f47921c4db388824fbe0e1ad183.png"
+        data-srcset="../../../_resources/7f6d5f47921c4db388824fbe0e1ad183.png, ../../../_resources/7f6d5f47921c4db388824fbe0e1ad183.png 1.5x, ../../../_resources/7f6d5f47921c4db388824fbe0e1ad183.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/7f6d5f47921c4db388824fbe0e1ad183.png"
+        title="51dcd3d27b1373cb35b4b8ed9051cd2c.png" /></p>
+<p><strong>POS tagging</strong></p>
+<ul>
+<li>context representations as input to a linear classifier of POS
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../../_resources/f0b8b1f0c65b4a8087012fdd5f81c2cd.png"
+        data-srcset="../../../_resources/f0b8b1f0c65b4a8087012fdd5f81c2cd.png, ../../../_resources/f0b8b1f0c65b4a8087012fdd5f81c2cd.png 1.5x, ../../../_resources/f0b8b1f0c65b4a8087012fdd5f81c2cd.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/f0b8b1f0c65b4a8087012fdd5f81c2cd.png"
+        title="37620ab059acf7212952defddfed2955.png" /></li>
+</ul>
+<p><strong>Implications for supervised tasks</strong></p>
+<ul>
+<li>including all biLM layers is important for downstream tasks</li>
+</ul>
+<h3 id="54-sample-efficiency">5.4 Sample efficiency</h3>
+<ol>
+<li>using ELMo increases the sample efficiency.</li>
+<li>ELMo-enhanced models use smaller training sets more efficiently than those without.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../../_resources/38134ddcfb9949eda5147b969a382c73.png"
+        data-srcset="../../../_resources/38134ddcfb9949eda5147b969a382c73.png, ../../../_resources/38134ddcfb9949eda5147b969a382c73.png 1.5x, ../../../_resources/38134ddcfb9949eda5147b969a382c73.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/38134ddcfb9949eda5147b969a382c73.png"
+        title="c1ce4981b57b22252bc93a70c5cb365e.png" /></li>
+</ol>
+<h3 id="55-visualizatino-of-learned-weights">5.5 Visualizatino of learned weights</h3>
+<p>visualize the ELMo learned weights across the tasks
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../../_resources/260c5d9f72c8478c901fdc8294a37a62.png"
+        data-srcset="../../../_resources/260c5d9f72c8478c901fdc8294a37a62.png, ../../../_resources/260c5d9f72c8478c901fdc8294a37a62.png 1.5x, ../../../_resources/260c5d9f72c8478c901fdc8294a37a62.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/260c5d9f72c8478c901fdc8294a37a62.png"
+        title="24771a3b35ca56a32be3ca4ed7f70e0a.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-03-24</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/nlp-paperselmo_-deep-contextualized-word-represe/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/nlp-paperselmo_-deep-contextualized-word-represe/" data-title="【NLP Papers】ELMo: Deep contextualized word representations" data-hashtags="NLP,ELMo,Pre-training,notes&#34;"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/nlp-paperselmo_-deep-contextualized-word-represe/" data-hashtag="NLP"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/nlp-paperselmo_-deep-contextualized-word-represe/" data-title="【NLP Papers】ELMo: Deep contextualized word representations"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/nlp-paperselmo_-deep-contextualized-word-represe/" data-title="【NLP Papers】ELMo: Deep contextualized word representations"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/nlp-paperselmo_-deep-contextualized-word-represe/" data-title="【NLP Papers】ELMo: Deep contextualized word representations"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/elmo/">ELMo</a>,&nbsp;<a href="/tags/pre-training/">Pre-training</a>,&nbsp;<a href="/tags/notes/">Notes</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/nndl-book-ch15-%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" class="prev" rel="prev" title="《神经网络与深度学习》第15章 - 序列生成模型"><i class="fas fa-angle-left fa-fw"></i>《神经网络与深度学习》第15章 - 序列生成模型</a>
+            <a href="/nlp-paperscontextual-word-representations_-a-con/" class="next" rel="next" title="【NLP Papers】Contextual Word Representations: A Contextual Introduction">【NLP Papers】Contextual Word Representations: A Contextual Introduction<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
+
+                
+            </div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"QGzwQXOqs5JOhN4RGPOkR2mR-MdYXbMMI","appKey":"WBmoGyJtbqUswvfLh6L8iEBr","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"serverURLs":"https://leancloud.hugoloveit.com","visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《统计自然语言处理》第6章 - 概率图模型 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《统计自然语言处理》第6章 - 概率图模型" />
+<meta property="og:description" content="6.1 概述 概率图模型（probabilistic graphical models）：在概率模型的基础上，使用基于图的方法表示概率分布/概率密度/密度函数，是一种通" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://binko.me/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" />
+<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="article:published_time" content="2021-01-16T13:56:11+08:00" />
+<meta property="article:modified_time" content="2021-01-16T13:56:11+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://binko.me/logo.png"/>
+
+<meta name="twitter:title" content="《统计自然语言处理》第6章 - 概率图模型"/>
+<meta name="twitter:description" content="6.1 概述 概率图模型（probabilistic graphical models）：在概率模型的基础上，使用基于图的方法表示概率分布/概率密度/密度函数，是一种通"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" /><link rel="prev" href="https://binko.me/snlp-ch3-%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA/" /><link rel="next" href="https://binko.me/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《统计自然语言处理》第6章 - 概率图模型",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/binko.me\/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "统计自然语言处理, NLP, statistics, notes","wordcount":  8634 ,
+        "url": "https:\/\/binko.me\/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B\/","datePublished": "2021-01-16T13:56:11+08:00","dateModified": "2021-01-16T13:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          displayMath: [['$$','$$']],
+          processEscapes: true,
+          processEnvironments: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          TeX: {
+              equationNumbers: { autoNumber: "AMS" },
+              extensions: ["AMSmath.js", "AMSsymbols.js"]
+          }
+      }
+  });
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《统计自然语言处理》第6章 - 概率图模型</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/nlp/"><i class="far fa-folder fa-fw"></i>NLP</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-16">2021-01-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 8634 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 18 分钟&nbsp;<span id="/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" class="leancloud_visitors" data-flag-title="《统计自然语言处理》第6章 - 概率图模型">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#61-概述">6.1 概述</a></li>
+    <li><a href="#62-贝叶斯网络">6.2 贝叶斯网络</a></li>
+    <li><a href="#63-马尔科夫模型">6.3 马尔科夫模型</a></li>
+    <li><a href="#64-隐马尔科夫模型">6.4 隐马尔科夫模型</a>
+      <ul>
+        <li><a href="#641-求解观察序列的概率">6.4.1 求解观察序列的概率</a>
+          <ul>
+            <li><a href="#前向算法">前向算法</a></li>
+            <li><a href="#后向算法">后向算法</a></li>
+            <li><a href="#前后向结合算法">前后向结合算法</a></li>
+          </ul>
+        </li>
+        <li><a href="#642-维特比viterbi算法">6.4.2 维特比（Viterbi）算法</a></li>
+        <li><a href="#643-hmm参数估计">6.4.3 HMM参数估计</a></li>
+      </ul>
+    </li>
+    <li><a href="#65-层次化的隐马尔科夫模型hierarchical-hidden-markov-models-hhmm">6.5 层次化的隐马尔科夫模型hierarchical hidden Markov models, HHMM）</a></li>
+    <li><a href="#66-马尔科夫网络">6.6 马尔科夫网络</a></li>
+    <li><a href="#67-最大熵模型">6.7 最大熵模型</a>
+      <ul>
+        <li><a href="#671-最大熵原理">6.7.1 最大熵原理</a></li>
+        <li><a href="#672-最大熵模型的参数训练">6.7.2 最大熵模型的参数训练</a></li>
+      </ul>
+    </li>
+    <li><a href="#68-最大熵马尔科夫模型maximum-entropy-markov-model-memm">6.8 最大熵马尔科夫模型（maximum-entropy Markov model, MEMM）</a></li>
+    <li><a href="#69-条件随机场">6.9 条件随机场</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="61-概述">6.1 概述</h2>
+<ul>
+<li>概率图模型（probabilistic graphical models）：在概率模型的基础上，使用基于图的方法表示概率分布/概率密度/密度函数，是一种通用化的不确定性知识表示和处理方法。
+<ul>
+<li>结点：变量</li>
+<li>边：变量概率关系</li>
+</ul>
+</li>
+<li>边是否有向：有向概率图模型、无向概率图模型
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/13327b7bba164e918909ac929cb4ca87.png"
+        data-srcset="../../_resources/13327b7bba164e918909ac929cb4ca87.png, ../../_resources/13327b7bba164e918909ac929cb4ca87.png 1.5x, ../../_resources/13327b7bba164e918909ac929cb4ca87.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/13327b7bba164e918909ac929cb4ca87.png"
+        title="116a254a554df802f35b1702b972029a.png" /></li>
+<li>应用：
+<ul>
+<li>DBN：动态系统的推断和预测
+<ul>
+<li>HMM：语音识别、汉语自动分词、词性标注、统计机器翻译</li>
+<li>Kalman filter：信号处理</li>
+</ul>
+</li>
+<li>Markov networks / Markov random field(MRF)
+<ul>
+<li>CRF：序列标注、特征选择、机器翻译</li>
+<li>Boltzman machine：依存句法分析、语义角色标注</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>概率图模型演变
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/4208836588794580a6fa285504afab7c.png"
+        data-srcset="../../_resources/4208836588794580a6fa285504afab7c.png, ../../_resources/4208836588794580a6fa285504afab7c.png 1.5x, ../../_resources/4208836588794580a6fa285504afab7c.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/4208836588794580a6fa285504afab7c.png"
+        title="c4a62b2ab674e36b6d56725b4118aa9b.png" /></li>
+<li>生成式/产生式模型 vs. 区分式/判别式模型
+<ul>
+<li>本质区别：观测序列x与状态序列y的决定关系</li>
+</ul>
+</li>
+<li>生成式模型
+<ul>
+<li>假定y决定x</li>
+<li>对联合分布$p(x, y)$建模，估计生成概率最大的生成序列来获取y</li>
+<li>特征：一般有严格独立性假设，特征事先给定</li>
+<li>优点：灵活、变量关系清楚、模型可以增量学习获得、可用于数据不完整情况</li>
+<li>典型：n-gram、HMM、Naive Bayes、概率上下文无关文法</li>
+</ul>
+</li>
+<li>判别式模型
+<ul>
+<li>假定x决定y</li>
+<li>对后验概率$p(y|x)$建模，从x提取特征，学习参数，使条件概率符合一定形式的最优</li>
+<li>特征：任意给定，一般通过函数表示</li>
+<li>优点：处理多类或一类与其他类差异比较灵活简单</li>
+<li>弱点：模型描述能力有限、变量关系不清、一般为有监督，不能扩展为无监督</li>
+<li>典型：最大熵模型、条件随机场、SVM、最大熵马尔科夫模型（maximum-entropy Markov model, MEMM）、感知机（perceptron）</li>
+</ul>
+</li>
+</ul>
+<h2 id="62-贝叶斯网络">6.2 贝叶斯网络</h2>
+<ul>
+<li>贝叶斯网络又称信度网络/信念网络（belief networks）</li>
+<li>理论基础：贝叶斯公式</li>
+<li>形式：DAG
+<ul>
+<li>结点：随机变量（可观测量、隐含变量、未知参量或假设等）</li>
+<li>有向边：条件依存关系</li>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/f7a3265f853c4838aac3d8c0a10ef295.png"
+        data-srcset="../../_resources/f7a3265f853c4838aac3d8c0a10ef295.png, ../../_resources/f7a3265f853c4838aac3d8c0a10ef295.png 1.5x, ../../_resources/f7a3265f853c4838aac3d8c0a10ef295.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/f7a3265f853c4838aac3d8c0a10ef295.png"
+        title="af63428950c8168ebb864431474ceb43.png" />
+<ul>
+<li>如图，联合概率函数为：$P(H, S, N)=P(H \mid S, N) \times P(S \mid N) \times P(N)$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>构造贝叶斯网络
+<ol>
+<li>表示：在某一随机变量的集合$x＝{X_1，L，X_n}$上给出其联合概率分布P。</li>
+<li>推断：回答关于变量的询问，如当观察到某些变量（证据变量）时，推断另一些变量子集的变化。
+<ul>
+<li>常用精确推理方法：
+<ul>
+<li>变量消除法（variable elimination）：基本任务是计算条件概率$p(X_Q|X_E＝x)$，其中，$X_Q$是询问变量的集合，$X_E$为已知证据的变量集合。其基本思想是通过分步计算不同变量的边缘分布按顺序逐个消除未观察到的非询问变量</li>
+<li>团树（clique tree）：使用更全局化的数据结构调度各种操作，以获得更加有益的计算代价</li>
+</ul>
+</li>
+<li>常用近似推理算法：
+<ul>
+<li>重要性抽样法（importance sampling）</li>
+<li>随机马尔科夫链蒙特卡洛（Markov chain Monte Carlo, MCMC）模拟法</li>
+<li>循环信念传播法（loopy belief propagation）</li>
+<li>泛化信念传播法（generalized belief propagation）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>学习：参数学习和结构学习
+<ul>
+<li>参数学习：决定变量之间相互关联的量化关系，即依存强度估计
+<ul>
+<li>即对每个结点X，计算给定父结点条件下X的概率，概率分布可以是任意形式，通常为离散分布或高斯分布</li>
+<li>常用参数学习方法：
+<ul>
+<li>最大似然估计</li>
+<li>最大后验概率法</li>
+<li>期望最大化方法（EM）</li>
+<li>贝叶斯估计方法（贝叶斯图中常用）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>结构学习：寻找变量之间的图关系
+<ul>
+<li>很简单情况：专家构造。多数使用系统中人工构造贝叶斯网络几乎不可能。</li>
+<li>自动学习贝叶斯网络的图结构</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>贝叶斯网络是一种不定性因果关联模型，能够在已知有限的、不完整、不确定信息的条件下进行学习和推理
+<ul>
+<li>应用：广泛应用于故障诊断和维修决策等领域；汉语自动分词和词义消歧</li>
+</ul>
+</li>
+</ul>
+<h2 id="63-马尔科夫模型">6.3 马尔科夫模型</h2>
+<ul>
+<li>随机过程又叫随机函数，是随时间而随机变化的过程。</li>
+<li>离散的一阶马尔可夫链（Markov chain）
+<ul>
+<li>$P(q_{t}=s_{i} \mid q_{t-1}=s_{j}, q_{t-1}=s_{k}, \cdots)=P(q_{t}=s_{j} \mid q_{t-1}=s_{i})$</li>
+</ul>
+</li>
+<li>马尔科夫模型/可视马尔科夫模型（visible Markov model，MM/VMM）
+<ul>
+<li>只考虑上式独立于时间t的随机过程：$P(q_{t}=s_{j} \mid q_{t-1}=s_{i})=a_{i j}, \quad 1 \leqslant i, j \leqslant N$</li>
+<li>满足：$a_{i j} \geqslant 0$，$\sum_{i=1}^{N} a_{i j}=1$</li>
+</ul>
+</li>
+<li>有$N$个状态的一阶马尔可夫过程有$N^2$次状态转移，可表示成状态转移矩阵
+<ul>
+<li>eg. 一段文字中s1：名词，s2：动词，s3：形容词，转移矩阵：
+<ul>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/e21f56eec04a4ed3a4864ae3859908c8.png"
+        data-srcset="../../_resources/e21f56eec04a4ed3a4864ae3859908c8.png, ../../_resources/e21f56eec04a4ed3a4864ae3859908c8.png 1.5x, ../../_resources/e21f56eec04a4ed3a4864ae3859908c8.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/e21f56eec04a4ed3a4864ae3859908c8.png"
+        title="f49755c3d01a2b270bef8fdfcd3b6c32.png" /></li>
+<li>假设名词开头，则O=“名动形名”概率为：
+$\begin{aligned} P(O \mid M) &amp;=P(s_{1}, s_{2}, s_{3}, s_{1} \mid M) \\ &amp;=P(s_{1}) \cdot P(s_{2} \mid s_{1}) \cdot P(s_{3} \mid s_{2}) \cdot P(s_{1} \mid s_{3}) \\ &amp;=1 \times a_{12} \times a_{23} \times a_{31} \\ &amp;=0.5 \times 0.2 \times 0.4 \\ &amp;=0.04 \end{aligned}$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>马尔科夫模型可视为随机的非确定有限状态机
+<ul>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/5022f43cb17a495eaf00dbc9b2696c17.png"
+        data-srcset="../../_resources/5022f43cb17a495eaf00dbc9b2696c17.png, ../../_resources/5022f43cb17a495eaf00dbc9b2696c17.png 1.5x, ../../_resources/5022f43cb17a495eaf00dbc9b2696c17.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/5022f43cb17a495eaf00dbc9b2696c17.png"
+        title="063763cfce271c3250b140c5dad97d8a.png" /></li>
+<li>序列概率为转移弧概率乘积：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/6bff78fa7fe240b6a97a14bdcd260b2a.png"
+        data-srcset="../../_resources/6bff78fa7fe240b6a97a14bdcd260b2a.png, ../../_resources/6bff78fa7fe240b6a97a14bdcd260b2a.png 1.5x, ../../_resources/6bff78fa7fe240b6a97a14bdcd260b2a.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/6bff78fa7fe240b6a97a14bdcd260b2a.png"
+        title="0226f9548c08a087a5d7d3fade52d3d3.png" /></li>
+</ul>
+</li>
+<li>n-gram与马尔科夫模型
+<ul>
+<li>2-gram就是一个马尔科夫模型</li>
+<li>对于$n\ge 3$的n-gram确定数量的历史，可以通过将状态空间描述成多重前面状态的交叉乘积的方式，转化为马尔科夫模型，可以称之为m阶马尔科夫模型，m为历史数。</li>
+<li>n元语法模型就是n-1阶马尔可夫模型</li>
+</ul>
+</li>
+</ul>
+<h2 id="64-隐马尔科夫模型">6.4 隐马尔科夫模型</h2>
+<ul>
+<li>VMM每个状态代表可观察的事件，限制了模型适应性，提出HMM</li>
+<li>HMM：观察到的事件是隐蔽的状态转换过程的随机函数，模型为双重随机过程
+<ul>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/9b6c48c230ae420c8c1777ddb67d0601.png"
+        data-srcset="../../_resources/9b6c48c230ae420c8c1777ddb67d0601.png, ../../_resources/9b6c48c230ae420c8c1777ddb67d0601.png 1.5x, ../../_resources/9b6c48c230ae420c8c1777ddb67d0601.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/9b6c48c230ae420c8c1777ddb67d0601.png"
+        title="90edc401c7ca942ce9ec908aafa77c4c.png" /></li>
+<li>类比：口袋取球，室外人只看到球</li>
+</ul>
+</li>
+<li>HMM记为五元祖$\mu=(\mathrm{S}, \mathrm{K}, \mathrm{A}, \mathrm{B}, \pi)$
+<ul>
+<li>S：状态结合</li>
+<li>K：输出符号集合</li>
+<li>A：状态转移概率</li>
+<li>B：符号发射概率</li>
+<li>$\pi$：初始状态概率分布</li>
+</ul>
+</li>
+<li>基本问题：
+<ol>
+<li>估计问题：给定观察序列$O=O_1O_2&hellip;O_T$和模型$\mu=(\mathrm{A}, \mathrm{B}, \pi)$，快速计算$P(O\mid \mu)$</li>
+<li>序列问题：给定观察序列$O=O_1O_2&hellip;O_T$和模型$\mu=(\mathrm{A}, \mathrm{B}, \pi)$，快速有效选择“最优”状态序列$Q=q_1q_2&hellip;q_T$解释观察序列</li>
+<li>训练问题/参数估计问题：给定观察序列$O=O_1O_2&hellip;O_T$，如何根据最大似然估计求参数？即如何调节模型$\mu=(\mathrm{A}, \mathrm{B}, \pi)$的参数，使得$P(O\mid \mu)$最大。</li>
+</ol>
+<ul>
+<li>解决：前后向算法及参数估计</li>
+</ul>
+</li>
+</ul>
+<h3 id="641-求解观察序列的概率">6.4.1 求解观察序列的概率</h3>
+<ul>
+<li>估计问题/解码（decoding）问题：给定观察序列$O=O_1O_2&hellip;O_T$和模型$\mu=(\mathrm{A}, \mathrm{B}, \pi)$，快速计算$P(O\mid \mu)$</li>
+<li>推导：
+对于任意的状态序列$Q=q_{1} q_{2} \ldots q_{T}$，有：
+$$\begin{aligned} P(O \mid Q, \mu) &amp;=\prod_{t=1}^{T-1} P(O_{t} \mid q_{t}, q_{t+1}, \mu) \\ &amp;=b_{q_{1}}(O_{1}) \times b_{q_{2}}(O_{2}) \times \cdots \times b_{q_{T}}(O_{T}) \end{aligned}$$
+并且
+$$P(Q \mid \mu)=\pi_{q_{1}} a_{q_{1} q_{2}} a_{q_{2} q_{3}} \cdots a_{q_{T-1} q_{T}}$$
+由于
+$$P(O, Q \mid \mu)=P(O \mid Q, \mu) P(Q \mid \mu)$$
+因此
+$$\begin{aligned} P(O \mid \mu) &amp;=\sum_{Q} P(O, Q \mid \mu) \\ &amp;=\sum_{Q} P(O \mid Q, \mu) P(Q \mid \mu) \\ &amp;=\sum_{Q} \pi_{q_{1}} b_{q_{1}}(O_{1}) \prod_{t=1}^{T-1} a_{q_{t} q_{t+1}} b_{q_{t+1}}(O_{t+1}) \end{aligned}$$</li>
+<li>算法改进：
+<ul>
+<li>问题：在N状态、T时间长度时，上述推导需要穷尽$N^T$个所有可能的状态序列，指数爆炸</li>
+<li>改进：基于DP的前向算法/前向计算过程（forward procedure），$O(N^2T)$</li>
+<li>描述：HMM的DP问题一般用格架（trellis/lattice）的组织形式描述
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/01b2e3f7dd37418c8ef4ec724320e793.png"
+        data-srcset="../../_resources/01b2e3f7dd37418c8ef4ec724320e793.png, ../../_resources/01b2e3f7dd37418c8ef4ec724320e793.png 1.5x, ../../_resources/01b2e3f7dd37418c8ef4ec724320e793.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/01b2e3f7dd37418c8ef4ec724320e793.png"
+        title="62f4966a8ae3fdbb2eac71ff6ca1fcfc.png" /></li>
+</ul>
+</li>
+</ul>
+<h4 id="前向算法">前向算法</h4>
+<ul>
+<li>前向变量：$\alpha_{t}(i)=P(O_{1} O_{2} \cdots O_{t}, q_{t}=s_{i} \mid \mu)$</li>
+<li>算法思想：先快速计算前向变量$\alpha_t(i)$，再据此算出$P(O\mid \mu)$
+<ul>
+<li>显而易见，$P(O\mid \mu)$为所有T长度的状态下观察序列出现概率和</li>
+<li>$P(O \mid \mu)=\sum_{s_{i}} P(O_{1} O_{2} \cdots O_{\tau}, q_{T}=s_{i} \mid \mu)=\sum_{i=1}^{N} \alpha_{T}(i)$</li>
+</ul>
+</li>
+<li>DP思想：t+1的前向变量可以由t时刻所有前向变量归纳计算
+<ul>
+<li>$\alpha_{t-1}(j)=(\sum_{i=1}^{N} \alpha_{t}(i) a_{i j}) b_{j}(O_{t+1})$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/c979184de4024acb9b3d387104500ac9.png"
+        data-srcset="../../_resources/c979184de4024acb9b3d387104500ac9.png, ../../_resources/c979184de4024acb9b3d387104500ac9.png 1.5x, ../../_resources/c979184de4024acb9b3d387104500ac9.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/c979184de4024acb9b3d387104500ac9.png"
+        title="43f618a51e5244613909496464f36e89.png" /></li>
+</ul>
+</li>
+<li>前向算法描述（forward procedure）
+<ol>
+<li>初始化：$\alpha_{1}(\mathrm{i})=\pi b_{i}(O_{1}), 1 \leq i \leq N$</li>
+<li>归纳计算：$\alpha_{i+1}(j)=(\sum_{i=1}^{N} \alpha_{t}(i) a_{i j}) b_{j}(O_{t+1}), \quad 1 \leqslant t \leqslant T-1$</li>
+<li>求和终结：$P(O \mid \mu)=\sum_{i=1}^{N} \alpha_{T}(i)$</li>
+</ol>
+</li>
+<li>复杂度：共T时间，每个时间计算N个前向变量，每个前向变量需要考虑上一时刻的的N个前向变量，所以复杂度为$O(N^2T)$</li>
+</ul>
+<h4 id="后向算法">后向算法</h4>
+<ul>
+<li>与前向算法功能相同，用于快速计算$P(O \mid \mu)$</li>
+<li>后向变量：$\beta_{t}(i)=P(O_{t-1} O_{t-2} \cdots O_{T} \mid q_{t}=s_{i}, \mu)$</li>
+<li>DP思想：
+<ul>
+<li>$\beta_{t}(i)=\sum_{j=1}^{N} a_{i j} b_{j}(O_{t+1}) \beta_{t-1}(j)$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/b23ab601b50945dda996bd7471712fba.png"
+        data-srcset="../../_resources/b23ab601b50945dda996bd7471712fba.png, ../../_resources/b23ab601b50945dda996bd7471712fba.png 1.5x, ../../_resources/b23ab601b50945dda996bd7471712fba.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/b23ab601b50945dda996bd7471712fba.png"
+        title="b7de6f1ccf50dd3dc3964dd9c2f79bef.png" /></li>
+</ul>
+</li>
+<li>后向算法描述（backward precedure）
+<ol>
+<li>初始化：$\beta_{\mathrm{T}}(\mathrm{i})=1, \quad 1 \leq \mathrm{i} \leq \mathrm{N}$</li>
+<li>归纳计算：$\beta_{i}(i)=\sum_{j=1}^{N} a_{i j} b_{j}(O_{t+1}) \beta_{i+1}(j), \quad T-1 \geqslant t \geqslant 1 ; 1 \leqslant i \leqslant N$</li>
+<li>求和终结：$P(O \mid \mu)=\sum_{i=1}^{N} \pi_{i} b_{i}(O_{1}) \beta_{1}(i)$</li>
+</ol>
+</li>
+</ul>
+<h4 id="前后向结合算法">前后向结合算法</h4>
+<p>$$\begin{aligned} P(O, q_{t}=s_{i} \mid \mu) &amp;=P(O_{1} \cdots O_{T}, q_{t}=s_{i} \mid \mu) \\ &amp;=P(O_{1} \cdots O_{t}, q_{t}=s_{i}, O_{t-1} \cdots O_{T} \mid \mu) \\ &amp;=P(O_{1} \cdots O_{t}, q_{t}=s_{i} \mid \mu) \times P(O_{t+1} \cdots O_{T} \mid O_{1} \cdots O_{t}, q_{t}=s_{i}, \mu) \\ &amp;=P(O_{1} \cdots O_{t}, q_{t}=s_{i} \mid \mu) \times P(O_{t+1} \cdots O_{T} \mid q_{t}=s_{i}, \mu) \\ &amp;=\alpha_{t}(i) \beta_{t}(i) \end{aligned}$$</p>
+<p>$$P(O \mid \mu)=\sum_{i=1}^{N} \alpha_{t}(i) \times \beta_{t}(i), \quad 1 \leqslant t \leqslant T$$</p>
+<h3 id="642-维特比viterbi算法">6.4.2 维特比（Viterbi）算法</h3>
+<ul>
+<li>求解序列问题：给定观察序列$O=O_1O_2&hellip;O_T$和模型$\mu=(\mathrm{A}, \mathrm{B}, \pi)$，快速有效选择“最优”状态序列$Q=q_1q_2&hellip;q_T$解释观察序列</li>
+<li>“最优状态序列”的标准不唯一
+<ul>
+<li>使该状态序列的每一个状态都单独具有最大概率：
+<ul>
+<li>$\gamma_{t}(i)=P(q_{t}=s_{i} \mid O, \mu)$最大</li>
+<li>贝叶斯：$\gamma_{t}(i)=P(q_{t}=s_{i} \mid O, \mu)=\frac{P(q_{t}=s_{i}, O \mid \mu)}{P(O \mid \mu)}$</li>
+<li>前后向算法：$\gamma_{t}(i)=\frac{\alpha_{t}(i) \beta_{t}(i)}{\sum_{i=1}^{N} \alpha_{t}(i) \times \beta_{i}(i)}$</li>
+<li>时间t最优状态：$\hat{q}_{t}=\underset{1 \leqslant \leqslant N}{\operatorname{argmax}}[\gamma_{i}(i)]$</li>
+<li>断序问题：忽略了状态间的关系，可能导致两状态转移概率为0，则最优状态序列不合法</li>
+</ul>
+</li>
+<li>在给定模型$\mu$和观察序列$O$的条件下，使条件概率$P（Q\mid O，\mu）$最大的状态序列
+<ul>
+<li>$\hat{Q}=\underset{Q}{\operatorname{argmax}} P(Q \mid O, \mu)$</li>
+<li>避免了断序问题</li>
+<li>维特比算法运用DP搜索求解</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>维特比算法
+<ul>
+<li>维特比变量：在时间t时，HMM沿着某一条路径到达状态$s_i$，并输出观察序列$O_1O_2…O_t$的最大概率
+<ul>
+<li>$\delta_{t}(i)=\max _{q_{1} \cdot q_{2}, \cdots, q_{i-1}} P(q_{1}, q_{2}, \cdots, q_{t}=s_{i}, O_{1} O_{2} \cdots O_{t} \mid \mu)$</li>
+</ul>
+</li>
+<li>递归关系：$\delta_{t+1}(i)=\max _{j}[\delta_{t}(j) \cdot a_{j i}] \cdot b_{i}(O_{t+1})$</li>
+<li>算法描述
+<ol>
+<li>初始化：
+$\delta_{1}(i)=\pi_{i} b_{i}(O_{1}), \quad 1 \leqslant i \leqslant N$
+$\psi_{1}(i)=0$</li>
+<li>归纳计算：
+$\delta_{i}(j)=\max _{1 \leqslant i \leqslant N}[\delta_{i-1}(i) \cdot a_{i j}] \cdot b_{j}(O_{t}), \quad 2 \leqslant t \leqslant T ; 1 \leqslant j \leqslant N$
+记忆回退路径：
+$\psi_{t}(j)=\underset{1 \leqslant i \leqslant N}{\operatorname{argmax}}[\delta_{i-1}(i) \cdot a_{i j}] \cdot b_{j}(O_{t}), \quad 2 \leqslant t \leqslant T ; 1 \leqslant i \leqslant N$</li>
+<li>终结：
+$\hat{Q}_{T}=\underset{1 \leqslant i \leqslant N}{\operatorname{argmax}}[\delta_{T}(i)]$
+$\hat{P}(\hat{Q}_{T})=\max _{1 \leqslant i \leqslant N}[\delta_{T}(i)]$</li>
+<li>路径回溯：
+$\hat{q}_{t}=\psi_{t+1}(\hat{q}_{t-1}), \quad t=T-1, T-2, \cdots, 1$</li>
+</ol>
+</li>
+<li>复杂度：易知，与前后向算法一致，为$O(N^2T)$</li>
+<li>改进：实际应用常求n-best个最佳路径，在格架每个结点记录m-best（m&lt;n）状态</li>
+</ul>
+</li>
+</ul>
+<h3 id="643-hmm参数估计">6.4.3 HMM参数估计</h3>
+<ul>
+<li>
+<p>训练问题/参数估计问题：给定观察序列$O=O_1O_2&hellip;O_T$，如何调节模型$\mu=(\mathrm{A}, \mathrm{B}, \pi)$的参数，使得$P(O\mid \mu)$最大：</p>
+<ul>
+<li>$\underset{\mu}{\arg \max } P(O_{\text {training }} \mid \mu)$</li>
+</ul>
+</li>
+<li>
+<p>模型参数：构成$\mu$的$\pi_i, a_{ij}, b_j(k)$</p>
+</li>
+<li>
+<p>可以采用最大似然估计：</p>
+<ul>
+<li>$\bar{\pi}_{i}=\delta(q_{1}, s_{i})$
+<ul>
+<li>$\delta(x, y)$为Kronecker函数，x=y时为1，否则为0</li>
+</ul>
+</li>
+<li>$\begin{aligned} \bar{a}_{i j} &amp;=\frac{Q \text { 中从状态 } q_{i} \text { 转移到 } q_{j} \text { 的次数 }}{ Q \text { 中所有从状态 } q_{i} \text { 转移到另一状态(包括 } q_{j} \text { 自身 }) \text { 的次数 }} \\ &amp;=\frac{\sum_{t=1}^{T-1} \delta(q_{t}, s_{i}) \times \delta(q_{t-1}, s_{j})}{\sum_{t=1}^{T-1} \delta(q_{t}, s_{i})} \end{aligned}$</li>
+<li>$\begin{aligned} \bar{b}_{j}(k) &amp;=\frac{Q \text { 中从状态 } q_{j} \text { 输出符号 } v_{k} \text { 的次数 }}{Q \text { 到达 } q_{j} \text { 的次数 }} \\ &amp;=\frac{\sum_{t=1}^{T} \delta(q_{t}, s_{j}) \times \delta(O_{t}, v_{k})}{\sum_{t=1}^{T} \delta(q_{t}, s_{j})} \end{aligned}$</li>
+<li>由于HMM的状态序列Q无法观察，因此这种最大似然估计方法不可行，可以采用EM算法</li>
+</ul>
+</li>
+<li>
+<p>期望最大化（expectation maximization， EM）算法</p>
+<ul>
+<li>可用于含有隐变量的统计模型的参数最大似然估计</li>
+<li>基本思想（迭代爬山）：在模型参数限制下随机赋值参数，得到模型$\mu_0$，计算隐变量期望值，用期望替代实际次数（未知）计算新参数值，反复迭代，直到收敛与最大似然估计。</li>
+<li>可以达到局部最优</li>
+<li>Baum-Welch算法或称前向后向算法（forward-backward algorithm）用于具体实现这种EM方法</li>
+</ul>
+</li>
+<li>
+<p>Baum-Welch算法/前向后向算法（forward-backward algorithm）</p>
+<ul>
+<li>思路：
+<ul>
+<li>期望：
+<ul>
+<li>$\begin{aligned} \hat{\xi}_{t}(i, j) &amp;=P(q_t=s_i, q_{t+1}=s_j\mid O, \mu) \\&amp;=\frac{P(q_{t}=s_{i}, q_{t-1}=s_{j}, O \mid \mu)}{P(O \mid \mu)} \\ &amp;=\frac{\alpha_{t}(i) a_{i j} b_{j}(O_{t-1}) \beta_{t+1}(j)}{P(O \mid \mu)} \\ &amp;=\frac{\alpha_{t}(i) a_{i j} b_{j}(O_{t-1}) \beta_{t-1}(j)}{\sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_{t}(i) a_{i j} b_{j}(O_{t+1}) \beta_{t-1}(j)} \end{aligned}$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/986738539a16439ea2384bb7bab5009f.png"
+        data-srcset="../../_resources/986738539a16439ea2384bb7bab5009f.png, ../../_resources/986738539a16439ea2384bb7bab5009f.png 1.5x, ../../_resources/986738539a16439ea2384bb7bab5009f.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/986738539a16439ea2384bb7bab5009f.png"
+        title="bc623ed5f8d73054090757b08172b47c.png" /></li>
+<li>$\gamma_{t}(i)=\sum_{j=1}^{N} \hat{\xi}_{t}(i, j)$</li>
+</ul>
+</li>
+<li>估计：
+<ul>
+<li>$\bar{\pi}_{i}=P(q_{1}=s_{i} \mid O, \mu)=\gamma_{1}(i)$</li>
+<li>$\begin{aligned} \bar{a}_{i j} &amp;=\frac{Q \text { 中从状态 } q_{i} \text { 转移到 } q_{j} \text { 的期望次数 }}{ Q \text { 中所有从状态 } q_{i} \text { 转移到另一状态(包括 } q_{j} \text { 自身 }) \text { 的期望次数 }} \\ &amp;=\frac{\sum_{i=1}^{T-1} \xi_{t}(i, j)}{\sum_{t=1}^{T-1} \gamma_{t}(i)} \end{aligned}$</li>
+<li>$\begin{aligned} \bar{b}_{j}(k)=&amp; \frac{Q \text { 中从状态 } q_{j} \text { 输出符号 } v_{k} \text { 的期望次数 }}{Q \text { 到达 } q_{j} \text { 的期望次数 }} \\ &amp;=\frac{\sum_{i=1}^{T} \gamma_{t}(j) \times \delta(O_{t}, v_{k})}{\sum_{t=1}^{T} \gamma_{t}(j)} \end{aligned}$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>算法描述：
+<ol>
+<li>初始化，随机给$\pi_i, a_{ij}, b_j(k)$赋值，满足约束：
+<ul>
+<li>$\sum_{i=1}^{N} \pi_{i}=1$</li>
+<li>$\sum_{j=1}^{N} a_{i j}=1, 1 \leqslant i \leqslant N$</li>
+<li>$\sum_{k=1}^{M} b_{j}(k)=1, 1 \leqslant j \leqslant N$</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>得到模型$\mu_0$。令i=0，执行EM估计如下：</li>
+</ul>
+<ol start="2">
+<li>EM计算
+<ul>
+<li>E-步骤：由模型$μ_i$根据期望公式计算期望值$\xi_t(i, j)$和$\gamma_t(i)$；</li>
+<li>M-步骤：用E-步骤得到的期望值，根据估计公式重新估计参数$\pi_i, a_{ij}, b_j(k)$的值，得到模型$\mu_{i＋1}$。</li>
+</ul>
+</li>
+<li>循环计算：令i＝i＋1。重复执行EM计算，直到$\pi_i, a_{ij}, b_j(k)$收敛。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>HMM实际应用，注意</p>
+<ul>
+<li>多个概率连乘引起浮点数下溢
+<ul>
+<li>Viterbi算法只涉及乘法和求最大值，可以对概率连乘取对数，避免下溢并加快运算</li>
+<li>前向后向算法中，采用$|\log {P}(O \mid \mu_{i+1})-\log P({O} \mid \mu_{{i}})|&lt;\varepsilon$判断收敛。但执行EM计算时有加法运算，这就使得EM计算中无法采用对数运算，在这种情况下，可以设置一个辅助的比例系数，将概率值乘以这个比例系数以放大概率值，避免浮点数下溢。在每次迭代结束重新估计参数值时，再将比例系数取消。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="65-层次化的隐马尔科夫模型hierarchical-hidden-markov-models-hhmm">6.5 层次化的隐马尔科夫模型hierarchical hidden Markov models, HHMM）</h2>
+<ul>
+<li>提出原因：NLP应用中，因处理序列具有递归特性，尤其长度较大是，HMM复杂度剧增</li>
+<li>HHMM结构：多层随机过程构成。在HHMM中每个状态本身就是一个独立的HHMM，因此一个HHMM的状态产生一个观察序列，而不是一个观察符号。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/b52baf5682d844b49f97875444d9bd5f.png"
+        data-srcset="../../_resources/b52baf5682d844b49f97875444d9bd5f.png, ../../_resources/b52baf5682d844b49f97875444d9bd5f.png 1.5x, ../../_resources/b52baf5682d844b49f97875444d9bd5f.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/b52baf5682d844b49f97875444d9bd5f.png"
+        title="61373158789bd743f1b70e89378a7f4c.png" /></li>
+<li>状态：
+<ul>
+<li>终止状态：双圈，用于控制转移过程返回上层状态</li>
+<li>生产状态（production state）：只有生产状态才能通过常规HMM机制，即根据输出符号的概率分布产生可观察的输出符号（图中未标出）</li>
+<li>内部状态：不直接产生可观察符号的隐藏状态</li>
+</ul>
+</li>
+<li>状态转移：
+<ul>
+<li>垂直转移（vertical transition）：不同层间转移</li>
+<li>水平转移（horizontal transition）：同层转移</li>
+</ul>
+</li>
+<li>观察序列的产生：状态转移到某生成，产生一个观察输出后，终止状态控制转移过程返回到激活该层状态转移的上层状态。这一递归转移过程将形成一个生产状态序列，而每个生产状态生成一个观察输出符号，因此生产状态序列将为顶层状态生成一个观察输出序列。</li>
+<li>形式化描述：
+<ul>
+<li>状态$q_i^d(d\in {1,&hellip;, D})$，i为状态下标，d为层次标号</li>
+<li>内部状态转移概率矩阵：$\begin{aligned} A^{q^{d}} &amp;={a_{i j}^{q^{d}}} \\ &amp;={P(q_{j}^{d+1} \mid q_{i}^{d+1})} \end{aligned}$，其中$a_{i j}^{a^{d}}$表示从状态i水平转移到状态j的概率</li>
+<li>子状态初始分布矩阵：$\begin{aligned} \Pi^{q^{d}} &amp;={\pi^{d}(q_{i}^{d+1})} \\ &amp;={P(q_{i}^{d+1} \mid q^{d})} \end{aligned}$</li>
+<li>参数输出概率矩阵：$\begin{aligned} B^{q_{i}^{D}} &amp;={b^{q_{i}^{D}}(k)} \\ &amp;={P(\sigma_{k} \mid q_{i}^{D})} \end{aligned}$</li>
+<li>HHMM参数集合：$\lambda={{A^{q^{d}}}{\Pi^{q^{d}}}{B^{q^{D}}}}$</li>
+</ul>
+</li>
+<li>与HMM一样，HHMM也有估计问题、序列问题和训练问题，详见原文[Fine et al., 1998]</li>
+</ul>
+<h2 id="66-马尔科夫网络">6.6 马尔科夫网络</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/f6906badf2044446ab933fb5ad107596.png"
+        data-srcset="../../_resources/f6906badf2044446ab933fb5ad107596.png, ../../_resources/f6906badf2044446ab933fb5ad107596.png 1.5x, ../../_resources/f6906badf2044446ab933fb5ad107596.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/f6906badf2044446ab933fb5ad107596.png"
+        title="8e7c685f2783e9b1d5ba434dfcba26bd.png" /></p>
+<ul>
+<li>马尔科夫网络
+<ul>
+<li>无向图模型，可以表示贝叶斯网络无法表示的一些依赖关系，如循环依赖；另一方面，不能表示贝叶斯网络能够表示的某些关系，如推导关系</li>
+<li>一组有关马尔科夫性质的随机变量的联合概率分布模型</li>
+<li>由无向图G和定义于G上的势函数组成</li>
+</ul>
+</li>
+<li>完全子图（complete subgraph）又称团（clique）
+<ul>
+<li>团的完全子图称为子团</li>
+</ul>
+</li>
+<li>团势能（clique potentials）
+<ul>
+<li>无向图不使用条件概率密度对模型进行参数化，使用一种参数化因子：团势能</li>
+<li>又称团势能函数/势函数（clique potential function），是定义在团上的非负实函数</li>
+<li>每个团对应一个势函数，表示团的一个状态</li>
+<li>$\mathbf{x}_C$来表示团C中所有的结点，用$\phi(\mathbf{x}_C)$表示团势能。
+<ul>
+<li>如图6-11中团：$\mathbf{x}_{\mathbf{C}_{1}}={x_{1}, \quad x_{2}}, \quad \mathbf{x}_{\mathbf{C}_{2}}={x_{1}, \quad x_{3}, \quad x_{4}}$</li>
+<li>势能非负，故一般定义 $\phi(\mathbf{x}_C)=\exp(-E(\mathbf{x}_C))$，$E(\mathbf{x}_C)$为$\mathbf{x}_C$的能量函数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果分布P $\phi(x_1，x_2，…，x_n)$的图模型可以表示为一个马尔可夫网络H，当C是H上完全子图的集合时，我们说H上的分布P $\phi(x_1，x_2，…，x_n)$可以用C的团势能函数$\phi(\mathbf{x}_C)$进行因子化：$\phi＝\phi_1(\mathbf{x}_{C_1}),&hellip;,\phi_K(\mathbf{x}_{C_K})$。P $\phi(x1，x2，…，xn)$可以看作H上的一个吉布斯分布（Gibbs distribution），其概率分布密度为：
+$
+p(x_{1}, x_{2}, \cdots, x_{n})=\frac{1}{Z} \prod_{i=1}^{K} \phi_{i}(\mathbf{x}{C{i}})
+$
+<ul>
+<li>其中，Z是一个归一化常量，称为划分函数（partition function）。</li>
+<li>其中，$x_{C_i} \subseteq {x_1，x_2，…，x_n}$（1≤i≤K），并且满足$\bigcup_{i=1}^{K} x_{C_i}={x_1,x_2,…,x_n }$。</li>
+</ul>
+</li>
+<li>显然，在无向图模型中每个$C_i$对应于一个团，而相应的吉布斯分布就是整个图模型的概率分布。
+<ul>
+<li>图6-11中的两个团$x_{C_1}＝{x_1，x_2}$和$x_{C_2}＝{x_1，x_3，x_4}$就可以定义相应的吉布斯分布，因为满足条件$x_{C_1} \cup x_{C_2}＝{x_1，x_2，x_3，x_4}$。</li>
+</ul>
+</li>
+<li>因子化的乘积运算可以变成加法运算
+$p(x_{1}, x_{2}, \cdots, x_{n})=\frac{1}{Z} \exp {-\sum_{i=1}^{K} E_{c_{i}}(x_{c_{i}})}=\frac{1}{Z} \exp {-E(\mathbf{x})}$
+<ul>
+<li>其中，$\sum_{i=1}^{K} E_{C_{i}}(x_{C_{i}})$</li>
+</ul>
+</li>
+</ul>
+<h2 id="67-最大熵模型">6.7 最大熵模型</h2>
+<h3 id="671-最大熵原理">6.7.1 最大熵原理</h3>
+<ul>
+<li>熵最大的概率概率分布最真实地反应了事件的分布情况，因为熵最大时随机变量最不确定，最难准确预测其行为。
+<ul>
+<li>即：在已知部分信息的前提下，关于未知分布最合理的推断应该是符合已知信息最不确定或最大随机的推断</li>
+</ul>
+</li>
+</ul>
+<h3 id="672-最大熵模型的参数训练">6.7.2 最大熵模型的参数训练</h3>
+<ul>
+<li>最大熵模型参数训练任务：选取有效特征$f_i$及其权重$\lambda_i$</li>
+<li>各种特征条件和歧义候选可以组合出很多特征函数，必须进行筛选，常用筛选方法：
+<ol>
+<li>选取在训练数据中频次超过一定阈值的候选特征</li>
+<li>互信息</li>
+<li>增量式特征选择方法（比较复杂，不常用）</li>
+</ol>
+</li>
+<li>参数$\lambda$获取：通用迭代算法（generalized iterative scaling，GIS）</li>
+</ul>
+<h2 id="68-最大熵马尔科夫模型maximum-entropy-markov-model-memm">6.8 最大熵马尔科夫模型（maximum-entropy Markov model, MEMM）</h2>
+<ul>
+<li>
+<p>又称条件马尔科夫模型（conditional Markov model，CMM）</p>
+</li>
+<li>
+<p>结合HMM与最大熵模型特点，广泛用于序列标注问题</p>
+</li>
+<li>
+<p>HMM存在问题：</p>
+<ol>
+<li>很多序列标注任务中，尤其当不能枚举观察输出时，需要用大量特征来刻画观察序列</li>
+<li>很多NLP任务中，问题是已知观察序列求解状态序列，HMM采用生成式的联合概率模型（状态序列与观察序列的联合概率$P(S_T, O_T)$）求解这种条件概率问题$P(S_T\mid O_T)$，不适合处理很多特征描述观察序列的情况</li>
+</ol>
+</li>
+<li>
+<p>MEMM直接采用条件概率模型$P(S_T\mid O_T)$，使得观察输出可以用特征表示，借助最大熵框架进行特征选取</p>
+</li>
+<li>
+<p>HMM与MEMM区别：</p>
+<ul>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/83baebd1d5194f1bb102a79f9fe5cab9.png"
+        data-srcset="../../_resources/83baebd1d5194f1bb102a79f9fe5cab9.png, ../../_resources/83baebd1d5194f1bb102a79f9fe5cab9.png 1.5x, ../../_resources/83baebd1d5194f1bb102a79f9fe5cab9.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/83baebd1d5194f1bb102a79f9fe5cab9.png"
+        title="43fde9cbfeb1c8790866c3b967eba975.png" /></li>
+<li>HMM中$\mu$解码求解的是：$\underset{S_{T}}{\operatorname{argmax}} P(O_{T} \mid S_{T}, \mu)$</li>
+<li>MEMM中M解码器求解的是：$\underset{S_{T}}{\operatorname{argmax}} P(S_{T} \mid O_{T}, \mu)$</li>
+<li>HMM当前观察输出只取决于当前状态，MEMM当前观察输出还可能取决于前一时刻的状态</li>
+</ul>
+</li>
+<li>
+<p>MEMM思路</p>
+<ul>
+<li>概率因子化为马尔可夫转移概率，该转移概率依赖于当前时刻的观察和前一时刻的状态：$P(S_{1} \cdots S_{T} \mid O_{1} \cdots O_{T})=\prod_{t=1}^{T} P(S_{t} \mid S_{t-1}, O_{t})$</li>
+<li>对于前一时刻每个可能的状态取值$S_{t－1}＝s'$和当前观察输出$O_t＝o$，当前状态取值$S_t＝s$的概率通过最大熵分类器建模：
+$P(s \mid s^{\prime}, o)=P_{j}(s \mid o)=\frac{1}{Z(o, s)} \exp (\sum_{a} \lambda_{a} f_{a}(o, s))$</li>
+<li>$Z(o, s′)$为归一化因子，$f_a(o, s)$为特征函数，$λ_a$为特征函数的
+权重，可以利用GIS算法从训练样本中估计出来</li>
+<li>$f_{a}(o_{t}, s_{t})=f_{(b, r)}(o_{t}, s_{t})={\begin{array}{ll}1, &amp; b(o_{t})=\text { True, } s_{t}=r \\ 0, &amp; \text { 其他 }\end{array}.$</li>
+<li>HMM中用于参数估计的Baum-Welch算法修改后可用于MEMM的状
+态转移概率估计。</li>
+</ul>
+</li>
+<li>
+<p>MEMM特点</p>
+<ul>
+<li>有向图和无向图的混合模型，主体还是有向图框架。</li>
+<li>相比HMM，MEMM最大优点为允许使用任意特征刻画观察序列，这一特性有利于针对特定任务充分利用领域知识设计特征</li>
+<li>MEMM比起HMM、CRFs训练更高效，HMM和CRF训练需要前后向算法作为内部循环，MEMM估计状态转移概率可以独立进行</li>
+<li>MEMM缺点：标记偏置问题（label bias）</li>
+</ul>
+</li>
+</ul>
+<h2 id="69-条件随机场">6.9 条件随机场</h2>
+<ul>
+<li>条件随机场（conditional random fields，CRFs）
+<ul>
+<li>是用来标注和划分序列结构数据的概率化结构模型</li>
+<li>对于给定的输出标识序列Y和观测序列X，CRF通过定义条件概率$P(Y|X)$，而不是联合概率分布$P(X, Y)$来描述模型</li>
+<li>CRF也可以看作一个无向图模型或者马尔科夫随机场</li>
+</ul>
+</li>
+<li>CRF定义：无向图每个结点对应随机变量$Y_v$，其取值范围为可能的标记集合${y}$。如果以观察序列X为条件，每一个随机变量$Y_v$都满足以下马尔科夫特性：
+$p(Y_{v} \mid X, Y_{w}, w \neq v)=p(Y_{v} \mid X, Y_{w}, w \sim v)$
+其中$w\sim v$表示两结点邻近。那么，$(X, Y)$为一个条件随机场</li>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/03c04aa3b77b4539b0c769e77e673552.png"
+        data-srcset="../../_resources/03c04aa3b77b4539b0c769e77e673552.png, ../../_resources/03c04aa3b77b4539b0c769e77e673552.png 1.5x, ../../_resources/03c04aa3b77b4539b0c769e77e673552.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/03c04aa3b77b4539b0c769e77e673552.png"
+        title="6b4bd8dddc672d85134a00357908cde7.png" /></li>
+<li>CRF也需要解决三类基本问题：特征选取、参数训练和解码</li>
+<li>CRF特点：
+<ul>
+<li>相比HMM，主要优点是条件随机性，只需要考虑已经出现的观测状态的特性，没有独立性的严格要求，对于整个序列内部的信息和外部观测信息均可有效利用，避免了MEMM和其他针对线性序列模型的条件马尔可夫模型会出现的标识偏置问题。</li>
+<li>CRF具有MEMM的一切优点，两者的关键区别在于，MEMM使用每一个状态的指数模型来计算给定前一个状态下当前状态的条件概率，而CRF用单个指数模型来计算给定观察序列与整个标记序列的联合概率。因此，不同状态的不同特征权重可以相互交替代换</li>
+</ul>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-01-16</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" data-title="《统计自然语言处理》第6章 - 概率图模型" data-hashtags="统计自然语言处理,NLP,statistics,notes"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" data-hashtag="统计自然语言处理"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" data-title="《统计自然语言处理》第6章 - 概率图模型"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" data-title="《统计自然语言处理》第6章 - 概率图模型"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" data-title="《统计自然语言处理》第6章 - 概率图模型"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%BB%9F%E8%AE%A1%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">统计自然语言处理</a>,&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/statistics/">statistics</a>,&nbsp;<a href="/tags/notes/">Notes</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/snlp-ch3-%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA/" class="prev" rel="prev" title="《统计自然语言处理》第3章 - 形式语言与自动机"><i class="fas fa-angle-left fa-fw"></i>《统计自然语言处理》第3章 - 形式语言与自动机</a>
+            <a href="/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/" class="next" rel="next" title="《统计自然语言处理》第7.1章 - 自动分词">《统计自然语言处理》第7.1章 - 自动分词<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
+
+                
+            </div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"QGzwQXOqs5JOhN4RGPOkR2mR-MdYXbMMI","appKey":"WBmoGyJtbqUswvfLh6L8iEBr","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"serverURLs":"https://leancloud.hugoloveit.com","visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

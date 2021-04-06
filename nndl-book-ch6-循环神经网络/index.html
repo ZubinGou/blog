@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《神经网络与深度学习》第6章 - 循环神经网络 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《神经网络与深度学习》第6章 - 循环神经网络" />
+<meta property="og:description" content="ch6 循环神经网络 学习：随时间反向传播算法 长程依赖：长序列时梯度爆炸和消失 -&gt; 门控机智（Gating Mechanism） 广义记忆网络：递归神经网络" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" />
+<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="article:published_time" content="2021-02-01T17:56:11+08:00" />
+<meta property="article:modified_time" content="2021-02-01T17:56:11+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://binko.me/logo.png"/>
+
+<meta name="twitter:title" content="《神经网络与深度学习》第6章 - 循环神经网络"/>
+<meta name="twitter:description" content="ch6 循环神经网络 学习：随时间反向传播算法 长程依赖：长序列时梯度爆炸和消失 -&gt; 门控机智（Gating Mechanism） 广义记忆网络：递归神经网络"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="prev" href="https://binko.me/nlp-papersword2vec-improvement/" /><link rel="next" href="https://binko.me/nnlp-notes/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《神经网络与深度学习》第6章 - 循环神经网络",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/binko.me\/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "神经网络与深度学习, NLP, notes, DL","wordcount":  2818 ,
+        "url": "https:\/\/binko.me\/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C\/","datePublished": "2021-02-01T17:56:11+08:00","dateModified": "2021-02-01T17:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          displayMath: [['$$','$$']],
+          processEscapes: true,
+          processEnvironments: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          TeX: {
+              equationNumbers: { autoNumber: "AMS" },
+              extensions: ["AMSmath.js", "AMSsymbols.js"]
+          }
+      }
+  });
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《神经网络与深度学习》第6章 - 循环神经网络</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/deep-learning/"><i class="far fa-folder fa-fw"></i>Deep Learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-02-01">2021-02-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2818 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="leancloud_visitors" data-flag-title="《神经网络与深度学习》第6章 - 循环神经网络">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#61-给网络增强记忆能力">6.1 给网络增强记忆能力</a>
+      <ul>
+        <li><a href="#611-延时神经网络">6.1.1 延时神经网络</a></li>
+        <li><a href="#612-有外部输入的非线性自回归模型">6.1.2 有外部输入的非线性自回归模型</a></li>
+        <li><a href="#613-循环神经网络">6.1.3 循环神经网络</a></li>
+      </ul>
+    </li>
+    <li><a href="#62-简单循环网络">6.2 简单循环网络</a>
+      <ul>
+        <li><a href="#621-循环神经网络的计算能力">6.2.1 循环神经网络的计算能力</a></li>
+      </ul>
+    </li>
+    <li><a href="#63-应用到机器学习">6.3 应用到机器学习</a>
+      <ul>
+        <li><a href="#631-序列到类别模式">6.3.1 序列到类别模式</a></li>
+        <li><a href="#632-同步的序列到序列模式">6.3.2 同步的序列到序列模式</a></li>
+        <li><a href="#633-异步的序列到序列模式">6.3.3 异步的序列到序列模式</a></li>
+      </ul>
+    </li>
+    <li><a href="#64-参数学习">6.4 参数学习</a>
+      <ul>
+        <li><a href="#641-随时间反向传播算法">6.4.1 随时间反向传播算法</a></li>
+        <li><a href="#642-实时循环学习算法">6.4.2 实时循环学习算法</a></li>
+      </ul>
+    </li>
+    <li><a href="#65-长程依赖问题">6.5 长程依赖问题</a>
+      <ul>
+        <li><a href="#651-改进方案">6.5.1 改进方案</a></li>
+      </ul>
+    </li>
+    <li><a href="#66-基于门控的rnn">6.6 基于门控的RNN</a>
+      <ul>
+        <li><a href="#661-长短期记忆网络">6.6.1 长短期记忆网络</a></li>
+        <li><a href="#662-lstm网络的各种变体">6.6.2 LSTM网络的各种变体</a></li>
+        <li><a href="#门控循环单元网络">门控循环单元网络</a></li>
+      </ul>
+    </li>
+    <li><a href="#67-深层rnn">6.7 深层RNN</a>
+      <ul>
+        <li><a href="#671-堆叠循环神经网络">6.7.1 堆叠循环神经网络</a></li>
+        <li><a href="#672-双向循环神经网络">6.7.2 双向循环神经网络</a></li>
+      </ul>
+    </li>
+    <li><a href="#68-扩展到图结构">6.8 扩展到图结构</a>
+      <ul>
+        <li><a href="#681-递归神经网络">6.8.1 递归神经网络</a></li>
+        <li><a href="#682-图神经网络">6.8.2 图神经网络</a></li>
+      </ul>
+    </li>
+    <li><a href="#习题">习题</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#习题-6-1-分析延时神经网络卷积神经网络和循环神经网络的异同点">习题 6-1 分析延时神经网络、卷积神经网络和循环神经网络的异同点．</a></li>
+            <li><a href="#习题-6-2-推导公式-640-和公式-641-中的梯度">习题 6-2 推导公式 (6.40) 和公式 (6.41) 中的梯度．</a></li>
+            <li><a href="#习题6-3-当使用公式650-作为循环神经网络的状态更新公式时分析其可能存在梯度爆炸的原因并给出解决方法">习题6-3 当使用公式(6.50) 作为循环神经网络的状态更新公式时，分析其可能存在梯度爆炸的原因并给出解决方法．</a></li>
+            <li><a href="#习题-6-4-推导-lstm-网络中参数的梯度并分析其避免梯度消失的效果">习题 6-4 推导 LSTM 网络中参数的梯度，并分析其避免梯度消失的效果．</a></li>
+            <li><a href="#习题-6-5-推导-gru-网络中参数的梯度并分析其避免梯度消失的效果">习题 6-5 推导 GRU 网络中参数的梯度，并分析其避免梯度消失的效果．</a></li>
+            <li><a href="#习题-6-6-除了堆叠循环神经网络外还有什么结构可以增加循环神经网络深度">习题 6-6 除了堆叠循环神经网络外，还有什么结构可以增加循环神经网络深度？</a></li>
+            <li><a href="#习题-6-7-证明当递归神经网络的结构退化为线性序列结构时递归神经网络就等价于简单循环神经网络">习题 6-7 证明当递归神经网络的结构退化为线性序列结构时，递归神经网络就等价于简单循环神经网络．</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="ch6-循环神经网络">ch6 循环神经网络</h1>
+<p>学习：随时间反向传播算法
+长程依赖：长序列时梯度爆炸和消失 -&gt; 门控机智（Gating Mechanism）
+广义记忆网络：递归神经网络、图网络</p>
+<h2 id="61-给网络增强记忆能力">6.1 给网络增强记忆能力</h2>
+<h3 id="611-延时神经网络">6.1.1 延时神经网络</h3>
+<p>延时神经网络（Time Delay Neural Network，TDNN）：在FNN非输出层都添加一个延时器，记录神经元历史活性值。</p>
+<p>l层神经元活性值依赖于l-1层神经元的最近K个时刻的活性值：
+$$
+\boldsymbol{h}_{t}^{(l)}=f\left(\boldsymbol{h}_{t}^{(l-1)}, \boldsymbol{h}_{t-1}^{(l-1)}, \cdots, \boldsymbol{h}_{t-K}^{(l-1)}\right)
+$$</p>
+<h3 id="612-有外部输入的非线性自回归模型">6.1.2 有外部输入的非线性自回归模型</h3>
+<p>自回归模型（AutoRegressive Model，AR）：用变量历史信息预测自己。
+$$
+\boldsymbol{y}_{t}=w_{0}+\sum_{k=1}^{K} w_{k} \boldsymbol{y}_{t-k}+\epsilon_{t}
+$$</p>
+<p>有外部输入的非线性自回归模型（Nonlinear AutoRegressive with Exogenous Inputs Model，NARX）： 每个时候都有输入输出，通过延时器记录最近$K_x$次输入和$K_y$词输出，则t时刻输出$y_t$为
+$$
+\boldsymbol{y}_{t}=f\left(\boldsymbol{x}_{t}, \boldsymbol{x}_{t-1}, \cdots, \boldsymbol{x}_{t-K_{x}}, \boldsymbol{y}_{t-1}, \boldsymbol{y}_{t-2}, \cdots, \boldsymbol{y}_{t-K_{y}}\right)
+$$</p>
+<h3 id="613-循环神经网络">6.1.3 循环神经网络</h3>
+<p>活性值/状态（State）/隐状态（Hidden State）更新：
+$$
+\boldsymbol{h}_{t}=f\left(\boldsymbol{h}_{t-1}, \boldsymbol{x}_{t}\right)
+$$</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/0bdf149e55604324a5ba88d700bc1455.png"
+        data-srcset="../../_resources/0bdf149e55604324a5ba88d700bc1455.png, ../../_resources/0bdf149e55604324a5ba88d700bc1455.png 1.5x, ../../_resources/0bdf149e55604324a5ba88d700bc1455.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/0bdf149e55604324a5ba88d700bc1455.png"
+        title="81e4df99fedfe0f854dccd8d3b624010.png" /></p>
+<p>RNN可以近似任意非线性动力系统
+FNN模拟任何连续函数，RNN模拟任何程序</p>
+<h2 id="62-简单循环网络">6.2 简单循环网络</h2>
+<p>简单循环网络（Simple Recurrent Network，SRN）
+$$
+z_{t}=U \boldsymbol{h}_{t-1}+W x_{t}+\boldsymbol{b}
+$$
+$$
+\boldsymbol{h}_{t}=f\left(\boldsymbol{z}_{t}\right)
+$$</p>
+<h3 id="621-循环神经网络的计算能力">6.2.1 循环神经网络的计算能力</h3>
+<p>对于：
+$$
+\begin{array}{l}
+\boldsymbol{h}_{t}=f\left(\boldsymbol{U} \boldsymbol{h}_{t-1}+\boldsymbol{W} \boldsymbol{x}_{t}+\boldsymbol{b}\right) \\<br>
+\boldsymbol{y}_{t}=\boldsymbol{V} \boldsymbol{h}_{t}
+\end{array}
+$$</p>
+<p>RNN的通用近似定理：全连接RNN在足够多sigmoid隐藏神经元的情况下，可以以任意准确度近似任何一个非线性动力系统：
+$$
+\begin{array}{l}
+\boldsymbol{s}_{t}=g\left(\boldsymbol{s}_{t-1}, \boldsymbol{x}_{t}\right) \\<br>
+\boldsymbol{y}_{t}=o\left(\boldsymbol{s}_{t}\right)
+\end{array}
+$$</p>
+<p>RNN是图灵完备的：所有图灵机可以被一个由Sigmoid型激活函数的神经元构成的全连接循环网络来进行模拟，可以近似解决所有可计算问题</p>
+<h2 id="63-应用到机器学习">6.3 应用到机器学习</h2>
+<h3 id="631-序列到类别模式">6.3.1 序列到类别模式</h3>
+<p>主要用于序列分类</p>
+<ul>
+<li>用最终状态表征序列：$\hat{y}=g\left(\boldsymbol{h}_{T}\right)$</li>
+<li>用状态平均表征序列：$\hat{y}=g\left(\frac{1}{T} \sum_{t=1}^{T} \boldsymbol{h}_{t}\right)$</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/635fea0b68a447e4bc084e4196738e6a.png"
+        data-srcset="../../_resources/635fea0b68a447e4bc084e4196738e6a.png, ../../_resources/635fea0b68a447e4bc084e4196738e6a.png 1.5x, ../../_resources/635fea0b68a447e4bc084e4196738e6a.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/635fea0b68a447e4bc084e4196738e6a.png"
+        title="16de54428a759296151c0a40ceb3a148.png" /></p>
+<h3 id="632-同步的序列到序列模式">6.3.2 同步的序列到序列模式</h3>
+<p>主要用于序列标注（Sequence Labeling）
+$$
+\hat{y}_{t}=g\left(\boldsymbol{h}_{t}\right), \quad \forall t \in[1, T]
+$$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/b5d5258f9b154c3abdf742c9a8a95317.png"
+        data-srcset="../../_resources/b5d5258f9b154c3abdf742c9a8a95317.png, ../../_resources/b5d5258f9b154c3abdf742c9a8a95317.png 1.5x, ../../_resources/b5d5258f9b154c3abdf742c9a8a95317.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/b5d5258f9b154c3abdf742c9a8a95317.png"
+        title="504712ba1ce4cd0c08fbe135fd01551c.png" /></p>
+<h3 id="633-异步的序列到序列模式">6.3.3 异步的序列到序列模式</h3>
+<p>也称编码器-解码器（Encoder-Decoder）模型
+$$
+\begin{aligned}
+\boldsymbol{h}_{t} &amp;=f_{1}\left(\boldsymbol{h}_{t-1}, \boldsymbol{x}_{t}\right), &amp; &amp; \forall t \in[1, T] \\<br>
+\boldsymbol{h}_{T+t} &amp;=f_{2}\left(\boldsymbol{h}_{T+t-1}, \hat{\boldsymbol{y}}_{t-1}\right), &amp; &amp; \forall t \in[1, M] \\<br>
+\hat{y}_{t} &amp;=g\left(\boldsymbol{h}_{T+t}\right), &amp; &amp; \forall t \in[1, M]
+\end{aligned}
+$$</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/d76fb7f95df3464bbf3db7294b4df942.png"
+        data-srcset="../../_resources/d76fb7f95df3464bbf3db7294b4df942.png, ../../_resources/d76fb7f95df3464bbf3db7294b4df942.png 1.5x, ../../_resources/d76fb7f95df3464bbf3db7294b4df942.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/d76fb7f95df3464bbf3db7294b4df942.png"
+        title="d11493a69d1333c611359c6852299976.png" /></p>
+<h2 id="64-参数学习">6.4 参数学习</h2>
+<p>以同步的序列到序列为例：
+$$
+\mathcal{L}_{t}=\mathcal{L}\left(y_{t}, g\left(\boldsymbol{h}_{t}\right)\right)
+$$
+$$
+\mathcal{L}=\sum_{t=1}^{T} \mathcal{L}_{t}
+$$
+$$
+\frac{\partial \mathcal{L}}{\partial \boldsymbol{U}}=\sum_{t=1}^{T} \frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{U}}
+$$</p>
+<h3 id="641-随时间反向传播算法">6.4.1 随时间反向传播算法</h3>
+<p>随时间反向传播（BackPropagation Through Time，BPTT）
+$$
+\frac{\partial \mathcal{L}_{t}}{\partial u_{i j}}=\sum_{k=1}^{t} \frac{\partial^{+} z_{k}}{\partial u_{i j}} \frac{\partial \mathcal{L}_{t}}{\partial z_{k}}
+$$</p>
+<p>t时刻的损失对k时刻的隐藏层净输入的导数：
+$$
+\begin{aligned}
+\delta_{t, k} &amp;=\frac{\partial \mathcal{L}_{t}}{\partial z_{k}} \\<br>
+&amp;=\frac{\partial \boldsymbol{h}_{k}}{\partial \boldsymbol{z}_{k}} \frac{\partial \boldsymbol{z}_{k+1}}{\partial \boldsymbol{h}_{k}} \frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k+1}} \\<br>
+&amp;=\operatorname{diag}\left(f^{\prime}\left(\boldsymbol{z}_{k}\right)\right) \boldsymbol{U}^{\top} \delta_{t, k+1}
+\end{aligned}
+$$</p>
+<p>参数梯度：
+$$
+\frac{\partial \mathcal{L}}{\partial \boldsymbol{U}}=\sum_{t=1}^{T} \sum_{k=1}^{t} \delta_{t, k} \boldsymbol{h}_{k-1}^{\top}
+$$
+$$
+\begin{aligned}
+\frac{\partial \mathcal{L}}{\partial \boldsymbol{W}} &amp;=\sum_{t=1}^{T} \sum_{k=1}^{t} \delta_{t, k} \boldsymbol{x}_{k}^{\top}, \\<br>
+\frac{\partial \mathcal{L}}{\partial \boldsymbol{b}} &amp;=\sum_{t=1}^{T} \sum_{k=1}^{t} \delta_{t, k}
+\end{aligned}
+$$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/7b3142af8f174aef8a8237f9882db903.png"
+        data-srcset="../../_resources/7b3142af8f174aef8a8237f9882db903.png, ../../_resources/7b3142af8f174aef8a8237f9882db903.png 1.5x, ../../_resources/7b3142af8f174aef8a8237f9882db903.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/7b3142af8f174aef8a8237f9882db903.png"
+        title="c53fb3c1cd1aa036ad02bd8a9dc38abc.png" /></p>
+<h3 id="642-实时循环学习算法">6.4.2 实时循环学习算法</h3>
+<p>实时循环学习（Real-Time Recurrent Learning，RTRL）：前向传播计算梯度
+$$
+\frac{\partial \mathcal{L}_{t}}{\partial u_{i j}}=\frac{\partial \boldsymbol{h}_{t}}{\partial u_{i j}} \frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{h}_{t}}
+$$</p>
+<p>两种算法比较：</p>
+<ul>
+<li>一般为网络输出维度远地域输入，BPTT计算量更小</li>
+<li>BPTT保持所有时刻的中间维度，空间复杂度较高</li>
+<li>RTRL不需要梯度回传，适合在线学习或无限序列任务</li>
+</ul>
+<h2 id="65-长程依赖问题">6.5 长程依赖问题</h2>
+<p>由于梯度消失或爆炸问题，很难建模长时间间隔（Long Range）的状态之间的依赖关系</p>
+<h3 id="651-改进方案">6.5.1 改进方案</h3>
+<p>梯度爆炸：权重衰减（正则项）、梯度截断</p>
+<p>梯度消失：优化技巧、改变模型</p>
+<h2 id="66-基于门控的rnn">6.6 基于门控的RNN</h2>
+<p>基于门控的循环神经网络（Gated RNN）</p>
+<h3 id="661-长短期记忆网络">6.6.1 长短期记忆网络</h3>
+<p>长短期记忆网络（Long Short-Term Memory Network，LSTM）</p>
+<p>引入新的内部状态（internal state）$\boldsymbol{c}_{t} \in \mathbb{R}^{D}$ 专门进行线性的循环信息传递，同时非线性地输出信息给隐藏层的外部状态$\boldsymbol{h}_{t} \in \mathbb{R}^{D}$
+$$
+\begin{aligned}
+\boldsymbol{c}_{t} &amp;=\boldsymbol{f}_{t} \odot \boldsymbol{c}_{t-1}+\boldsymbol{i}_{t} \odot \tilde{\boldsymbol{c}}_{t} \\<br>
+\boldsymbol{h}_{t} &amp;=\boldsymbol{o}_{t} \odot \tanh \left(\boldsymbol{c}_{t}\right)
+\end{aligned}
+$$
+候选状态：
+$$
+\tilde{\boldsymbol{c}}_{t}=\tanh \left(\boldsymbol{W}_{c} \boldsymbol{x}_{t}+\boldsymbol{U}_{c} \boldsymbol{h}_{t-1}+\boldsymbol{b}_{c}\right)
+$$
+门控机制：
+$$
+\begin{aligned}
+\boldsymbol{i}_{t} &amp;=\sigma\left(\boldsymbol{W}_{i} \boldsymbol{x}_{t}+\boldsymbol{U}_{i} \boldsymbol{h}_{t-1}+\boldsymbol{b}_{i}\right) \\<br>
+\boldsymbol{f}_{t} &amp;=\sigma\left(\boldsymbol{W}_{f} \boldsymbol{x}_{t}+\boldsymbol{U}_{f} \boldsymbol{h}_{t-1}+\boldsymbol{b}_{f}\right) \\<br>
+\boldsymbol{o}_{t} &amp;=\sigma\left(\boldsymbol{W}_{o} \boldsymbol{x}_{t}+\boldsymbol{U}_{o} \boldsymbol{h}_{t-1}+\boldsymbol{b}_{o}\right)
+\end{aligned}
+$$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/f361134743fc46d1860e3fe8d5b039e6.png"
+        data-srcset="../../_resources/f361134743fc46d1860e3fe8d5b039e6.png, ../../_resources/f361134743fc46d1860e3fe8d5b039e6.png 1.5x, ../../_resources/f361134743fc46d1860e3fe8d5b039e6.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/f361134743fc46d1860e3fe8d5b039e6.png"
+        title="408288a5d3a5eb6047f9becdea204fdc.png" /></p>
+<p>简洁描述：
+$$
+\begin{aligned}
+\left[\begin{array}{c}
+\tilde{\boldsymbol{c}}_{t} \\<br>
+\boldsymbol{o}_{t} \\<br>
+\boldsymbol{i}_{t} \\<br>
+\boldsymbol{f}_{t}
+\end{array}\right] &amp;=\left[\begin{array}{c}
+\tanh \\<br>
+\sigma \\<br>
+\sigma \\<br>
+\sigma
+\end{array}\right]\left(\boldsymbol{W}\left[\begin{array}{c}
+\boldsymbol{x}_{t} \\<br>
+\boldsymbol{h}_{t-1}
+\end{array}\right]+\boldsymbol{b}\right), \\<br>
+\boldsymbol{c}_{t} &amp;=\boldsymbol{f}_{t} \odot \boldsymbol{c}_{t-1}+\boldsymbol{i}_{t} \odot \tilde{\boldsymbol{c}}_{t} \\<br>
+\boldsymbol{h}_{t} &amp;=\boldsymbol{o}_{t} \odot \tanh \left(\boldsymbol{c}_{t}\right)
+\end{aligned}
+$$</p>
+<p>记忆：</p>
+<ul>
+<li>短期记忆：S-RNN中隐状态，每个时刻都会被重写</li>
+<li>长期记忆：网络参数</li>
+<li>长短期记忆LSTM：记忆单元 c 保存的信息生命周期长于短期记忆h，短于长期记忆</li>
+</ul>
+<p>参数设置：
+一般深度学习初始参数比较小，但是遗忘的参数初始值一般设得比较大，偏置向量 $b_f$ 设为1或2，防止大量遗忘导致难以捕捉长距离依赖信息（梯度弥散）</p>
+<h3 id="662-lstm网络的各种变体">6.6.2 LSTM网络的各种变体</h3>
+<p>改进门控机制：</p>
+<ol>
+<li>
+<p>无遗忘门的 LSTM 网络（[Hochreiter et al., 1997] 最早提出的 LSTM 网络）：
+$$
+\boldsymbol{c}_{t}=\boldsymbol{c}_{t-1}+\boldsymbol{i}_{t} \odot \tilde{\boldsymbol{c}}_{t}
+$$</p>
+</li>
+<li>
+<p>peephole连接：也依赖与上一时刻记忆单元：
+$$
+\begin{aligned}
+\boldsymbol{i}_{t} &amp;=\sigma\left(\boldsymbol{W}_{i} \boldsymbol{x}_{t}+\boldsymbol{U}_{i} \boldsymbol{h}_{t-1}+\boldsymbol{V}_{i} \boldsymbol{c}_{t-1}+\boldsymbol{b}_{i}\right) \\<br>
+\boldsymbol{f}_{t} &amp;=\sigma\left(\boldsymbol{W}_{f} \boldsymbol{x}_{t}+\boldsymbol{U}_{f} \boldsymbol{h}_{t-1}+\boldsymbol{V}_{f} \boldsymbol{c}_{t-1}+\boldsymbol{b}_{f}\right) \\<br>
+\boldsymbol{o}_{t} &amp;=\sigma\left(\boldsymbol{W}_{o} \boldsymbol{x}_{t}+\boldsymbol{U}_{o} \boldsymbol{h}_{t-1}+\boldsymbol{V}_{o} \boldsymbol{c}_{t}+\boldsymbol{b}_{o}\right)
+\end{aligned}
+$$</p>
+</li>
+<li>
+<p>耦合输入门和遗忘门（$\boldsymbol{f}_{t}=1-\boldsymbol{i}_{t}$）：
+$$
+\boldsymbol{c}_{t}=\left(1-\boldsymbol{i}_{t}\right) \odot \boldsymbol{c}_{t-1}+\boldsymbol{i}_{t} \odot \tilde{\boldsymbol{c}}_{t}
+$$</p>
+</li>
+</ol>
+<h3 id="门控循环单元网络">门控循环单元网络</h3>
+<p>门控循环单元（Gated Recurrent Unit，GRU）网络</p>
+<ul>
+<li>不引入额外记忆单元</li>
+<li>更新门（Update Gate）</li>
+<li>重置门（Reset Gate）
+$$
+z_{t}=\sigma\left(W_{z} x_{t}+U_{z} h_{t-1}+b_{z}\right)
+$$
+$$
+\boldsymbol{r}_{t}=\sigma\left(\boldsymbol{W}_{r} \boldsymbol{x}_{t}+\boldsymbol{U}_{r} \boldsymbol{h}_{t-1}+\boldsymbol{b}_{r}\right)
+$$
+$$
+\tilde{\boldsymbol{h}}_{t}=\tanh \left(\boldsymbol{W}_{h} \boldsymbol{x}_{t}+\boldsymbol{U}_{h}\left(\boldsymbol{r}_{t} \odot \boldsymbol{h}_{t-1}\right)+\boldsymbol{b}_{h}\right)
+$$
+$$
+\boldsymbol{h}_{t}=\boldsymbol{z}_{t} \odot \boldsymbol{h}_{t-1}+\left(1-\boldsymbol{z}_{t}\right) \odot \tilde{\boldsymbol{h}}_{t}
+$$</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/cba3271bf4a145739bb6734065d163a3.png"
+        data-srcset="../../_resources/cba3271bf4a145739bb6734065d163a3.png, ../../_resources/cba3271bf4a145739bb6734065d163a3.png 1.5x, ../../_resources/cba3271bf4a145739bb6734065d163a3.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/cba3271bf4a145739bb6734065d163a3.png"
+        title="c4496410ffccdb84a1f142483d6295a2.png" /></p>
+<ul>
+<li>当 $z_t$ = 0, r = 1 时，GRU 网络退化为简单循环网络</li>
+</ul>
+<h2 id="67-深层rnn">6.7 深层RNN</h2>
+<p>加深x到y的路径</p>
+<h3 id="671-堆叠循环神经网络">6.7.1 堆叠循环神经网络</h3>
+<p>堆叠循环神经网络（Stacked Recurrent Neural Network，SRNN）</p>
+<ul>
+<li>其中，堆叠的简单循环网络（Sacked SRN）也成为循环多层感知机（Recurrent MultiLayer Perceptron，RMLP）</li>
+</ul>
+<p>$$
+\boldsymbol{h}_{t}^{(l)}=f\left(\boldsymbol{U}^{(l)} \boldsymbol{h}_{t-1}^{(l)}+\boldsymbol{W}^{(l)} \boldsymbol{h}_{t}^{(l-1)}+\boldsymbol{b}^{(l)}\right)
+$$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/d9c6db16a0a24964a5497bb6d88b44bb.png"
+        data-srcset="../../_resources/d9c6db16a0a24964a5497bb6d88b44bb.png, ../../_resources/d9c6db16a0a24964a5497bb6d88b44bb.png 1.5x, ../../_resources/d9c6db16a0a24964a5497bb6d88b44bb.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/d9c6db16a0a24964a5497bb6d88b44bb.png"
+        title="941131d7dbea18699d55db024d53ff45.png" /></p>
+<h3 id="672-双向循环神经网络">6.7.2 双向循环神经网络</h3>
+<p>双向循环神经网络（Bidirectional Recurrent Neural Network，Bi-RNN）</p>
+<p>$$
+\begin{aligned}
+\boldsymbol{h}_{t}^{(1)} &amp;=f\left(\boldsymbol{U}^{(1)} \boldsymbol{h}_{t-1}^{(1)}+\boldsymbol{W}^{(1)} \boldsymbol{x}_{t}+\boldsymbol{b}^{(1)}\right) \\<br>
+\boldsymbol{h}_{t}^{(2)} &amp;=f\left(\boldsymbol{U}^{(2)} \boldsymbol{h}_{t+1}^{(2)}+\boldsymbol{W}^{(2)} \boldsymbol{x}_{t}+\boldsymbol{b}^{(2)}\right) \\<br>
+\boldsymbol{h}_{t} &amp;=\boldsymbol{h}_{t}^{(1)} \oplus \boldsymbol{h}_{t}^{(2)}
+\end{aligned}
+$$</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/8100f4e648b14ddeb4a6692e740ce82c.png"
+        data-srcset="../../_resources/8100f4e648b14ddeb4a6692e740ce82c.png, ../../_resources/8100f4e648b14ddeb4a6692e740ce82c.png 1.5x, ../../_resources/8100f4e648b14ddeb4a6692e740ce82c.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/8100f4e648b14ddeb4a6692e740ce82c.png"
+        title="065229f6defac23475a14f553250364b.png" /></p>
+<h2 id="68-扩展到图结构">6.8 扩展到图结构</h2>
+<h3 id="681-递归神经网络">6.8.1 递归神经网络</h3>
+<p>递归神经网络（Recursive Neural Network，RecNN）：RNN在有向无环图上的扩展
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/18e3c5dc6352458ebf5b91d8a8c11435.png"
+        data-srcset="../../_resources/18e3c5dc6352458ebf5b91d8a8c11435.png, ../../_resources/18e3c5dc6352458ebf5b91d8a8c11435.png 1.5x, ../../_resources/18e3c5dc6352458ebf5b91d8a8c11435.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/18e3c5dc6352458ebf5b91d8a8c11435.png"
+        title="2ee792e0be9dee2160ba2e01b5c8441b.png" /></p>
+<ul>
+<li>RecNN退化为线性序列结构时，等价于简单循环网络</li>
+</ul>
+<p>RecNN主要用于建模自然语言句子的语义</p>
+<p>树结构的长短期记忆模型（Tree-Structured LSTM）</p>
+<h3 id="682-图神经网络">6.8.2 图神经网络</h3>
+<p>图神经网络（Graph Neural Network，GNN）</p>
+<p>每个结点 v 用一组神经元表示其状态$\boldsymbol{h}^{(v)}$，初始状态为节点 v 的输入特征$\boldsymbol{x}^{(v)}$。每个节点接收相邻节点的消息，并更新自己的状态</p>
+<p>$$
+\begin{aligned}
+\boldsymbol{m}_{t}^{(v)} &amp;=\sum_{u \in \mathcal{N}(v)} f\left(\boldsymbol{h}_{t-1}^{(v)}, \boldsymbol{h}_{t-1}^{(u)}, \boldsymbol{e}^{(u, v)}\right), \\<br>
+\boldsymbol{h}_{t}^{(v)} &amp;=g\left(\boldsymbol{h}_{t-1}^{(v)}, \boldsymbol{m}_{t}^{(v)}\right)
+\end{aligned}
+$$</p>
+<p>上式为同步更新，对于有向图采用异步更新会更有效率，比如RNN和RecNN。</p>
+<p>读出函数（Readout Function）得到整个网络的表示：
+$$
+\boldsymbol{o}_{t}=g\left(\left{\boldsymbol{h}_{T}^{(v)} \mid v \in \mathcal{V}\right}\right)
+$$</p>
+<h2 id="习题">习题</h2>
+<h4 id="习题-6-1-分析延时神经网络卷积神经网络和循环神经网络的异同点">习题 6-1 分析延时神经网络、卷积神经网络和循环神经网络的异同点．</h4>
+<p>同：共享权重
+异：</p>
+<ol>
+<li>延时神经网络依赖最近K个状态（活性值），RNN依赖之前所有状态</li>
+<li>RNN在时间维度共享权重，CNN在空间维度共享权重</li>
+</ol>
+<h4 id="习题-6-2-推导公式-640-和公式-641-中的梯度">习题 6-2 推导公式 (6.40) 和公式 (6.41) 中的梯度．</h4>
+<p>分别替换 $\boldsymbol{h}_{k-1}^{\top}$ 为 $\boldsymbol{x}_{k}^{\top}$ 和 $1$ 即可</p>
+<h4 id="习题6-3-当使用公式650-作为循环神经网络的状态更新公式时分析其可能存在梯度爆炸的原因并给出解决方法">习题6-3 当使用公式(6.50) 作为循环神经网络的状态更新公式时，分析其可能存在梯度爆炸的原因并给出解决方法．</h4>
+<p>?</p>
+<h4 id="习题-6-4-推导-lstm-网络中参数的梯度并分析其避免梯度消失的效果">习题 6-4 推导 LSTM 网络中参数的梯度，并分析其避免梯度消失的效果．</h4>
+<h4 id="习题-6-5-推导-gru-网络中参数的梯度并分析其避免梯度消失的效果">习题 6-5 推导 GRU 网络中参数的梯度，并分析其避免梯度消失的效果．</h4>
+<h4 id="习题-6-6-除了堆叠循环神经网络外还有什么结构可以增加循环神经网络深度">习题 6-6 除了堆叠循环神经网络外，还有什么结构可以增加循环神经网络深度？</h4>
+<p>？</p>
+<h4 id="习题-6-7-证明当递归神经网络的结构退化为线性序列结构时递归神经网络就等价于简单循环神经网络">习题 6-7 证明当递归神经网络的结构退化为线性序列结构时，递归神经网络就等价于简单循环神经网络．</h4>
+<p>RecNN 退化为线性序列结构时：
+$$
+\boldsymbol{h}_{t}=\sigma\left(\boldsymbol{W}\left[\begin{array}{l}
+\boldsymbol{h}_{t-1} \\<br>
+\boldsymbol{x}_{t}
+\end{array}\right]+\boldsymbol{b}\right)
+$$
+显而易见，即 SRN.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-02-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第6章 - 循环神经网络" data-hashtags="神经网络与深度学习,NLP,notes,DL"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第6章 - 循环神经网络"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第6章 - 循环神经网络"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第6章 - 循环神经网络"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/notes/">Notes</a>,&nbsp;<a href="/tags/dl/">DL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/nlp-papersword2vec-improvement/" class="prev" rel="prev" title="【NLP Papers】word2vec improvement"><i class="fas fa-angle-left fa-fw"></i>【NLP Papers】word2vec improvement</a>
+            <a href="/nnlp-notes/" class="next" rel="next" title="NNLP: A Primer on Neural Network Models for Natural Language Processing">NNLP: A Primer on Neural Network Models for Natural Language Processing<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
+
+                
+            </div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"QGzwQXOqs5JOhN4RGPOkR2mR-MdYXbMMI","appKey":"WBmoGyJtbqUswvfLh6L8iEBr","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"serverURLs":"https://leancloud.hugoloveit.com","visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

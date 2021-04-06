@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《统计自然语言处理》第8.1章 - 句法分析 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《统计自然语言处理》第8.1章 - 句法分析" />
+<meta property="og:description" content="ch8 句法分析 基本任务：确定句子的句法结构（syntactic structure）或句子中词汇之间的依存关系 分类： 句法结构分析（syntacti" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://binko.me/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/" />
+<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="article:published_time" content="2021-01-19T10:56:11+08:00" />
+<meta property="article:modified_time" content="2021-01-19T10:56:11+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://binko.me/logo.png"/>
+
+<meta name="twitter:title" content="《统计自然语言处理》第8.1章 - 句法分析"/>
+<meta name="twitter:description" content="ch8 句法分析 基本任务：确定句子的句法结构（syntactic structure）或句子中词汇之间的依存关系 分类： 句法结构分析（syntacti"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/" /><link rel="prev" href="https://binko.me/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/" /><link rel="next" href="https://binko.me/snlp-ch9-%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《统计自然语言处理》第8.1章 - 句法分析",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/binko.me\/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "统计自然语言处理, NLP, statistics, notes","wordcount":  2836 ,
+        "url": "https:\/\/binko.me\/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90\/","datePublished": "2021-01-19T10:56:11+08:00","dateModified": "2021-01-19T10:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          displayMath: [['$$','$$']],
+          processEscapes: true,
+          processEnvironments: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          TeX: {
+              equationNumbers: { autoNumber: "AMS" },
+              extensions: ["AMSmath.js", "AMSsymbols.js"]
+          }
+      }
+  });
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《统计自然语言处理》第8.1章 - 句法分析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/nlp/"><i class="far fa-folder fa-fw"></i>NLP</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-19">2021-01-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2836 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/" class="leancloud_visitors" data-flag-title="《统计自然语言处理》第8.1章 - 句法分析">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#81-句法结构分析概述">8.1 句法结构分析概述</a>
+      <ul>
+        <li><a href="#811-基本概念">8.1.1 基本概念</a></li>
+        <li><a href="#812-语法形式化">8.1.2 语法形式化</a></li>
+        <li><a href="#813-基本方法">8.1.3 基本方法</a>
+          <ul>
+            <li><a href="#基于规则的句法分析">基于规则的句法分析</a></li>
+            <li><a href="#基于统计的句法分析">基于统计的句法分析</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#89-依存句法理论简介">8.9 依存句法理论简介</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="ch8-句法分析">ch8 句法分析</h1>
+<ul>
+<li>基本任务：确定句子的句法结构（syntactic structure）或句子中词汇之间的依存关系</li>
+<li>分类：
+<ul>
+<li>句法结构分析（syntactic structure parsing）/成分结构分析（constituent struture parsing）/短语结构分析（phrase structure parsing）</li>
+<li>依存关系分析（dependency parsing）/依存句法分析/依存结构分析/依存分析</li>
+</ul>
+</li>
+<li>句法结构分析
+<ul>
+<li>完全句法分析（full syntactic parsing）/完全短语结构分析（full phrase structure parsing）：以获取整个句子句法结构为目的</li>
+<li>局部分析（partial parsing）/浅层分析（shallow parsing）：以获取局部成为（如基本名词短语（base NP））为目的</li>
+</ul>
+</li>
+</ul>
+<h2 id="81-句法结构分析概述">8.1 句法结构分析概述</h2>
+<h3 id="811-基本概念">8.1.1 基本概念</h3>
+<ul>
+<li>句法结构分析：对输入的单词序列（一般为句子）判断其构成是否合乎给定的语法，分析出合乎语法的句子的句法结构。</li>
+<li>句法结构表示：句法分析数（syntactic parsing tree），简称分析树（parsing tree）</li>
+<li>句法结构分析器（syntactic parser）简称分析器（parser）：完成句法结构分析的程序模块</li>
+<li>任务：
+<ol>
+<li>判断输入的字符串是否属于某种语言（通常系统默认知道，一般不考虑）</li>
+<li>消除输入句子中词法和结构等方面的歧义</li>
+<li>分析输入句子的内部结构，如成分构成、上下文关系等</li>
+</ol>
+</li>
+<li>eg. 句子“The can can hold the water”分析树：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/4508ca9a611a4cc7951fe4847cfeed0a.png"
+        data-srcset="../../_resources/4508ca9a611a4cc7951fe4847cfeed0a.png, ../../_resources/4508ca9a611a4cc7951fe4847cfeed0a.png 1.5x, ../../_resources/4508ca9a611a4cc7951fe4847cfeed0a.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/4508ca9a611a4cc7951fe4847cfeed0a.png"
+        title="e2d687081a4967f365cd4d658543fb34.png" /></li>
+<li>主要困难：句法结构歧义的识别与消解</li>
+<li>构造句法分析器：
+<ol>
+<li>语法的形式化表示和词条信息描述</li>
+<li>分析算法设计</li>
+</ol>
+</li>
+</ul>
+<h3 id="812-语法形式化">8.1.2 语法形式化</h3>
+<ul>
+<li>语法形式化（grammar formalism）属于句法理论研究的范畴，目前NLP中广泛使用：
+<ul>
+<li>上下文无关文法（CFG）</li>
+<li>基于约束的文法（constraint-based grammar）的简单形式，又称合一语法（unification grammar），具有优越性，广泛采用</li>
+</ul>
+</li>
+<li>常用基于约束的语法：
+<ol>
+<li>功能合一语法（functional unification grammar，FUG）［Kay，1984］</li>
+<li>树链接语法（tree-adjoining grammar，TAG）［Joshi et al.，1975］</li>
+<li>词汇功能语法（lexical-functional grammar，LFG）［Bresnan，1982］</li>
+<li>广义的短语结构语法（generalized phrase structure grammar，GPSG）［Gazdar et al.，1985］</li>
+<li>中心语驱动的短语结构语法（head-driven phrase structure grammar，HPSG）［Pollard and Sag，1994］</li>
+</ol>
+</li>
+</ul>
+<h3 id="813-基本方法">8.1.3 基本方法</h3>
+<ul>
+<li>分类：
+<ul>
+<li>基于规则：由人工组织语法规则，建立语法知识库，通过条件约束和检查来实现句法结构歧义的消除。</li>
+<li>基于统计</li>
+</ul>
+</li>
+</ul>
+<h4 id="基于规则的句法分析">基于规则的句法分析</h4>
+<ul>
+<li>句法分析算法：CYK分析算法、欧雷分析算法、线图分析算法、移进-规约算法、GLR分析算法、左角分析算法等</li>
+<li>分析方法根据句法分析树形成方向
+<ul>
+<li>自顶向下</li>
+<li>自底向上</li>
+<li>两者结合</li>
+</ul>
+</li>
+<li>主要优点：
+<ol>
+<li>分析算法可以利用手工编写的语法规则分析出输入句子所有可能的句法结构</li>
+<li>对于特定的领域和目的，利用手工编写的有针对性的规则能够较好地处理输入句子中的部分歧义和一些超语法（extra-grammatical）现象</li>
+</ol>
+</li>
+<li>缺陷：
+<ol>
+<li>对于中长句子，分析复杂程序难以实现</li>
+<li>即使能分析出所有可能结构，也难以在巨大候选中有效消歧</li>
+<li>手工编写的主观性，难以覆盖大领域所有复杂语言</li>
+<li>手工编写工作量大，且不利于移植到其他领域</li>
+</ol>
+</li>
+<li>[Samuelsson and Wiren, 2000]规则方法成功运用于程序设计语言编译器，却难以处理自然语言句法分析
+<ol>
+<li>形式化文法的生成能力问题。程序设计语言是严格的CFG的子类，自然语言文法表达能力更强</li>
+<li>自然语言句子存在更多、更复杂的结构歧义
+<ul>
+<li>随着英语句子中介词短语组合个数的增加，介词引起的歧义结构的复杂程度不断加深，这个组合个数即为开塔兰数（Catalan numbers）</li>
+<li>eg. The rat the cat the dog chased caught died</li>
+</ul>
+</li>
+<li>另外，自然语言处理中的句法分析器的先验知识的覆盖程度永远是有限的，句法分析器总是可能遇到未曾学习过的新的语言现象</li>
+</ol>
+</li>
+</ul>
+<h4 id="基于统计的句法分析">基于统计的句法分析</h4>
+<ul>
+<li>目前研究较多的统计句法分析方法是语法驱动的（grammar-driven），其基本思想是由生成语法（generative grammar）定义被分析的语言及其分析出的类别，在训练数据中观察到的各种语言现象的分布以统计数据的方式与语法规则一起编码。在句法分析的过程中，当遇到歧义情况时，统计数据用于对多种分析结果的排序或选择。</li>
+<li>基于概率上下文无关文法（probabilistic （或stochastic）context-free grammar, PCFG或SCFG）的短语结构分析方法可以说是目前最成功的语法驱动的统计句法分析方法。</li>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/4d7aaa2950a641de8a07ab7f1c4387b7.png"
+        data-srcset="../../_resources/4d7aaa2950a641de8a07ab7f1c4387b7.png, ../../_resources/4d7aaa2950a641de8a07ab7f1c4387b7.png 1.5x, ../../_resources/4d7aaa2950a641de8a07ab7f1c4387b7.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/4d7aaa2950a641de8a07ab7f1c4387b7.png"
+        title="072d375fe325543330b0346b8a1c8859.png" /></li>
+</ul>
+<h2 id="89-依存句法理论简介">8.9 依存句法理论简介</h2>
+<ul>
+<li>依存句法（dependence grammar）：又称从属关系语言（grammaire de dépendance），用词与词之间的依存关系来描述语言结构的框架</li>
+<li>依存语法认为“谓语”中的动词是一个句子的中心，其他成分与动词直接或间接地产生联系</li>
+<li>周国光将依存语法定义为一种结构语法：主要研究以谓词为中心而构句时由深层语义结构映现为表层句法结构的状况及条件，谓词与体词之间的同现关系，并据此划分谓词的词类</li>
+<li>价：一个动词所能支配的行动元（名词词组）的个数即为该动词的价数</li>
+<li>依存：就是指词与词之间支配与被支配的关系，这种关系不是对等的
+<ul>
+<li>支配者（governor，regent，head）：处于支配地位的成分</li>
+<li>从属者（modifier，subordinate，dependency）：处于被支配地位的成分</li>
+</ul>
+</li>
+<li>三种基本等价的依存结构表达方式（投射树对句子的结构表达能力更强一些）：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/a2487ba2dc3847ea877d4354b2e29899.png"
+        data-srcset="../../_resources/a2487ba2dc3847ea877d4354b2e29899.png, ../../_resources/a2487ba2dc3847ea877d4354b2e29899.png 1.5x, ../../_resources/a2487ba2dc3847ea877d4354b2e29899.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/a2487ba2dc3847ea877d4354b2e29899.png"
+        title="a97dfa9b1f44f8ab208a13bb640e29d1.png" /></li>
+<li>［Robinson，1970］依存结构四条公理：
+<ol>
+<li>一个句子只有一个独立的成分</li>
+<li>句子的其他成分都从属于某一成分</li>
+<li>任何一个成分都不能依存于两个或两个以上的成分</li>
+<li>如果成分A直接从属于成分B，而成分C在句子中位于A和B之间，那么，成分C或者从属于A，或者从属于B，或者从属于A和B之间的某一成分</li>
+</ol>
+<ul>
+<li>这四条公理相当于对依存图和依存树的形式约束：单一父结点（single headed）、连通（connective）、无环（acyclic）和可投射（projective），并由此来保证句子的依存分析结果是一棵有“根”（root）的树结构。这为依存语法的形式化描述及在计算机语言学中的应用奠定了基础。</li>
+</ul>
+</li>
+<li>［冯志伟，1998］依存结构树满足5个条件（直观、实用）：
+<ol>
+<li>单纯结点条件：只有终结点，没有非终结点；</li>
+<li>单一父结点条件：除根结点没有父结点外所有的结点都只有一个父结点；</li>
+<li>独根结点条件：一个依存树只能有一个根结点，它支配其他结点；</li>
+<li>非交条件：依存树的树枝不能彼此相交；</li>
+<li>互斥条件：从上到下的支配关系和从左到右的前于关系之间是互相排斥的，如果两个结点之间存在着支配关系，它们之间就不能存在前于关系。</li>
+</ol>
+</li>
+<li>依存语法与短语结构语法（phrase structure grammar，PSG）相比最大的优势是它直接按照词语之间的依存关系工作，依存语法几乎不使用词性和短语类等句法语义范畴，没有Chomsky的形式化重写规则，几乎所有的语言知识都体现在词典中，是基于词语法理论的。</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-01-19</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/" data-title="《统计自然语言处理》第8.1章 - 句法分析" data-hashtags="统计自然语言处理,NLP,statistics,notes"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/" data-hashtag="统计自然语言处理"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/" data-title="《统计自然语言处理》第8.1章 - 句法分析"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/" data-title="《统计自然语言处理》第8.1章 - 句法分析"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/" data-title="《统计自然语言处理》第8.1章 - 句法分析"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%BB%9F%E8%AE%A1%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">统计自然语言处理</a>,&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/statistics/">statistics</a>,&nbsp;<a href="/tags/notes/">Notes</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/" class="prev" rel="prev" title="《统计自然语言处理》第7.5章 - 词性标注"><i class="fas fa-angle-left fa-fw"></i>《统计自然语言处理》第7.5章 - 词性标注</a>
+            <a href="/snlp-ch9-%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/" class="next" rel="next" title="《统计自然语言处理》第9.1章 - 语义分析">《统计自然语言处理》第9.1章 - 语义分析<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
+
+                
+            </div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"QGzwQXOqs5JOhN4RGPOkR2mR-MdYXbMMI","appKey":"WBmoGyJtbqUswvfLh6L8iEBr","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"serverURLs":"https://leancloud.hugoloveit.com","visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
