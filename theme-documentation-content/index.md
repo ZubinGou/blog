@@ -340,39 +340,3 @@ $$ \ce{Hg^2+ ->[I-] HgI2 ->[I-] [Hg^{II}I4]^2-} $$
 去露营啦! :(fas fa-campground fa-fw): 很快就回来.
 
 真开心! :(far fa-grin-tears):
-
-<!-- ### 转义字符 {#escape-character}
-
-在某些特殊情况下 (编写这个主题文档时 :(far fa-grin-squint-tears):),
-你的文章内容会与 Markdown 的基本或者扩展语法冲突, 并且无法避免.
-
-转义字符语法可以帮助你渲染出想要的内容:
-
-```markdown
-{{??}X} -> X
-```
-
-例如, 两个 `:` 会启用 emoji 语法. 但有时候这不是你想要的结果. 可以像这样使用转义字符语法:
-
-```markdown
-{{??}:}joy:
-```
-
-呈现的输出效果如下:
-
-**{?:}joy{?:}** 而不是 **:joy:**
-
-{{< admonition tip >}}
-这个方法可以间接解决一个还未解决的 **[Hugo 的 issue](https://github.com/gohugoio/hugo/issues/4978)**.
-{{< /admonition >}}
-
-另一个例子是:
-
-```markdown
-[link{{??}]}(#escape-character)
-```
-
-呈现的输出效果如下:
-
-**[link{?]}(#escape-character)** 而不是 **[link](#escape-character)**. -->
-

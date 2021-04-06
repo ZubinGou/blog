@@ -341,39 +341,3 @@ The rendered output looks like this:
 Gone camping! :(fas fa-campground fa-fw): Be back soon.
 
 That is so funny! :(far fa-grin-tears):
-
-<!-- ### Escape character {#escape-character}
-
-In some special cases (when writing this theme documentation :(far fa-grin-squint-tears):),
-your content will conflict with basic or extended Markdown syntax, and it is inevitable.
-
-The escape character syntax can help you build the content you wanted:
-
-```markdown
-{{??}X} -> X
-```
-
-For example, two `:` will enable emoji syntax, which is not the behavior you want. The escape character syntax is like this:
-
-```markdown
-{{??}:}joy:
-```
-
-The rendered output looks like this:
-
-**{?:}joy{?:}** instead of **:joy:**
-
-{{< admonition tip >}}
-This is related to **[an issue for Hugo](https://github.com/gohugoio/hugo/issues/4978)**, which has not been resolved.
-{{< /admonition >}}
-
-Another example is:
-
-```markdown
-[link{{??}]}(#escape-character)
-```
-
-The rendered output looks like this:
-
-**[link{?]}(#escape-character)** instead of **[link](#escape-character)**. -->
-
