@@ -26,9 +26,9 @@ And the **second** one is the tag name of the HTML element wrapping the content 
 Example `style` input:
 
 ```markdown
-{{</* style "text-align:right; strong{color:#00b1ff;}" */>}}
+{{</* style "text-align:right; strong{color:#00b1ff;}" /*/>}}
 This is a **right-aligned** paragraph.
-{{</* /style */>}}
+{{</* /style /*/>}}
 ```
 
 The rendered output looks like this:
@@ -72,17 +72,17 @@ The `link` shortcode has the following named parameters:
 Example `link` input:
 
 ```markdown
-{{</* link "https://assemble.io" */>}}
+{{</* link "https://assemble.io" /*/>}}
 Or
-{{</* link href="https://assemble.io" */>}}
+{{</* link href="https://assemble.io" /*/>}}
 
-{{</* link "mailto:contact@revolunet.com" */>}}
+{{</* link "mailto:contact@revolunet.com" /*/>}}
 Or
-{{</* link href="mailto:contact@revolunet.com" */>}}
+{{</* link href="mailto:contact@revolunet.com" /*/>}}
 
-{{</* link "https://assemble.io" Assemble */>}}
+{{</* link "https://assemble.io" Assemble /*/>}}
 Or
-{{</* link href="https://assemble.io" content=Assemble */>}}
+{{</* link href="https://assemble.io" content=Assemble /*/>}}
 ```
 
 The rendered output looks like this:
@@ -94,9 +94,9 @@ The rendered output looks like this:
 Example `link` input with a title:
 
 ```markdown
-{{</* link "https://github.com/upstage/" Upstage "Visit Upstage!" */>}}
+{{</* link "https://github.com/upstage/" Upstage "Visit Upstage!" /*/>}}
 Or
-{{</* link href="https://github.com/upstage/" content=Upstage title="Visit Upstage!" */>}}
+{{</* link href="https://github.com/upstage/" content=Upstage title="Visit Upstage!" /*/>}}
 ```
 
 The rendered output looks like this (hover over the link, there should be a tooltip):
@@ -164,7 +164,7 @@ The `image` shortcode has the following named parameters:
 Example `image` input:
 
 ```markdown
-{{</* image src="/images/lighthouse.jpg" caption="Lighthouse (`image`)" src_s="/images/lighthouse-small.jpg" src_l="/images/lighthouse-large.jpg" */>}}
+{{</* image src="/images/lighthouse.jpg" caption="Lighthouse (`image`)" src_s="/images/lighthouse-small.jpg" src_l="/images/lighthouse-large.jpg" /*/>}}
 ```
 
 The rendered output looks like this:
@@ -242,13 +242,13 @@ The `admonition` shortcode has the following named parameters:
 Example `admonition` input:
 
 ```markdown
-{{</* admonition type=tip title="This is a tip" open=false */>}}
+{{</* admonition type=tip title="This is a tip" open=false /*/>}}
 A **tip** banner
-{{</* /admonition */>}}
+{{</* /admonition /*/>}}
 Or
-{{</* admonition tip "This is a tip" false */>}}
+{{</* admonition tip "This is a tip" false /*/>}}
 A **tip** banner
-{{</* /admonition */>}}
+{{</* /admonition /*/>}}
 ```
 
 The rendered output looks like this:
@@ -268,13 +268,13 @@ Just insert your mermaid code in the `mermaid` shortcode and that’s it.
 Example **flowchart** `mermaid` input:
 
 ```markdown
-{{</* mermaid */>}}
+{{</* mermaid /*/>}}
 graph LR;
     A[Hard edge] -->|Link text| B(Round edge)
     B --> C{Decision}
     C -->|One| D[Result one]
     C -->|Two| E[Result two]
-{{</* /mermaid */>}}
+{{</* /mermaid /*/>}}
 ```
 
 The rendered output looks like this:
@@ -292,7 +292,7 @@ graph LR;
 Example **sequence diagram** `mermaid` input:
 
 ```markdown
-{{</* mermaid */>}}
+{{</* mermaid /*/>}}
 sequenceDiagram
     participant Alice
     participant Bob
@@ -304,7 +304,7 @@ sequenceDiagram
     John-->Alice: Great!
     John->Bob: How about you?
     Bob-->John: Jolly good!
-{{</* /mermaid */>}}
+{{</* /mermaid /*/>}}
 ```
 
 The rendered output looks like this:
@@ -328,7 +328,7 @@ sequenceDiagram
 Example **GANTT** `mermaid` input:
 
 ```markdown
-{{</* mermaid */>}}
+{{</* mermaid /*/>}}
 gantt
     dateFormat  YYYY-MM-DD
     title Adding GANTT diagram functionality to mermaid
@@ -344,7 +344,7 @@ gantt
     Future task in critical line        :crit, 5d
     Create tests for renderer           :2d
     Add to mermaid                      :1d
-{{</* /mermaid */>}}
+{{</* /mermaid /*/>}}
 ```
 
 The rendered output looks like this:
@@ -372,7 +372,7 @@ gantt
 Example **class diagram** `mermaid` input:
 
 ```markdown
-{{</* mermaid */>}}
+{{</* mermaid /*/>}}
 classDiagram
     Class01 <|-- AveryLongClass : Cool
     Class03 *-- Class04
@@ -387,7 +387,7 @@ classDiagram
     Class01 : int chimp
     Class01 : int gorilla
     Class08 <--> C2: Cool label
-{{</* /mermaid */>}}
+{{</* /mermaid /*/>}}
 ```
 
 The rendered output looks like this:
@@ -414,7 +414,7 @@ classDiagram
 Example **state diagram** `mermaid` input:
 
 ```markdown
-{{</* mermaid */>}}
+{{</* mermaid /*/>}}
 stateDiagram
     [*] --> Still
     Still --> [*]
@@ -422,7 +422,7 @@ stateDiagram
     Moving --> Still
     Moving --> Crash
     Crash --> [*]
-{{</* /mermaid */>}}
+{{</* /mermaid /*/>}}
 ```
 
 The rendered output looks like this:
@@ -442,7 +442,7 @@ stateDiagram
 Example **git graph** `mermaid` input:
 
 ```markdown
-{{</* mermaid */>}}
+{{</* mermaid /*/>}}
 gitGraph:
 options
 {
@@ -459,7 +459,7 @@ end
     commit
     commit
     merge newbranch
-{{</* /mermaid */>}}
+{{</* /mermaid /*/>}}
 ```
 
 The rendered output looks like this:
@@ -488,12 +488,12 @@ end
 Example **pie** `mermaid` input:
 
 ```markdown
-{{</* mermaid */>}}
+{{</* mermaid /*/>}}
 pie
     "Dogs" : 386
     "Cats" : 85
     "Rats" : 15
-{{</* /mermaid */>}}
+{{</* /mermaid /*/>}}
 ```
 
 The rendered output looks like this:
@@ -516,7 +516,7 @@ Just insert your ECharts option in `JSON`/`YAML`/`TOML` format in the `echarts` 
 Example `echarts` input in `JSON` format:
 
 ```json
-{{</* echarts */>}}
+{{</* echarts /*/>}}
 {
   "title": {
     "text": "Summary Line Chart",
@@ -585,13 +585,13 @@ Example `echarts` input in `JSON` format:
     }
   ]
 }
-{{</* /echarts */>}}
+{{</* /echarts /*/>}}
 ```
 
 The same in `YAML` format:
 
 ```yaml
-{{</* echarts */>}}
+{{</* echarts /*/>}}
 title:
     text: Summary Line Chart
     top: 2%
@@ -685,13 +685,13 @@ series:
           - 1290
           - 1330
           - 1320
-{{</* /echarts */>}}
+{{</* /echarts /*/>}}
 ```
 
 The same in `TOML` format:
 
 ```toml
-{{</* echarts */>}}
+{{</* echarts /*/>}}
 [title]
 text = "Summary Line Chart"
 top = "2%"
@@ -807,7 +807,7 @@ data = [
   1330.0,
   1320.0
 ]
-{{</* /echarts */>}}
+{{</* /echarts /*/>}}
 ```
 
 The rendered output looks like this:
@@ -952,9 +952,9 @@ The `mapbox` shortcode has the following named parameters to use Mapbox GL JS:
 Example simple `mapbox` input:
 
 ```markdown
-{{</* mapbox 121.485 31.233 12 */>}}
+{{</* mapbox 121.485 31.233 12 /*/>}}
 Or
-{{</* mapbox lng=121.485 lat=31.233 zoom=12 */>}}
+{{</* mapbox lng=121.485 lat=31.233 zoom=12 /*/>}}
 ```
 
 The rendered output looks like this:
@@ -964,9 +964,9 @@ The rendered output looks like this:
 Example `mapbox` input with the custom style:
 
 ```markdown
-{{</* mapbox -122.252 37.453 10 false "mapbox://styles/mapbox/navigation-preview-day-v4" "mapbox://styles/mapbox/navigation-preview-night-v4" */>}}
+{{</* mapbox -122.252 37.453 10 false "mapbox://styles/mapbox/navigation-preview-day-v4" "mapbox://styles/mapbox/navigation-preview-night-v4" /*/>}}
 Or
-{{</* mapbox lng=-122.252 lat=37.453 zoom=10 marked=false light-style="mapbox://styles/mapbox/navigation-preview-day-v4" dark-style="mapbox://styles/mapbox/navigation-preview-night-v4" */>}}
+{{</* mapbox lng=-122.252 lat=37.453 zoom=10 marked=false light-style="mapbox://styles/mapbox/navigation-preview-day-v4" dark-style="mapbox://styles/mapbox/navigation-preview-night-v4" /*/>}}
 ```
 
 The rendered output looks like this:
@@ -1004,7 +1004,7 @@ The `music` shortcode has the following named parameters by custom music URL:
 Example `music` input by custom music URL:
 
 ```markdown
-{{</* music url="/music/Wavelength.mp3" name=Wavelength artist=oldmanyoung cover="/images/Wavelength.jpg" */>}}
+{{</* music url="/music/Wavelength.mp3" name=Wavelength artist=oldmanyoung cover="/images/Wavelength.jpg" /*/>}}
 ```
 
 The rendered output looks like this:
@@ -1023,9 +1023,9 @@ The `music` shortcode has one named parameter by music platform URL automatic id
 Example `music` input by music platform URL automatic identification:
 
 ```markdown
-{{</* music auto="https://music.163.com/#/playlist?id=60198" */>}}
+{{</* music auto="https://music.163.com/#/playlist?id=60198" /*/>}}
 Or
-{{</* music "https://music.163.com/#/playlist?id=60198" */>}}
+{{</* music "https://music.163.com/#/playlist?id=60198" /*/>}}
 ```
 
 The rendered output looks like this:
@@ -1055,9 +1055,9 @@ The `music` shortcode has the following named parameters by custom music platfor
 Example `music` input by custom music platform:
 
 ```markdown
-{{</* music server="netease" type="song" id="1868553" */>}}
+{{</* music server="netease" type="song" id="1868553" /*/>}}
 Or
-{{</* music netease song 1868553 */>}}
+{{</* music netease song 1868553 /*/>}}
 ```
 
 The rendered output looks like this:
@@ -1129,9 +1129,9 @@ https://www.bilibili.com/video/BV1Sx411T7QQ
 Example `bilibili` input:
 
 ```markdown
-{{</* bilibili BV1Sx411T7QQ */>}}
+{{</* bilibili BV1Sx411T7QQ /*/>}}
 Or
-{{</* bilibili id=BV1Sx411T7QQ */>}}
+{{</* bilibili id=BV1Sx411T7QQ /*/>}}
 ```
 
 The rendered output looks like this:
@@ -1148,9 +1148,9 @@ https://www.bilibili.com/video/BV1TJ411C7An?p=3
 Example `bilibili` input with `p`:
 
 ```markdown
-{{</* bilibili BV1TJ411C7An 3 */>}}
+{{</* bilibili BV1TJ411C7An 3 /*/>}}
 Or
-{{</* bilibili id=BV1TJ411C7An p=3 */>}}
+{{</* bilibili id=BV1TJ411C7An p=3 /*/>}}
 ```
 
 The rendered output looks like this:
@@ -1170,9 +1170,9 @@ Simple content is allowed in `Markdown` format and **without** rich block conten
 Example `typeit` input:
 
 ```markdown
-{{</* typeit */>}}
+{{</* typeit /*/>}}
 This is a *paragraph* with **typing animation** based on [TypeIt](https://typeitjs.com/)...
-{{</* /typeit */>}}
+{{</* /typeit /*/>}}
 ```
 
 The rendered output looks like this:
@@ -1186,9 +1186,9 @@ Alternatively, you can use custom **HTML tags**.
 Example `typeit` input with `h4` tag:
 
 ```markdown
-{{</* typeit tag=h4 */>}}
+{{</* typeit tag=h4 /*/>}}
 This is a *paragraph* with **typing animation** based on [TypeIt](https://typeitjs.com/)...
-{{</* /typeit */>}}
+{{</* /typeit /*/>}}
 ```
 
 The rendered output looks like this:
@@ -1204,13 +1204,13 @@ Code content is allowed and will be highlighted by named parameter `code` for th
 Example `typeit` input with `code`:
 
 ```markdown
-{{</* typeit code=java */>}}
+{{</* typeit code=java /*/>}}
 public class HelloWorld {
     public static void main(String []args) {
         System.out.println("Hello World");
     }
 }
-{{</* /typeit */>}}
+{{</* /typeit /*/>}}
 ```
 
 The rendered output looks like this:
@@ -1233,13 +1233,13 @@ A set of `typeit` contents with the same value of named parameter `group` will s
 Example `typeit` input with `group`:
 
 ```markdown
-{{</* typeit group=paragraph */>}}
+{{</* typeit group=paragraph /*/>}}
 **First** this paragraph begins
-{{</* /typeit */>}}
+{{</* /typeit /*/>}}
 
-{{</* typeit group=paragraph */>}}
+{{</* typeit group=paragraph /*/>}}
 **Then** this paragraph begins
-{{</* /typeit */>}}
+{{</* /typeit /*/>}}
 ```
 
 The rendered output looks like this:
@@ -1265,9 +1265,9 @@ The script content can be guaranteed to be executed in order after all third-par
 Example `script` input:
 
 ```markdown
-{{</* script */>}}
+{{</* script /*/>}}
 console.log('Hello LoveIt!');
-{{</* /script */>}}
+{{</* /script /*/>}}
 ```
 
 You can see the output in the console of the developer tool.

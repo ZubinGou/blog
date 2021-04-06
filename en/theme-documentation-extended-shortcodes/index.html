@@ -225,9 +225,9 @@ and <code>&amp;</code> referring to this parent HTML element.</p>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">style</span> <span class="err">&#34;</span><span class="na">text-align:right</span><span class="err">;</span> <span class="na">strong</span><span class="err">{</span><span class="na">color:</span><span class="err">#</span><span class="na">00b1ff</span><span class="err">;}&#34;</span> <span class="p">&gt;</span><span class="err">}}</span>
-<span class="nt">This</span> <span class="nt">is</span> <span class="nt">a</span> <span class="gs">**right-aligned**</span> <span class="nt">paragraph</span><span class="o">.</span>
-<span class="p">{</span><span class="err">{</span><span class="p">&lt;</span> <span class="p">/</span><span class="nt">style</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">style</span> <span class="err">&#34;</span><span class="na">text-align:right</span><span class="err">;</span> <span class="na">strong</span><span class="err">{</span><span class="na">color:</span><span class="err">#</span><span class="na">00b1ff</span><span class="err">;}&#34;</span> <span class="p">/&gt;</span><span class="err">}}</span>
+This is a <span class="gs">**right-aligned**</span> paragraph.
+{{<span class="err">&lt;</span> /style /&gt;}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -290,17 +290,17 @@ and <code>&amp;</code> referring to this parent HTML element.</p>
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="err">&#34;</span><span class="na">https:</span><span class="err">//</span><span class="na">assemble</span><span class="err">.</span><span class="na">io</span><span class="err">&#34;</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="err">&#34;</span><span class="na">https:</span><span class="err">//</span><span class="na">assemble</span><span class="err">.</span><span class="na">io</span><span class="err">&#34;</span> <span class="p">/&gt;</span>}}
 Or
-{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://assemble.io&#34;</span> <span class="p">&gt;</span>}}
+{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://assemble.io&#34;</span> <span class="p">/&gt;</span>}}
 
-{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="err">&#34;</span><span class="na">mailto:contact</span><span class="err">@</span><span class="na">revolunet</span><span class="err">.</span><span class="na">com</span><span class="err">&#34;</span> <span class="p">&gt;</span>}}
+{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="err">&#34;</span><span class="na">mailto:contact</span><span class="err">@</span><span class="na">revolunet</span><span class="err">.</span><span class="na">com</span><span class="err">&#34;</span> <span class="p">/&gt;</span>}}
 Or
-{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;mailto:contact@revolunet.com&#34;</span> <span class="p">&gt;</span>}}
+{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;mailto:contact@revolunet.com&#34;</span> <span class="p">/&gt;</span>}}
 
-{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="err">&#34;</span><span class="na">https:</span><span class="err">//</span><span class="na">assemble</span><span class="err">.</span><span class="na">io</span><span class="err">&#34;</span> <span class="na">Assemble</span> <span class="p">&gt;</span>}}
+{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="err">&#34;</span><span class="na">https:</span><span class="err">//</span><span class="na">assemble</span><span class="err">.</span><span class="na">io</span><span class="err">&#34;</span> <span class="na">Assemble</span> <span class="p">/&gt;</span>}}
 Or
-{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://assemble.io&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">Assemble</span> <span class="p">&gt;</span>}}
+{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://assemble.io&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">Assemble</span> <span class="p">/&gt;</span>}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -317,9 +317,9 @@ Or
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="err">&#34;</span><span class="na">https:</span><span class="err">//</span><span class="na">github</span><span class="err">.</span><span class="na">com</span><span class="err">/</span><span class="na">upstage</span><span class="err">/&#34;</span> <span class="na">Upstage</span> <span class="err">&#34;</span><span class="na">Visit</span> <span class="na">Upstage</span><span class="err">!&#34;</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="err">&#34;</span><span class="na">https:</span><span class="err">//</span><span class="na">github</span><span class="err">.</span><span class="na">com</span><span class="err">/</span><span class="na">upstage</span><span class="err">/&#34;</span> <span class="na">Upstage</span> <span class="err">&#34;</span><span class="na">Visit</span> <span class="na">Upstage</span><span class="err">!&#34;</span> <span class="p">/&gt;</span>}}
 Or
-{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://github.com/upstage/&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">Upstage</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;Visit Upstage!&#34;</span> <span class="p">&gt;</span>}}
+{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://github.com/upstage/&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">Upstage</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;Visit Upstage!&#34;</span> <span class="p">/&gt;</span>}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this (hover over the link, there should be a tooltip):</p>
@@ -397,7 +397,7 @@ Or
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">image</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/images/lighthouse.jpg&#34;</span> <span class="na">caption</span><span class="o">=</span><span class="s">&#34;Lighthouse (`image`)&#34;</span> <span class="na">src_s</span><span class="o">=</span><span class="s">&#34;/images/lighthouse-small.jpg&#34;</span> <span class="na">src_l</span><span class="o">=</span><span class="s">&#34;/images/lighthouse-large.jpg&#34;</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">image</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/images/lighthouse.jpg&#34;</span> <span class="na">caption</span><span class="o">=</span><span class="s">&#34;Lighthouse (`image`)&#34;</span> <span class="na">src_s</span><span class="o">=</span><span class="s">&#34;/images/lighthouse-small.jpg&#34;</span> <span class="na">src_l</span><span class="o">=</span><span class="s">&#34;/images/lighthouse-large.jpg&#34;</span> <span class="p">/&gt;</span>}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -544,13 +544,13 @@ Or
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">admonition</span> <span class="na">type</span><span class="o">=</span><span class="s">tip</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;This is a tip&#34;</span> <span class="na">open</span><span class="o">=</span><span class="s">false</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">admonition</span> <span class="na">type</span><span class="o">=</span><span class="s">tip</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;This is a tip&#34;</span> <span class="na">open</span><span class="o">=</span><span class="s">false</span> <span class="p">/&gt;</span>}}
 A <span class="gs">**tip**</span> banner
-{{<span class="p">&lt;</span> <span class="p">/</span><span class="nt">admonition</span> <span class="p">&gt;</span>}}
+{{<span class="err">&lt;</span> /admonition /&gt;}}
 Or
-{{<span class="p">&lt;</span> <span class="nt">admonition</span> <span class="na">tip</span> <span class="err">&#34;</span><span class="na">This</span> <span class="na">is</span> <span class="na">a</span> <span class="na">tip</span><span class="err">&#34;</span> <span class="na">false</span> <span class="p">&gt;</span>}}
+{{<span class="p">&lt;</span> <span class="nt">admonition</span> <span class="na">tip</span> <span class="err">&#34;</span><span class="na">This</span> <span class="na">is</span> <span class="na">a</span> <span class="na">tip</span><span class="err">&#34;</span> <span class="na">false</span> <span class="p">/&gt;</span>}}
 A <span class="gs">**tip**</span> banner
-{{<span class="p">&lt;</span> <span class="p">/</span><span class="nt">admonition</span> <span class="p">&gt;</span>}}
+{{<span class="err">&lt;</span> /admonition /&gt;}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -578,13 +578,13 @@ A <span class="gs">**tip**</span> banner
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mermaid</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mermaid</span> <span class="p">/&gt;</span>}}
 graph LR;
     A[Hard edge] --&gt;|Link text| B(Round edge)
     B --&gt; C{Decision}
     C --&gt;|One| D[Result one]
     C --&gt;|Two| E[Result two]
-{{<span class="p">&lt;</span> <span class="p">/</span><span class="nt">mermaid</span> <span class="p">&gt;</span>}}
+{{<span class="err">&lt;</span> /mermaid /&gt;}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -608,7 +608,7 @@ graph LR;
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mermaid</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mermaid</span> <span class="p">/&gt;</span>}}
 sequenceDiagram
     participant Alice
     participant Bob
@@ -620,7 +620,7 @@ sequenceDiagram
     John--&gt;Alice: Great!
     John-&gt;Bob: How about you?
     Bob--&gt;John: Jolly good!
-{{<span class="p">&lt;</span> <span class="p">/</span><span class="nt">mermaid</span> <span class="p">&gt;</span>}}
+{{<span class="err">&lt;</span> /mermaid /&gt;}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -648,7 +648,7 @@ sequenceDiagram
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mermaid</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mermaid</span> <span class="p">/&gt;</span>}}
 gantt
     dateFormat  YYYY-MM-DD
     title Adding GANTT diagram functionality to mermaid
@@ -664,7 +664,7 @@ gantt
     Future task in critical line        :crit, 5d
     Create tests for renderer           :2d
     Add to mermaid                      :1d
-{{<span class="p">&lt;</span> <span class="p">/</span><span class="nt">mermaid</span> <span class="p">&gt;</span>}}
+{{<span class="err">&lt;</span> /mermaid /&gt;}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -691,7 +691,7 @@ gantt
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mermaid</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mermaid</span> <span class="p">/&gt;</span>}}
 classDiagram
     Class01 <span class="err">&lt;</span>|-- AveryLongClass : Cool
     Class03 <span class="ge">*-- Class04
@@ -706,7 +706,7 @@ classDiagram
     Class01 : int chimp
     Class01 : int gorilla
     Class08 <span class="p">&lt;</span><span class="nt">--</span><span class="p">&gt;</span> C2: Cool label
-{{<span class="p">&lt;</span> <span class="p">/</span><span class="nt">mermaid</span> <span class="p">&gt;</span>}}
+{{<span class="err">&lt;</span> /mermaid /&gt;}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -726,7 +726,7 @@ classDiagram
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mermaid</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mermaid</span> <span class="p">/&gt;</span>}}
 stateDiagram
     [*] --&gt; Still
     Still --&gt; [*]
@@ -734,7 +734,7 @@ stateDiagram
     Moving --&gt; Still
     Moving --&gt; Crash
     Crash --&gt; [*]
-{{<span class="p">&lt;</span> <span class="p">/</span><span class="nt">mermaid</span> <span class="p">&gt;</span>}}
+{{<span class="err">&lt;</span> /mermaid /&gt;}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -763,7 +763,7 @@ stateDiagram
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mermaid</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mermaid</span> <span class="p">/&gt;</span>}}
 gitGraph:
 options
 {
@@ -780,7 +780,7 @@ end
     commit
     commit
     merge newbranch
-{{<span class="p">&lt;</span> <span class="p">/</span><span class="nt">mermaid</span> <span class="p">&gt;</span>}}
+{{<span class="err">&lt;</span> /mermaid /&gt;}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -797,12 +797,12 @@ end
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mermaid</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mermaid</span> <span class="p">/&gt;</span>}}
 pie
     &#34;Dogs&#34; : 386
     &#34;Cats&#34; : 85
     &#34;Rats&#34; : 15
-{{<span class="p">&lt;</span> <span class="p">/</span><span class="nt">mermaid</span> <span class="p">&gt;</span>}}
+{{<span class="err">&lt;</span> /mermaid /&gt;}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -886,7 +886,7 @@ pie
 </span><span class="lnt">70
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span><span class="err">{&lt;</span> <span class="err">echarts</span> <span class="err">&gt;</span><span class="p">}</span><span class="err">}</span>
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span><span class="err">{&lt;</span> <span class="err">echarts</span> <span class="err">/&gt;</span><span class="p">}</span><span class="err">}</span>
 <span class="p">{</span>
   <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;Summary Line Chart&#34;</span><span class="p">,</span>
@@ -955,7 +955,7 @@ pie
     <span class="p">}</span>
   <span class="p">]</span>
 <span class="p">}</span>
-<span class="p">{</span><span class="err">{&lt;</span> <span class="err">/echarts</span> <span class="err">&gt;</span><span class="p">}</span><span class="err">}</span>
+<span class="p">{</span><span class="err">{&lt;</span> <span class="err">/echarts</span> <span class="err">/&gt;</span><span class="p">}</span><span class="err">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>The same in <code>YAML</code> format:</p>
@@ -1058,7 +1058,7 @@ pie
 </span><span class="lnt">95
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml">{{<span class="l">&lt; echarts &gt;}}</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">{{<span class="l">&lt; echarts /&gt;}}</span><span class="w">
 </span><span class="w"></span><span class="nt">title</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l">Summary Line Chart</span><span class="w">
 </span><span class="w">    </span><span class="nt">top</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="l">%</span><span class="w">
@@ -1152,7 +1152,7 @@ pie
 </span><span class="w">          </span>- <span class="m">1290</span><span class="w">
 </span><span class="w">          </span>- <span class="m">1330</span><span class="w">
 </span><span class="w">          </span>- <span class="m">1320</span><span class="w">
-</span><span class="w"></span>{{<span class="l">&lt; /echarts &gt;}}</span><span class="w">
+</span><span class="w"></span>{{<span class="l">&lt; /echarts /&gt;}}</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>The same in <code>TOML</code> format:</p>
@@ -1277,7 +1277,7 @@ pie
 </span><span class="lnt">117
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-toml" data-lang="toml"><span class="p">{{</span><span class="err">&lt;</span> <span class="nx">echarts</span> <span class="err">&gt;</span><span class="p">}}</span>
+<pre class="chroma"><code class="language-toml" data-lang="toml"><span class="p">{{</span><span class="err">&lt;</span> <span class="nx">echarts</span> <span class="err">/&gt;</span><span class="p">}}</span>
 <span class="p">[</span><span class="nx">title</span><span class="p">]</span>
 <span class="nx">text</span> <span class="p">=</span> <span class="s2">&#34;Summary Line Chart&#34;</span>
 <span class="nx">top</span> <span class="p">=</span> <span class="s2">&#34;2%&#34;</span>
@@ -1393,7 +1393,7 @@ pie
   <span class="mf">1330.0</span><span class="p">,</span>
   <span class="mf">1320.0</span>
 <span class="p">]</span>
-<span class="p">{{</span><span class="err">&lt;</span> <span class="err">/</span><span class="nx">echarts</span> <span class="err">&gt;</span><span class="p">}}</span>
+<span class="p">{{</span><span class="err">&lt;</span> <span class="err">/</span><span class="nx">echarts</span> <span class="err">/&gt;</span><span class="p">}}</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -1492,9 +1492,9 @@ pie
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mapbox</span> <span class="na">121</span><span class="err">.</span><span class="na">485</span> <span class="na">31</span><span class="err">.</span><span class="na">233</span> <span class="na">12</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mapbox</span> <span class="na">121</span><span class="err">.</span><span class="na">485</span> <span class="na">31</span><span class="err">.</span><span class="na">233</span> <span class="na">12</span> <span class="p">/&gt;</span>}}
 Or
-{{<span class="p">&lt;</span> <span class="nt">mapbox</span> <span class="na">lng</span><span class="o">=</span><span class="s">121.485</span> <span class="na">lat</span><span class="o">=</span><span class="s">31.233</span> <span class="na">zoom</span><span class="o">=</span><span class="s">12</span> <span class="p">&gt;</span>}}
+{{<span class="p">&lt;</span> <span class="nt">mapbox</span> <span class="na">lng</span><span class="o">=</span><span class="s">121.485</span> <span class="na">lat</span><span class="o">=</span><span class="s">31.233</span> <span class="na">zoom</span><span class="o">=</span><span class="s">12</span> <span class="p">/&gt;</span>}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -1507,9 +1507,9 @@ Or
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mapbox</span> <span class="na">-122</span><span class="err">.</span><span class="na">252</span> <span class="na">37</span><span class="err">.</span><span class="na">453</span> <span class="na">10</span> <span class="na">false</span> <span class="err">&#34;</span><span class="na">mapbox:</span><span class="err">//</span><span class="na">styles</span><span class="err">/</span><span class="na">mapbox</span><span class="err">/</span><span class="na">navigation-preview-day-v4</span><span class="err">&#34;</span> <span class="err">&#34;</span><span class="na">mapbox:</span><span class="err">//</span><span class="na">styles</span><span class="err">/</span><span class="na">mapbox</span><span class="err">/</span><span class="na">navigation-preview-night-v4</span><span class="err">&#34;</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">mapbox</span> <span class="na">-122</span><span class="err">.</span><span class="na">252</span> <span class="na">37</span><span class="err">.</span><span class="na">453</span> <span class="na">10</span> <span class="na">false</span> <span class="err">&#34;</span><span class="na">mapbox:</span><span class="err">//</span><span class="na">styles</span><span class="err">/</span><span class="na">mapbox</span><span class="err">/</span><span class="na">navigation-preview-day-v4</span><span class="err">&#34;</span> <span class="err">&#34;</span><span class="na">mapbox:</span><span class="err">//</span><span class="na">styles</span><span class="err">/</span><span class="na">mapbox</span><span class="err">/</span><span class="na">navigation-preview-night-v4</span><span class="err">&#34;</span> <span class="p">/&gt;</span>}}
 Or
-{{<span class="p">&lt;</span> <span class="nt">mapbox</span> <span class="na">lng</span><span class="o">=</span><span class="s">-122.252</span> <span class="na">lat</span><span class="o">=</span><span class="s">37.453</span> <span class="na">zoom</span><span class="o">=</span><span class="s">10</span> <span class="na">marked</span><span class="o">=</span><span class="s">false</span> <span class="na">light-style</span><span class="o">=</span><span class="s">&#34;mapbox://styles/mapbox/navigation-preview-day-v4&#34;</span> <span class="na">dark-style</span><span class="o">=</span><span class="s">&#34;mapbox://styles/mapbox/navigation-preview-night-v4&#34;</span> <span class="p">&gt;</span>}}
+{{<span class="p">&lt;</span> <span class="nt">mapbox</span> <span class="na">lng</span><span class="o">=</span><span class="s">-122.252</span> <span class="na">lat</span><span class="o">=</span><span class="s">37.453</span> <span class="na">zoom</span><span class="o">=</span><span class="s">10</span> <span class="na">marked</span><span class="o">=</span><span class="s">false</span> <span class="na">light-style</span><span class="o">=</span><span class="s">&#34;mapbox://styles/mapbox/navigation-preview-day-v4&#34;</span> <span class="na">dark-style</span><span class="o">=</span><span class="s">&#34;mapbox://styles/mapbox/navigation-preview-night-v4&#34;</span> <span class="p">/&gt;</span>}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -1551,7 +1551,7 @@ Or
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">music</span> <span class="na">url</span><span class="o">=</span><span class="s">&#34;/music/Wavelength.mp3&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">Wavelength</span> <span class="na">artist</span><span class="o">=</span><span class="s">oldmanyoung</span> <span class="na">cover</span><span class="o">=</span><span class="s">&#34;/images/Wavelength.jpg&#34;</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">music</span> <span class="na">url</span><span class="o">=</span><span class="s">&#34;/music/Wavelength.mp3&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">Wavelength</span> <span class="na">artist</span><span class="o">=</span><span class="s">oldmanyoung</span> <span class="na">cover</span><span class="o">=</span><span class="s">&#34;/images/Wavelength.jpg&#34;</span> <span class="p">/&gt;</span>}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -1573,9 +1573,9 @@ which supports <code>netease</code>, <code>tencent</code> and <code>xiami</code>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">music</span> <span class="na">auto</span><span class="o">=</span><span class="s">&#34;https://music.163.com/#/playlist?id=60198&#34;</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">music</span> <span class="na">auto</span><span class="o">=</span><span class="s">&#34;https://music.163.com/#/playlist?id=60198&#34;</span> <span class="p">/&gt;</span>}}
 Or
-{{<span class="p">&lt;</span> <span class="nt">music</span> <span class="err">&#34;</span><span class="na">https:</span><span class="err">//</span><span class="na">music</span><span class="err">.</span><span class="na">163</span><span class="err">.</span><span class="na">com</span><span class="err">/#/</span><span class="na">playlist</span><span class="err">?</span><span class="na">id</span><span class="o">=</span><span class="s">60198&#34;</span> <span class="p">&gt;</span>}}
+{{<span class="p">&lt;</span> <span class="nt">music</span> <span class="err">&#34;</span><span class="na">https:</span><span class="err">//</span><span class="na">music</span><span class="err">.</span><span class="na">163</span><span class="err">.</span><span class="na">com</span><span class="err">/#/</span><span class="na">playlist</span><span class="err">?</span><span class="na">id</span><span class="o">=</span><span class="s">60198&#34;</span> <span class="p">/&gt;</span>}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -1606,9 +1606,9 @@ Or
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">music</span> <span class="na">server</span><span class="o">=</span><span class="s">&#34;netease&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;song&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;1868553&#34;</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">music</span> <span class="na">server</span><span class="o">=</span><span class="s">&#34;netease&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;song&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;1868553&#34;</span> <span class="p">/&gt;</span>}}
 Or
-{{<span class="p">&lt;</span> <span class="nt">music</span> <span class="na">netease</span> <span class="na">song</span> <span class="na">1868553</span> <span class="p">&gt;</span>}}
+{{<span class="p">&lt;</span> <span class="nt">music</span> <span class="na">netease</span> <span class="na">song</span> <span class="na">1868553</span> <span class="p">/&gt;</span>}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -1696,9 +1696,9 @@ Or
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">bilibili</span> <span class="na">BV1Sx411T7QQ</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">bilibili</span> <span class="na">BV1Sx411T7QQ</span> <span class="p">/&gt;</span>}}
 Or
-{{<span class="p">&lt;</span> <span class="nt">bilibili</span> <span class="na">id</span><span class="o">=</span><span class="s">BV1Sx411T7QQ</span> <span class="p">&gt;</span>}}
+{{<span class="p">&lt;</span> <span class="nt">bilibili</span> <span class="na">id</span><span class="o">=</span><span class="s">BV1Sx411T7QQ</span> <span class="p">/&gt;</span>}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -1722,9 +1722,9 @@ Or
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">bilibili</span> <span class="na">BV1TJ411C7An</span> <span class="na">3</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">bilibili</span> <span class="na">BV1TJ411C7An</span> <span class="na">3</span> <span class="p">/&gt;</span>}}
 Or
-{{<span class="p">&lt;</span> <span class="nt">bilibili</span> <span class="na">id</span><span class="o">=</span><span class="s">BV1TJ411C7An</span> <span class="na">p</span><span class="o">=</span><span class="s">3</span> <span class="p">&gt;</span>}}
+{{<span class="p">&lt;</span> <span class="nt">bilibili</span> <span class="na">id</span><span class="o">=</span><span class="s">BV1TJ411C7An</span> <span class="na">p</span><span class="o">=</span><span class="s">3</span> <span class="p">/&gt;</span>}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -1743,9 +1743,9 @@ Or
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">typeit</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">typeit</span> <span class="p">/&gt;</span>}}
 This is a <span class="ge">*paragraph*</span> with <span class="gs">**typing animation**</span> based on [<span class="nt">TypeIt</span>](<span class="na">https://typeitjs.com/</span>)...
-{{<span class="p">&lt;</span> <span class="p">/</span><span class="nt">typeit</span> <span class="p">&gt;</span>}}
+{{<span class="err">&lt;</span> /typeit /&gt;}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -1760,9 +1760,9 @@ This is a <span class="ge">*paragraph*</span> with <span class="gs">**typing ani
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">typeit</span> <span class="na">tag</span><span class="o">=</span><span class="s">h4</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">typeit</span> <span class="na">tag</span><span class="o">=</span><span class="s">h4</span> <span class="p">/&gt;</span>}}
 This is a <span class="ge">*paragraph*</span> with <span class="gs">**typing animation**</span> based on [<span class="nt">TypeIt</span>](<span class="na">https://typeitjs.com/</span>)...
-{{<span class="p">&lt;</span> <span class="p">/</span><span class="nt">typeit</span> <span class="p">&gt;</span>}}
+{{<span class="err">&lt;</span> /typeit /&gt;}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -1782,13 +1782,13 @@ This is a <span class="ge">*paragraph*</span> with <span class="gs">**typing ani
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">typeit</span> <span class="na">code</span><span class="o">=</span><span class="s">java</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">typeit</span> <span class="na">code</span><span class="o">=</span><span class="s">java</span> <span class="p">/&gt;</span>}}
 public class HelloWorld {
     public static void main(String []args) {
         System.out.println(&#34;Hello World&#34;);
     }
 }
-{{<span class="p">&lt;</span> <span class="p">/</span><span class="nt">typeit</span> <span class="p">&gt;</span>}}
+{{<span class="err">&lt;</span> /typeit /&gt;}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -1810,13 +1810,13 @@ But sometimes you may want to start a set of <code>typeit</code> contents in ord
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">typeit</span> <span class="na">group</span><span class="o">=</span><span class="s">paragraph</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">typeit</span> <span class="na">group</span><span class="o">=</span><span class="s">paragraph</span> <span class="p">/&gt;</span>}}
 <span class="gs">**First**</span> this paragraph begins
-{{<span class="p">&lt;</span> <span class="p">/</span><span class="nt">typeit</span> <span class="p">&gt;</span>}}
+{{<span class="err">&lt;</span> /typeit /&gt;}}
 
-{{<span class="p">&lt;</span> <span class="nt">typeit</span> <span class="na">group</span><span class="o">=</span><span class="s">paragraph</span> <span class="p">&gt;</span>}}
+{{<span class="p">&lt;</span> <span class="nt">typeit</span> <span class="na">group</span><span class="o">=</span><span class="s">paragraph</span> <span class="p">/&gt;</span>}}
 <span class="gs">**Then**</span> this paragraph begins
-{{<span class="p">&lt;</span> <span class="p">/</span><span class="nt">typeit</span> <span class="p">&gt;</span>}}
+{{<span class="err">&lt;</span> /typeit /&gt;}}
 </code></pre></td></tr></table>
 </div>
 </div><p>The rendered output looks like this:</p>
@@ -1850,9 +1850,9 @@ But sometimes you may want to start a set of <code>typeit</code> contents in ord
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">script</span> <span class="p">&gt;}}</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Hello LoveIt!&#39;</span><span class="p">);</span>
-<span class="p">{{&lt;</span> <span class="p">/</span><span class="nt">script</span> <span class="p">&gt;</span>}}
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">script</span> <span class="p">/&gt;</span><span class="err">}}</span>
+console.log(&#39;Hello LoveIt!&#39;);
+{{<span class="err">&lt;</span> /script /&gt;}}
 </code></pre></td></tr></table>
 </div>
 </div><p>You can see the output in the console of the developer tool.</p></div><div class="post-footer" id="post-footer">
