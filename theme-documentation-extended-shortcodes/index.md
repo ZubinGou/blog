@@ -24,12 +24,6 @@ Hugo **extended** 版本对于 `style` shortcode 是必需的.
 
 一个 `style` 示例:
 
-```markdown
-{{</* style "text-align:right; strong{color:#00b1ff;}" /*/>}}
-This is a **right-aligned** paragraph.
-{{</* /style /*/>}}
-```
-
 呈现的输出效果如下:
 
 {{< style "text-align:right; strong{color:#00b1ff;}" >}}
@@ -72,17 +66,17 @@ This is a **right-aligned** paragraph.
 一个 `link` 示例:
 
 ```markdown
-{{</* link "https://assemble.io" /*/>}}
+{{</* link "https://assemble.io" */>}}
 或者
-{{</* link href="https://assemble.io" /*/>}}
+{{</* link href="https://assemble.io" */>}}
 
-{{</* link "mailto:contact@revolunet.com" /*/>}}
+{{</* link "mailto:contact@revolunet.com" */>}}
 或者
-{{</* link href="mailto:contact@revolunet.com" /*/>}}
+{{</* link href="mailto:contact@revolunet.com" */>}}
 
-{{</* link "https://assemble.io" Assemble /*/>}}
+{{</* link "https://assemble.io" Assemble */>}}
 或者
-{{</* link href="https://assemble.io" content=Assemble /*/>}}
+{{</* link href="https://assemble.io" content=Assemble */>}}
 ```
 
 呈现的输出效果如下:
@@ -94,9 +88,9 @@ This is a **right-aligned** paragraph.
 一个带有标题的 `link` 示例:
 
 ```markdown
-{{</* link "https://github.com/upstage/" Upstage "Visit Upstage!" /*/>}}
+{{</* link "https://github.com/upstage/" Upstage "Visit Upstage!" */>}}
 或者
-{{</* link href="https://github.com/upstage/" content=Upstage title="Visit Upstage!" /*/>}}
+{{</* link href="https://github.com/upstage/" content=Upstage title="Visit Upstage!" */>}}
 ```
 
 呈现的输出效果如下 (将鼠标悬停在链接上，会有一行提示):
@@ -164,7 +158,7 @@ This is a **right-aligned** paragraph.
 一个 `image` 示例:
 
 ```markdown
-{{</* image src="/images/lighthouse.jpg" caption="Lighthouse (`image`)" src_s="/images/lighthouse-small.jpg" src_l="/images/lighthouse-large.jpg" /*/>}}
+{{</* image src="/images/lighthouse.jpg" caption="Lighthouse (`image`)" src_s="/images/lighthouse-small.jpg" src_l="/images/lighthouse-large.jpg" */>}}
 ```
 
 呈现的输出效果如下:
@@ -242,13 +236,13 @@ This is a **right-aligned** paragraph.
 一个 `admonition` 示例:
 
 ```markdown
-{{</* admonition type=tip title="This is a tip" open=false /*/>}}
+{{</* admonition type=tip title="This is a tip" open=false */>}}
 一个 **技巧** 横幅
-{{</* /admonition /*/>}}
+{{</* /admonition */>}}
 或者
-{{</* admonition tip "This is a tip" false /*/>}}
+{{</* admonition tip "This is a tip" false */>}}
 一个 **技巧** 横幅
-{{</* /admonition /*/>}}
+{{</* /admonition */>}}
 ```
 
 呈现的输出效果如下:
@@ -268,13 +262,13 @@ This is a **right-aligned** paragraph.
 一个 **流程图** `mermaid` 示例:
 
 ```markdown
-{{</* mermaid /*/>}}
+{{</* mermaid */>}}
 graph LR;
     A[Hard edge] -->|Link text| B(Round edge)
     B --> C{Decision}
     C -->|One| D[Result one]
     C -->|Two| E[Result two]
-{{</* /mermaid /*/>}}
+{{</* /mermaid */>}}
 ```
 
 呈现的输出效果如下:
@@ -292,7 +286,7 @@ graph LR;
 一个 **时序图** `mermaid` 示例:
 
 ```markdown
-{{</* mermaid /*/>}}
+{{</* mermaid */>}}
 sequenceDiagram
     participant Alice
     participant Bob
@@ -304,7 +298,7 @@ sequenceDiagram
     John-->Alice: Great!
     John->Bob: How about you?
     Bob-->John: Jolly good!
-{{</* /mermaid /*/>}}
+{{</* /mermaid */>}}
 ```
 
 呈现的输出效果如下:
@@ -328,7 +322,7 @@ sequenceDiagram
 一个 **甘特图** `mermaid` 示例:
 
 ```markdown
-{{</* mermaid /*/>}}
+{{</* mermaid */>}}
 gantt
     dateFormat  YYYY-MM-DD
     title Adding GANTT diagram functionality to mermaid
@@ -344,7 +338,7 @@ gantt
     Future task in critical line        :crit, 5d
     Create tests for renderer           :2d
     Add to mermaid                      :1d
-{{</* /mermaid /*/>}}
+{{</* /mermaid */>}}
 ```
 
 呈现的输出效果如下:
@@ -372,7 +366,7 @@ gantt
 一个 **类图** `mermaid` 示例:
 
 ```markdown
-{{</* mermaid /*/>}}
+{{</* mermaid */>}}
 classDiagram
     Class01 <|-- AveryLongClass : Cool
     Class03 *-- Class04
@@ -387,7 +381,7 @@ classDiagram
     Class01 : int chimp
     Class01 : int gorilla
     Class08 <--> C2: Cool label
-{{</* /mermaid /*/>}}
+{{</* /mermaid */>}}
 ```
 
 呈现的输出效果如下:
@@ -414,7 +408,7 @@ classDiagram
 一个 **状态图** `mermaid` 示例:
 
 ```markdown
-{{</* mermaid /*/>}}
+{{</* mermaid */>}}
 stateDiagram
     [*] --> Still
     Still --> [*]
@@ -422,7 +416,7 @@ stateDiagram
     Moving --> Still
     Moving --> Crash
     Crash --> [*]
-{{</* /mermaid /*/>}}
+{{</* /mermaid */>}}
 ```
 
 呈现的输出效果如下:
@@ -442,7 +436,7 @@ stateDiagram
 一个 **Git 图** `mermaid` 示例:
 
 ```markdown
-{{</* mermaid /*/>}}
+{{</* mermaid */>}}
 gitGraph:
 options
 {
@@ -459,7 +453,7 @@ end
     commit
     commit
     merge newbranch
-{{</* /mermaid /*/>}}
+{{</* /mermaid */>}}
 ```
 
 呈现的输出效果如下:
@@ -488,12 +482,12 @@ end
 一个 **饼图** `mermaid` 示例:
 
 ```markdown
-{{</* mermaid /*/>}}
+{{</* mermaid */>}}
 pie
     "Dogs" : 386
     "Cats" : 85
     "Rats" : 15
-{{</* /mermaid /*/>}}
+{{</* /mermaid */>}}
 ```
 
 呈现的输出效果如下:
@@ -516,7 +510,7 @@ ECharts 提供了常规的 [折线图](https://echarts.apache.org/zh/option.html
 一个 `JSON` 格式的 `echarts` 示例:
 
 ```json
-{{</* echarts /*/>}}
+{{</* echarts */>}}
 {
   "title": {
     "text": "折线统计图",
@@ -585,13 +579,13 @@ ECharts 提供了常规的 [折线图](https://echarts.apache.org/zh/option.html
     }
   ]
 }
-{{</* /echarts /*/>}}
+{{</* /echarts */>}}
 ```
 
 一个 `YAML` 格式的 `echarts` 示例:
 
 ```yaml
-{{</* echarts /*/>}}
+{{</* echarts */>}}
 title:
     text: 折线统计图
     top: 2%
@@ -685,13 +679,13 @@ series:
           - 1290
           - 1330
           - 1320
-{{</* /echarts /*/>}}
+{{</* /echarts */>}}
 ```
 
 一个 `TOML` 格式的 `echarts` 示例:
 
 ```toml
-{{</* echarts /*/>}}
+{{</* echarts */>}}
 [title]
 text = "折线统计图"
 top = "2%"
@@ -807,7 +801,7 @@ data = [
   1330.0,
   1320.0
 ]
-{{</* /echarts /*/>}}
+{{</* /echarts */>}}
 ```
 
 呈现的输出效果如下:
@@ -952,9 +946,9 @@ data = [
 一个简单的 `mapbox` 示例:
 
 ```markdown
-{{</* mapbox 121.485 31.233 12 /*/>}}
+{{</* mapbox 121.485 31.233 12 */>}}
 或者
-{{</* mapbox lng=121.485 lat=31.233 zoom=12 /*/>}}
+{{</* mapbox lng=121.485 lat=31.233 zoom=12 */>}}
 ```
 
 呈现的输出效果如下:
@@ -964,9 +958,9 @@ data = [
 一个带有自定义样式的 `mapbox` 示例:
 
 ```markdown
-{{</* mapbox -122.252 37.453 10 false "mapbox://styles/mapbox/streets-zh-v1" /*/>}}
+{{</* mapbox -122.252 37.453 10 false "mapbox://styles/mapbox/streets-zh-v1" */>}}
 或者
-{{</* mapbox lng=-122.252 lat=37.453 zoom=10 marked=false light-style="mapbox://styles/mapbox/streets-zh-v1" /*/>}}
+{{</* mapbox lng=-122.252 lat=37.453 zoom=10 marked=false light-style="mapbox://styles/mapbox/streets-zh-v1" */>}}
 ```
 
 呈现的输出效果如下:
@@ -1004,7 +998,7 @@ data = [
 一个使用自定义音乐 URL 的 `music` 示例:
 
 ```markdown
-{{</* music url="/music/Wavelength.mp3" name=Wavelength artist=oldmanyoung cover="/images/Wavelength.jpg" /*/>}}
+{{</* music url="/music/Wavelength.mp3" name=Wavelength artist=oldmanyoung cover="/images/Wavelength.jpg" */>}}
 ```
 
 呈现的输出效果如下:
@@ -1022,9 +1016,9 @@ data = [
 一个使用音乐平台 URL 的自动识别的 `music` 示例:
 
 ```markdown
-{{</* music auto="https://music.163.com/#/playlist?id=60198" /*/>}}
+{{</* music auto="https://music.163.com/#/playlist?id=60198" */>}}
 或者
-{{</* music "https://music.163.com/#/playlist?id=60198" /*/>}}
+{{</* music "https://music.163.com/#/playlist?id=60198" */>}}
 ```
 
 呈现的输出效果如下:
@@ -1054,9 +1048,9 @@ data = [
 一个使用自定义音乐平台的 `music` 示例:
 
 ```markdown
-{{</* music server="netease" type="song" id="1868553" /*/>}}
+{{</* music server="netease" type="song" id="1868553" */>}}
 或者
-{{</* music netease song 1868553 /*/>}}
+{{</* music netease song 1868553 */>}}
 ```
 
 呈现的输出效果如下:
@@ -1128,9 +1122,9 @@ https://www.bilibili.com/video/BV1Sx411T7QQ
 一个 `bilibili` 示例:
 
 ```markdown
-{{</* bilibili BV1Sx411T7QQ /*/>}}
+{{</* bilibili BV1Sx411T7QQ */>}}
 或者
-{{</* bilibili id=BV1Sx411T7QQ /*/>}}
+{{</* bilibili id=BV1Sx411T7QQ */>}}
 ```
 
 呈现的输出效果如下:
@@ -1146,9 +1140,9 @@ https://www.bilibili.com/video/BV1TJ411C7An?p=3
 一个带有 `p` 参数的 `bilibili` 示例:
 
 ```markdown
-{{</* bilibili BV1TJ411C7An 3 /*/>}}
+{{</* bilibili BV1TJ411C7An 3 */>}}
 或者
-{{</* bilibili id=BV1TJ411C7An p=3 /*/>}}
+{{</* bilibili id=BV1TJ411C7An p=3 */>}}
 ```
 
 呈现的输出效果如下:
@@ -1168,9 +1162,9 @@ https://www.bilibili.com/video/BV1TJ411C7An?p=3
 一个 `typeit` 示例:
 
 ```markdown
-{{</* typeit /*/>}}
+{{</* typeit */>}}
 这一个带有基于 [TypeIt](https://typeitjs.com/) 的 **打字动画** 的 *段落*...
-{{</* /typeit /*/>}}
+{{</* /typeit */>}}
 ```
 
 呈现的输出效果如下:
@@ -1184,9 +1178,9 @@ https://www.bilibili.com/video/BV1TJ411C7An?p=3
 一个带有 `h4` 标签的 `typeit` 示例:
 
 ```markdown
-{{</* typeit tag=h4 /*/>}}
+{{</* typeit tag=h4 */>}}
 这一个带有基于 [TypeIt](https://typeitjs.com/) 的 **打字动画** 的 *段落*...
-{{</* /typeit /*/>}}
+{{</* /typeit */>}}
 ```
 
 呈现的输出效果如下:
@@ -1202,13 +1196,13 @@ https://www.bilibili.com/video/BV1TJ411C7An?p=3
 一个带有 `code` 参数的 `typeit` 示例:
 
 ```markdown
-{{</* typeit code=java /*/>}}
+{{</* typeit code=java */>}}
 public class HelloWorld {
     public static void main(String []args) {
         System.out.println("Hello World");
     }
 }
-{{</* /typeit /*/>}}
+{{</* /typeit */>}}
 ```
 
 呈现的输出效果如下:
@@ -1231,13 +1225,13 @@ public class HelloWorld {
 一个带有 `group` 参数的 `typeit` 示例:
 
 ```markdown
-{{</* typeit group=paragraph /*/>}}
+{{</* typeit group=paragraph */>}}
 **首先**, 这个段落开始
-{{</* /typeit /*/>}}
+{{</* /typeit */>}}
 
-{{</* typeit group=paragraph /*/>}}
+{{</* typeit group=paragraph */>}}
 **然后**, 这个段落开始
-{{</* /typeit /*/>}}
+{{</* /typeit */>}}
 ```
 
 呈现的输出效果如下:
@@ -1264,9 +1258,9 @@ public class HelloWorld {
 一个 `script` 示例:
 
 ```markdown
-{{</* script /*/>}}
+{{</* script */>}}
 console.log('Hello LoveIt!');
-{{</* /script /*/>}}
+{{</* /script */>}}
 ```
 
 你可以在开发者工具的控制台中看到输出.
