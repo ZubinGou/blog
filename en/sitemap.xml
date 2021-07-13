@@ -11,7 +11,7 @@
                     hreflang="en"
                     href="https://binko.me/en/about/"
                     /></url><url>
-            <loc>https://binko.me/en/categories/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/en/categories/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://binko.me/categories/"
@@ -20,7 +20,7 @@
                     hreflang="en"
                     href="https://binko.me/en/categories/"
                     /></url><url>
-            <loc>https://binko.me/en/tags/configuration/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/en/tags/configuration/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://binko.me/tags/configuration/"
@@ -29,7 +29,7 @@
                     hreflang="en"
                     href="https://binko.me/en/tags/configuration/"
                     /></url><url>
-            <loc>https://binko.me/en/tags/installation/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/en/tags/installation/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://binko.me/tags/installation/"
@@ -38,7 +38,7 @@
                     hreflang="en"
                     href="https://binko.me/en/tags/installation/"
                     /></url><url>
-            <loc>https://binko.me/en/posts/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/en/posts/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://binko.me/posts/"
@@ -47,7 +47,7 @@
                     hreflang="en"
                     href="https://binko.me/en/posts/"
                     /></url><url>
-            <loc>https://binko.me/en/tags/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/en/tags/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://binko.me/tags/"
@@ -56,7 +56,7 @@
                     hreflang="en"
                     href="https://binko.me/en/tags/"
                     /></url><url>
-            <loc>https://binko.me/en/theme-documentation-basics/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/en/theme-documentation-basics/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://binko.me/theme-documentation-basics/"
@@ -65,7 +65,7 @@
                     hreflang="en"
                     href="https://binko.me/en/theme-documentation-basics/"
                     /></url><url>
-            <loc>https://binko.me/en/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/en/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://binko.me/"
@@ -74,7 +74,7 @@
                     hreflang="en"
                     href="https://binko.me/en/"
                     /></url><url>
-            <loc>https://binko.me/en/tags/content/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/en/tags/content/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://binko.me/tags/content/"
@@ -83,7 +83,7 @@
                     hreflang="en"
                     href="https://binko.me/en/tags/content/"
                     /></url><url>
-            <loc>https://binko.me/en/tags/markdown/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/en/tags/markdown/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://binko.me/tags/markdown/"
@@ -92,7 +92,7 @@
                     hreflang="en"
                     href="https://binko.me/en/tags/markdown/"
                     /></url><url>
-            <loc>https://binko.me/en/theme-documentation-content/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/en/theme-documentation-content/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://binko.me/theme-documentation-content/"
@@ -101,7 +101,7 @@
                     hreflang="en"
                     href="https://binko.me/en/theme-documentation-content/"
                     /></url><url>
-            <loc>https://binko.me/en/tags/shortcodes/</loc><lastmod>2021-02-13T15:04:44&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://binko.me/en/tags/shortcodes/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://binko.me/tags/shortcodes/"
@@ -119,7 +119,7 @@
                     hreflang="en"
                     href="https://binko.me/en/theme-documentation-built-in-shortcodes/"
                     /></url><url>
-            <loc>https://binko.me/en/theme-documentation-extended-shortcodes/</loc><lastmod>2021-02-13T15:04:44&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://binko.me/en/theme-documentation-extended-shortcodes/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://binko.me/theme-documentation-extended-shortcodes/"
@@ -128,7 +128,7 @@
                     hreflang="en"
                     href="https://binko.me/en/theme-documentation-extended-shortcodes/"
                     /></url><url>
-            <loc>https://binko.me/en/theme-basic-markdown-syntax/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/en/theme-basic-markdown-syntax/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://binko.me/theme-basic-markdown-syntax/"
@@ -137,7 +137,7 @@
                     hreflang="en"
                     href="https://binko.me/en/theme-basic-markdown-syntax/"
                     /></url><url>
-            <loc>https://binko.me/en/tags/html/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/en/tags/html/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://binko.me/tags/html/"
