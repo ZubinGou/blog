@@ -31,10 +31,8 @@ $$
 $$
 \sigma^{\prime}(x)=\sigma(x)(1-\sigma(x))
 $$
-1. 其输出直接可以看作概率分布，使得神经网络可以更好地和统计
-学习模型进行结合．
-2. 其可以看作一个软性门（Soft Gate），用来控制其他神经
-元输出信息的数量
+1. 其输出直接可以看作概率分布，使得神经网络可以更好地和统计学习模型进行结合．
+2. 其可以看作一个软性门（Soft Gate），用来控制其他神经元输出信息的数量
 
 Tanh 函数：
 $$
@@ -48,6 +46,7 @@ $$
 
 #### 4.1.1.1 Hard-Logistic 函数和 Hard-Tanh 函数
 分段函数近似
+
 $$
 \begin{aligned}
 \text { hard-logistic }(x)=&\left\{\begin{array}{ll}
@@ -59,17 +58,20 @@ g\_{l} & 0<g\_{l}(x)<1 \\\\
 &=\max (\min (0.25 x+0.5,1), 0) .
 \end{aligned}
 $$
+
 $$
 \begin{aligned}
 \operatorname{hard}-\tanh (x) &=\max \left(\min \left(g\_{t}(x), 1\right),-1\right) \\\\
 &=\max (\min (x, 1),-1)
 \end{aligned}
 $$
+
 ![7764b7a97d7da811d2d779bbf79c8574.png](../../_resources/b9827de3a4014af5a543d60d04f78914.png)
 
 
 ### 4.1.2 ReLU 函数
 ReLU（Rectified Linear Unit，修正线性单元），也叫Rectifier函数
+
 $$
 \begin{aligned}
 \operatorname{ReLU}(x) &=\left\{\begin{array}{ll}
@@ -79,6 +81,7 @@ x & x \geq 0 \\\\
 &=\max (0, x)
 \end{aligned}
 $$
+
 优点：
 1. 生物学合理性（Biological Plausibility）
 2. ReLU 具有很好的稀疏性，大约 50% 的神经元会处于激活状态

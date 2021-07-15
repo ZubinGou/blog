@@ -3,7 +3,9 @@
 
 # ch6 循环神经网络
 学习：随时间反向传播算法
-长程依赖：长序列时梯度爆炸和消失 -> 门控机智（Gating Mechanism）
+
+长程依赖：长序列时梯度爆炸和消失 -> 门控机制（Gating Mechanism）
+
 广义记忆网络：递归神经网络、图网络
 
 ## 6.1 给网络增强记忆能力
@@ -21,7 +23,7 @@ $$
 \boldsymbol{y}\_{t}=w\_{0}+\sum\_{k=1}^{K} w\_{k} \boldsymbol{y}\_{t-k}+\epsilon\_{t}
 $$
 
-有外部输入的非线性自回归模型（Nonlinear AutoRegressive with Exogenous Inputs Model，NARX）： 每个时候都有输入输出，通过延时器记录最近$K_x$次输入和$K_y$词输出，则t时刻输出$y_t$为
+有外部输入的非线性自回归模型（Nonlinear AutoRegressive with Exogenous Inputs Model，NARX）： 每个时候都有输入输出，通过延时器记录最近$K_x$次输入和$K_y$次输出，则t时刻输出$y_t$为
 $$
 \boldsymbol{y}\_{t}=f\left(\boldsymbol{x}\_{t}, \boldsymbol{x}\_{t-1}, \cdots, \boldsymbol{x}\_{t-K\_{x}}, \boldsymbol{y}\_{t-1}, \boldsymbol{y}\_{t-2}, \cdots, \boldsymbol{y}\_{t-K\_{y}}\right)
 $$
@@ -159,17 +161,21 @@ $$
 ### 6.6.1 长短期记忆网络
 长短期记忆网络（Long Short-Term Memory Network，LSTM）
 
-引入新的内部状态（internal state）$\boldsymbol{c}\_{t} \in \mathbb{R}^{D}$ 专门进行线性的循环信息传递，同时非线性地输出信息给隐藏层的外部状态$\boldsymbol{h}\_{t} \in \mathbb{R}^{D}$
+引入新的内部状态（internal state）$\boldsymbol{c}\_{t} \in \mathbb{R}^{D}$ 专门进行线性的循环信息传递，同时非线性地输出信息给隐藏层的外部状态 $\boldsymbol{h}\_{t} \in \mathbb{R}^{D}$
+
 $$
 \begin{aligned}
 \boldsymbol{c}\_{t} &=\boldsymbol{f}\_{t} \odot \boldsymbol{c}\_{t-1}+\boldsymbol{i}\_{t} \odot \tilde{\boldsymbol{c}}\_{t} \\\\
 \boldsymbol{h}\_{t} &=\boldsymbol{o}\_{t} \odot \tanh \left(\boldsymbol{c}\_{t}\right)
 \end{aligned}
 $$
+
 候选状态：
+
 $$
 \tilde{\boldsymbol{c}}\_{t}=\tanh \left(\boldsymbol{W}\_{c} \boldsymbol{x}\_{t}+\boldsymbol{U}\_{c} \boldsymbol{h}\_{t-1}+\boldsymbol{b}\_{c}\right)
 $$
+
 门控机制：
 $$
 \begin{aligned}
@@ -258,7 +264,7 @@ $$
 
 ### 6.7.1 堆叠循环神经网络
 堆叠循环神经网络（Stacked Recurrent Neural Network，SRNN）
-- 其中，堆叠的简单循环网络（Sacked SRN）也成为循环多层感知机（Recurrent MultiLayer Perceptron，RMLP）
+- 其中，堆叠的简单循环网络（Stacked SRN）也成为循环多层感知机（Recurrent MultiLayer Perceptron，RMLP）
 
 $$
 \boldsymbol{h}\_{t}^{(l)}=f\left(\boldsymbol{U}^{(l)} \boldsymbol{h}\_{t-1}^{(l)}+\boldsymbol{W}^{(l)} \boldsymbol{h}\_{t}^{(l-1)}+\boldsymbol{b}^{(l)}\right)
@@ -321,14 +327,32 @@ $$
 分别替换 $\boldsymbol{h}\_{k-1}^{\top}$ 为 $\boldsymbol{x}\_{k}^{\top}$ 和 $1$ 即可
 
 #### 习题6-3 当使用公式(6.50) 作为循环神经网络的状态更新公式时，分析其可能存在梯度爆炸的原因并给出解决方法．
-?
+公式（6.50）：
+
+$$
+\boldsymbol{h}_{t}=\boldsymbol{h}_{t-1}+g\left(\boldsymbol{x}_{t}, \boldsymbol{h}_{t-1} ; \theta\right),
+$$
+
+计算误差项时梯度可能过大，不断反向累积导致梯度爆炸：
+
+$$
+\begin{aligned}
+\delta_{t, k} &=\frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k}} \\
+&=\frac{\partial \boldsymbol{h}_{k}}{\partial \boldsymbol{z}_{k}} \frac{\partial \boldsymbol{z}_{k+1}}{\partial \boldsymbol{h}_{k}} \frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k+1}} \\
+&=\operatorname{diag}\left(f^{\prime}\left(\boldsymbol{z}_{k}\right)\right) \boldsymbol{U}^{\top} \delta_{t, k+1}
+\end{aligned}
+$$
+
+解决方法：引入门控机制等。
 
 #### 习题 6-4 推导 LSTM 网络中参数的梯度，并分析其避免梯度消失的效果．
 
 #### 习题 6-5 推导 GRU 网络中参数的梯度，并分析其避免梯度消失的效果．
 
 #### 习题 6-6 除了堆叠循环神经网络外，还有什么结构可以增加循环神经网络深度？
-？
+增加神经网络深度主要方法：增加同一时刻网络输入到输出之间的路径。
+
+如：堆叠神经网络、双向循环网络等。
 
 #### 习题 6-7 证明当递归神经网络的结构退化为线性序列结构时，递归神经网络就等价于简单循环神经网络．
 RecNN 退化为线性序列结构时：
