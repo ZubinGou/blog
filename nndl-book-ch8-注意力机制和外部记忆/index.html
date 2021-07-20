@@ -531,19 +531,19 @@ $$</p>
 <p>Scale：
 $$
 E\left(q_{i} k_{i}\right)=E q_{i} E k_{i}=0
-$$
-$$
+$$</p>
+<p>$$
 \begin{aligned}
 D\left(q_{i} k_{i}\right) &amp;=E\left(q_{i}^{2} k_{i}^{2}\right)-\left(E\left(q_{i} k_{i}\right)\right)^{2} \\<br>
 &amp;=E q_{i}^{2} E k_{i}^{2} \\<br>
 &amp;=\left(D\left(q_{i}\right)+\left(E q_{i}\right)^{2}\right)\left(D\left(k_{i}\right)+\left(E k_{i}\right)^{2}\right) \\<br>
 &amp;=\sigma^{4}=1
 \end{aligned}
-$$
-$$
+$$</p>
+<p>$$
 E\left(Q K^{T}\right)=\sum_{i=1}^{d_{k}} E\left(q_{i} k_{i}\right)=0
-$$
-$$
+$$</p>
+<p>$$
 D\left(Q K^{T}\right)=\sum_{i=1}^{d_{k}} D\left(q_{i} k_{i}\right)=d_{k} \sigma^{4}=d_{k}
 $$</p>
 <p>点积期望为0，通过除以标准差缩放，相当于进行了标准化Standardization，控制softmax输入的方差为1，有效解决了梯度消失问题。</p>

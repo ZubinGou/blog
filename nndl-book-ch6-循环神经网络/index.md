@@ -311,8 +311,9 @@ $$
 上式为同步更新，对于有向图采用异步更新会更有效率，比如RNN和RecNN。
 
 读出函数（Readout Function）得到整个网络的表示：
+
 $$
-\boldsymbol{o}\_{t}=g\left(\left\{\boldsymbol{h}\_{T}^{(v)} \mid v \in \mathcal{V}\right\}\right)
+\boldsymbol{o}\_{t}=g\left(\\\{\boldsymbol{h}\_{T}^{(v)} \mid v \in \mathcal{V}\\\}\right)
 $$
 
 
@@ -330,16 +331,24 @@ $$
 公式（6.50）：
 
 $$
-\boldsymbol{h}_{t}=\boldsymbol{h}_{t-1}+g\left(\boldsymbol{x}_{t}, \boldsymbol{h}_{t-1} ; \theta\right),
+\boldsymbol{h}\_{t}=\boldsymbol{h}\_{t-1}+g\left(\boldsymbol{x}\_{t}, \boldsymbol{h}\_{t-1} ; \theta\right),
 $$
 
 计算误差项时梯度可能过大，不断反向累积导致梯度爆炸：
 
-$$
+<!-- $$
 \begin{aligned}
 \delta_{t, k} &=\frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k}} \\
 &=\frac{\partial \boldsymbol{h}_{k}}{\partial \boldsymbol{z}_{k}} \frac{\partial \boldsymbol{z}_{k+1}}{\partial \boldsymbol{h}_{k}} \frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k+1}} \\
 &=\operatorname{diag}\left(f^{\prime}\left(\boldsymbol{z}_{k}\right)\right) \boldsymbol{U}^{\top} \delta_{t, k+1}
+\end{aligned}
+$$ -->
+
+$$
+\begin{aligned}
+\delta\_{t, k} &=\frac{\partial \mathcal{L}\_{t}}{\partial \boldsymbol{z}\_{k}} \\\\
+&=\frac{\partial \boldsymbol{h}\_{k}}{\partial \boldsymbol{z}\_{k}} \frac{\partial \boldsymbol{z}\_{k+1}}{\partial \boldsymbol{h}\_{k}} \frac{\partial \mathcal{L}\_{t}}{\partial \boldsymbol{z}\_{k+1}} \\\\
+&=\operatorname{diag}\left(f^{\prime}\left(\boldsymbol{z}\_{k}\right)\right) \boldsymbol{U}^{\top} \delta\_{t, k+1}
 \end{aligned}
 $$
 
@@ -362,4 +371,5 @@ $$
 \boldsymbol{x}\_{t}
 \end{array}\right]+\boldsymbol{b}\right)
 $$
+
 显而易见，即 SRN.

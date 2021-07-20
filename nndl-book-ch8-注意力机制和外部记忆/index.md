@@ -308,6 +308,7 @@ Scale：
 $$
 E\left(q\_{i} k\_{i}\right)=E q\_{i} E k\_{i}=0
 $$
+
 $$
 \begin{aligned}
 D\left(q\_{i} k\_{i}\right) &=E\left(q\_{i}^{2} k\_{i}^{2}\right)-\left(E\left(q\_{i} k\_{i}\right)\right)^{2} \\\\
@@ -316,9 +317,11 @@ D\left(q\_{i} k\_{i}\right) &=E\left(q\_{i}^{2} k\_{i}^{2}\right)-\left(E\left(q
 &=\sigma^{4}=1
 \end{aligned}
 $$
+
 $$
 E\left(Q K^{T}\right)=\sum\_{i=1}^{d\_{k}} E\left(q\_{i} k\_{i}\right)=0
 $$
+
 $$
 D\left(Q K^{T}\right)=\sum\_{i=1}^{d\_{k}} D\left(q\_{i} k\_{i}\right)=d\_{k} \sigma^{4}=d\_{k}
 $$

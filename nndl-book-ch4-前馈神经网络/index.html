@@ -20,7 +20,7 @@
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="prev" href="https://binko.me/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" /><link rel="next" href="https://binko.me/nlp-papersword2vec/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="prev" href="https://binko.me/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" /><link rel="next" href="https://binko.me/nlp-papersword2vec/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -508,23 +508,23 @@ $$
 \end{aligned}
 $$
 误差的反向传播（BackPropagation，BP）：l层误差通过l+1层误差计算得到</p>
-<p>BP算法内涵：l层一个神经元误差项是所有与该神经元相连的l+1层神经元的误差项的权重和，再乘上该神经元激活函数的梯度</p>
-<p>$$
+<p>BP算法内涵：l层一个神经元误差项是所有与该神经元相连的l+1层神经元的误差项的权重和，再乘上该神经元激活函数的梯度
+$$
 \begin{aligned}
 \frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial w_{i j}^{(l)}} &amp;=\llbracket_{i}\left(a_{j}^{(l-1)}\right) \delta^{(l)} \\<br>
 &amp;=\left[0, \cdots, a_{j}^{(l-1)}, \cdots, 0\right]\left[\delta_{1}^{(l)}, \cdots, \delta_{i}^{(l)}, \cdots, \delta_{M_{l}}^{(l)}\right]^{\top} \\<br>
 &amp;=\delta_{i}^{(l)} a_{j}^{(l-1)}
 \end{aligned}
-$$
-进一步：
+$$</p>
+<p>进一步：
 $$
 \left[\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{W}^{(l)}}\right]_{i j}=\left[\delta^{(l)}\left(\boldsymbol{a}^{(l-1)}\right)^{\top}\right]_{i j}
-$$
-权重梯度：
+$$</p>
+<p>权重梯度：
 $$
 \frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{W}^{(l)}}=\delta^{(l)}\left(\boldsymbol{a}^{(l-1)}\right)^{\top} \quad \in \mathbb{R}^{M_{l} \times M_{l-1}}
-$$
-偏置梯度：
+$$</p>
+<p>偏置梯度：
 $$
 \frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{b}^{(l)}}=\delta^{(l)} \in \mathbb{R}^{M_{l}}
 $$</p>
@@ -761,7 +761,7 @@ w数量：$M \times \frac{N}{L}+(L-1)(\frac{N}{L})^2+\frac{N}{L}$</p>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" class="prev" rel="prev" title="《神经网络与深度学习》第2章 - 机器学习概述"><i class="fas fa-angle-left fa-fw"></i>《神经网络与深度学习》第2章 - 机器学习概述</a>
+    <div class="post-nav"><a href="/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" class="prev" rel="prev" title="《神经网络与深度学习》第3章 - 线性模型"><i class="fas fa-angle-left fa-fw"></i>《神经网络与深度学习》第3章 - 线性模型</a>
             <a href="/nlp-papersword2vec/" class="next" rel="next" title="【NLP Papers】word2vec">【NLP Papers】word2vec<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="utterances"></div><noscript>

@@ -94,9 +94,11 @@ $$\begin{aligned} \log p(\boldsymbol{w} \mid \boldsymbol{X}, \boldsymbol{y} ; \n
 
 
 ## 2.4 偏差-方差分解（Bias-Variance Decomposition）
-$\mathbb{E}\_{\mathcal{D}}\left[\left(f\_{\mathcal{D}}(\boldsymbol{x})-f^{*}(\boldsymbol{x})\right)^{2}\right]$
-$\quad=\mathbb{E}\_{\mathcal{D}}\left[\left(f\_{\mathcal{D}}(\boldsymbol{x})-\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\boldsymbol{x})\right]+\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\boldsymbol{x})\right]-f^{*}(\boldsymbol{x})\right)^{2}\right]$
-$\quad=\underbrace{\left(\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\boldsymbol{x})\right]-f^{*}(\boldsymbol{x})\right)^{2}}\_{\text {(bias.} \mathrm{x})^{2}}+\underbrace{\mathbb{E}\_{\mathcal{D}}\left[\left(f\_{\mathcal{D}}(\boldsymbol{x})-\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\boldsymbol{x})\right]\right)^{2}\right]}\_{\text {variance.} \mathrm{x}},$
+$$\mathbb{E}\_{\mathcal{D}}\left[\left(f\_{\mathcal{D}}(\boldsymbol{x})-f^{\*}(\boldsymbol{x})\right)^{2}\right]$$
+
+$$\quad=\mathbb{E}\_{\mathcal{D}}\left[\left(f\_{\mathcal{D}}(\boldsymbol{x})-\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\boldsymbol{x})\right]+\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\boldsymbol{x})\right]-f^{\*}(\boldsymbol{x})\right)^{2}\right]$$
+
+$$\quad=\underbrace{\left(\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\boldsymbol{x})\right]-f^{\*}(\boldsymbol{x})\right)^{2}}\_{\text {(bias.} \mathrm{x})^{2}}+\underbrace{\mathbb{E}\_{\mathcal{D}}\left[\left(f\_{\mathcal{D}}(\boldsymbol{x})-\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\boldsymbol{x})\right]\right)^{2}\right]}\_{\text {variance.} \mathrm{x}},$$
 
 ![f2a461e93ab4c01948036725631693a7.png](../../_resources/c7687aa1e3bf4cb097f5eff1b0e00eae.png)
 

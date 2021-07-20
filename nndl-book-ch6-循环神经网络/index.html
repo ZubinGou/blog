@@ -554,9 +554,9 @@ $$</p>
 \end{aligned}
 $$</p>
 <p>上式为同步更新，对于有向图采用异步更新会更有效率，比如RNN和RecNN。</p>
-<p>读出函数（Readout Function）得到整个网络的表示：
-$$
-\boldsymbol{o}_{t}=g\left(\left{\boldsymbol{h}_{T}^{(v)} \mid v \in \mathcal{V}\right}\right)
+<p>读出函数（Readout Function）得到整个网络的表示：</p>
+<p>$$
+\boldsymbol{o}_{t}=g\left(\{\boldsymbol{h}_{T}^{(v)} \mid v \in \mathcal{V}\}\right)
 $$</p>
 <h2 id="习题">习题</h2>
 <h4 id="习题-6-1-分析延时神经网络卷积神经网络和循环神经网络的异同点">习题 6-1 分析延时神经网络、卷积神经网络和循环神经网络的异同点．</h4>
@@ -571,13 +571,20 @@ $$</p>
 <h4 id="习题6-3-当使用公式650-作为循环神经网络的状态更新公式时分析其可能存在梯度爆炸的原因并给出解决方法">习题6-3 当使用公式(6.50) 作为循环神经网络的状态更新公式时，分析其可能存在梯度爆炸的原因并给出解决方法．</h4>
 <p>公式（6.50）：</p>
 <p>$$
-\boldsymbol{h}<em>{t}=\boldsymbol{h}</em>{t-1}+g\left(\boldsymbol{x}<em>{t}, \boldsymbol{h}</em>{t-1} ; \theta\right),
+\boldsymbol{h}_{t}=\boldsymbol{h}_{t-1}+g\left(\boldsymbol{x}_{t}, \boldsymbol{h}_{t-1} ; \theta\right),
 $$</p>
 <p>计算误差项时梯度可能过大，不断反向累积导致梯度爆炸：</p>
+<!-- $$
+\begin{aligned}
+\delta_{t, k} &=\frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k}} \\
+&=\frac{\partial \boldsymbol{h}_{k}}{\partial \boldsymbol{z}_{k}} \frac{\partial \boldsymbol{z}_{k+1}}{\partial \boldsymbol{h}_{k}} \frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k+1}} \\
+&=\operatorname{diag}\left(f^{\prime}\left(\boldsymbol{z}_{k}\right)\right) \boldsymbol{U}^{\top} \delta_{t, k+1}
+\end{aligned}
+$$ -->
 <p>$$
 \begin{aligned}
-\delta_{t, k} &amp;=\frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k}} \<br>
-&amp;=\frac{\partial \boldsymbol{h}_{k}}{\partial \boldsymbol{z}_{k}} \frac{\partial \boldsymbol{z}_{k+1}}{\partial \boldsymbol{h}_{k}} \frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k+1}} \<br>
+\delta_{t, k} &amp;=\frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k}} \\<br>
+&amp;=\frac{\partial \boldsymbol{h}_{k}}{\partial \boldsymbol{z}_{k}} \frac{\partial \boldsymbol{z}_{k+1}}{\partial \boldsymbol{h}_{k}} \frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k+1}} \\<br>
 &amp;=\operatorname{diag}\left(f^{\prime}\left(\boldsymbol{z}_{k}\right)\right) \boldsymbol{U}^{\top} \delta_{t, k+1}
 \end{aligned}
 $$</p>
@@ -594,8 +601,8 @@ $$
 \boldsymbol{h}_{t-1} \\<br>
 \boldsymbol{x}_{t}
 \end{array}\right]+\boldsymbol{b}\right)
-$$
-显而易见，即 SRN.</p>
+$$</p>
+<p>显而易见，即 SRN.</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">

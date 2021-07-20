@@ -229,7 +229,6 @@ $$
 误差的反向传播（BackPropagation，BP）：l层误差通过l+1层误差计算得到
 
 BP算法内涵：l层一个神经元误差项是所有与该神经元相连的l+1层神经元的误差项的权重和，再乘上该神经元激活函数的梯度
-
 $$
 \begin{aligned}
 \frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial w\_{i j}^{(l)}} &=\llbracket\_{i}\left(a\_{j}^{(l-1)}\right) \delta^{(l)} \\\\
@@ -237,14 +236,17 @@ $$
 &=\delta\_{i}^{(l)} a\_{j}^{(l-1)}
 \end{aligned}
 $$
+
 进一步：
 $$
 \left[\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{W}^{(l)}}\right]\_{i j}=\left[\delta^{(l)}\left(\boldsymbol{a}^{(l-1)}\right)^{\top}\right]\_{i j}
 $$
+
 权重梯度：
 $$
 \frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{W}^{(l)}}=\delta^{(l)}\left(\boldsymbol{a}^{(l-1)}\right)^{\top} \quad \in \mathbb{R}^{M\_{l} \times M\_{l-1}}
 $$
+
 偏置梯度：
 $$
 \frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{b}^{(l)}}=\delta^{(l)} \in \mathbb{R}^{M\_{l}}
