@@ -5,8 +5,7 @@
             <loc>https://binko.me/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0bilstm-crf-ner%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E6%94%B9%E8%BF%9B/</loc><lastmod>2021-03-16T13:46:57&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://binko.me/project-ai-poet-totoro/</loc><lastmod>2021-04-06T22:33:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://binko.me/nihilism/</loc><lastmod>2021-04-06T18:31:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://binko.me/tags/bert/</loc><lastmod>2021-03-24T14:56:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://binko.me/categories/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/categories/</loc><lastmod>2021-07-20T17:00:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://binko.me/en/categories/"
@@ -15,10 +14,11 @@
                     hreflang="zh-cn"
                     href="https://binko.me/categories/"
                     /></url><url>
-            <loc>https://binko.me/tags/nlp/</loc><lastmod>2021-04-06T18:31:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://binko.me/categories/nlp/</loc><lastmod>2021-04-06T18:31:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://binko.me/tags/notes/</loc><lastmod>2021-04-06T18:31:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://binko.me/posts/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/categories/deep-learning/</loc><lastmod>2021-07-20T17:00:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://binko.me/tags/dl/</loc><lastmod>2021-07-20T17:00:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://binko.me/tags/nlp/</loc><lastmod>2021-07-20T17:00:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://binko.me/tags/notes/</loc><lastmod>2021-07-20T17:00:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://binko.me/posts/</loc><lastmod>2021-07-20T17:00:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://binko.me/en/posts/"
@@ -27,8 +27,7 @@
                     hreflang="zh-cn"
                     href="https://binko.me/posts/"
                     /></url><url>
-            <loc>https://binko.me/tags/pre-training/</loc><lastmod>2021-03-24T14:56:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://binko.me/tags/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/tags/</loc><lastmod>2021-07-20T17:00:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://binko.me/en/tags/"
@@ -37,7 +36,7 @@
                     hreflang="zh-cn"
                     href="https://binko.me/tags/"
                     /></url><url>
-            <loc>https://binko.me/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://binko.me/</loc><lastmod>2021-07-20T17:00:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://binko.me/en/"
@@ -46,14 +45,17 @@
                     hreflang="zh-cn"
                     href="https://binko.me/"
                     /></url><url>
+            <loc>https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/</loc><lastmod>2021-07-20T17:00:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://binko.me/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc><lastmod>2021-07-20T17:00:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://binko.me/tags/bert/</loc><lastmod>2021-03-24T14:56:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://binko.me/categories/nlp/</loc><lastmod>2021-04-06T18:31:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://binko.me/tags/pre-training/</loc><lastmod>2021-03-24T14:56:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://binko.me/nlp-papersbert_-pre-training-of-deep-bidirection/</loc><lastmod>2021-03-24T14:56:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://binko.me/tags/elmo/</loc><lastmod>2021-03-24T13:56:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://binko.me/nlp-paperscontextual-word-representations_-a-con/</loc><lastmod>2021-03-24T13:56:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://binko.me/nlp-paperselmo_-deep-contextualized-word-represe/</loc><lastmod>2021-03-24T13:56:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://binko.me/categories/deep-learning/</loc><lastmod>2021-03-23T13:56:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://binko.me/tags/ml/</loc><lastmod>2021-03-23T13:56:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://binko.me/nndl-book-ch15-%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/</loc><lastmod>2021-03-23T13:56:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://binko.me/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc><lastmod>2021-03-23T13:56:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://binko.me/tags/crf/</loc><lastmod>2021-03-16T13:46:57&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://binko.me/tags/lstm/</loc><lastmod>2021-03-16T13:46:57&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://binko.me/tags/ner/</loc><lastmod>2021-03-16T13:46:57&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -67,7 +69,6 @@
             <loc>https://binko.me/tags/neural-network/</loc><lastmod>2021-04-06T18:31:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://binko.me/tags/nnlp/</loc><lastmod>2021-04-06T18:31:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://binko.me/nnlp-notes/</loc><lastmod>2021-04-06T18:31:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://binko.me/tags/dl/</loc><lastmod>2021-02-01T17:56:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</loc><lastmod>2021-02-01T17:56:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://binko.me/about/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"

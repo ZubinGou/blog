@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《神经网络与深度学习》第7章 - 网络优化与正则化 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《神经网络与深度学习》第7章 - 网络优化与正则化" />
+<meta property="og:description" content="ch7 网络优化与正则化 任何数学技巧都不能弥补信息的缺失． —— 科尼利厄斯·兰佐斯（Cornelius Lanczos） 匈牙利数学家、物理学家 神经网络" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" />
+<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="article:published_time" content="2021-07-20T17:00:11+08:00" />
+<meta property="article:modified_time" content="2021-07-20T17:00:11+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://binko.me/logo.png"/>
+
+<meta name="twitter:title" content="《神经网络与深度学习》第7章 - 网络优化与正则化"/>
+<meta name="twitter:description" content="ch7 网络优化与正则化 任何数学技巧都不能弥补信息的缺失． —— 科尼利厄斯·兰佐斯（Cornelius Lanczos） 匈牙利数学家、物理学家 神经网络"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" /><link rel="prev" href="https://binko.me/nlp-papersbert_-pre-training-of-deep-bidirection/" /><link rel="next" href="https://binko.me/nihilism/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《神经网络与深度学习》第7章 - 网络优化与正则化",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/binko.me\/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "神经网络与深度学习, NLP, notes, DL","wordcount":  6965 ,
+        "url": "https:\/\/binko.me\/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96\/","datePublished": "2021-07-20T17:00:11+08:00","dateModified": "2021-07-20T17:00:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          displayMath: [['$$','$$']],
+          processEscapes: true,
+          processEnvironments: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          TeX: {
+              equationNumbers: { autoNumber: "AMS" },
+              extensions: ["AMSmath.js", "AMSsymbols.js"]
+          }
+      }
+  });
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《神经网络与深度学习》第7章 - 网络优化与正则化</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/deep-learning/"><i class="far fa-folder fa-fw"></i>Deep Learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-20">2021-07-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6965 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 14 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#71-网络优化">7.1 网络优化</a></li>
+    <li><a href="#72-优化算法">7.2 优化算法</a>
+      <ul>
+        <li><a href="#721-小批量梯度下降">7.2.1 小批量梯度下降</a></li>
+        <li><a href="#722-批量大小选择">7.2.2 批量大小选择</a></li>
+        <li><a href="#723-学习率调整">7.2.3 学习率调整</a>
+          <ul>
+            <li><a href="#学习率衰减learning-rate-decay-学习率退火learning-rate-anealing">学习率衰减（Learning Rate Decay）/ 学习率退火（Learning Rate Anealing）</a></li>
+            <li><a href="#学习率预热">学习率预热</a></li>
+            <li><a href="#周期性学习率调整">周期性学习率调整</a></li>
+            <li><a href="#adagrad-算法">AdaGrad 算法</a></li>
+            <li><a href="#rmsprop-算法">RMSprop 算法</a></li>
+            <li><a href="#adadelta-算法">AdaDelta 算法</a></li>
+          </ul>
+        </li>
+        <li><a href="#724-梯度估计修正">7.2.4 梯度估计修正</a>
+          <ul>
+            <li><a href="#动量法">动量法</a></li>
+            <li><a href="#nesterov-加速梯度">Nesterov 加速梯度</a></li>
+            <li><a href="#adam-算法">Adam 算法</a></li>
+            <li><a href="#梯度截断">梯度截断</a></li>
+          </ul>
+        </li>
+        <li><a href="#725-优化算法小结">7.2.5 优化算法小结</a></li>
+      </ul>
+    </li>
+    <li><a href="#73-参数初始化">7.3 参数初始化</a>
+      <ul>
+        <li><a href="#731-基于固定方差的参数初始化">7.3.1 基于固定方差的参数初始化</a></li>
+        <li><a href="#732-基于方差缩放的参数初始化">7.3.2 基于方差缩放的参数初始化</a>
+          <ul>
+            <li><a href="#xavier-初始化">Xavier 初始化</a></li>
+            <li><a href="#he-初始化">He 初始化</a></li>
+          </ul>
+        </li>
+        <li><a href="#733-正交初始化">7.3.3 正交初始化</a></li>
+      </ul>
+    </li>
+    <li><a href="#74-数据预处理">7.4 数据预处理</a></li>
+    <li><a href="#75-逐层归一化">7.5 逐层归一化</a>
+      <ul>
+        <li><a href="#751-批量归一化">7.5.1 批量归一化</a></li>
+        <li><a href="#752-层归一化">7.5.2 层归一化</a></li>
+        <li><a href="#753-权重归一化">7.5.3 权重归一化</a></li>
+        <li><a href="#754-局部响应归一化">7.5.4 局部响应归一化</a></li>
+      </ul>
+    </li>
+    <li><a href="#76-超参数优化">7.6 超参数优化</a>
+      <ul>
+        <li><a href="#761-网格搜索">7.6.1 网格搜索</a></li>
+        <li><a href="#762-随机搜索">7.6.2 随机搜索</a></li>
+        <li><a href="#763-贝叶斯优化">7.6.3 贝叶斯优化</a></li>
+        <li><a href="#764-动态资源分配">7.6.4 动态资源分配</a></li>
+        <li><a href="#765-神经架构调整">7.6.5 神经架构调整</a></li>
+      </ul>
+    </li>
+    <li><a href="#77-网络正则化">7.7 网络正则化</a>
+      <ul>
+        <li><a href="#771-l1-和-l2-正则化">7.7.1 l1 和 l2 正则化</a></li>
+        <li><a href="#772-权重衰减">7.7.2 权重衰减</a></li>
+        <li><a href="#773-提前停止">7.7.3 提前停止</a></li>
+        <li><a href="#774-丢弃法-dropout">7.7.4 丢弃法 Dropout</a></li>
+        <li><a href="#775-数据增强">7.7.5 数据增强</a></li>
+        <li><a href="#776-标签平滑">7.7.6 标签平滑</a></li>
+      </ul>
+    </li>
+    <li><a href="#习题选做">习题选做</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#习题-7-1-在小批量梯度下降中试分析为什么学习率要和批量大小成正比">习题 7-1 在小批量梯度下降中，试分析为什么学习率要和批量大小成正比</a></li>
+            <li><a href="#习题-7-5-证明公式745">习题 7-5 证明公式(7.45)．</a></li>
+            <li><a href="#习题-7-8-分析为什么批量归一化不能直接应用于循环神经网络">习题 7-8 分析为什么批量归一化不能直接应用于循环神经网络</a></li>
+            <li><a href="#习题-7-10-试分析为什么不能在循环神经网络中的循环连接上直接应用丢弃法">习题 7-10 试分析为什么不能在循环神经网络中的循环连接上直接应用丢弃法？</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="ch7-网络优化与正则化">ch7 网络优化与正则化</h1>
+<blockquote>
+<p>任何数学技巧都不能弥补信息的缺失．
+—— 科尼利厄斯·兰佐斯（Cornelius Lanczos） 匈牙利数学家、物理学家</p>
+</blockquote>
+<p>神经网络应用两大问题：</p>
+<ol>
+<li>优化问题
+<ul>
+<li>非凸损失函数难以找到全局最优解</li>
+<li>参数多、数据大，使得二阶优化方法（牛顿法等）代价过高、一阶优化方法训练效率低</li>
+<li>梯度消失和梯度爆炸使基于梯度的训练方法失效</li>
+</ul>
+</li>
+<li>泛化问题
+<ul>
+<li>深度方法拟合能力强，容易过拟合，采用正则化方法改进模型泛化能力</li>
+</ul>
+</li>
+</ol>
+<h2 id="71-网络优化">7.1 网络优化</h2>
+<p>网络优化：寻找一个神经网络模型来使得经验（或结构）风险最小化的过程。</p>
+<p>DNN 是高度非线性模型，其风险函数为非凸函数，因此风险最小化为非凸优化问题。</p>
+<p>神经网络结构具有多样性，很难找到通用的优化方法。</p>
+<p><strong>高维变量的非凸优化</strong></p>
+<ul>
+<li>低维空间的非凸优化：主要问题是存在局部最优点，难点是初始化参数和逃离局部最优点。</li>
+<li>高维空间的非凸优化：难点是逃离鞍点（Saddle Point），即既是某些维的最高点，又是另一些维的最低点。
+<ul>
+<li>高维空间中大部分驻点（Stationary Point）都是鞍点</li>
+<li>局部最小值（Local Minima）：每个维度都是最低点，概率非常低</li>
+<li>随机梯度下降可以有效逃离鞍点</li>
+</ul>
+</li>
+</ul>
+<p>平坦最小值（Flat Minima）和尖锐最小值（Sharp Minma）：深度网络参数多且冗余，局部最小解通常是平坦最小值，鲁棒性、抗扰动能力较好。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/2603c35aca6a406d9f7647220cb5b9f4.png"
+        data-srcset="../../_resources/2603c35aca6a406d9f7647220cb5b9f4.png, ../../_resources/2603c35aca6a406d9f7647220cb5b9f4.png 1.5x, ../../_resources/2603c35aca6a406d9f7647220cb5b9f4.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/2603c35aca6a406d9f7647220cb5b9f4.png"
+        title="8b03b6bdabdd1b5b012138971fef2d31.png" /></p>
+<p>局部最小解等价性：大神经网络中，大部分局部最小解等价，且接近全局最小解的训练损失。没有必要找全局最小值，这反而可能过拟合。</p>
+<p><strong>神经网络优化的改善方法</strong></p>
+<ol>
+<li>更有效优化算法：动态学习率、梯度估计修正等</li>
+<li>更好的参数初始化、数据预处理</li>
+<li>修改网络结构得到更好的优化地形（Optimization Landscape）：ReLU激活、残差、逐层归一化等</li>
+<li>更好的超参数优化方法</li>
+</ol>
+<h2 id="72-优化算法">7.2 优化算法</h2>
+<p>DNN 主要通过梯度下降法寻找最小化结构风险的参数，分为：</p>
+<ol>
+<li>批量梯度下降</li>
+<li>随机梯度下降</li>
+<li>小批量梯度下降</li>
+</ol>
+<p>优化算法分类：</p>
+<ol>
+<li>调整学习率，使优化更稳定</li>
+<li>梯度估计修正，优化训练速度</li>
+</ol>
+<h3 id="721-小批量梯度下降">7.2.1 小批量梯度下降</h3>
+<p>小批量梯度下降法（Mini-Batch Gradient Descent）：每次迭代 K 个训练样本</p>
+<p>第 t 次迭代偏导数：</p>
+<p>$$
+\mathfrak{g}_{t}(\theta)=\frac{1}{K} \sum_{(\boldsymbol{x}, \boldsymbol{y}) \in \mathcal{S}_{t}} \frac{\partial \mathcal{L}(\boldsymbol{y}, f(\boldsymbol{x} ; \theta))}{\partial \theta}
+$$</p>
+<p>参数更新
+$$
+\theta_{t} \leftarrow \theta_{t-1}-\alpha g_{t}
+$$</p>
+<p>影响小批量梯度下降的因素：</p>
+<ol>
+<li>批量大小 K</li>
+<li>学习率 $\alpha$</li>
+<li>梯度估计</li>
+</ol>
+<h3 id="722-批量大小选择">7.2.2 批量大小选择</h3>
+<p>Batch Size 不影响梯度期望，但影响方差，越大越稳定</p>
+<p>Batch Size 较小时候可以采用<strong>线性缩放规则（Linear Scaling Rule）</strong>：Batch Size 和学习率同比率增大 [Goyal et al., 2017]</p>
+<p>大批量稳定，小批量收敛快</p>
+<p>大批量越可能收敛到尖锐最小值，小批量越可能收敛到平坦最小值（泛化更好）[Keskar et al., 2016] （应与小批量随机性更大有关）</p>
+<h3 id="723-学习率调整">7.2.3 学习率调整</h3>
+<p>常用 lr 调整方法：</p>
+<ol>
+<li>学习率衰减</li>
+<li>学习率预热</li>
+<li>周期性学习率调整</li>
+<li>自适应调整学习率方法（AdaGrad、RMSprop、AdaDelta，对每个参数设置不同学习率）</li>
+</ol>
+<h4 id="学习率衰减learning-rate-decay-学习率退火learning-rate-anealing">学习率衰减（Learning Rate Decay）/ 学习率退火（Learning Rate Anealing）</h4>
+<ul>
+<li>
+<p>分段常数衰减（Piecewise Constant Decay）/ 阶梯衰减（Step Decay）</p>
+</li>
+<li>
+<p>逆时衰减（Inverse Time Decay）
+$$
+\alpha_{t}=\alpha_{0} \frac{1}{1+\beta \times t}
+$$</p>
+</li>
+<li>
+<p>指数衰减（Exponential Decay）</p>
+</li>
+</ul>
+<p>$$
+\alpha_{t}=\alpha_{0} \beta^{t}
+$$</p>
+<ul>
+<li>自然指数衰减（Natural Exponential Decay）</li>
+</ul>
+<p>$$
+\alpha_{t}=\alpha_{0} \exp (-\beta \times t)
+$$</p>
+<ul>
+<li>余弦衰减（Cosine Decay）</li>
+</ul>
+<p>$$
+\alpha_{t}=\frac{1}{2} \alpha_{0}\left(1+\cos \left(\frac{t \pi}{T}\right)\right)
+$$</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/665b10f03842415d808436f36a393e20.png"
+        data-srcset="../../_resources/665b10f03842415d808436f36a393e20.png, ../../_resources/665b10f03842415d808436f36a393e20.png 1.5x, ../../_resources/665b10f03842415d808436f36a393e20.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/665b10f03842415d808436f36a393e20.png"
+        title="0e85ca8db068d0e269b573f6b0cf7864.png" /></p>
+<h4 id="学习率预热">学习率预热</h4>
+<p>常用：逐渐预热（Gradual Warmup）[Goyal et al., 2017]</p>
+<p>$$
+\alpha_{t}^{\prime}=\frac{t}{T^{\prime}} \alpha_{0}, \quad 1 \leq t \leq T^{\prime}
+$$</p>
+<h4 id="周期性学习率调整">周期性学习率调整</h4>
+<ul>
+<li>循环学习率（Cyclic Learning Rate）
+<ul>
+<li>三角循环学习率（Triangular Cyclic Learning Rate）</li>
+</ul>
+</li>
+<li>带热重启的随机梯度下降（Stochastic Gradient Descent with Warm Restarts，SGDR）[Loshchilov et al., 2017a]
+<ul>
+<li>重启之后再余弦衰减</li>
+</ul>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/983b26c9b4674a8e971bee5a5966cb77.png"
+        data-srcset="../../_resources/983b26c9b4674a8e971bee5a5966cb77.png, ../../_resources/983b26c9b4674a8e971bee5a5966cb77.png 1.5x, ../../_resources/983b26c9b4674a8e971bee5a5966cb77.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/983b26c9b4674a8e971bee5a5966cb77.png"
+        title="639eec26a903370e875d5b29e0770788.png" /></p>
+<h4 id="adagrad-算法">AdaGrad 算法</h4>
+<p>AdaGrad 算法（Adaptive Gradient Algorithm）[Duchi et al., 2011] ：借鉴 l2 正则化思想，每次迭代自适应调整每个参数的学习率。</p>
+<p>每个参数梯度平方累计值：</p>
+<p>$$
+G_{t}=\sum_{\tau=1}^{t} \boldsymbol{g}_{\tau} \odot \boldsymbol{g}_{\tau}
+$$</p>
+<p>参数更新差值：</p>
+<p>$$
+\Delta \theta_{t}=-\frac{\alpha}{\sqrt{G_{t}+\epsilon}} \odot \mathbf{g}_{t}
+$$</p>
+<p>Hung-yi Lee:
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/f691c2979f8141359831286b705234b2.png"
+        data-srcset="../../_resources/f691c2979f8141359831286b705234b2.png, ../../_resources/f691c2979f8141359831286b705234b2.png 1.5x, ../../_resources/f691c2979f8141359831286b705234b2.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/f691c2979f8141359831286b705234b2.png"
+        title="d8d82ed693e6086e2055efcfa59b2359.png" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/fada25cef7e34b2592370d322c1762ac.png"
+        data-srcset="../../_resources/fada25cef7e34b2592370d322c1762ac.png, ../../_resources/fada25cef7e34b2592370d322c1762ac.png 1.5x, ../../_resources/fada25cef7e34b2592370d322c1762ac.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/fada25cef7e34b2592370d322c1762ac.png"
+        title="599d94f6bc898d9d2189834d9649dd79.png" /></p>
+<p>用梯度平方和近似二次微分</p>
+<p>AdaGrad 缺点：一定次数迭代后如果没有到最优点，而学习率已经非常小，难以再继续优化。</p>
+<h4 id="rmsprop-算法">RMSprop 算法</h4>
+<p>避免 AdaGrad 学习率过早衰减到零。</p>
+<p>梯度平方的指数衰减移动平均：</p>
+<p>$$
+\begin{aligned}
+G_{t} &amp;=\beta G_{t-1}+(1-\beta) g_{t} \odot g_{t} \\<br>
+&amp;=(1-\beta) \sum_{\tau=1}^{t} \beta^{t-\tau} g_{\tau} \odot g_{\tau}
+\end{aligned}
+$$</p>
+<p>参数更新差值：</p>
+<p>$$
+\Delta \theta_{t}=-\frac{\alpha}{\sqrt{G_{t}+\epsilon}} \odot \mathbf{g}_{t}
+$$</p>
+<h4 id="adadelta-算法">AdaDelta 算法</h4>
+<p>AdaDelta 在 RMSprop 基础上引入参数更新差值的平方指数衰减移动平均，抑制了学习率的波动</p>
+<p>$$
+\Delta X_{t-1}^{2}=\beta_{1} \Delta X_{t-2}^{2}+\left(1-\beta_{1}\right) \Delta \theta_{t-1} \odot \Delta \theta_{t-1}
+$$</p>
+<p>参数更新差值：</p>
+<p>$$
+\Delta \theta_{t}=-\frac{\sqrt{\Delta X_{t-1}^{2}+\epsilon}}{\sqrt{G_{t}+\epsilon}} \mathrm{g}_{t}
+$$</p>
+<h3 id="724-梯度估计修正">7.2.4 梯度估计修正</h3>
+<p>梯度估计（Gradient Estimation）的修正</p>
+<h4 id="动量法">动量法</h4>
+<p>每次迭代计算负梯度的“加权移动平均”作为参数更新方向，增加稳定性：</p>
+<p>$$
+\Delta \theta_{t}=\rho \Delta \theta_{t-1}-\alpha g_{t}(\theta_{t-1})=-\alpha \sum_{\tau=1}^{t} \rho^{t-\tau} g_{\tau}
+$$</p>
+<p>其中 $\rho$ 为动量因子，通常设为0.9，$\alpha$ 为学习率</p>
+<p>当前梯度叠加部分上次梯度，可以近似看作二阶梯度。</p>
+<h4 id="nesterov-加速梯度">Nesterov 加速梯度</h4>
+<p>Nesterov 加速梯度（Nesterov Accelerated Gradient，NAG）/ Neserov 动量法（Nesterov Momentum）：对动量法的改进，在根据历史梯度更新后的位置计算梯度更新，更加合理。</p>
+<p>$$
+\Delta \theta_{t}=\rho \Delta \theta_{t-1}-\alpha \mathfrak{g}_{t}\left(\theta_{t-1}+\rho \Delta \theta_{t-1}\right)
+$$</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/924d30374b8644e588ea24a547cd16f7.png"
+        data-srcset="../../_resources/924d30374b8644e588ea24a547cd16f7.png, ../../_resources/924d30374b8644e588ea24a547cd16f7.png 1.5x, ../../_resources/924d30374b8644e588ea24a547cd16f7.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/924d30374b8644e588ea24a547cd16f7.png"
+        title="97f64dd99c652b6ba0010ff05ecfe20f.png" /></p>
+<h4 id="adam-算法">Adam 算法</h4>
+<p>Adam算法（Adaptive Moment Estimation Algorithm）[Kingma et al., 2015]：梯度平方指数加权平均（RMSprop）+ 梯度指数加权平均（Momentum）</p>
+<p>$$
+\begin{gathered}
+M_{t}=\beta_{1} M_{t-1}+\left(1-\beta_{1}\right) g_{t} \\<br>
+G_{t}=\beta_{2} G_{t-1}+\left(1-\beta_{2}\right) g_{t} \odot g_{t}
+\end{gathered}
+$$</p>
+<p>可以分别看作梯度的均值（一阶矩）和未减去均值的方差（二阶矩）。</p>
+<p>需要进行偏差修正：
+$$
+\begin{aligned}
+\hat{M}_{t} &amp;=\frac{M_{t}}{1-\beta_{1}^{t}} \\<br>
+\hat{G}_{t} &amp;=\frac{G_{t}}{1-\beta_{2}^{t}}
+\end{aligned}
+$$</p>
+<p>更新差值：
+$$
+\Delta \theta_{t}=-\frac{\alpha}{\sqrt{\hat{G}_{t}+\epsilon}} \hat{M}_{t}
+$$</p>
+<p>Nadam算法：用 Nesterov 加速梯度改进Adam</p>
+<h4 id="梯度截断">梯度截断</h4>
+<p>梯度截断（Gradient Clipping）[Pascanu et al., 2013]</p>
+<ol>
+<li>
+<p>按值截断：对所有参数设置范围
+$$
+\boldsymbol{g}_{t}=\max \left(\min \left(\boldsymbol{g}_{t}, b\right), a\right)
+$$</p>
+</li>
+<li>
+<p>按模截断：二范数超过阈值时整体缩放，适合 RNN。</p>
+</li>
+</ol>
+<p>$$
+\boldsymbol{g}_{t}=\frac{b}{\left|\boldsymbol{g}_{t}\right|}_2 \boldsymbol{g}_{t}
+$$</p>
+<blockquote>
+<p>书中二范数符号不准确，一般范数下标应该在右下角，右上角容易误解为平方。</p>
+</blockquote>
+<h3 id="725-优化算法小结">7.2.5 优化算法小结</h3>
+<p>优化算法公式概括：</p>
+<p>$$
+\begin{aligned}
+\Delta \theta_{t} &amp;=-\frac{\alpha_{t}}{\sqrt{G_{t}+\epsilon}} M_{t} \\<br>
+G_{t} &amp;=\psi\left(\mathbf{g}_{1}, \cdots, \boldsymbol{g}_{t}\right) \\<br>
+M_{t} &amp;=\phi\left(\mathbf{g}_{1}, \cdots, \mathbf{g}_{t}\right)
+\end{aligned}
+$$</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/4c7d331e8c7145f08f3b6a5045c5dbe0.png"
+        data-srcset="../../_resources/4c7d331e8c7145f08f3b6a5045c5dbe0.png, ../../_resources/4c7d331e8c7145f08f3b6a5045c5dbe0.png 1.5x, ../../_resources/4c7d331e8c7145f08f3b6a5045c5dbe0.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/4c7d331e8c7145f08f3b6a5045c5dbe0.png"
+        title="23f888ad5e6500a4bda71388fb5414ca.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/dee48c37fad84a14a3c69cdf0839b725.png"
+        data-srcset="../../_resources/dee48c37fad84a14a3c69cdf0839b725.png, ../../_resources/dee48c37fad84a14a3c69cdf0839b725.png 1.5x, ../../_resources/dee48c37fad84a14a3c69cdf0839b725.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/dee48c37fad84a14a3c69cdf0839b725.png"
+        title="200397e2f0dc522a9ce06ad72220d8b0.png" /></p>
+<h2 id="73-参数初始化">7.3 参数初始化</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/f15690282dcb4ca8be099fc66bafe0f2.png"
+        data-srcset="../../_resources/f15690282dcb4ca8be099fc66bafe0f2.png, ../../_resources/f15690282dcb4ca8be099fc66bafe0f2.png 1.5x, ../../_resources/f15690282dcb4ca8be099fc66bafe0f2.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/f15690282dcb4ca8be099fc66bafe0f2.png"
+        title="f6dc542859738aaa426d8146bcdefb73.png" />
+<em>来源：https://www.cnblogs.com/shine-lee/p/11908610.html</em></p>
+<p>参数初始化非常关键，关系到网络优化效率和泛化能力。</p>
+<p>初始化通常三种做法：</p>
+<ol>
+<li>预训练初始化（Pre-trained Initialization）
+<ul>
+<li>不够灵活，网络架构调整不便</li>
+</ul>
+</li>
+<li>随机初始化（Random Initialization）
+<ul>
+<li>解决<strong>对称权重</strong>问题：相同初始值权重更新相同</li>
+<li>三种随机初始化方法：
+<ol>
+<li>基于固定方差</li>
+<li>基于方差缩放</li>
+<li>正交初始化</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>固定值初始化：对特定参数用特殊值初始化
+<ul>
+<li>bias 设 0</li>
+<li>LSTM 遗忘门初始化为 1 或 2，使时序梯度变大</li>
+<li>使用 ReLU 的神经元，偏置可以设置为 0.01 使其初期更容易被激活</li>
+</ul>
+</li>
+</ol>
+<h3 id="731-基于固定方差的参数初始化">7.3.1 基于固定方差的参数初始化</h3>
+<ol>
+<li>高斯分布初始化</li>
+<li>均匀分布初始化</li>
+</ol>
+<p>均匀分布方差：
+$$
+\operatorname{var}(x)=\frac{(b-a)^{2}}{12}
+$$</p>
+<p>区间为 $[-r, r]$ 则：
+$$
+r=\sqrt{3 \sigma^{2}}
+$$</p>
+<p>关键是设置方差 $\sigma^2$ ：</p>
+<ul>
+<li>取值小：1. 神经元输出小，多层后信号消失 2. 使 Sigmoid 型函数丢失非线性激活能力</li>
+<li>取值大：Sigmoid 型函数激活值饱和，导致梯度消失</li>
+</ul>
+<p>一般配合逐层归一化使用</p>
+<h3 id="732-基于方差缩放的参数初始化">7.3.2 基于方差缩放的参数初始化</h3>
+<p>方差缩放（Variance Scaling）：为避免梯度爆炸或消失，应保持每个神经元输入和方差一致，根据连接数量自适应调整初始化分布的方差</p>
+<h4 id="xavier-初始化">Xavier 初始化</h4>
+<p>Xavier 初始化：根据每层神经元数量自动计算初始化参数方差。</p>
+<p>l 层神经单元输出：
+$$
+a^{(l)}=f\left(\sum_{i=1}^{M_{l-1}} w_{i}^{(l)} a_{i}^{(l-1)}\right)
+$$</p>
+<p>假设激活函数为线性恒等函数，则均值：
+$$
+\mathbb{E}\left[a^{(l)}\right]=\mathbb{E}\left[\sum_{i=1}^{M_{l-1}} w_{i}^{(l)} a_{i}^{(l-1)}\right]=\sum_{i=1}^{M_{l-1}} \mathbb{E}\left[w_{i}^{(l)}\right] \mathbb{E}\left[a_{i}^{(l-1)}\right]=0
+$$</p>
+<p>方差：
+$$
+\begin{aligned}
+\operatorname{var}\left(a^{(l)}\right) &amp;=\operatorname{var}\left(\sum_{i=1}^{M_{l-1}} w_{i}^{(l)} a_{i}^{(l-1)}\right) \\<br>
+&amp;=\sum_{i=1}^{M_{l-1}} \operatorname{var}\left(w_{i}^{(l)}\right) \operatorname{var}\left(a_{i}^{(l-1)}\right) \\<br>
+&amp;=M_{l-1} \operatorname{var}\left(w_{i}^{(l)}\right) \operatorname{var}\left(a_{i}^{(l-1)}\right) .
+\end{aligned}
+$$</p>
+<p>所以应设置：
+$$
+\operatorname{var}\left(w_{i}^{(l)}\right)=\frac{1}{M_{l-1}}
+$$</p>
+<p>同理，反向传播应设置：
+$$
+\operatorname{var}\left(w_{i}^{(l)}\right)=\frac{1}{M_{l}}
+$$</p>
+<p>折中设置：
+$$
+\operatorname{var}\left(w_{i}^{(l)}\right)=\frac{2}{M_{l-1}+M_{l}}
+$$</p>
+<p>对 $[-r, r]$ 均匀分布初始化则：</p>
+<p>$$
+r=\sqrt{\frac{6}{M_{l-1}+M_{l}}}
+$$</p>
+<p>Xavier 初始化适用于 Logistic 和 Tanh 激活函数，因为输入往往处在激活函数线性区间。其中 Logistic 函数线性区间斜率约为 0.25，所以初始化方差为 $16 \times \frac{2}{M_{l-1}+M_{l}}$</p>
+<h4 id="he-初始化">He 初始化</h4>
+<p>对 ReLU 激活函数，通常一半神经元输出为 0， 因此输出方差也近似为恒等函数的一半</p>
+<p>考虑前向传播，假设神经元输出：
+$$
+z_i^{(l)}=\sum_{i=1}^{M_{l-1}} w_{i}^{(l)} a_{i}^{(l-1)}
+$$</p>
+<p>$$
+a_{i}^{l}=\operatorname{ReLU}(z_i^{l})
+$$</p>
+<p>两个独立随机变量的方差：
+$$
+\begin{aligned}
+\operatorname{Var}(X Y) &amp;=E\left((X Y)^{2}\right)-(E(X Y))^{2} \\<br>
+&amp;=E\left(X^{2}\right) E\left(Y^{2}\right)-(E(X) E(Y))^{2} \\<br>
+&amp;=\left(\operatorname{Var}(X)+(E(X))^{2}\right)\left(\operatorname{Var}(Y)+(E(Y))^{2}\right)-(E(X))^{2}(E(Y))^{2} \\<br>
+&amp;=\operatorname{Var}(X) \operatorname{Var}(Y)+(E(X))^{2} \operatorname{Var}(Y)+\operatorname{Var}(X)(E(Y))^{2}
+\end{aligned}
+$$</p>
+<p>又：
+$$
+\begin{aligned}
+\operatorname{var}(z) &amp;=\int_{-\infty}^{+\infty}(z-0)^{2} p(z) d z \\<br>
+&amp;=2 \int_{0}^{+\infty} z^{2} p(z) d z \\<br>
+&amp;=2 E\left(\max (0, z)^{2}\right) \\<br>
+&amp;=2 E\left(a^2\right)
+\end{aligned}
+$$</p>
+<p>则 ReLU 输出方差：
+$$
+\begin{aligned}
+\operatorname{var}\left(z^{(l)}\right) &amp;=\operatorname{var}\left(\sum_{i=1}^{M_{l-1}} w_{i}^{(l)} a_{i}^{(l-1)}\right) \\<br>
+&amp;=\sum_{i=1}^{M_{l-1}} \operatorname{var}\left(w_{i}^{(l)} a_{i}^{(l-1)}\right) \\<br>
+&amp;=M_{l-1} (\operatorname{var}(w_{i}^{(l)}) \operatorname{var}(a_{i}^{(l-1)})+E(w_{i}^{(l)})^{2} \operatorname{var}(a_{i}^{(l-1)})+\operatorname{var}(w_{i}^{(l)}) E(a_{i}^{(l-1)})^{2}) \\<br>
+&amp;=M_{l-1} (\operatorname{var}(w_{i}^{(l)}) \operatorname{var}(a_{i}^{(l-1)})+\operatorname{var}(w_{i}^{(l)}) E(a_{i}^{(l-1)})^{2}) \\<br>
+&amp;=M_{l-1} \operatorname{var}\left(w_{i}^{(l)}\right) E((a_{i}^{(l-1)})^2) \\<br>
+&amp;=\frac{1}{2}M_{l-1} \operatorname{var}\left(w_{i}^{(l)}\right) \operatorname{var}(z_{i}^{(l-1)}) \\<br>
+\end{aligned}
+$$</p>
+<p>所以：
+$$
+\operatorname{var}\left(w_{i}^{(l)}\right)=\frac{2}{M_{l-1}}
+$$</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/fc76e7fdd8eb43fe873c92114fec086a.png"
+        data-srcset="../../_resources/fc76e7fdd8eb43fe873c92114fec086a.png, ../../_resources/fc76e7fdd8eb43fe873c92114fec086a.png 1.5x, ../../_resources/fc76e7fdd8eb43fe873c92114fec086a.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/fc76e7fdd8eb43fe873c92114fec086a.png"
+        title="7fbb7a78dbe31bfbc29495c9da23136a.png" /></p>
+<h3 id="733-正交初始化">7.3.3 正交初始化</h3>
+<p>假设一个𝐿 层的等宽线性网络（激活函数为恒等函数）为
+$$
+\boldsymbol{y}=\boldsymbol{W}^{(L)} \boldsymbol{W}^{(L-1)} \ldots \boldsymbol{W}^{(1)} \boldsymbol{x}
+$$</p>
+<p>误差项反向传播公式：
+$$
+\delta^{(l-1)}=\left(\boldsymbol{W}^{(l)}\right)^{\top} \delta^{(l)}
+$$</p>
+<p>为避免梯度消失或梯度爆炸，希望在误差项反向传播中具有范数保持性（Norm-Perserving）：
+$$
+\left|\delta^{(l-1)}\right|_{2}=\left|\delta^{(l)}\right|_{2}=\left|\left(\boldsymbol{W}^{(l)}\right)^{\top} \delta^{(l)}\right|_{2}
+$$</p>
+<p>二范数定义：
+$$
+|A|_{2}=\sqrt{\lambda_{\max }\left(A^{*} A\right)}
+$$</p>
+<p>可证明矩阵与正交矩阵相乘，二范数（谱范数）不变。</p>
+<p>所以，可以将 $\boldsymbol{W}^{(l)}$ 初始化为正交矩阵，即正交初始化（Orthogonal Initialization）：</p>
+<ol>
+<li>用 $N(0,1)$ 初始化一个矩阵</li>
+<li>对该矩阵奇异值分解，得到两个正交矩阵，使用其中一个作为权重矩阵</li>
+</ol>
+<p>正交初始化常用于 RNN 循环边的权重矩阵。</p>
+<p>对非线性神经网络，需要对正交矩阵乘以一个缩放系数。</p>
+<h2 id="74-数据预处理">7.4 数据预处理</h2>
+<p>尺度不变性（Scale Invariance）：机器学习算法在缩放特征后不影响学习和预测。</p>
+<p>eg. 线性分类器尺度不变、KNN尺度敏感</p>
+<p>对<strong>尺度敏感</strong>模型，需要对样本预处理：统一特征尺度、消除特征相关性。</p>
+<p>理论上神经网络具有尺度不变性，通过参数调整适应尺度，但尺度不同会增加训练难度：</p>
+<ol>
+<li>为防止 tanh 等函数进入饱和区而梯度消失，对每个特征尺度需要进行特定初始化</li>
+<li>梯度下降方向不指向最优解
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/a30049ff2f364a1eb9d3867e587dfa32.png"
+        data-srcset="../../_resources/a30049ff2f364a1eb9d3867e587dfa32.png, ../../_resources/a30049ff2f364a1eb9d3867e587dfa32.png 1.5x, ../../_resources/a30049ff2f364a1eb9d3867e587dfa32.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/a30049ff2f364a1eb9d3867e587dfa32.png"
+        title="3e95e86b27073a63b8cfc93e64e3048f.png" /></li>
+</ol>
+<p><strong>归一化（Normalization</strong>）：泛指同一数据特征尺度的方法。</p>
+<ol>
+<li>最大最小值归一化（Min-Max Normalization）</li>
+</ol>
+<p>$$
+\hat{x}^{(n)}=\frac{x^{(n)}-\min _{n}\left(x^{(n)}\right)}{\max _{n}\left(x^{(n)}\right)-\min _{n}\left(x^{(n)}\right)}
+$$</p>
+<ol start="2">
+<li>标准化（Standardizatin）/ Z值归一化（Z-Score Normalization）</li>
+</ol>
+<p>$$
+\hat{x}^{(n)}=\frac{x^{(n)}-\mu}{\sigma}
+$$</p>
+<p>标准差为0则说明该维特征没有区分性，可直接删掉。</p>
+<ol start="3">
+<li>白化（Whitening）：降低输入数据之间的冗余性，并使所有特征具有相同方差。
+<ul>
+<li>主要实现方式：主成分分析（Principal Component Analysis，PCA）去掉各成分相关性。</li>
+</ul>
+</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/d3bed5f37b2e4b728c9b18cc9ec01930.png"
+        data-srcset="../../_resources/d3bed5f37b2e4b728c9b18cc9ec01930.png, ../../_resources/d3bed5f37b2e4b728c9b18cc9ec01930.png 1.5x, ../../_resources/d3bed5f37b2e4b728c9b18cc9ec01930.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/d3bed5f37b2e4b728c9b18cc9ec01930.png"
+        title="71831e4516edb51c09617331e212eb08.png" /></p>
+<h2 id="75-逐层归一化">7.5 逐层归一化</h2>
+<p>逐层归一化（Layer-wise Normalization）提高效率的原因：</p>
+<ol>
+<li>更好的尺度不变性
+<ul>
+<li>
+<blockquote>
+<p>内部协变量偏移（Internal Covariate Shift）：神经层输入分布改变后参数需要重新学习</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>更平滑的优化地形：
+<ul>
+<li>大部分神经元处于不饱和区，避免梯度消失；</li>
+<li>优化地形（Optimization Landscape）更加平滑</li>
+</ul>
+</li>
+</ol>
+<p>常用的逐层归一化方法：</p>
+<ul>
+<li>批量归一化</li>
+<li>层归一化</li>
+<li>权重归一化</li>
+<li>局部相应归一化</li>
+</ul>
+<h3 id="751-批量归一化">7.5.1 批量归一化</h3>
+<p>批量归一化（Batch Normalization，BN）：在仿射变换之后、激活函数之前，将输入$\boldsymbol{z}^{(l)}$ 每一维都归一到标准正态分布：</p>
+<p>$$
+\hat{z}^{(l)}=\frac{z^{(l)}-\mathbb{E}\left[z^{(l)}\right]}{\sqrt{\operatorname{var}\left(z^{(l)}\right)+\epsilon}}
+$$</p>
+<p>这里的期望和方差一般使用小批量样本集的均值和方差进行估计。</p>
+<p>归一到 0 附近在使用 Sigmoid 函数时，取值在线性区间，削弱了神经网络的非线性性质，可以通过缩放平移来改变取值区间：</p>
+<p>$$
+\begin{aligned}
+\hat{\boldsymbol{z}}^{(l)} &amp;=\frac{\boldsymbol{z}^{(l)}-\mu_{\mathcal{B}}}{\sqrt{\sigma_{\mathcal{B}}^{2}+\epsilon}} \odot \boldsymbol{\gamma}+\boldsymbol{\beta} \\<br>
+&amp; \triangleq \mathrm{B} \mathrm{N}_{\gamma, \boldsymbol{\beta}}\left(\boldsymbol{z}^{(l)}\right)
+\end{aligned}
+$$</p>
+<p>其中：
+$$
+\begin{aligned}
+\mu_{\mathcal{B}} &amp;=\frac{1}{K} \sum_{k=1}^{K} z^{(k, l)}, \\<br>
+\sigma_{\mathcal{B}}^{2} &amp;=\frac{1}{K} \sum_{k=1}^{K}\left(\boldsymbol{z}^{(k, l)}-\mu_{\mathcal{B}}\right) \odot\left(\boldsymbol{z}^{(k, l)}-\mu_{\mathcal{B}}\right)
+\end{aligned}
+$$</p>
+<p>批量归一化操作可以看作一个特殊的神经层，加在每一层非线性激活函数之前：
+$$
+\boldsymbol{a}^{(l)}=f\left(\mathrm{BN}_{\gamma, \beta}\left(\boldsymbol{z}^{(l)}\right)\right)=f\left(\mathrm{BN}_{\gamma, \beta}\left(\boldsymbol{W} \boldsymbol{a}^{(l-1)}\right)\right)
+$$</p>
+<p>批量归一化不但提高优化效率，还是一种隐形的正则化方法：对样本的预测与批次中其他样本有关，不会过拟合某个特定样本。</p>
+<h3 id="752-层归一化">7.5.2 层归一化</h3>
+<p>RNN 等的神经元输入分布是动态变化的，无法应用 BN</p>
+<p>层归一化（Layer Normalization）：对中间一层的所有神经元进行归一化</p>
+<p>$$
+\begin{aligned}
+\hat{z}^{(l)} &amp;=\frac{z^{(l)}-\mu^{(l)}}{\sqrt{\sigma^{(l)^{2}+\epsilon}} \odot \gamma+\beta} \\<br>
+&amp; \triangleq \mathrm{LN}_{\gamma, \beta}\left(z^{(l)}\right)
+\end{aligned}
+$$</p>
+<p>其中：
+$$
+\begin{aligned}
+\mu_{\mathcal{B}} &amp;=\frac{1}{K} \sum_{k=1}^{K} z^{(k, l)}, \\<br>
+\sigma_{\mathcal{B}}^{2} &amp;=\frac{1}{K} \sum_{k=1}^{K}\left(\boldsymbol{z}^{(k, l)}-\mu_{\mathcal{B}}\right) \odot\left(\boldsymbol{z}^{(k, l)}-\mu_{\mathcal{B}}\right)
+\end{aligned}
+$$</p>
+<p>RNN 的层归一化：
+$$
+\begin{aligned}
+&amp;\boldsymbol{z}_{t}=\boldsymbol{U} \boldsymbol{h}_{t-1}+\boldsymbol{W} \boldsymbol{x}_{t} \\<br>
+&amp;\boldsymbol{h}_{t}=f\left(\mathrm{LN}_{\gamma, \beta}\left(\boldsymbol{z}_{t}\right)\right)
+\end{aligned}
+$$</p>
+<p>层归一化和批量归一化区别：
+对于 𝐾 个样本的一个小批量集合 $\boldsymbol{Z}^{(l)}=\left[\boldsymbol{z}^{(1, l)} ; \cdots ; \boldsymbol{z}^{(K, l)}\right]$</p>
+<ul>
+<li>层归一化：对 $\boldsymbol{Z}^{(l)}$ 每一列进行归一化</li>
+<li>批量归一化：对 $\boldsymbol{Z}^{(l)}$ 每一行进行归一化</li>
+</ul>
+<p>一般批量归一化更好，当 Batch Size 比较小时，可以选择层归一化。</p>
+<h3 id="753-权重归一化">7.5.3 权重归一化</h3>
+<p>权重归一化（Weight Normalization）：通过再参数化（Reparameterization），将连接权重分解为长度和方向两种参数：
+$$
+\boldsymbol{a}^{(l)}=f\left(\boldsymbol{W} \boldsymbol{a}^{(l-1)}+\boldsymbol{b}\right)
+$$</p>
+<p>则再参数化 $\boldsymbol{W}$：</p>
+<p>$$
+\boldsymbol{W}_{i,:}=\frac{g_{i}}{\left|\boldsymbol{v}_{i}\right|} \boldsymbol{v}_{i}, \quad 1 \leq i \leq M_{l}
+$$</p>
+<h3 id="754-局部响应归一化">7.5.4 局部响应归一化</h3>
+<p>局部响应归一化（Local Response Normalization，LRN），常用于卷积层，</p>
+<p>$$
+\begin{aligned}
+\hat{\boldsymbol{Y}}^{p} &amp;=\boldsymbol{Y}^{p} /\left(k+\alpha \sum_{j=\max \left(1, p-\frac{n}{2}\right)}^{\min \left(P, p+\frac{n}{2}\right)}\left(\boldsymbol{Y}^{j}\right)^{2}\right)^{\beta} \\<br>
+&amp; \triangleq \mathrm{LRN}_{n, k, \alpha, \beta}\left(\boldsymbol{Y}^{p}\right)
+\end{aligned}
+$$</p>
+<p>类似：生物神经元中的侧抑制（lateral inhibition），活跃神经元对相邻神经元有抑制作用。最大汇聚（Max Pooling）也具有侧抑制作用，区别（抑制维度不同）：</p>
+<ol>
+<li>最大汇聚：对同一特征映射中邻近神经元抑制</li>
+<li>局部响应归一化：对同一位置邻近特征映射的神经元抑制</li>
+</ol>
+<h2 id="76-超参数优化">7.6 超参数优化</h2>
+<p>常见超参数：</p>
+<ol>
+<li>网络结构，包括神经元之间的连接关系、层数、每层的神经元数量、激
+活函数的类型等．</li>
+<li>优化参数，包括优化方法、学习率、小批量的样本数量等．</li>
+<li>正则化系数</li>
+</ol>
+<p>超参数优化（Hyperparameter Optimization）困难：</p>
+<ol>
+<li>是组合优化问题，没有通用有效办法</li>
+<li>评估一组超参数配置（Configuration）时间代价高，一些优化方法难以应用（如演化算法（Evolution Algorithm））</li>
+</ol>
+<p>主要优化方法：</p>
+<h3 id="761-网格搜索">7.6.1 网格搜索</h3>
+<p>网格搜索（Grid Search）：遍历所有超参数组合，在val集上选择性能最好的配置。</p>
+<h3 id="762-随机搜索">7.6.2 随机搜索</h3>
+<p>随机搜索（Random Search）：有些参数影响较小，用网格搜成本高，所以对超参数进行随机组合，然后选最好的配置。</p>
+<p>网格搜索和随机搜索都没有考虑不同参数组合之间的相关性，所以提出自适应的超参数优化方法：</p>
+<ol>
+<li>贝叶斯优化</li>
+<li>动态资源分配</li>
+</ol>
+<h3 id="763-贝叶斯优化">7.6.3 贝叶斯优化</h3>
+<p>贝叶斯优化（Bayesian optimization）：根据已实验的超参组合，预测下一个可能最大收益的组合。</p>
+<p>常用：时序模型优化（Sequential Model-Based Optimization，SMBO）
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/804c762c47f649789aabeb3aad54293b.png"
+        data-srcset="../../_resources/804c762c47f649789aabeb3aad54293b.png, ../../_resources/804c762c47f649789aabeb3aad54293b.png 1.5x, ../../_resources/804c762c47f649789aabeb3aad54293b.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/804c762c47f649789aabeb3aad54293b.png"
+        title="dfc8b96cdffa70d039835fabb06e2e6d.png" /></p>
+<h3 id="764-动态资源分配">7.6.4 动态资源分配</h3>
+<p>较早估计出一组配置的效果会比较差，就可以中止这组配置的评估，关键是将有限资源分配给更有可能带来收益的组合。</p>
+<ul>
+<li>如：早期停止（Early-Stopping）终止对不收敛或收敛较差的配置的训练。</li>
+</ul>
+<p>最优臂问题（Best-Arm Problem）：即在给定有限的机会次数下，如何玩这些赌博机并找到收益最大的臂．</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/70e0fa5eb79d4e6485dcc9989994eb62.png"
+        data-srcset="../../_resources/70e0fa5eb79d4e6485dcc9989994eb62.png, ../../_resources/70e0fa5eb79d4e6485dcc9989994eb62.png 1.5x, ../../_resources/70e0fa5eb79d4e6485dcc9989994eb62.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/70e0fa5eb79d4e6485dcc9989994eb62.png"
+        title="75c347356e3f49dc7483f4f232e797bb.png" /></p>
+<h3 id="765-神经架构调整">7.6.5 神经架构调整</h3>
+<p>可以认为，深度学习使机器学习中的“特征工程”问题转变为“网络架构工程”问题。</p>
+<p>神经架构搜索（Neural Architecture Search，NAS）[Zoph et al., 2017]：利用元学习的思想，神经架构搜索利用一个控制器来生成另一个子网络的架构描述，控制器可以用 RL 训练。</p>
+<h2 id="77-网络正则化">7.7 网络正则化</h2>
+<p>正则化（Regularization）是一类通过限制模型复杂度，从而避免过拟合，提高泛化能力的方法，比如引入约束、增加先验、提前停止等</p>
+<h3 id="771-l1-和-l2-正则化">7.7.1 l1 和 l2 正则化</h3>
+<p>$$
+\theta^{*}=\underset{\theta}{\arg \min } \frac{1}{N} \sum_{n=1}^{N} \mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ; \theta\right)\right)+\lambda \ell_{p}(\theta)
+$$</p>
+<p>则优化问题：
+$$
+\begin{aligned}
+\theta^{*}=&amp; \underset{\theta}{\arg \min } \frac{1}{N} \sum_{n=1}^{N} \mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ; \theta\right)\right), \\<br>
+\text { s.t. } \quad \ell_{p}(\theta) \leq 1
+\end{aligned}
+$$</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/1ce45d3f758e405d8551f8737ec9129c.png"
+        data-srcset="../../_resources/1ce45d3f758e405d8551f8737ec9129c.png, ../../_resources/1ce45d3f758e405d8551f8737ec9129c.png 1.5x, ../../_resources/1ce45d3f758e405d8551f8737ec9129c.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/1ce45d3f758e405d8551f8737ec9129c.png"
+        title="365ccc2e51808bd62d25f56584f82a95.png" /></p>
+<p>弹性网络正则化（Elastic Net Regularization）：同时加入 l1 和 l2 优化。</p>
+<h3 id="772-权重衰减">7.7.2 权重衰减</h3>
+<p>权重衰减（Weight Decay）：</p>
+<p>$$
+\theta_{t} \leftarrow(1-\beta) \theta_{t-1}-\alpha \mathrm{g}_{t}
+$$</p>
+<p>在 SGD 中，权重衰减与 l2 效果相同，在 Adam 等较复杂优化中，则不等价。</p>
+<h3 id="773-提前停止">7.7.3 提前停止</h3>
+<p>提前停止（Early Stop）：验证集错误不再下降则停止。</p>
+<h3 id="774-丢弃法-dropout">7.7.4 丢弃法 Dropout</h3>
+<p>丢弃法（Dropout Method）[Srivastava et al., 2014]：训练时随机丢弃一部分神经元。</p>
+<p>$$
+\operatorname{mask}(\boldsymbol{x})= \begin{cases}\boldsymbol{m} \odot \boldsymbol{x} &amp; \text { 当训练阶段时 } \\ p \boldsymbol{x} &amp; \text { 当测试阶段时 }\end{cases}
+$$</p>
+<ul>
+<li>对于隐藏层神经单元，保留率 p 取 0.5 效果最好，随机生成的网络结构最具多样性</li>
+<li>对于输入层神经单元，通常保留率 p 更接近 1，使输入变化不会太大</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/fde6487e62314fcdba5e5f1c41967927.png"
+        data-srcset="../../_resources/fde6487e62314fcdba5e5f1c41967927.png, ../../_resources/fde6487e62314fcdba5e5f1c41967927.png 1.5x, ../../_resources/fde6487e62314fcdba5e5f1c41967927.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/fde6487e62314fcdba5e5f1c41967927.png"
+        title="2aaae000c873002e4d3eaa6d2131052c.png" /></p>
+<p>集成学习角度的解释：假设共 n 个神经元，则 dropout 出了 $2^n$ 个子网络，每次迭代相当于训练不同的子网络，最终结果可以看作指数个模型集成。</p>
+<p>贝叶斯学习角度的解释：dropout 可以看作一种贝叶斯学习的近似，即对要学习的网络多次采用后平均的结果：
+$$
+\begin{aligned}
+\mathbb{E}_{q(\theta)}[y] &amp;=\int_{q} f(\boldsymbol{x} ; \theta) q(\theta) d \theta \\<br>
+&amp; \approx \frac{1}{M} \sum_{m=1}^{M} f\left(\boldsymbol{x}, \theta_{m}\right)
+\end{aligned}
+$$</p>
+<p><strong>RNN 上的 Dropout</strong>
+为避免损害时间维度上的记忆能力，不能对每个时刻的隐状态进行随机丢弃：</p>
+<ol>
+<li>
+<p>Naive Dropout：可以对<strong>非时间维度</strong>的连接进行 Dropout：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/f4b553b16b394b9cbdc11d6b7d4fb959.png"
+        data-srcset="../../_resources/f4b553b16b394b9cbdc11d6b7d4fb959.png, ../../_resources/f4b553b16b394b9cbdc11d6b7d4fb959.png 1.5x, ../../_resources/f4b553b16b394b9cbdc11d6b7d4fb959.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/f4b553b16b394b9cbdc11d6b7d4fb959.png"
+        title="44bad15230f86345f977ccb4cb16ee47.png" /></p>
+</li>
+<li>
+<p>变分丢弃法（Variational Dropout）：根据贝叶斯学习，每次 dropout 采样的参数在各个时间应该不变，所有时刻应该使用相同的掩码：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../_resources/e339e7325b8e4723b7972703049af9b3.png"
+        data-srcset="../../_resources/e339e7325b8e4723b7972703049af9b3.png, ../../_resources/e339e7325b8e4723b7972703049af9b3.png 1.5x, ../../_resources/e339e7325b8e4723b7972703049af9b3.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/e339e7325b8e4723b7972703049af9b3.png"
+        title="c08e661b881d6151eab9c9035def9ba8.png" /></p>
+</li>
+</ol>
+<h3 id="775-数据增强">7.7.5 数据增强</h3>
+<p>数据增强（Data Augmentation）：目前主要在图像上使用</p>
+<ol>
+<li>旋转（Rotation）</li>
+<li>翻转（Flip）</li>
+<li>缩放（Zoom In/Out）</li>
+<li>平移（Shift）</li>
+<li>加噪声（Noise）</li>
+</ol>
+<h3 id="776-标签平滑">7.7.6 标签平滑</h3>
+<p>laebl smoothing：在输出标签中添加随机噪声来避免过拟合。</p>
+<p>One-hot 的标签是硬目标（Hard Target）：
+$$
+\boldsymbol{y}=[0, \cdots, 0,1,0, \cdots, 0]^{\top} .
+$$</p>
+<p>Motivation：</p>
+<ol>
+<li>在 softmax 中，使某类概率趋向于 1 需要很大的归一化得分，可能导致其权重越来越大，并导致过拟合</li>
+<li>标签错误时，会导致更加严重的过拟合</li>
+</ol>
+<p>平滑后为软目标（Soft Target）：
+$$
+\tilde{\boldsymbol{y}}=\left[\frac{\epsilon}{K-1}, \cdots, \frac{\epsilon}{K-1}, 1-\epsilon, \frac{\epsilon}{K-1}, \cdots, \frac{\epsilon}{K-1}\right]^{\top}
+$$</p>
+<p>这种标签平滑没有考虑标签之间的相关性，更好的办法是按照类别相关性赋予其他标签不同概率，如教师网络（Teacher Network）的输出作为软目标训练学生网络（Student Network），即知识蒸馏（Knowledge Distillation）</p>
+<h2 id="习题选做">习题选做</h2>
+<h4 id="习题-7-1-在小批量梯度下降中试分析为什么学习率要和批量大小成正比">习题 7-1 在小批量梯度下降中，试分析为什么学习率要和批量大小成正比</h4>
+<p>理论上，Batch Size 增大 k 倍，LR 应该增大 $\sqrt{k}$ 使梯度保持不变，但实践发现 k 倍效果更好。</p>
+<h4 id="习题-7-5-证明公式745">习题 7-5 证明公式(7.45)．</h4>
+<p>He 初始化证明我在上文已给出。</p>
+<h4 id="习题-7-8-分析为什么批量归一化不能直接应用于循环神经网络">习题 7-8 分析为什么批量归一化不能直接应用于循环神经网络</h4>
+<p>BN 不适用于 RNN 这种动态结构，对 Batch 中每个 postion 作标准化，需要估计每个 position 的 $\mu$ 和 $\sigma$：</p>
+<ol>
+<li>样本长度不同，测试集中过长时间片的参数难以估计</li>
+<li>Normalize 的对象来自不同的分布，多个 sequence 的同一个 position 很难服从相同分布</li>
+</ol>
+<h4 id="习题-7-10-试分析为什么不能在循环神经网络中的循环连接上直接应用丢弃法">习题 7-10 试分析为什么不能在循环神经网络中的循环连接上直接应用丢弃法？</h4>
+<p>对隐状态随机丢弃，会损失记忆的信息，可以只对非时间维度的参数进行丢弃或对时间维度丢弃相同的参数。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-07-20</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" data-title="《神经网络与深度学习》第7章 - 网络优化与正则化" data-hashtags="神经网络与深度学习,NLP,notes,DL"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" data-title="《神经网络与深度学习》第7章 - 网络优化与正则化"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" data-title="《神经网络与深度学习》第7章 - 网络优化与正则化"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" data-title="《神经网络与深度学习》第7章 - 网络优化与正则化"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/notes/">Notes</a>,&nbsp;<a href="/tags/dl/">DL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/nlp-papersbert_-pre-training-of-deep-bidirection/" class="prev" rel="prev" title="【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"><i class="fas fa-angle-left fa-fw"></i>【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a>
+            <a href="/nihilism/" class="next" rel="next" title="虚无、意义与存在主义 -《未来简史》读罢的思考">虚无、意义与存在主义 -《未来简史》读罢的思考<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="utterances"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
+
+                
+            </div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

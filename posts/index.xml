@@ -4,7 +4,7 @@
         <link>https://binko.me/posts/</link>
         <description>所有文章 | Zubin`s Site</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>zebgou@gmail.com (ZubinGou)</managingEditor>
-            <webMaster>zebgou@gmail.com (ZubinGou)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 24 Mar 2021 14:56:11 &#43;0800</lastBuildDate><atom:link href="https://binko.me/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>zebgou@gmail.com (ZubinGou)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 20 Jul 2021 17:00:11 &#43;0800</lastBuildDate><atom:link href="https://binko.me/posts/" rel="self" type="application/rss+xml" /><item>
     <title>基于PyTorch实现BiLSTM-CRF-NER模型及其改进</title>
     <link>https://binko.me/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0bilstm-crf-ner%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E6%94%B9%E8%BF%9B/</link>
     <pubDate>Tue, 16 Mar 2021 13:46:57 &#43;0800</pubDate>
@@ -25,6 +25,13 @@
     <author>作者</author>
     <guid>https://binko.me/nihilism/</guid>
     <description><![CDATA[]]></description>
+</item><item>
+    <title>《神经网络与深度学习》第7章 - 网络优化与正则化</title>
+    <link>https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/</link>
+    <pubDate>Tue, 20 Jul 2021 17:00:11 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/</guid>
+    <description><![CDATA[ch7 网络优化与正则化 任何数学技巧都不能弥补信息的缺失． —— 科尼利厄斯·兰佐斯（Cornelius Lanczos） 匈牙利数学家、物理学家 神经网络]]></description>
 </item><item>
     <title>【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</title>
     <link>https://binko.me/nlp-papersbert_-pre-training-of-deep-bidirection/</link>
@@ -73,12 +80,5 @@ BERT: Bidirectional Encoder representations from Transformers
     <author>作者</author>
     <guid>https://binko.me/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/</guid>
     <description><![CDATA[SkipGram NegativeSampling implemented in PyTorch. GitHub: https://github.com/ZubinGou/SGNS-PyTorch Paper Efficient Estimation of Word Representations in Vector Space (original word2vec paper) Distributed Representations of Words and Phrases and their Compositionality (negative sampling paper) Notes Word2Vec是用无监督方式从文本中学习词向量来表征语义信息的模型，语义相]]></description>
-</item><item>
-    <title>《神经网络与深度学习》第8章 - 注意力机制和外部记忆</title>
-    <link>https://binko.me/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/</link>
-    <pubDate>Fri, 26 Feb 2021 13:56:11 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://binko.me/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/</guid>
-    <description><![CDATA[用CNN等编码一个向量表示文本所有特征，存在信息瓶颈 网络容量（Network Capacity）：存储信息受限与神经元数量和网络复杂度 对于过载]]></description>
 </item></channel>
 </rss>
