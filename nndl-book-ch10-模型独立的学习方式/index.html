@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《神经网络与深度学习》第10章 - 模型独立的学习方式 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《神经网络与深度学习》第10章 - 模型独立的学习方式" />
+<meta property="og:description" content="10.1 集成学习 M 个模型在同一任务上的期望错误： $$ \begin{aligned} \mathcal{R}\left(f_{m}\right) &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\left(f_{m}(\boldsymbol{x})-h(\boldsymbol{x})\right)^{2}\right] \\ &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})^{2}\right] \end{aligned} $$ 则所有模型平均错误： $$ \overline{\mathcal{R}}(f)=\frac{1}{M} \sum_{m=1}^{M} \mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})^{2}\right] $$ 集成学习（Ensemble Learning）：群体决" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" />
+<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="article:published_time" content="2021-08-01T13:56:11+08:00" />
+<meta property="article:modified_time" content="2021-08-01T13:56:11+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://binko.me/logo.png"/>
+
+<meta name="twitter:title" content="《神经网络与深度学习》第10章 - 模型独立的学习方式"/>
+<meta name="twitter:description" content="10.1 集成学习 M 个模型在同一任务上的期望错误： $$ \begin{aligned} \mathcal{R}\left(f_{m}\right) &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\left(f_{m}(\boldsymbol{x})-h(\boldsymbol{x})\right)^{2}\right] \\ &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})^{2}\right] \end{aligned} $$ 则所有模型平均错误： $$ \overline{\mathcal{R}}(f)=\frac{1}{M} \sum_{m=1}^{M} \mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})^{2}\right] $$ 集成学习（Ensemble Learning）：群体决"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" /><link rel="prev" href="https://binko.me/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" /><link rel="next" href="https://binko.me/nihilism/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《神经网络与深度学习》第10章 - 模型独立的学习方式",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/binko.me\/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "神经网络与深度学习, NLP, notes, ML","wordcount":  3760 ,
+        "url": "https:\/\/binko.me\/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F\/","datePublished": "2021-08-01T13:56:11+08:00","dateModified": "2021-08-01T13:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          displayMath: [['$$','$$']],
+          processEscapes: true,
+          processEnvironments: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          TeX: {
+              equationNumbers: { autoNumber: "AMS" },
+              extensions: ["AMSmath.js", "AMSsymbols.js"]
+          }
+      }
+  });
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+<header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《神经网络与深度学习》第10章 - 模型独立的学习方式</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/deep-learning/"><i class="far fa-folder fa-fw"></i>Deep Learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-01">2021-08-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3760 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#101-集成学习">10.1 集成学习</a>
+      <ul>
+        <li><a href="#1011-adaboost-方法">10.1.1 AdaBoost 方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#102-自训练和协同训练">10.2 自训练和协同训练</a>
+      <ul>
+        <li><a href="#1021-自训练">10.2.1 自训练</a></li>
+        <li><a href="#1022-协同训练">10.2.2 协同训练</a></li>
+      </ul>
+    </li>
+    <li><a href="#103-多任务学习">10.3 多任务学习</a></li>
+    <li><a href="#104-迁移学习">10.4 迁移学习</a>
+      <ul>
+        <li><a href="#1041-归纳迁移学习">10.4.1 归纳迁移学习</a></li>
+        <li><a href="#1042-转导迁移学习">10.4.2 转导迁移学习</a></li>
+      </ul>
+    </li>
+    <li><a href="#105-终身学习">10.5 终身学习</a></li>
+    <li><a href="#106-元学习">10.6 元学习</a>
+      <ul>
+        <li><a href="#1061-基于优化器的元学习">10.6.1 基于优化器的元学习</a></li>
+        <li><a href="#1062-模型无关的元学习maml">10.6.2 模型无关的元学习（MAML）</a></li>
+      </ul>
+    </li>
+    <li><a href="#习题选做">习题选做</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#习题-10-2-集成学习是否可以避免过拟合">习题 10-2 集成学习是否可以避免过拟合？</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="101-集成学习">10.1 集成学习</h2>
+<p>M 个模型在同一任务上的期望错误：</p>
+<p>$$
+\begin{aligned}
+\mathcal{R}\left(f_{m}\right) &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\left(f_{m}(\boldsymbol{x})-h(\boldsymbol{x})\right)^{2}\right] \\<br>
+&amp;=\mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})^{2}\right]
+\end{aligned}
+$$</p>
+<p>则所有模型平均错误：</p>
+<p>$$
+\overline{\mathcal{R}}(f)=\frac{1}{M} \sum_{m=1}^{M} \mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})^{2}\right]
+$$</p>
+<p>集成学习（Ensemble Learning）：群体决策提高准确率。</p>
+<p><strong>集成策略</strong></p>
+<p>直接平均：
+$$
+F(\boldsymbol{x})=\frac{1}{M} \sum_{m=1}^{M} f_{m}(\boldsymbol{x})
+$$</p>
+<p>可以证明：
+$$
+\overline{\mathcal{R}}(f) \geq \mathcal{R}(F) \geq \frac{1}{M} \overline{\mathcal{R}}(f)
+$$</p>
+<p>有效的集成需要基模型的差异尽可能大：</p>
+<ol>
+<li>Bagging 类方法
+<ul>
+<li>Bagging（Bootstrap Aggregating）：对原训练集有放回采用得到 M 个较小数据集，并训练 M 个模型</li>
+<li>随机森林（Random Forest）：在 Bagging 基础上再引入随机特征，每个基模型都是一棵决策树</li>
+</ul>
+</li>
+<li>Boosing 类方法：后面的模型对前序模型的错误进行专门训练，即根据前序模型结果增加分错训练样本权重。eg. AdaBoost</li>
+</ol>
+<h3 id="1011-adaboost-方法">10.1.1 AdaBoost 方法</h3>
+<p>Boosting 类学习目标：加性模型（Additive Model），即弱分类器加权得到强分类器：</p>
+<p>$$
+F(\boldsymbol{x})=\sum_{m=1}^{M} \alpha_{m} f_{m}(\boldsymbol{x})
+$$</p>
+<p>AdaBoost（Adaptive Boosting）算法：加法模型，指数损失函数，前向分步（Stage-Wise）优化的二类分类学习方法。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../../_resources/58e89671133641f4b76d901df9f9143e.png"
+        data-srcset="../../../_resources/58e89671133641f4b76d901df9f9143e.png, ../../../_resources/58e89671133641f4b76d901df9f9143e.png 1.5x, ../../../_resources/58e89671133641f4b76d901df9f9143e.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/58e89671133641f4b76d901df9f9143e.png"
+        title="20173aa9dfef290f912eace569059e6a.png" /></p>
+<h2 id="102-自训练和协同训练">10.2 自训练和协同训练</h2>
+<p>半监督学习（Semi-Supervised Learning，SSL）：利用少量标注数据和大量无标注数据学习。</p>
+<h3 id="1021-自训练">10.2.1 自训练</h3>
+<p>自训练（Self-Training，或 Self-Teaching）：自举法（Bootstrapping），将预测置信度高的样本及其伪标签加入训练集，然后重新训练，不断反复。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../../_resources/945904d218fe44b099e5e5084a3f7f02.png"
+        data-srcset="../../../_resources/945904d218fe44b099e5e5084a3f7f02.png, ../../../_resources/945904d218fe44b099e5e5084a3f7f02.png 1.5x, ../../../_resources/945904d218fe44b099e5e5084a3f7f02.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/945904d218fe44b099e5e5084a3f7f02.png"
+        title="d7aa115ad53b8922cdd297760d8bc24d.png" /></p>
+<p>自训练与密度估计中 EM 算法相似，都是通过不断迭代提高模型能力。</p>
+<p>自训练缺点：无法保证伪标签正确性，可能反倒损害模型能力。关键是设置挑选样本的标准。</p>
+<h3 id="1022-协同训练">10.2.2 协同训练</h3>
+<p>协同训练（Co-Training）：自训练的一种改进，两个基于不同**视角（View）**的模型相互促进。</p>
+<p>视角：如网页分类，采用文字还是链接进行分类</p>
+<ol>
+<li>条件独立性：给定标签 y，两种特征条件独立，$p\left(\boldsymbol{x}_{1}, \boldsymbol{x}_{2} \mid y\right)=p\left(\boldsymbol{x}_{1} \mid y\right) p\left(\boldsymbol{x}_{2} \mid y\right)$</li>
+<li>充足和冗余性：数据充足时每个视角都可以训练出正确分类器。</li>
+</ol>
+<p>协同训练步骤：训练不同视角两个模型，在无标注数据集预测并各自选取置信度较高的样本加入训练集，重新训练两个模型，不断反复。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../../_resources/616d443216324cd8a11cb05a71ba7929.png"
+        data-srcset="../../../_resources/616d443216324cd8a11cb05a71ba7929.png, ../../../_resources/616d443216324cd8a11cb05a71ba7929.png 1.5x, ../../../_resources/616d443216324cd8a11cb05a71ba7929.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/616d443216324cd8a11cb05a71ba7929.png"
+        title="8f26b271bb22913ad7720496c024b6d7.png" /></p>
+<h2 id="103-多任务学习">10.3 多任务学习</h2>
+<p>相关任务的共享知识：表示（即特征，主要关注点）、模型参数、学习算法</p>
+<p>多任务学习（Multi-task Learning）：学习多个任务共享知识，利用任务相关性提高各任务性能、泛化能力。</p>
+<p>多任务学习可以看作一种归纳迁移学习（Inductive Transfer Learning）：利用包含在相关任务中的信息作为归纳偏置（Inductive Bias）来提高泛化能力</p>
+<p>主要挑战：设计<strong>共享机制</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../../_resources/452d8f87fa894184b4379acd30049d32.png"
+        data-srcset="../../../_resources/452d8f87fa894184b4379acd30049d32.png, ../../../_resources/452d8f87fa894184b4379acd30049d32.png 1.5x, ../../../_resources/452d8f87fa894184b4379acd30049d32.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/452d8f87fa894184b4379acd30049d32.png"
+        title="efe3f0b71468b8dce780b182749f240a.png" /></p>
+<p>学习步骤：
+通常使用交替训练近似同时学习，联合目标函数为各任务目标函数加权。</p>
+<p>学习流程：</p>
+<ol>
+<li>联合训练阶段</li>
+<li>单任务精调阶段（可选）</li>
+</ol>
+<h2 id="104-迁移学习">10.4 迁移学习</h2>
+<p>领域（Domain）：$\mathcal{D}=(\mathcal{X}, y, p(\boldsymbol{x}, y))$，输入空间、输出空间、概率分布，任意一个不同即是不同领域。从统计学习的观点来看，一个机器学习任务 𝒯 定义为在一个领域 𝒟 上的条件概率 𝑝(𝑦|𝒙) 的建模问题。</p>
+<p>迁移学习：两个不同领域的知识迁移过程</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../../_resources/ba705b13080d41a18729098d7783734a.png"
+        data-srcset="../../../_resources/ba705b13080d41a18729098d7783734a.png, ../../../_resources/ba705b13080d41a18729098d7783734a.png 1.5x, ../../../_resources/ba705b13080d41a18729098d7783734a.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/ba705b13080d41a18729098d7783734a.png"
+        title="4478f6a6d96f8d6e9868ce7425696a53.png" /></p>
+<p>根据迁移方式分类：</p>
+<ol>
+<li>归纳迁移学习（Inductive Transfer Learning）：在源领域和任务上学习出一般的规律
+<ul>
+<li>相同输入空间、不同目标任务（概率分布)</li>
+</ul>
+</li>
+<li>转导迁移学习（Transductive Transfer Learning）：样本到样本的迁移，直接利用源领域和目标领域的样本学习</li>
+</ol>
+<p>分别对应两个机器学习范式：：归纳学习（Inductive Learning）和转导学习（Transductive Learning）</p>
+<ol>
+<li>归纳学习：期望风险最小（真实数据分布错误率）</li>
+<li>转导学习：给定测试集错误率最小，训练时可以利用测试集信息</li>
+</ol>
+<h3 id="1041-归纳迁移学习">10.4.1 归纳迁移学习</h3>
+<p>要求源领域和目标领域是相关的，并且源领域有大量的训练样本（标注或无标注）</p>
+<p>迁移方式：</p>
+<ol>
+<li>特征提取：将预训练模型输出或中间隐层输出作为特征直接加入目标任务模型。</li>
+<li>精调：复用预训练模型部分组件，并精调</li>
+</ol>
+<p>归纳迁移学习 vs. 多任务学习</p>
+<ol>
+<li>多任务学习同时学习，归纳迁移学习分阶段学习</li>
+<li>多任务学习希望提高所有任务表现，归纳迁移学习是单向迁移，希望提高目标任务性能。</li>
+</ol>
+<h3 id="1042-转导迁移学习">10.4.2 转导迁移学习</h3>
+<p>转导迁移学习：从样本到样本的迁移，直接利用源领域和目标领域的样本进行迁移学习。</p>
+<p>转导迁移学习通常假设源领域有大量的标注数据，而目标领域没有（或只有少量）标注数据，但是有大量的无标注数据．目标领域的数据在训练阶段是可见的。</p>
+<p>常见子问题：领域适应（Domain Adaptation），相同样本空间、不同数据分布 $p_{S}(\boldsymbol{x}, y) \neq p_{T}(\boldsymbol{x}, y)$</p>
+<ol>
+<li>协变量偏移（Covariate Shift）：输入边际分布不同 $p_{S}(\boldsymbol{x}) \neq p_{T}(\boldsymbol{x})$</li>
+<li>概念偏移（Concept Shift）：后验分布不同 $p_{S}(y \mid \boldsymbol{x}) \neq p_{T}(y \mid \boldsymbol{x})$，即学习任务不同</li>
+<li>先验偏移（Prior Shift）：输出标签 y 的先验分布不同 $p_{S}(y) \neq p_{T}(y)$</li>
+</ol>
+<p>多数领域适应问题主要关注协变量偏移，关键在于如何学习领域无关（Domain-Invariant）的表示</p>
+<p>领域适应的目标，学习模型使得：</p>
+<p>$$\begin{aligned} \mathcal{R}_{T}\left(\theta_{f}\right) &amp;=\mathbb{E}_{(x, y) \sim p_{T}(\boldsymbol{x}, y)}\left[\mathcal{L}\left(f\left(\boldsymbol{x} ; \theta_{f}\right), y\right)\right] \\ &amp;=\mathbb{E}_{(x, y) \sim p_{S}(x, y)} \frac{p_{T}(\boldsymbol{x}, y)}{p_{S}(\boldsymbol{x}, y)}\left[\mathcal{L}\left(f\left(\boldsymbol{x} ; \theta_{f}\right), y\right)\right] \\ &amp;=\mathbb{E}_{(x, y) \sim p_{S}(\boldsymbol{x}, y)} \frac{p_{T}(\boldsymbol{x})}{p_{S}(\boldsymbol{x})}\left[\mathcal{L}\left(f\left(\boldsymbol{x} ; \theta_{f}\right), y\right)\right] \end{aligned}$$</p>
+<p>如果可以学习一个映射函数，使得映射后特征空间中源领域和目标领域的边际分布相同 $p_{S}\left(g\left(\boldsymbol{x} ; \theta_{g}\right)\right)=p_{T}\left(g\left(\boldsymbol{x} ; \theta_{g}\right)\right)$，设 $\theta_g$ 为映射函数的参数，则目标函数可以近似为：</p>
+<p>$$
+\begin{aligned}
+\mathcal{R}_{T}\left(\theta_{f}, \theta_{g}\right) &amp;=\mathbb{E}_{(\boldsymbol{x}, y) \sim p_{S}(\boldsymbol{x}, y)}\left[\mathcal{L}\left(f\left(g\left(\boldsymbol{x} ; \theta_{\mathrm{g}}\right) ; \theta_{f}\right), y\right)\right]+\gamma d_{\mathrm{g}}(S, T) \\<br>
+&amp;=\mathcal{R}_{S}\left(\theta_{f}, \theta_{\mathrm{g}}\right)+\gamma d_{\mathrm{g}}(S, T),
+\end{aligned}
+$$</p>
+<p>学习目标：1. 提取特征是领域无关的 2. 源领域损失最小</p>
+<p>分布差异计算：</p>
+<ul>
+<li>MMD（Maximum Mean Discrepancy）[Gretton et al., 2007]</li>
+<li>CMD（Central Moment Discrepancy）[Zellinger et al., 2017]</li>
+<li>对抗学习：引入领域判别器，若无法判断则认为该特征领域无关</li>
+</ul>
+<p>源和目标领域训练数据：</p>
+<p>$$
+\begin{aligned}
+&amp;\mathcal{D}_{S}=\{(\boldsymbol{x}_{S}^{(n)}, y_{S}^{(n)})\}_{n=1}^{N} \sim p_{S}(\boldsymbol{x}, y) \\<br>
+&amp;\mathcal{D}_{T}=\{\boldsymbol{x}_{T}^{(m)}\}_{m=1}^{M} \sim p_{T}(\boldsymbol{x}, y)
+\end{aligned}
+$$</p>
+<h2 id="105-终身学习">10.5 终身学习</h2>
+<p>终身学习（Lifelong Learning），也叫持续学习（Continuous Learning）：像人一样持续不断学习，根据历史学习经验帮助学习新任务，并不断积累知识和经验，不会因为新任务而忘记旧知识</p>
+<blockquote>
+<p>按：人也会忘记长久不再接触的知识、技能，往往需要一定时间才能重新掌握</p>
+</blockquote>
+<ul>
+<li>终身学习 vs. 归纳迁移学习：终身学习通过前 m 个任务帮助第 m + 1 个任务的设定与归纳迁移学习类似，但终身学习关注持续学习积累。</li>
+<li>终身学习 vs. 多任务学习：多任务学习同时学习多个任务，终身学习持续一个一个学习。</li>
+</ul>
+<p>关键问题：避免<strong>灾难性遗忘（Catastrophic Forgetting）</strong>，即不忘记旧任务。</p>
+<p>灾难性遗忘解决方法：eg. 弹性权重巩固（ElasticWeight Consolidation）方法 [Kirkpatrick et al., 2017]</p>
+<p>给定两个任务时模型参数 $\theta$ 的后验分布为：</p>
+<p>$$
+\log p(\theta \mid \mathcal{D})=\log p(\mathcal{D} \mid \theta)+\log p(\theta)-\log p(\mathcal{D})
+$$</p>
+<p>其中 $\mathcal{D}=\mathcal{D}_{A} \cup \mathcal{D}_{B}$ ，根据独立同分布假设，上式可以写为：</p>
+<p>$$
+\begin{aligned}
+\log p(\theta \mid \mathcal{D}) &amp;=\underline{\log p\left(\mathcal{D}_{A} \mid \theta\right)}+\log p\left(\mathcal{D}_{B} \mid \theta\right)+\underline{\log p(\theta)}-\log p\left(\mathcal{D}_{A}\right)-\log p\left(\mathcal{D}_{B}\right) \\<br>
+&amp;=\log p\left(\mathcal{D}_{B} \mid \theta\right)+\underline{\log p\left(\theta \mid \mathcal{D}_{A}\right)}-\log p\left(\mathcal{D}_{B}\right)
+\end{aligned}
+$$</p>
+<p>其中 $p\left(\theta \mid \mathcal{D}_{A}\right)$ 包含所有在任务 $\mathcal{J}_{A}$ 上学到的信息，所以顺序学习任务 $\mathcal{J}_{B}$ 时，参数后验分布与其在任务 $\mathcal{J}_{A}$ 上的后验分布有关。</p>
+<p>后验分布比较难以及建模，可以近似估计：</p>
+<ul>
+<li>假设 $p\left(\theta \mid \mathcal{D}_{A}\right)$ 为高斯分布，期望为任务 $\mathcal{J}_{A}$ 上学习到的参数矩阵 $\theta_{A}^{*}$</li>
+<li>精度矩阵（协方差矩阵的逆）用参数 $\theta$ 在数据集 $\mathcal{D}_{A}$ 上的 Fisher 信息矩阵来近似：</li>
+</ul>
+<p>$$
+p\left(\theta \mid \mathcal{D}_{A}\right)=\mathcal{N}\left(\theta_{A}^{*}, F^{-1}\right)
+$$</p>
+<blockquote>
+<p>详见 [Bishop, 2007] 中第 4 章中的拉普拉斯近似。</p>
+</blockquote>
+<h2 id="106-元学习">10.6 元学习</h2>
+<p>元学习（Meta-Learning）：学习的学习（Learning to Learn），可以对不同任务动态调整学习方式</p>
+<p>元学习 vs. 归纳迁移学习：元学习倾向于从不同（甚至是不相关）任务中归纳学习方法</p>
+<p>元学习与小样本学习（Few-shot Learning）比较相关。</p>
+<h3 id="1061-基于优化器的元学习">10.6.1 基于优化器的元学习</h3>
+<p>不同的优化算法的区别在于更新参数的规则不同，因此一种很自然的元学习是自动学习参数更新规则，即通过另一个神经网络建模梯度下降过程。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../../_resources/1299c3b56b434212b7f5c82efd4b0609.png"
+        data-srcset="../../../_resources/1299c3b56b434212b7f5c82efd4b0609.png, ../../../_resources/1299c3b56b434212b7f5c82efd4b0609.png 1.5x, ../../../_resources/1299c3b56b434212b7f5c82efd4b0609.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/1299c3b56b434212b7f5c82efd4b0609.png"
+        title="96339ae9875a9446163768a0c73e5fa4.png" /></p>
+<p>用函数 $g_{t}(\cdot)$ 输入梯度预测参数的更新差值 $\Delta \theta_{t}$，第 t 步更新规则：</p>
+<p>$$
+\theta_{t+1}=\theta_{t}+g_{t}\left(\nabla \mathcal{L}\left(\theta_{t}\right) ; \phi\right)
+$$</p>
+<p>学习优化器可以看作元学习过程，目标是找到适用不同任务的优化器，每步迭代目标是 $\mathcal{L}(\theta)$ 最小：</p>
+<p>$$
+\begin{aligned}
+\mathcal{L}(\phi) &amp;=\mathbb{E}_{f}\left[\sum_{t=1}^{T} w_{t} \mathcal{L}\left(\theta_{t}\right)\right] \\<br>
+\theta_{t} &amp;=\theta_{t-1}+g_{t}, \\<br>
+\left[g_{t} ; \boldsymbol{h}_{t}\right] &amp;=\operatorname{LSTM}\left(\nabla \mathcal{L}\left(\theta_{t-1}\right), \boldsymbol{h}_{t-1} ; \phi\right),
+\end{aligned}
+$$</p>
+<p>因为网络参数非常多，LSTM 输入输出维度非常高，可以简化采用共享 LSTM 对每个参数进行更新。</p>
+<h3 id="1062-模型无关的元学习maml">10.6.2 模型无关的元学习（MAML）</h3>
+<p>模型无关的元学习（Model-Agnostic Meta-Learning，MAML）[Finn et al., 2017]</p>
+<p>假设所有任务来自同一任务空间，可以学习所有任务的通用表示，然后经过梯度下降在特定单任务上精调，模型 $f_{\theta}$ 在新任务 $\mathcal{T}_{m}$ 上学习到的任务适配参数：</p>
+<p>$$
+\theta_{m}^{\prime}=\theta-\alpha \nabla_{\theta} \mathcal{L}_{\mathcal{T}_{m}}\left(f_{\theta}\right)
+$$</p>
+<p>MAML的目标是学习一个参数𝜃 使得其经过一个梯度迭代就可以在新任务上达到最好的性能，即</p>
+<p>$$
+\min _{\theta} \sum_{\mathcal{T}_{m} \sim p(\mathcal{T})} \mathcal{L}_{\mathcal{T}_{m}}\left(f_{\theta_{m}^{\prime}}\right)=\min _{\theta} \sum_{\mathcal{T}_{m} \sim p(\mathcal{T})} \mathcal{L}_{\mathcal{T}_{m}}\left(f(\underbrace{\theta-\alpha \nabla_{\theta} \mathcal{L}_{\mathcal{T}_{m}}\left(f_{\theta}\right)}_{\theta_{m}^{\prime}})\right) .
+$$</p>
+<p>用梯度下降在所有任务上元优化（Meta-Optimization）：
+$$
+\begin{aligned}
+\theta &amp; \leftarrow \theta-\beta \nabla_{\theta} \sum_{m=1}^{M} \mathcal{L}_{\mathcal{T}_{m}}\left(f_{\theta_{m}^{\prime}}\right) \\<br>
+&amp;=\theta-\beta \sum_{m=1}^{M} \nabla_{\theta} \mathcal{L}_{\mathcal{T}_{m}}\left(f_{\theta_{m}}\right)\left(I-\alpha \nabla_{\theta}^{2} \mathcal{L}_{\mathcal{T}_{m}}\left(f_{\theta_{m}}\right)\right)
+\end{aligned}
+$$</p>
+<p>$\beta$ 为元学习率，$\alpha$ 较小时 MAML 近似为普通多任务学习优化方法。MAML 需要计算二阶梯度，可以用一阶方法近似。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../../../_resources/bd8fe2eb2abf48a78f9829473226ae65.png"
+        data-srcset="../../../_resources/bd8fe2eb2abf48a78f9829473226ae65.png, ../../../_resources/bd8fe2eb2abf48a78f9829473226ae65.png 1.5x, ../../../_resources/bd8fe2eb2abf48a78f9829473226ae65.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/bd8fe2eb2abf48a78f9829473226ae65.png"
+        title="f1e8f198d9521b552f294b3b98c9ac93.png" /></p>
+<h2 id="习题选做">习题选做</h2>
+<h4 id="习题-10-2-集成学习是否可以避免过拟合">习题 10-2 集成学习是否可以避免过拟合？</h4>
+<p>过拟合：模型学到了很多与任务无关的 feature，在新数据上泛化能力差。</p>
+<ul>
+<li>overfitting：high variance, low bias</li>
+<li>under-fitting：low variance, high bias</li>
+</ul>
+<p>集成学习：</p>
+<ul>
+<li>Bagging（Bagging、Random Forest）通过投票找到共性，减少 variance（方差），避免过拟合
+<ul>
+<li>注意：有些情况，如随机森林中树过多也会导致 overfitting</li>
+</ul>
+</li>
+<li>Boosting 增加模型复杂度，降低 bias（偏差），相对容易过拟合</li>
+</ul>
+<p>所以 Boosting 相比 Bagging 更容易过拟合，一般还是需要 Cross-validation 方法来验证是否过拟合。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-08-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" data-title="《神经网络与深度学习》第10章 - 模型独立的学习方式" data-hashtags="神经网络与深度学习,NLP,notes,ML"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" data-title="《神经网络与深度学习》第10章 - 模型独立的学习方式"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" data-title="《神经网络与深度学习》第10章 - 模型独立的学习方式"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" data-title="《神经网络与深度学习》第10章 - 模型独立的学习方式"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/notes/">Notes</a>,&nbsp;<a href="/tags/ml/">ML</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="prev" rel="prev" title="《神经网络与深度学习》第9章 - 无监督学习"><i class="fas fa-angle-left fa-fw"></i>《神经网络与深度学习》第9章 - 无监督学习</a>
+            <a href="/nihilism/" class="next" rel="next" title="虚无、意义与存在主义 -《未来简史》读罢的思考">虚无、意义与存在主义 -《未来简史》读罢的思考<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="utterances"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
+
+                
+            </div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

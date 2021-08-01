@@ -4,7 +4,7 @@
         <link>https://binko.me/</link>
         <description>关于 LoveIt 主题</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>zebgou@gmail.com (ZubinGou)</managingEditor>
-            <webMaster>zebgou@gmail.com (ZubinGou)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 20 Jul 2021 17:00:11 &#43;0800</lastBuildDate>
+            <webMaster>zebgou@gmail.com (ZubinGou)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 01 Aug 2021 13:56:11 &#43;0800</lastBuildDate>
             <atom:link href="https://binko.me/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>基于PyTorch实现BiLSTM-CRF-NER模型及其改进</title>
@@ -27,6 +27,20 @@
     <author>作者</author>
     <guid>https://binko.me/nihilism/</guid>
     <description><![CDATA[]]></description>
+</item><item>
+    <title>《神经网络与深度学习》第10章 - 模型独立的学习方式</title>
+    <link>https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/</link>
+    <pubDate>Sun, 01 Aug 2021 13:56:11 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/</guid>
+    <description><![CDATA[10.1 集成学习 M 个模型在同一任务上的期望错误： $$ \begin{aligned} \mathcal{R}\left(f_{m}\right) &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\left(f_{m}(\boldsymbol{x})-h(\boldsymbol{x})\right)^{2}\right] \\ &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})^{2}\right] \end{aligned} $$ 则所有模型平均错误： $$ \overline{\mathcal{R}}(f)=\frac{1}{M} \sum_{m=1}^{M} \mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})^{2}\right] $$ 集成学习（Ensemble Learning）：群体决]]></description>
+</item><item>
+    <title>《神经网络与深度学习》第9章 - 无监督学习</title>
+    <link>https://binko.me/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</link>
+    <pubDate>Thu, 29 Jul 2021 13:56:11 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://binko.me/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</guid>
+    <description><![CDATA[ch9 无监督学习 9.1 无监督特征学习 无监督学习问题分类： 无监督特征学习（Unsupervised Feature Learning） 降维、可视化、监督学习前的预处理]]></description>
 </item><item>
     <title>《神经网络与深度学习》第7章 - 网络优化与正则化</title>
     <link>https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/</link>
@@ -68,19 +82,5 @@ BERT: Bidirectional Encoder representations from Transformers
     <author>作者</author>
     <guid>https://binko.me/nndl-book-ch15-%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/</guid>
     <description><![CDATA[类似一般概率模型，序列概率模型的两个基本问题： 概率密度估计 样本生成 15.1 序列概率模型 序列数据的概率密度估计可以转换为单变量的条件概率估计问题： $$]]></description>
-</item><item>
-    <title>【NLP Papers】NER：BiLSTM-CRF</title>
-    <link>https://binko.me/nlp-papersnerbilstm-crf/</link>
-    <pubDate>Wed, 10 Mar 2021 13:56:11 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://binko.me/nlp-papersnerbilstm-crf/</guid>
-    <description><![CDATA[Neural Architectures for Named Entity Recognition [Lample et. al., 2016] 摘要 NER之前的SOTA：大量手工特征、领域知识，泛化能力差 介绍了两种模型： BiLSTM-CRF Stack-LSTM：类似移进-规约的 transition-based 方]]></description>
-</item><item>
-    <title>基于PyTorch实现word2vec模型及其优化</title>
-    <link>https://binko.me/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/</link>
-    <pubDate>Mon, 08 Mar 2021 13:46:57 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://binko.me/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/</guid>
-    <description><![CDATA[SkipGram NegativeSampling implemented in PyTorch. GitHub: https://github.com/ZubinGou/SGNS-PyTorch Paper Efficient Estimation of Word Representations in Vector Space (original word2vec paper) Distributed Representations of Words and Phrases and their Compositionality (negative sampling paper) Notes Word2Vec是用无监督方式从文本中学习词向量来表征语义信息的模型，语义相]]></description>
 </item></channel>
 </rss>

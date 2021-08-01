@@ -30,6 +30,7 @@ DNN 是高度非线性模型，其风险函数为非凸函数，因此风险最�
 	- 随机梯度下降可以有效逃离鞍点
 
 平坦最小值（Flat Minima）和尖锐最小值（Sharp Minma）：深度网络参数多且冗余，局部最小解通常是平坦最小值，鲁棒性、抗扰动能力较好。
+
 ![8b03b6bdabdd1b5b012138971fef2d31.png](../../_resources/2603c35aca6a406d9f7647220cb5b9f4.png)
 
 局部最小解等价性：大神经网络中，大部分局部最小解等价，且接近全局最小解的训练损失。没有必要找全局最小值，这反而可能过拟合。
@@ -144,6 +145,7 @@ $$
 $$
 
 Hung-yi Lee:
+
 ![d8d82ed693e6086e2055efcfa59b2359.png](../../_resources/f691c2979f8141359831286b705234b2.png)
 ![599d94f6bc898d9d2189834d9649dd79.png](../../_resources/fada25cef7e34b2592370d322c1762ac.png)
 
@@ -450,6 +452,7 @@ eg. 线性分类器尺度不变、KNN尺度敏感
 理论上神经网络具有尺度不变性，通过参数调整适应尺度，但尺度不同会增加训练难度：
 1. 为防止 tanh 等函数进入饱和区而梯度消失，对每个特征尺度需要进行特定初始化
 2. 梯度下降方向不指向最优解
+
 ![3e95e86b27073a63b8cfc93e64e3048f.png](../../_resources/a30049ff2f364a1eb9d3867e587dfa32.png)
 
 **归一化（Normalization**）：泛指同一数据特征尺度的方法。
@@ -611,6 +614,7 @@ $$
 贝叶斯优化（Bayesian optimization）：根据已实验的超参组合，预测下一个可能最大收益的组合。
 
 常用：时序模型优化（Sequential Model-Based Optimization，SMBO）
+
 ![dfc8b96cdffa70d039835fabb06e2e6d.png](../../_resources/804c762c47f649789aabeb3aad54293b.png)
 
 ### 7.6.4 动态资源分配
@@ -686,9 +690,11 @@ $$
 为避免损害时间维度上的记忆能力，不能对每个时刻的隐状态进行随机丢弃：
 
 1. Naive Dropout：可以对**非时间维度**的连接进行 Dropout：
+
 ![44bad15230f86345f977ccb4cb16ee47.png](../../_resources/f4b553b16b394b9cbdc11d6b7d4fb959.png)
 
 2. 变分丢弃法（Variational Dropout）：根据贝叶斯学习，每次 dropout 采样的参数在各个时间应该不变，所有时刻应该使用相同的掩码：
+
 ![c08e661b881d6151eab9c9035def9ba8.png](../../_resources/e339e7325b8e4723b7972703049af9b3.png)
 
 ### 7.7.5 数据增强

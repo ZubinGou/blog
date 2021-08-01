@@ -320,19 +320,24 @@
 </ul>
 <h2 id="63-马尔科夫模型">6.3 马尔科夫模型</h2>
 <ul>
-<li>随机过程又叫随机函数，是随时间而随机变化的过程。</li>
-<li>离散的一阶马尔可夫链（Markov chain）
+<li>
+<p>随机过程又叫随机函数，是随时间而随机变化的过程。</p>
+</li>
+<li>
+<p>离散的一阶马尔可夫链（Markov chain）</p>
 <ul>
 <li>$P(q_{t}=s_{i} \mid q_{t-1}=s_{j}, q_{t-1}=s_{k}, \cdots)=P(q_{t}=s_{j} \mid q_{t-1}=s_{i})$</li>
 </ul>
 </li>
-<li>马尔科夫模型/可视马尔科夫模型（visible Markov model，MM/VMM）
+<li>
+<p>马尔科夫模型/可视马尔科夫模型（visible Markov model，MM/VMM）</p>
 <ul>
 <li>只考虑上式独立于时间t的随机过程：$P(q_{t}=s_{j} \mid q_{t-1}=s_{i})=a_{i j}, \quad 1 \leqslant i, j \leqslant N$</li>
 <li>满足：$a_{i j} \geqslant 0$，$\sum_{i=1}^{N} a_{i j}=1$</li>
 </ul>
 </li>
-<li>有$N$个状态的一阶马尔可夫过程有$N^2$次状态转移，可表示成状态转移矩阵
+<li>
+<p>有$N$个状态的一阶马尔可夫过程有$N^2$次状态转移，可表示成状态转移矩阵</p>
 <ul>
 <li>eg. 一段文字中s1：名词，s2：动词，s3：形容词，转移矩阵：
 <ul>
@@ -350,7 +355,8 @@ $\begin{aligned} P(O \mid M) &amp;=P(s_{1}, s_{2}, s_{3}, s_{1} \mid M) \\ &amp;
 </li>
 </ul>
 </li>
-<li>马尔科夫模型可视为随机的非确定有限状态机
+<li>
+<p>马尔科夫模型可视为随机的非确定有限状态机</p>
 <ul>
 <li><img
         class="lazyload"
@@ -360,20 +366,21 @@ $\begin{aligned} P(O \mid M) &amp;=P(s_{1}, s_{2}, s_{3}, s_{1} \mid M) \\ &amp;
         data-sizes="auto"
         alt="../../_resources/5022f43cb17a495eaf00dbc9b2696c17.png"
         title="063763cfce271c3250b140c5dad97d8a.png" /></li>
-<li>序列概率为转移弧概率乘积：
-<img
+<li>序列概率为转移弧概率乘积：</li>
+</ul>
+<p><img
         class="lazyload"
         src="/svg/loading.min.svg"
         data-src="../../_resources/6bff78fa7fe240b6a97a14bdcd260b2a.png"
         data-srcset="../../_resources/6bff78fa7fe240b6a97a14bdcd260b2a.png, ../../_resources/6bff78fa7fe240b6a97a14bdcd260b2a.png 1.5x, ../../_resources/6bff78fa7fe240b6a97a14bdcd260b2a.png 2x"
         data-sizes="auto"
         alt="../../_resources/6bff78fa7fe240b6a97a14bdcd260b2a.png"
-        title="0226f9548c08a087a5d7d3fade52d3d3.png" /></li>
-</ul>
+        title="0226f9548c08a087a5d7d3fade52d3d3.png" /></p>
 </li>
-<li>n-gram与马尔科夫模型
+<li>
+<p>n-gram与马尔科夫模型</p>
 <ul>
-<li>2-gram就是一个马尔科夫模型</li>
+<li>2-gram就是一阶马尔科夫模型</li>
 <li>对于$n\ge 3$的n-gram确定数量的历史，可以通过将状态空间描述成多重前面状态的交叉乘积的方式，转化为马尔科夫模型，可以称之为m阶马尔科夫模型，m为历史数。</li>
 <li>n元语法模型就是n-1阶马尔可夫模型</li>
 </ul>

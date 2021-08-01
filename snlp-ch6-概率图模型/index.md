@@ -80,11 +80,12 @@
 		- 假设名词开头，则O=“名动形名”概率为：
 		$\begin{aligned} P(O \mid M) &=P(s\_{1}, s\_{2}, s\_{3}, s\_{1} \mid M) \\\\ &=P(s\_{1}) \cdot P(s\_{2} \mid s\_{1}) \cdot P(s\_{3} \mid s\_{2}) \cdot P(s\_{1} \mid s\_{3}) \\\\ &=1 \times a\_{12} \times a\_{23} \times a\_{31} \\\\ &=0.5 \times 0.2 \times 0.4 \\\\ &=0.04 \end{aligned}$
 - 马尔科夫模型可视为随机的非确定有限状态机
-	- ![063763cfce271c3250b140c5dad97d8a.png](../../_resources/5022f43cb17a495eaf00dbc9b2696c17.png)
+  	- ![063763cfce271c3250b140c5dad97d8a.png](../../_resources/5022f43cb17a495eaf00dbc9b2696c17.png)
 	- 序列概率为转移弧概率乘积：
+
 	![0226f9548c08a087a5d7d3fade52d3d3.png](../../_resources/6bff78fa7fe240b6a97a14bdcd260b2a.png)
 - n-gram与马尔科夫模型
-	- 2-gram就是一个马尔科夫模型
+	- 2-gram就是一阶马尔科夫模型
 	- 对于$n\ge 3$的n-gram确定数量的历史，可以通过将状态空间描述成多重前面状态的交叉乘积的方式，转化为马尔科夫模型，可以称之为m阶马尔科夫模型，m为历史数。
 	- n元语法模型就是n-1阶马尔可夫模型
 
