@@ -20,7 +20,7 @@
 	2. 消除输入句子中词法和结构等方面的歧义
 	3. 分析输入句子的内部结构，如成分构成、上下文关系等
 - eg. 句子“The can can hold the water”分析树：
-	![e2d687081a4967f365cd4d658543fb34.png](/blog/_resources/4508ca9a611a4cc7951fe4847cfeed0a.png)
+	![e2d687081a4967f365cd4d658543fb34.png](../resources/4508ca9a611a4cc7951fe4847cfeed0a.png)
 - 主要困难：句法结构歧义的识别与消解
 - 构造句法分析器：
 	1. 语法的形式化表示和词条信息描述
@@ -67,7 +67,7 @@
 #### 基于统计的句法分析
 - 目前研究较多的统计句法分析方法是语法驱动的（grammar-driven），其基本思想是由生成语法（generative grammar）定义被分析的语言及其分析出的类别，在训练数据中观察到的各种语言现象的分布以统计数据的方式与语法规则一起编码。在句法分析的过程中，当遇到歧义情况时，统计数据用于对多种分析结果的排序或选择。
 - 基于概率上下文无关文法（probabilistic （或stochastic）context-free grammar, PCFG或SCFG）的短语结构分析方法可以说是目前最成功的语法驱动的统计句法分析方法。
-- ![072d375fe325543330b0346b8a1c8859.png](/blog/_resources/4d7aaa2950a641de8a07ab7f1c4387b7.png)
+- ![072d375fe325543330b0346b8a1c8859.png](../resources/4d7aaa2950a641de8a07ab7f1c4387b7.png)
 
 
 ## 8.9 依存句法理论简介
@@ -79,7 +79,7 @@
 	- 支配者（governor，regent，head）：处于支配地位的成分
 	- 从属者（modifier，subordinate，dependency）：处于被支配地位的成分
 - 三种基本等价的依存结构表达方式（投射树对句子的结构表达能力更强一些）：
-![a97dfa9b1f44f8ab208a13bb640e29d1.png](/blog/_resources/a2487ba2dc3847ea877d4354b2e29899.png)
+![a97dfa9b1f44f8ab208a13bb640e29d1.png](../resources/a2487ba2dc3847ea877d4354b2e29899.png)
 - ［Robinson，1970］依存结构四条公理：
 	1. 一个句子只有一个独立的成分
 	2. 句子的其他成分都从属于某一成分

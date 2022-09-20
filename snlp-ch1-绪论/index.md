@@ -83,7 +83,7 @@
 3. 许多理论问题尚未得到根本性的解决。
 
 ### 1.5 本书内容安排
-![a0c313e67c8cbba8203fef9dceae37e1.png](/blog/_resources/9b5a2b1ced784981b606653b5e7ab07d.png)
+![a0c313e67c8cbba8203fef9dceae37e1.png](../resources/9b5a2b1ced784981b606653b5e7ab07d.png)
 
 
 ### 补充

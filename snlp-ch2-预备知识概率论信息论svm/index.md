@@ -41,7 +41,7 @@
 - $H(X)-H(X \mid Y)=H(Y)-H(Y \mid X)$
 - $\begin{aligned} I(X ; Y) &=H(X)-H(X \mid Y) \\\\ &=H(X)+H(Y)-H(X, Y) \\\\ &=\sum\_{x} p(x) \log \frac{1}{p(x)}+\sum\_{y} p(y) \log \frac{1}{p(y)}+\sum\_{x, y} p(x, y) \log p(x, y) \\\\ &=\sum\_{x, y} p(x, y) \log \frac{p(x, y)}{p(x) p(y)} \end{aligned}$
 - 知道Y后X的不确定性的减少量
-- ![0d32f4de338fec9a59e9d260aa50d04c.png](/blog/_resources/b23d39e5236741c4b8e42713a392c495.png)
+- ![0d32f4de338fec9a59e9d260aa50d04c.png](../resources/b23d39e5236741c4b8e42713a392c495.png)
 - 体现了两个变量的依赖程度
 	- 完全依赖：$I(X ; X)=H(X)-H(X \mid X)=H(X)$，故熵也称自信息
 	- 完全独立：$I(X ; Y)=0,$ 即 $p(x, y)=p(x) p(y)$ 
@@ -72,13 +72,13 @@
 - 等价地，语言模型设计的任务就是寻找（对于测试数据）困惑度最小的模型
 
 #### 噪声信道模型（noisy channel model）
-- ![95c43e23d7de101182620a86fc2d58f0.png](/blog/_resources/539c0fc798e94c4eab8da80dab7aec84.png)
+- ![95c43e23d7de101182620a86fc2d58f0.png](../resources/539c0fc798e94c4eab8da80dab7aec84.png)
 - 二进制对称信道（binary symmetric channel, BSC）
-	- ![c935c1359a8fc70c26f906f0a2993b12.png](/blog/_resources/31e1aed18cec4e97a983011266c32831.png)
+	- ![c935c1359a8fc70c26f906f0a2993b12.png](../resources/31e1aed18cec4e97a983011266c32831.png)
 - 信道容量（capacity）：$C=\max \_{p(X)} I(X ; Y)$
 	- 用降低传输速率来换取高保真通信的可能性
 	- 即平均互信息量的最大值
-- NLP不需要编码，句子可视为已经编码的符号序列：![6a6c3a286f40601755ea61120285b1a6.png](/blog/_resources/ce281f6e4099463eac2f6c8f3727ea5b.png)
+- NLP不需要编码，句子可视为已经编码的符号序列：![6a6c3a286f40601755ea61120285b1a6.png](../resources/ce281f6e4099463eac2f6c8f3727ea5b.png)
 - 给定输出求最可能输入：
 	- 贝叶斯公式：$\begin{aligned} \hat{I} &=\underset{I}{\operatorname{argmax}} p(I \mid O)=\underset{I}{\operatorname{argmax}} \frac{p(I) p(O \mid I)}{p(O)} \\\\ &=\underset{I}{\operatorname{argmax}} p(I) p(O \mid I) \end{aligned}$
 	- $p(I)$为语言模型（language model），是指在输入语言中“词”序列的概率分布
@@ -90,7 +90,7 @@
 - $\begin{aligned} f(x) &=\langle w \cdot x\rangle+b \\\\ &=\sum\_{i=1}^{n} w\_{i} x\_{i}+b \end{aligned}$
 - 最优超平面：
 	- 以最大间隔分开数据
-	- ![f1abf1db54e9e34d45bb40bc65ee0ed7.png](/blog/_resources/6c9ed09b16624e20a1a203811f4198c8.png)
+	- ![f1abf1db54e9e34d45bb40bc65ee0ed7.png](../resources/6c9ed09b16624e20a1a203811f4198c8.png)
 - 多分类问题：
 	- 每类一个超平面
 	- 决策函数：$c(x)=\underset{1 \leqslant i \leqslant m}{\operatorname{argmax}}\left(\left\langle w\_{i} \cdot x\right\rangle+b\_{i}\right)$

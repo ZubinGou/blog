@@ -37,9 +37,9 @@ PyTorch implementation of **BiLSTM-CRF** and **Bi-LSTM-CNN-CRF** models for name
 ## Results
 Trained with Tesla T4 for for one night (70 epochs), obtain 91.01% F1.
 
-<!-- ![result.png](/blog/_resources/8558e2d4af8b4058b3b0183c7c64e3d8.png) -->
+<!-- ![result.png](../resources/8558e2d4af8b4058b3b0183c7c64e3d8.png) -->
 
-{{< image src="/blog/_resources/8558e2d4af8b4058b3b0183c7c64e3d8.png">}}
+{{< image src="../resources/8558e2d4af8b4058b3b0183c7c64e3d8.png">}}
 
 ## Future Works
 - Next papers：

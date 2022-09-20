@@ -178,7 +178,7 @@ $$
 ### 15.6.1 基于RNN的seq2seq
 编码器-解码器（Encoder-Decoder）模型
 
-![858dd81164f0f893cc1c0c2335d8ff8e.png](/blog/_resources/bccef725d11b426baa2019ee26ffa001.png)
+![858dd81164f0f893cc1c0c2335d8ff8e.png](../resources/bccef725d11b426baa2019ee26ffa001.png)
 
 缺点：
 1. 编码向量信息容量瓶颈
@@ -270,5 +270,5 @@ $$
 - 将右移的目标序列（Right-Shifted Output）$\mathcal{Y}\_{0}:(T-1)$ 作为输入
 - 通过掩码来屏蔽后面的输入信息
 
-![c823725b3998cf94ed2ad5b54bd3f69a.png](/blog/_resources/879223c576e648ae9fad92d61f187084.png)
+![c823725b3998cf94ed2ad5b54bd3f69a.png](../resources/879223c576e648ae9fad92d61f187084.png)
 

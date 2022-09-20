@@ -5,7 +5,7 @@
 
 [Mikolov 2013] original word2vec paper
 
-![1_746thP9Ko96GcNmIQFI53g.png](/blog/_resources/3cf682ae142a418bac9ff71e4ce4cafd.png)
+![1_746thP9Ko96GcNmIQFI53g.png](../resources/3cf682ae142a418bac9ff71e4ce4cafd.png)
 > images from [The Pre-LSTM Ice-Age ](https://towardsdatascience.com/a-no-frills-guide-to-most-natural-language-processing-models-part-1-the-pre-lstm-ice-age-86055dd5d67c)
 
 References
@@ -49,7 +49,7 @@ trainning method: SGD, BP
 - hidden: $H$
 - output: $V$，对于输入词，每个词是
 
-![8b01d5925d26b9523a295f2cad456935.png](/blog/_resources/e51a7c1e107941089a354402666a0e7e.png)
+![8b01d5925d26b9523a295f2cad456935.png](../resources/e51a7c1e107941089a354402666a0e7e.png)
 
 complexity:
 $$
@@ -82,7 +82,7 @@ $$
 
 ## 3 New Log-linear Models
 simplify hidden layer
-![aac7caf3f593ce515c4e95eb5526d544.png](/blog/_resources/8801dc661bad4666a5d9d35f8a7b7c15.png)
+![aac7caf3f593ce515c4e95eb5526d544.png](../resources/8801dc661bad4666a5d9d35f8a7b7c15.png)
 ### 3.1 Continuous Bag-of-Words Model（CBOW）
 predicts the current word based on the context
 
@@ -116,11 +116,11 @@ $$
 ### 4.1 Task Description
 five types of semantic questions
 nine types of syntacitic questions
-![951ce6d5747200d1d2c5fe92aaa1435c.png](/blog/_resources/4d5b96dca07f47e2b4d71e35857b270e.png)
+![951ce6d5747200d1d2c5fe92aaa1435c.png](../resources/4d5b96dca07f47e2b4d71e35857b270e.png)
 
 ### 4.2 Maximization of Accuracy
 corpus: Google News
-![2364eb1b6d95d7c40ac06c6a292c2574.png](/blog/_resources/fb6e6b6a83054fc2b73ac9d0d0bb4903.png)
+![2364eb1b6d95d7c40ac06c6a292c2574.png](../resources/fb6e6b6a83054fc2b73ac9d0d0bb4903.png)
 
-![c1063b5ad5dc5fd4f38648083293e911.png](/blog/_resources/cdbe5287a3ef4722a62d103264abae82.png)
+![c1063b5ad5dc5fd4f38648083293e911.png](../resources/cdbe5287a3ef4722a62d103264abae82.png)
 

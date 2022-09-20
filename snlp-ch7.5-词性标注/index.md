@@ -34,7 +34,7 @@
 - 早期：人工构造
 - 语料发展：基于机器学习的规则自动提取
 - 基于转换的错误驱动的（transformation-based and error-driven）学习方法
-	![854384c41492cef39dfc8bf1b8dea46c.png](/blog/_resources/8785e3413f85461e8236524dc7ba71eb.png)
+	![854384c41492cef39dfc8bf1b8dea46c.png](../resources/8785e3413f85461e8236524dc7ba71eb.png)
 	- 劣势：学习时间过长
 	- 改进：[周明等, 1998]每次迭代只调整受到影响的小部分转换规则，而不需要搜索所有转换规则
 - [李晓黎等, 2000]数据采掘方法获取汉语词性标注

@@ -63,6 +63,6 @@ GLUE, SQuAD v1.1, SQuAD v2.0, SWAG
 - Feature-based Approach with BERT
 
 ## 6 Conclusion
-![88119d5820069cd6ea1914c6049a9682.png](/blog/_resources/e701f88d745347bab49f75565d6430cd.png)
+![88119d5820069cd6ea1914c6049a9682.png](../resources/e701f88d745347bab49f75565d6430cd.png)
 
-![d076d4b7ae2b58b370bc36b79dee3ac6.png](/blog/_resources/4276e9de919f4c90aca49affa924e24c.png)
+![d076d4b7ae2b58b370bc36b79dee3ac6.png](../resources/4276e9de919f4c90aca49affa924e24c.png)

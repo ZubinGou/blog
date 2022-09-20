@@ -34,7 +34,7 @@ $$
 \boldsymbol{h}\_{t}=f\left(\boldsymbol{h}\_{t-1}, \boldsymbol{x}\_{t}\right)
 $$
 
-![81e4df99fedfe0f854dccd8d3b624010.png](/blog/_resources/0bdf149e55604324a5ba88d700bc1455.png)
+![81e4df99fedfe0f854dccd8d3b624010.png](../resources/0bdf149e55604324a5ba88d700bc1455.png)
 
 RNN可以近似任意非线性动力系统
 FNN模拟任何连续函数，RNN模拟任何程序
@@ -74,14 +74,14 @@ RNN是图灵完备的：所有图灵机可以被一个由Sigmoid型激活函数�
 - 用最终状态表征序列：$\hat{y}=g\left(\boldsymbol{h}\_{T}\right)$
 - 用状态平均表征序列：$\hat{y}=g\left(\frac{1}{T} \sum\_{t=1}^{T} \boldsymbol{h}\_{t}\right)$
 
-![16de54428a759296151c0a40ceb3a148.png](/blog/_resources/635fea0b68a447e4bc084e4196738e6a.png)
+![16de54428a759296151c0a40ceb3a148.png](../resources/635fea0b68a447e4bc084e4196738e6a.png)
 
 ### 6.3.2 同步的序列到序列模式
 主要用于序列标注（Sequence Labeling）
 $$
 \hat{y}\_{t}=g\left(\boldsymbol{h}\_{t}\right), \quad \forall t \in[1, T]
 $$
-![504712ba1ce4cd0c08fbe135fd01551c.png](/blog/_resources/b5d5258f9b154c3abdf742c9a8a95317.png)
+![504712ba1ce4cd0c08fbe135fd01551c.png](../resources/b5d5258f9b154c3abdf742c9a8a95317.png)
 
 ### 6.3.3 异步的序列到序列模式
 也称编码器-解码器（Encoder-Decoder）模型
@@ -93,7 +93,7 @@ $$
 \end{aligned}
 $$
 
-![d11493a69d1333c611359c6852299976.png](/blog/_resources/d76fb7f95df3464bbf3db7294b4df942.png)
+![d11493a69d1333c611359c6852299976.png](../resources/d76fb7f95df3464bbf3db7294b4df942.png)
 
 ## 6.4 参数学习
 以同步的序列到序列为例：
@@ -132,7 +132,7 @@ $$
 \frac{\partial \mathcal{L}}{\partial \boldsymbol{b}} &=\sum\_{t=1}^{T} \sum\_{k=1}^{t} \delta\_{t, k}
 \end{aligned}
 $$
-![c53fb3c1cd1aa036ad02bd8a9dc38abc.png](/blog/_resources/7b3142af8f174aef8a8237f9882db903.png)
+![c53fb3c1cd1aa036ad02bd8a9dc38abc.png](../resources/7b3142af8f174aef8a8237f9882db903.png)
 
 ### 6.4.2 实时循环学习算法
 实时循环学习（Real-Time Recurrent Learning，RTRL）：前向传播计算梯度
@@ -184,7 +184,7 @@ $$
 \boldsymbol{o}\_{t} &=\sigma\left(\boldsymbol{W}\_{o} \boldsymbol{x}\_{t}+\boldsymbol{U}\_{o} \boldsymbol{h}\_{t-1}+\boldsymbol{b}\_{o}\right)
 \end{aligned}
 $$
-![408288a5d3a5eb6047f9becdea204fdc.png](/blog/_resources/f361134743fc46d1860e3fe8d5b039e6.png)
+![408288a5d3a5eb6047f9becdea204fdc.png](../resources/f361134743fc46d1860e3fe8d5b039e6.png)
 
 简洁描述：
 $$
@@ -255,7 +255,7 @@ $$
 \boldsymbol{h}\_{t}=\boldsymbol{z}\_{t} \odot \boldsymbol{h}\_{t-1}+\left(1-\boldsymbol{z}\_{t}\right) \odot \tilde{\boldsymbol{h}}\_{t}
 $$
 
-![c4496410ffccdb84a1f142483d6295a2.png](/blog/_resources/cba3271bf4a145739bb6734065d163a3.png) 
+![c4496410ffccdb84a1f142483d6295a2.png](../resources/cba3271bf4a145739bb6734065d163a3.png) 
 - 当 $z_t$ = 0, r = 1 时，GRU 网络退化为简单循环网络
 
 
@@ -269,7 +269,7 @@ $$
 $$
 \boldsymbol{h}\_{t}^{(l)}=f\left(\boldsymbol{U}^{(l)} \boldsymbol{h}\_{t-1}^{(l)}+\boldsymbol{W}^{(l)} \boldsymbol{h}\_{t}^{(l-1)}+\boldsymbol{b}^{(l)}\right)
 $$
-![941131d7dbea18699d55db024d53ff45.png](/blog/_resources/d9c6db16a0a24964a5497bb6d88b44bb.png)
+![941131d7dbea18699d55db024d53ff45.png](../resources/d9c6db16a0a24964a5497bb6d88b44bb.png)
 
 ### 6.7.2 双向循环神经网络
 双向循环神经网络（Bidirectional Recurrent Neural Network，Bi-RNN）
@@ -282,14 +282,14 @@ $$
 \end{aligned}
 $$
 
-![065229f6defac23475a14f553250364b.png](/blog/_resources/8100f4e648b14ddeb4a6692e740ce82c.png)
+![065229f6defac23475a14f553250364b.png](../resources/8100f4e648b14ddeb4a6692e740ce82c.png)
 
 
 ## 6.8 扩展到图结构
 
 ### 6.8.1 递归神经网络
 递归神经网络（Recursive Neural Network，RecNN）：RNN在有向无环图上的扩展
-![2ee792e0be9dee2160ba2e01b5c8441b.png](/blog/_resources/18e3c5dc6352458ebf5b91d8a8c11435.png)
+![2ee792e0be9dee2160ba2e01b5c8441b.png](../resources/18e3c5dc6352458ebf5b91d8a8c11435.png)
 - RecNN退化为线性序列结构时，等价于简单循环网络
 
 RecNN主要用于建模自然语言句子的语义

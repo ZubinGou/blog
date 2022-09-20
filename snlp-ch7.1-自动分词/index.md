@@ -41,7 +41,7 @@
 	4. 其他专用名词，如新出现的产品、电影、书籍名
 	- 黄昌宁等人（2003）统计，未登录词约九成为专有名词，其余为新词
 - 实际应用中未登录词的影响远大于歧义切分：
-	![d7be7fa7cd2deee23cab488bdae47afe.png](/blog/_resources/0c7aa4165cb94cefb13ba7dbe8447d28.png)
+	![d7be7fa7cd2deee23cab488bdae47afe.png](../resources/0c7aa4165cb94cefb13ba7dbe8447d28.png)
 - 需要说明的是，在汉语分词中对命名实体词汇的识别处理是指将命名实体中可独立成词的切分单位正确地识别出来，而不是指识别整个实体的左右边界。
 
 
@@ -68,7 +68,7 @@
 	2. 每个词对应一条有向边，边长为权值
 	3. 求出N条最短路，作为粗分结果集（算并列长度，最后集合大小>=N）
 - 建立词边：
-	![a668f30139f25d047243fceccbc71e50.png](/blog/_resources/01adf2b46ad540cc8bae34b14cd1adfc.png)
+	![a668f30139f25d047243fceccbc71e50.png](../resources/01adf2b46ad540cc8bae34b14cd1adfc.png)
 	
 - 考虑边长影响，分为两种模型
 	1. 非统计粗分模型：所有词权重对等，即词边长均为1
@@ -77,7 +77,7 @@
 		- 求解方法：贪心，即Dijkstra简单扩展
 			1. 记录每个结点N个最短路和前驱
 			2. 回溯求解NSP
-			![c45eda261562b8a677da731e209970a8.png](/blog/_resources/0e913d8661614ef2bfe0f03d217b8fc8.png)
+			![c45eda261562b8a677da731e209970a8.png](../resources/0e913d8661614ef2bfe0f03d217b8fc8.png)
 		- 复杂度：字符串长度n，最短路径数N，某字作为词尾的平均次数k（总词数/末端词数，即切分图中结点入度平均值），算法复杂度为$O(n\times N\times k)$
 	2. 统计粗分模型
 		- 词权重设置为词频负对数：$-\ln P(w_i)$
@@ -95,7 +95,7 @@
 	1. 用词典对句子简单匹配，找出所有可能的词典词
 	2. 将词典词和所有单个字作为结点，构造n元切分词图
 	3. 边上概率表示代价，利用搜索算法（如Viterbi算法）找出代价最小路径
-	![e773bac8834931727cc0fb67e73deb47.png](/blog/_resources/41c55cb890f0441c8af23aa6e3325d55.png)
+	![e773bac8834931727cc0fb67e73deb47.png](../resources/41c55cb890f0441c8af23aa6e3325d55.png)
 - 未登录词与歧义切分一体化处理：改进的信源信道模型的分词方法[J.Gao等, 2003]
 	- 受到启发：[Richard Sproat等, 1996]的基于加权的有限状态转换机（weighted finite-state transducer）模型与未登录词识别一体化切分的实现方法
 
@@ -110,7 +110,7 @@
 	- 贝叶斯：$W^*=\underset{W}{\operatorname{argmax}} \frac{P(W) P(S \mid W)}{P(S)}$
 	- 分母为归一化因子：$W^{*}=\underset{W}{\operatorname{argmax}} P(W) P(S \mid W)$
 - 按下表可以把一个可能的词序列W转换成一个可能的词类序列$C＝c_1c_2…c_N$
-	![fe3791a431566a9784181f3446b4db51.png](/blog/_resources/c0f6e4231aef408cab2d9b5e3d4def25.png)
+	![fe3791a431566a9784181f3446b4db51.png](../resources/c0f6e4231aef408cab2d9b5e3d4def25.png)
 	- $W^\*$改写为：$C^{*}=\underset{C}{\operatorname{argmax}} P(C) P(S \mid C)$
 	- P(C)即语言模型
 	- P(S|C)称生成模型
@@ -134,7 +134,7 @@
 - 由字构词（character-based tagging）的汉语分词方法[Xue and Converse,2002]
 - 思想：将分词过程看作字的分类问题
 - 规定每个字只有4个词位：词首（B）、词中（M）、词尾（E）和单独成词（S）
-	![d9fda95b1b9f2bb08497e744856296d9.png](/blog/_resources/8bc2cb8ecf1144d7a1c139f922635283.png)
+	![d9fda95b1b9f2bb08497e744856296d9.png](../resources/8bc2cb8ecf1144d7a1c139f922635283.png)
 - 原理：将分词结果表示成字标注形式，分词问题转化为序列标注问题
 	- 对于汉语句子$C^{n}={c}\_{1} {c}\_{2} \ldots {c}\_{ {n}}$
 	- $P\left(t\_{1}^{n} \mid c\_{1}^{n}\right)=\prod\_{k=1}^{n} P\left(t\_{k} \mid t\_{1}^{k-1}, c\_{1}^{n}\right) \approx \prod\_{k=1}^{n} P\left(t\_{k} \mid t\_{k-1}, c\_{k-2}^{k-2}\right)$
@@ -159,16 +159,16 @@
 $$F(x)=\arg \max \_{y \in \operatorname{GEN}(x)}\{\Phi(x, y) \cdot \alpha\}$$
 
 - 训练算法如下：
-	![f8cecfff110697fa575a11ac89bb9591.png](/blog/_resources/f9f31357d60d4a08a757c287fecc8973.png)
+	![f8cecfff110697fa575a11ac89bb9591.png](../resources/f9f31357d60d4a08a757c287fecc8973.png)
 - 词感知机思路：
 	1. 解码器每次读入一个字，生成所有候选词，候选词两种：
 		a. 作为上一个候选词末尾
 		b. 作文下一个候选字开始
 	2. 解码器维持源列表、目标列表（滚动数组），每读入一个词，与源列表每个候选组合为两个新候选（合并为新词或者作为下一个词的开始），新候选放入目标列表
 	3. 处理完成后，copy 目标列表 to 源列表，clear 目标列表，读入下一个词，重复（2）
-	![c3807219be7b261cffe418940923398b.png](/blog/_resources/5cc7e868835f4ad78978e361456b140e.png)
+	![c3807219be7b261cffe418940923398b.png](../resources/5cc7e868835f4ad78978e361456b140e.png)
 - 该解码算法类似于全切分方法，理论上会生成所有$w^{l-1}$个切分结果（l为句长），为提升切分速度，限制目标列表tgt保留B个最高得分的候选（eg. B=16）。对tgt列表中切分候选打分和排序采用平均感知机分类器算法[Zhang and Clark, 2007]，使用如下特征：
-![6b74977fe04823b6d064993e1d7f361e.png](/blog/_resources/3262af5dbe6a448494101ae2bc36890c.png)
+![6b74977fe04823b6d064993e1d7f361e.png](../resources/3262af5dbe6a448494101ae2bc36890c.png)
 
 
 ### 7.2.5 基于字的生成式模型和区分式模型相结合的汉语分词方法
@@ -178,7 +178,7 @@ $$F(x)=\arg \max \_{y \in \operatorname{GEN}(x)}\{\Phi(x, y) \cdot \alpha\}$$
 	2. 基于字的序列标注模型（区分式模型）
 		- 集外词效果好，集内词效果差
 - ［Wang et al., 2012］两个处于词边界的字的依赖关系和两个处于词内部的字的依赖关系不同（容易理解，词内部字依赖关系更强）
-	![9c06d04caa5d8c39170d8440d626b8cd.png](/blog/_resources/908d280cb2704e8e8e8dec02e9e10ef5.png)
+	![9c06d04caa5d8c39170d8440d626b8cd.png](../resources/908d280cb2704e8e8e8dec02e9e10ef5.png)
 - 两大方法优缺点：
 	1. 基于词的生成式模型实际上隐含地考虑了这种处于不同位置字之间
 的依赖关系，而在基于字的判别式模型中却无法考虑这种依赖关系。
@@ -219,12 +219,12 @@ $$F(x)=\arg \max \_{y \in \operatorname{GEN}(x)}\{\Phi(x, y) \cdot \alpha\}$$
 
 ### 7.2.7 分词方法比较
 - 测评语料：
-	![dbf3ab7f574cf8586da7a33ffe2e0820.png](/blog/_resources/7fe44984dbb8458184b876a2ce85d056.png)
+	![dbf3ab7f574cf8586da7a33ffe2e0820.png](../resources/7fe44984dbb8458184b876a2ce85d056.png)
 - 测评指标：
-	![ff33397139b09acde0bd5523624f0db8.png](/blog/_resources/8479a0877f1f4b308329fa233127b17d.png)
+	![ff33397139b09acde0bd5523624f0db8.png](../resources/8479a0877f1f4b308329fa233127b17d.png)
 - 测评结果：
-	![234ffbf2c9c45d2483125f22a119216c.png](/blog/_resources/550269bc9d5842b683e3e6469c850890.png)
-	![a55b55044e3efe14bc4d8a3fd28c5aa6.png](/blog/_resources/b48c36939bd94b7cbf8e98455964d99f.png)
+	![234ffbf2c9c45d2483125f22a119216c.png](../resources/550269bc9d5842b683e3e6469c850890.png)
+	![a55b55044e3efe14bc4d8a3fd28c5aa6.png](../resources/b48c36939bd94b7cbf8e98455964d99f.png)
 - 存在难题：
 	- 跨领域分词性能
 	- 非规范文本：微博、短信，存在大量新词、流行语

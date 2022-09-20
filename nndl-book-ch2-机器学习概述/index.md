@@ -3,7 +3,7 @@
 
 # 2 机器学习概述
 ## 2.1 基本概念
-![5f6ed6d7a72c0ef1642b1419f57000ec.png](/blog/_resources/0c6c8d9eb5e34dd792a11d7edce6d558.png)
+![5f6ed6d7a72c0ef1642b1419f57000ec.png](../resources/0c6c8d9eb5e34dd792a11d7edce6d558.png)
 
 ## 2.2 机器学习三要素
 - 模型
@@ -100,12 +100,12 @@ $$\quad=\mathbb{E}\_{\mathcal{D}}\left[\left(f\_{\mathcal{D}}(\boldsymbol{x})-\m
 
 $$\quad=\underbrace{\left(\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\boldsymbol{x})\right]-f^{\*}(\boldsymbol{x})\right)^{2}}\_{\text {(bias.} \mathrm{x})^{2}}+\underbrace{\mathbb{E}\_{\mathcal{D}}\left[\left(f\_{\mathcal{D}}(\boldsymbol{x})-\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\boldsymbol{x})\right]\right)^{2}\right]}\_{\text {variance.} \mathrm{x}},$$
 
-![f2a461e93ab4c01948036725631693a7.png](/blog/_resources/c7687aa1e3bf4cb097f5eff1b0e00eae.png)
+![f2a461e93ab4c01948036725631693a7.png](../resources/c7687aa1e3bf4cb097f5eff1b0e00eae.png)
 
-![31db780d35f0bc8de934e105669d0ec2.png](/blog/_resources/7c75237538054f9f9d3bba82648419af.png)
+![31db780d35f0bc8de934e105669d0ec2.png](../resources/7c75237538054f9f9d3bba82648419af.png)
 
 ## 2.5 机器学习算法的类型
-![c18f2f6e041d2844cd1750acf122869f.png](/blog/_resources/a7d5d3537b0541178dbf8c32884a5786.png)
+![c18f2f6e041d2844cd1750acf122869f.png](../resources/a7d5d3537b0541178dbf8c32884a5786.png)
 
 ## 2.6 数据的特征表示
 图像特征：简单表示为$M\times N$维向量。为提高准确率，也常常加入额外特征，如直方图、宽高比、纹理特征、边缘特征等。假设总共抽取了D个特征，则这些特征可以表示为一个向量$x \in \mathbb{R}^{D}$
@@ -139,7 +139,7 @@ $$\quad=\underbrace{\left(\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\bolds
 		- 监督：抽取对特性任务最有用的特征，eg. 线性判别分析（Linear Discriminant Analysis，LDA）
 		- 无监督：与具体任务无关，目的通常是减少冗余信息和噪声，eg. 主成分分析（Principal Component Analysis，PCA）和自编码器（Auto-Encoder，AE）
 
-![297240b74879b94c7acfd1a9805e1732.png](/blog/_resources/4d33184115d0432bbf5ba35b023bab54.png)
+![297240b74879b94c7acfd1a9805e1732.png](../resources/4d33184115d0432bbf5ba35b023bab54.png)
 
 特征选择和特征抽取的优点：用较少特征表示原始特征大部分信息，去掉噪声信息，并进而调高计算效率和减小维度灾难（Curse of Dimensionality）。因为特征选择或抽取后一般特征数量会减少，也经常称为维数约减或降维（Dimension Reduction）。
 
@@ -151,7 +151,7 @@ $$\quad=\underbrace{\left(\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\bolds
 ## 2.7 评价指标
 - 准确率（Accuracy）：$\mathcal{A}=\frac{1}{N} \sum\_{n=1}^{N} I\left(y^{(n)}=\hat{y}^{(n)}\right)$
 - 错误率（Error Rate）：$\begin{aligned} \mathcal{E} &=1-\mathcal{A} \\\\ &=\frac{1}{N} \sum\_{n=1}^{N} I\left(y^{(n)} \neq \hat{y}^{(n)}\right) \end{aligned}$
-![6e3be3d20d784add857bb60e0892b113.png](/blog/_resources/d43f8ec19b0947e399b1e80a01bcd3ff.png)
+![6e3be3d20d784add857bb60e0892b113.png](../resources/d43f8ec19b0947e399b1e80a01bcd3ff.png)
 - 精确率/精度/查准率（Precision）：$\mathcal{P}\_{c}=\frac{T P\_{c}}{T P\_{c}+F P\_{c}}$
 - 召回率（Recall）/查全率：$\mathcal{R}\_{c}=\frac{T P\_{c}}{T P\_{c}+F N\_{c}}$
 - F值（F Measure）：$\mathcal{F}\_{c}=\frac{\left(1+\beta^{2}\right) \times \mathcal{P}\_{c} \times \mathcal{R}\_{c}}{\beta^{2} \times \mathcal{P}\_{c}+\mathcal{R}\_{c}}$
@@ -217,7 +217,7 @@ eg. 最近邻分类器中，我们会假设在特征空间中，一个小的局�
 最小化平方损失函数本质上等同于在误差服从高斯分布的假设下的极大似然估计，在分类问题下大部分时候误差并不服从高斯分布。
 
 #### 2-2
-![e4fa93d5a8c31fdeb83c11c0e8ef7b0f.png](/blog/_resources/6761b09973b44c4cbf45dbb7c8dbdbc4.png)
+![e4fa93d5a8c31fdeb83c11c0e8ef7b0f.png](../resources/6761b09973b44c4cbf45dbb7c8dbdbc4.png)
 $w=\left(X^{T} R X\right)^{-1}(R X)^{T} Y$
 每个样本重视程度不同
 

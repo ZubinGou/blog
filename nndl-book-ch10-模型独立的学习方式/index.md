@@ -47,7 +47,7 @@ $$
 
 AdaBoost（Adaptive Boosting）算法：加法模型，指数损失函数，前向分步（Stage-Wise）优化的二类分类学习方法。
 
-![20173aa9dfef290f912eace569059e6a.png](/blog/_resources/58e89671133641f4b76d901df9f9143e.png)
+![20173aa9dfef290f912eace569059e6a.png](../resources/58e89671133641f4b76d901df9f9143e.png)
 
 
 ## 10.2 自训练和协同训练
@@ -56,7 +56,7 @@ AdaBoost（Adaptive Boosting）算法：加法模型，指数损失函数，前�
 ### 10.2.1 自训练
 自训练（Self-Training，或 Self-Teaching）：自举法（Bootstrapping），将预测置信度高的样本及其伪标签加入训练集，然后重新训练，不断反复。
 
-![d7aa115ad53b8922cdd297760d8bc24d.png](/blog/_resources/945904d218fe44b099e5e5084a3f7f02.png)
+![d7aa115ad53b8922cdd297760d8bc24d.png](../resources/945904d218fe44b099e5e5084a3f7f02.png)
 
 自训练与密度估计中 EM 算法相似，都是通过不断迭代提高模型能力。
 
@@ -72,7 +72,7 @@ AdaBoost（Adaptive Boosting）算法：加法模型，指数损失函数，前�
 
 协同训练步骤：训练不同视角两个模型，在无标注数据集预测并各自选取置信度较高的样本加入训练集，重新训练两个模型，不断反复。
 
-![8f26b271bb22913ad7720496c024b6d7.png](/blog/_resources/616d443216324cd8a11cb05a71ba7929.png)
+![8f26b271bb22913ad7720496c024b6d7.png](../resources/616d443216324cd8a11cb05a71ba7929.png)
 
 
 ## 10.3 多任务学习
@@ -84,7 +84,7 @@ AdaBoost（Adaptive Boosting）算法：加法模型，指数损失函数，前�
 
 主要挑战：设计**共享机制**
 
-![efe3f0b71468b8dce780b182749f240a.png](/blog/_resources/452d8f87fa894184b4379acd30049d32.png)
+![efe3f0b71468b8dce780b182749f240a.png](../resources/452d8f87fa894184b4379acd30049d32.png)
 
 学习步骤：
 通常使用交替训练近似同时学习，联合目标函数为各任务目标函数加权。
@@ -99,7 +99,7 @@ AdaBoost（Adaptive Boosting）算法：加法模型，指数损失函数，前�
 
 迁移学习：两个不同领域的知识迁移过程
 
-![4478f6a6d96f8d6e9868ce7425696a53.png](/blog/_resources/ba705b13080d41a18729098d7783734a.png)
+![4478f6a6d96f8d6e9868ce7425696a53.png](../resources/ba705b13080d41a18729098d7783734a.png)
 
 根据迁移方式分类：
 1. 归纳迁移学习（Inductive Transfer Learning）：在源领域和任务上学习出一般的规律
@@ -217,7 +217,7 @@ $$
 ### 10.6.1 基于优化器的元学习
 不同的优化算法的区别在于更新参数的规则不同，因此一种很自然的元学习是自动学习参数更新规则，即通过另一个神经网络建模梯度下降过程。
 
-![96339ae9875a9446163768a0c73e5fa4.png](/blog/_resources/1299c3b56b434212b7f5c82efd4b0609.png)
+![96339ae9875a9446163768a0c73e5fa4.png](../resources/1299c3b56b434212b7f5c82efd4b0609.png)
 
 用函数 $g\_{t}(\cdot)$ 输入梯度预测参数的更新差值 $\Delta \theta\_{t}$，第 t 步更新规则：
 
@@ -265,7 +265,7 @@ $$
 $\beta$ 为元学习率，$\alpha$ 较小时 MAML 近似为普通多任务学习优化方法。MAML 需要计算二阶梯度，可以用一阶方法近似。
 
 
-![f1e8f198d9521b552f294b3b98c9ac93.png](/blog/_resources/bd8fe2eb2abf48a78f9829473226ae65.png)
+![f1e8f198d9521b552f294b3b98c9ac93.png](../resources/bd8fe2eb2abf48a78f9829473226ae65.png)
 
 ## 习题选做
 
