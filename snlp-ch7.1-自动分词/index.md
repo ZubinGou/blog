@@ -136,7 +136,7 @@
 - 规定每个字只有4个词位：词首（B）、词中（M）、词尾（E）和单独成词（S）
 	![d9fda95b1b9f2bb08497e744856296d9.png](../../_resources/8bc2cb8ecf1144d7a1c139f922635283.png)
 - 原理：将分词结果表示成字标注形式，分词问题转化为序列标注问题
-	- 对于汉语句子$C^{n}={c}\_{1} {c}\_{2} \ldots {c}\_{{n}}$
+	- 对于汉语句子$C^{n}={c}\_{1} {c}\_{2} \ldots {c}\_{ {n}}$
 	- $P\left(t\_{1}^{n} \mid c\_{1}^{n}\right)=\prod\_{k=1}^{n} P\left(t\_{k} \mid t\_{1}^{k-1}, c\_{1}^{n}\right) \approx \prod\_{k=1}^{n} P\left(t\_{k} \mid t\_{k-1}, c\_{k-2}^{k-2}\right)$
 		- $t_k\in \{B, M, E, S\}$
 - 特征窗口

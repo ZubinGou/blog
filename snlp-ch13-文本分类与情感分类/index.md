@@ -5,9 +5,9 @@
 
 ## 13.1 文本分类概述
 - [Sebastiani, 2002]数学模型描述文本分类：
-	- 获得函数（分类器）：$\Phi: {D} \times {C} \rightarrow\{{T}, \quad {F}\}$
+	- 获得函数（分类器）：$\Phi: {D} \times {C} \rightarrow\{ {T}, \quad {F}\}$
 	- 文档：$D=\{d_1, d_2, ...,d\_{|D|}\}$
-	- 类别：${C}=\left\{{c}\_{1}, {c}\_{2}, \ldots, {c}\_{|C|}\right\}$
+	- 类别：${C}=\left\{ {c}\_{1}, {c}\_{2}, \ldots, {c}\_{|C|}\right\}$
 - 关键问题
 	- 文本表示
 	- 分类器设计
