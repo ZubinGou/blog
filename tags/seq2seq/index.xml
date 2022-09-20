@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Seq2seq - 标签 - Zubin`s Blog</title>
+        <link>https://zubingou.github.io/blog/tags/seq2seq/</link>
+        <description>Seq2seq - 标签 - Zubin`s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>zebgou@gmail.com (ZubinGou)</managingEditor>
+            <webMaster>zebgou@gmail.com (ZubinGou)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 10 Feb 2019 13:46:57 &#43;0800</lastBuildDate><atom:link href="https://zubingou.github.io/blog/tags/seq2seq/" rel="self" type="application/rss+xml" /><item>
+    <title>机器学习写诗项目-AI诗人</title>
+    <link>https://zubingou.github.io/blog/project-ai-poet-totoro/</link>
+    <pubDate>Sun, 10 Feb 2019 13:46:57 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/project-ai-poet-totoro/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

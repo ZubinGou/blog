@@ -1,0 +1,94 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>NLP - 分类 - Zubin`s Blog</title>
+        <link>https://zubingou.github.io/blog/categories/nlp/</link>
+        <description>NLP - 分类 - Zubin`s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>zebgou@gmail.com (ZubinGou)</managingEditor>
+            <webMaster>zebgou@gmail.com (ZubinGou)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 24 Mar 2021 14:56:11 &#43;0800</lastBuildDate><atom:link href="https://zubingou.github.io/blog/categories/nlp/" rel="self" type="application/rss+xml" /><item>
+    <title>【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</title>
+    <link>https://zubingou.github.io/blog/nlp-papersbert_-pre-training-of-deep-bidirection/</link>
+    <pubDate>Wed, 24 Mar 2021 14:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nlp-papersbert_-pre-training-of-deep-bidirection/</guid>
+    <description><![CDATA[[Devlin et al., NAACL 2019]
+BERT: Bidirectional Encoder representations from Transformers
+1 Introduction two pre-train strategies:
+ feature-based  ELMo: task-specific architecture   fine-tuning  GPT     limitations: standard language models are unidirectional masked language model (MLM, inspired by Cloze task) use a &ldquo;next sentence prediction&rdquo; task that jointly pretain text-pair representations  2 Related Work 2.1 Unsupervised Feature-based Approaches from word2vec to ELMo&hellip;
+2.2 Unsupervised Fine-tuning Approaches GPT use left-to-right language modeling and auto-encoder objectives]]></description>
+</item>
+<item>
+    <title>【NLP Papers】Contextual Word Representations: A Contextual Introduction</title>
+    <link>https://zubingou.github.io/blog/nlp-paperscontextual-word-representations_-a-con/</link>
+    <pubDate>Wed, 24 Mar 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nlp-paperscontextual-word-representations_-a-con/</guid>
+    <description><![CDATA[Word Representations 综述 [Noah A. Smith, 2020] 1 Preliminaries 两种word定义： word token：word observed in a piece of text word type: distinct word, rather than a specific instance 每个word type可能有多个word token实]]></description>
+</item>
+<item>
+    <title>【NLP Papers】ELMo: Deep contextualized word representations</title>
+    <link>https://zubingou.github.io/blog/nlp-paperselmo_-deep-contextualized-word-represe/</link>
+    <pubDate>Wed, 24 Mar 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nlp-paperselmo_-deep-contextualized-word-represe/</guid>
+    <description><![CDATA[[Peters et al., NAACL 2018a]
+ use bidirectional language model to train contextual word vector. use these vector as pre-train part of existing models, improve SOTA across six tasks. analysis showing that exposing the deep internals of the pre-trained network is crucial  1 Introduction pre-trained word representations should model both:
+ complex characteristic of word use (e.g., syntax and semantics) how these uses vary across linguistic contexts (i.e., to model polysemy)  ELMo: Embeddings from Language Models]]></description>
+</item>
+<item>
+    <title>【NLP Papers】NER：BiLSTM-CRF</title>
+    <link>https://zubingou.github.io/blog/nlp-papersnerbilstm-crf/</link>
+    <pubDate>Wed, 10 Mar 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nlp-papersnerbilstm-crf/</guid>
+    <description><![CDATA[Neural Architectures for Named Entity Recognition [Lample et. al., 2016] 摘要 NER之前的SOTA：大量手工特征、领域知识，泛化能力差 介绍了两种模型： BiLSTM-CRF Stack-LSTM：类似移进-规约的 transition-based 方]]></description>
+</item>
+<item>
+    <title>NNLP: A Primer on Neural Network Models for Natural Language Processing</title>
+    <link>https://zubingou.github.io/blog/nnlp-notes/</link>
+    <pubDate>Tue, 02 Feb 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nnlp-notes/</guid>
+    <description><![CDATA[一篇非常简洁的神经网络应用于NLP的综述（2016）。 1. Introduction purpose 过去近十年: NLP通常使用线性机器学习模型（SVM、LR）在高维稀疏特征向量上训]]></description>
+</item>
+<item>
+    <title>【NLP Papers】word2vec improvement</title>
+    <link>https://zubingou.github.io/blog/nlp-papersword2vec-improvement/</link>
+    <pubDate>Mon, 25 Jan 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nlp-papersword2vec-improvement/</guid>
+    <description><![CDATA[Distributed Representations of Words and Phrases and their Compositionality [Mikolov 2013] negative sampling with Skip-gram 1 Abstract &amp; Introduction several extensions of continuous skip-gram that improve quality and speed: subsampling of the frequent words speedup (around 2x - 10x) improve accuracy of less frequent words Noise Contrastive Estimation (NCE) replace hierarchical softmax nagative sampling (alternative to hierarchical softmax) treat word pairs / phase as one word interesting property of Skip-gram:]]></description>
+</item>
+<item>
+    <title>【NLP Papers】word2vec</title>
+    <link>https://zubingou.github.io/blog/nlp-papersword2vec/</link>
+    <pubDate>Mon, 25 Jan 2021 11:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nlp-papersword2vec/</guid>
+    <description><![CDATA[Efficient Estimation of Word Representations in Vector Space [Mikolov 2013] original word2vec paper images from The Pre-LSTM Ice-Age References https://machinelearningmedium.com/2017/07/11/word-to-vector-word-representations/ Y. Bengio, R. Ducharme, P. Vincent. A neural probabilistic language model. Journal of Machine Learning Research, 3:1137-1155, 2003. T. Mikolov, M. Karafi´at, L. Burget, J. ˇCernock´y, S. Khudanpur. Recurrent neural network]]></description>
+</item>
+<item>
+    <title>《统计自然语言处理》第13章 - 文本分类与情感分类</title>
+    <link>https://zubingou.github.io/blog/snlp-ch13-%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B8%8E%E6%83%85%E6%84%9F%E5%88%86%E7%B1%BB/</link>
+    <pubDate>Wed, 20 Jan 2021 17:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/snlp-ch13-%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B8%8E%E6%83%85%E6%84%9F%E5%88%86%E7%B1%BB/</guid>
+    <description><![CDATA[ch13 文本分类与情感分类 13.1 文本分类概述 [Sebastiani, 2002]数学模型描述文本分类： 获得函数（分类器）：$\Phi: {D} \times {C} \rightarrow{ {T}, \quad {F}}$ 文档：$D={d_1, d_2, &hellip;,d_{|D|}}$]]></description>
+</item>
+<item>
+    <title>《统计自然语言处理》第9.1章 - 语义分析</title>
+    <link>https://zubingou.github.io/blog/snlp-ch9-%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</link>
+    <pubDate>Tue, 19 Jan 2021 17:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/snlp-ch9-%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</guid>
+    <description><![CDATA[ch9 语义分析 NLP最终目的一定程度上是在语义理解的基础上实现响应的操作 语义计算十分困难：模拟人脑思维过程，建立语言、知识与客观世界之间的可计算]]></description>
+</item>
+<item>
+    <title>《统计自然语言处理》第8.1章 - 句法分析</title>
+    <link>https://zubingou.github.io/blog/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/</link>
+    <pubDate>Tue, 19 Jan 2021 10:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/</guid>
+    <description><![CDATA[ch8 句法分析 基本任务：确定句子的句法结构（syntactic structure）或句子中词汇之间的依存关系 分类： 句法结构分析（syntacti]]></description>
+</item>
+</channel>
+</rss>

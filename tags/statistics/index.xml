@@ -1,0 +1,88 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>statistics - 标签 - Zubin`s Blog</title>
+        <link>https://zubingou.github.io/blog/tags/statistics/</link>
+        <description>statistics - 标签 - Zubin`s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>zebgou@gmail.com (ZubinGou)</managingEditor>
+            <webMaster>zebgou@gmail.com (ZubinGou)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 20 Jan 2021 17:56:11 &#43;0800</lastBuildDate><atom:link href="https://zubingou.github.io/blog/tags/statistics/" rel="self" type="application/rss+xml" /><item>
+    <title>《统计自然语言处理》第13章 - 文本分类与情感分类</title>
+    <link>https://zubingou.github.io/blog/snlp-ch13-%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B8%8E%E6%83%85%E6%84%9F%E5%88%86%E7%B1%BB/</link>
+    <pubDate>Wed, 20 Jan 2021 17:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/snlp-ch13-%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B8%8E%E6%83%85%E6%84%9F%E5%88%86%E7%B1%BB/</guid>
+    <description><![CDATA[ch13 文本分类与情感分类 13.1 文本分类概述 [Sebastiani, 2002]数学模型描述文本分类： 获得函数（分类器）：$\Phi: {D} \times {C} \rightarrow{ {T}, \quad {F}}$ 文档：$D={d_1, d_2, &hellip;,d_{|D|}}$]]></description>
+</item>
+<item>
+    <title>《统计自然语言处理》第9.1章 - 语义分析</title>
+    <link>https://zubingou.github.io/blog/snlp-ch9-%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</link>
+    <pubDate>Tue, 19 Jan 2021 17:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/snlp-ch9-%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</guid>
+    <description><![CDATA[ch9 语义分析 NLP最终目的一定程度上是在语义理解的基础上实现响应的操作 语义计算十分困难：模拟人脑思维过程，建立语言、知识与客观世界之间的可计算]]></description>
+</item>
+<item>
+    <title>《统计自然语言处理》第8.1章 - 句法分析</title>
+    <link>https://zubingou.github.io/blog/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/</link>
+    <pubDate>Tue, 19 Jan 2021 10:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/</guid>
+    <description><![CDATA[ch8 句法分析 基本任务：确定句子的句法结构（syntactic structure）或句子中词汇之间的依存关系 分类： 句法结构分析（syntacti]]></description>
+</item>
+<item>
+    <title>《统计自然语言处理》第7.5章 - 词性标注</title>
+    <link>https://zubingou.github.io/blog/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/</link>
+    <pubDate>Mon, 18 Jan 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/</guid>
+    <description><![CDATA[7.5 词性标注 7.5.1 概述 词性（part-of-speech）是词汇基本的语法属性，也称词类 主要难点 汉语缺乏词形态变化，不能从形态变化判别词类 常用词兼]]></description>
+</item>
+<item>
+    <title>《统计自然语言处理》第7.3章 - 命名实体识别</title>
+    <link>https://zubingou.github.io/blog/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/</link>
+    <pubDate>Sun, 17 Jan 2021 18:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/</guid>
+    <description><![CDATA[7.3 命名实体识别 7.3.1 方法概述 实体概念在文本中的引用（entity mention，指称项）三种形式 命名性指称 名词性指称 代词性指称 “［［中国］乒乓球]]></description>
+</item>
+<item>
+    <title>《统计自然语言处理》第7.1章 - 自动分词</title>
+    <link>https://zubingou.github.io/blog/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/</link>
+    <pubDate>Sun, 17 Jan 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/</guid>
+    <description><![CDATA[7.1 汉语自动分词中的基本问题 词是最小的能够独立运用的语言单位，很多孤立语和黏着语文本不像西方屈折语文本，词与词之间没有空格显示指示词的边界，首]]></description>
+</item>
+<item>
+    <title>《统计自然语言处理》第6章 - 概率图模型</title>
+    <link>https://zubingou.github.io/blog/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/</link>
+    <pubDate>Sat, 16 Jan 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/</guid>
+    <description><![CDATA[6.1 概述 概率图模型（probabilistic graphical models）：在概率模型的基础上，使用基于图的方法表示概率分布/概率密度/密度函数，是一种通]]></description>
+</item>
+<item>
+    <title>《统计自然语言处理》第3章 - 形式语言与自动机</title>
+    <link>https://zubingou.github.io/blog/snlp-ch3-%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA/</link>
+    <pubDate>Fri, 15 Jan 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/snlp-ch3-%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA/</guid>
+    <description><![CDATA[ch3 形式语言与自动机 注：本章笔记参考（王柏、杨娟）《形式语言与自动机》 3.1 基本概念 图、树、字符串 3.2 形式语言 语言定义和运算 字母表 T：字符的有限集合]]></description>
+</item>
+<item>
+    <title>《统计自然语言处理》第5章 - 语言模型</title>
+    <link>https://zubingou.github.io/blog/snlp-ch5-%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/</link>
+    <pubDate>Fri, 15 Jan 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/snlp-ch5-%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/</guid>
+    <description><![CDATA[语言模型（language model, LM） 目前主要采用：n元语法模型（n-gram model），构建简单、直接，但同时也因为数据缺乏而必须采取平滑（]]></description>
+</item>
+<item>
+    <title>《统计自然语言处理》第4章 - 语料库与语言知识库</title>
+    <link>https://zubingou.github.io/blog/snlp-ch4-%E8%AF%AD%E6%96%99%E5%BA%93%E4%B8%8E%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E5%BA%93/</link>
+    <pubDate>Thu, 14 Jan 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/snlp-ch4-%E8%AF%AD%E6%96%99%E5%BA%93%E4%B8%8E%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E5%BA%93/</guid>
+    <description><![CDATA[4.1 语料库技术 4.1.1 概述 语料库（corpus base）就是存放语言材料的数据库 语料库语言学（corpus linguistics）就是基于语料库进行]]></description>
+</item>
+</channel>
+</rss>

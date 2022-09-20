@@ -1,0 +1,88 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Deep Learning - 分类 - Zubin`s Blog</title>
+        <link>https://zubingou.github.io/blog/categories/deep-learning/</link>
+        <description>Deep Learning - 分类 - Zubin`s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>zebgou@gmail.com (ZubinGou)</managingEditor>
+            <webMaster>zebgou@gmail.com (ZubinGou)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 01 Aug 2021 13:56:11 &#43;0800</lastBuildDate><atom:link href="https://zubingou.github.io/blog/categories/deep-learning/" rel="self" type="application/rss+xml" /><item>
+    <title>《神经网络与深度学习》第10章 - 模型独立的学习方式</title>
+    <link>https://zubingou.github.io/blog/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/</link>
+    <pubDate>Sun, 01 Aug 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/</guid>
+    <description><![CDATA[10.1 集成学习 M 个模型在同一任务上的期望错误： $$ \begin{aligned} \mathcal{R}\left(f_{m}\right) &amp;=\mathbb{E}_{\boldsymbol{x} }\left[\left(f_{m}(\boldsymbol{x})-h(\boldsymbol{x})\right)^{2}\right] \\ &amp;=\mathbb{E}_{\boldsymbol{x} }\left[\epsilon_{m}(\boldsymbol{x})^{2}\right] \end{aligned} $$ 则所有模型平均错误： $$ \overline{\mathcal{R} }(f)=\frac{1}{M} \sum_{m=1}^{M} \mathbb{E}_{\boldsymbol{x} }\left[\epsilon_{m}(\boldsymbol{x})^{2}\right] $$ 集成学习（Ensemble Learning）]]></description>
+</item>
+<item>
+    <title>《神经网络与深度学习》第9章 - 无监督学习</title>
+    <link>https://zubingou.github.io/blog/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</link>
+    <pubDate>Thu, 29 Jul 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</guid>
+    <description><![CDATA[ch9 无监督学习 9.1 无监督特征学习 无监督学习问题分类： 无监督特征学习（Unsupervised Feature Learning） 降维、可视化、监督学习前的预处理]]></description>
+</item>
+<item>
+    <title>《神经网络与深度学习》第7章 - 网络优化与正则化</title>
+    <link>https://zubingou.github.io/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/</link>
+    <pubDate>Tue, 20 Jul 2021 17:00:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/</guid>
+    <description><![CDATA[ch7 网络优化与正则化 任何数学技巧都不能弥补信息的缺失． —— 科尼利厄斯·兰佐斯（Cornelius Lanczos） 匈牙利数学家、物理学家 神经网络]]></description>
+</item>
+<item>
+    <title>《神经网络与深度学习》第15章 - 序列生成模型</title>
+    <link>https://zubingou.github.io/blog/nndl-book-ch15-%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/</link>
+    <pubDate>Tue, 23 Mar 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nndl-book-ch15-%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/</guid>
+    <description><![CDATA[类似一般概率模型，序列概率模型的两个基本问题： 概率密度估计 样本生成 15.1 序列概率模型 序列数据的概率密度估计可以转换为单变量的条件概率估计问题： $$]]></description>
+</item>
+<item>
+    <title>《神经网络与深度学习》第8章 - 注意力机制和外部记忆</title>
+    <link>https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/</link>
+    <pubDate>Fri, 26 Feb 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/</guid>
+    <description><![CDATA[用CNN等编码一个向量表示文本所有特征，存在信息瓶颈 网络容量（Network Capacity）：存储信息受限与神经元数量和网络复杂度 对于过载]]></description>
+</item>
+<item>
+    <title>《神经网络与深度学习》第5章 - 卷积神经网络</title>
+    <link>https://zubingou.github.io/blog/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</link>
+    <pubDate>Mon, 15 Feb 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</guid>
+    <description><![CDATA[卷积神经网络（Convolutional Neural Network，CNN 或 ConvNet）：一种具有局部连接、权重共享等特性的深层前馈神经网络 FC处]]></description>
+</item>
+<item>
+    <title>《神经网络与深度学习》第6章 - 循环神经网络</title>
+    <link>https://zubingou.github.io/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</link>
+    <pubDate>Mon, 01 Feb 2021 17:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</guid>
+    <description><![CDATA[ch6 循环神经网络 学习：随时间反向传播算法 长程依赖：长序列时梯度爆炸和消失 -&gt; 门控机制（Gating Mechanism） 广义记忆网络：递归神经网络]]></description>
+</item>
+<item>
+    <title>《神经网络与深度学习》第4章 - 前馈神经网络</title>
+    <link>https://zubingou.github.io/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</link>
+    <pubDate>Fri, 22 Jan 2021 17:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</guid>
+    <description><![CDATA[ch4 前馈神经网络 4.1 神经元 $$ \begin{aligned} z &amp;=\sum_{d=1}^{D} w_{d} x_{d}+b \\ &amp;=\boldsymbol{w}^{\top} \boldsymbol{x}+b \end{aligned} $$ 净输入z在经过非线性函数 𝑓(⋅) 后，得到神经元的活性值（Activation）$a=f(z)$ 非]]></description>
+</item>
+<item>
+    <title>《神经网络与深度学习》第3章 - 线性模型</title>
+    <link>https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</link>
+    <pubDate>Fri, 22 Jan 2021 15:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</guid>
+    <description><![CDATA[ch3 线性模型 线性模型：通过样本特征的线性组合来进行预测。其线性组合函数为： $$ \begin{aligned} f(\boldsymbol{x} ; \boldsymbol{w}) &amp;=w_{1} x_{1}+w_{2} x_{2}+\cdots+w_{D} x_{D}+b \\ &amp;=\boldsymbol{w}^{\top} \boldsymbol{x}+b \end{aligned} $$ 线性回归：直接使用 $y=f(\boldsymbol{x} ; \boldsymbol{w})$ 来预测输出目标 分]]></description>
+</item>
+<item>
+    <title>《神经网络与深度学习》第2章 - 机器学习概述</title>
+    <link>https://zubingou.github.io/blog/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/</link>
+    <pubDate>Thu, 21 Jan 2021 17:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/</guid>
+    <description><![CDATA[2 机器学习概述 2.1 基本概念 2.2 机器学习三要素 模型 线性 非线性 学习准则 损失函数 经验风险最小化（Empirical Risk Minimization, ERM） $\mathcal{R}_{\mathcal{D} }^{e m p}(\theta)=\frac{1}{N} \sum_{n=1}^{N} \mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ; \theta\right)\right)$ $\theta^{*}=\underset{\theta}{\arg \min }]]></description>
+</item>
+</channel>
+</rss>

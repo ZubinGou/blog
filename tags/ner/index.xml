@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>NER - 标签 - Zubin`s Blog</title>
+        <link>https://zubingou.github.io/blog/tags/ner/</link>
+        <description>NER - 标签 - Zubin`s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>zebgou@gmail.com (ZubinGou)</managingEditor>
+            <webMaster>zebgou@gmail.com (ZubinGou)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 16 Mar 2021 13:46:57 &#43;0800</lastBuildDate><atom:link href="https://zubingou.github.io/blog/tags/ner/" rel="self" type="application/rss+xml" /><item>
+    <title>基于PyTorch实现BiLSTM-CRF-NER模型及其改进</title>
+    <link>https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0bilstm-crf-ner%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E6%94%B9%E8%BF%9B/</link>
+    <pubDate>Tue, 16 Mar 2021 13:46:57 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0bilstm-crf-ner%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E6%94%B9%E8%BF%9B/</guid>
+    <description><![CDATA[PyTorch implementation of BiLSTM-CRF and Bi-LSTM-CNN-CRF models for named entity recognition. GitHub: https://github.com/ZubinGou/NER-BiLSTM-CRF-PyTorch Requirements Python 3 PyTorch 1.x Papers Bidirectional LSTM-CRF Models for Sequence Tagging (Huang et al., 2015) the first paper apply BiLSTM-CRF to NER Neural Architectures for Named Entity Recognition (Lample et al., 2016) introducing character-level features: pre-trained word embedding（skip-n-gr]]></description>
+</item>
+<item>
+    <title>【NLP Papers】NER：BiLSTM-CRF</title>
+    <link>https://zubingou.github.io/blog/nlp-papersnerbilstm-crf/</link>
+    <pubDate>Wed, 10 Mar 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nlp-papersnerbilstm-crf/</guid>
+    <description><![CDATA[Neural Architectures for Named Entity Recognition [Lample et. al., 2016] 摘要 NER之前的SOTA：大量手工特征、领域知识，泛化能力差 介绍了两种模型： BiLSTM-CRF Stack-LSTM：类似移进-规约的 transition-based 方]]></description>
+</item>
+</channel>
+</rss>

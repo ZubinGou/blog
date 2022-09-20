@@ -1,0 +1,20 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>BERT - 标签 - Zubin`s Blog</title>
+        <link>https://zubingou.github.io/blog/tags/bert/</link>
+        <description>BERT - 标签 - Zubin`s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>zebgou@gmail.com (ZubinGou)</managingEditor>
+            <webMaster>zebgou@gmail.com (ZubinGou)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 24 Mar 2021 14:56:11 &#43;0800</lastBuildDate><atom:link href="https://zubingou.github.io/blog/tags/bert/" rel="self" type="application/rss+xml" /><item>
+    <title>【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</title>
+    <link>https://zubingou.github.io/blog/nlp-papersbert_-pre-training-of-deep-bidirection/</link>
+    <pubDate>Wed, 24 Mar 2021 14:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nlp-papersbert_-pre-training-of-deep-bidirection/</guid>
+    <description><![CDATA[[Devlin et al., NAACL 2019]
+BERT: Bidirectional Encoder representations from Transformers
+1 Introduction two pre-train strategies:
+ feature-based  ELMo: task-specific architecture   fine-tuning  GPT     limitations: standard language models are unidirectional masked language model (MLM, inspired by Cloze task) use a &ldquo;next sentence prediction&rdquo; task that jointly pretain text-pair representations  2 Related Work 2.1 Unsupervised Feature-based Approaches from word2vec to ELMo&hellip;
+2.2 Unsupervised Fine-tuning Approaches GPT use left-to-right language modeling and auto-encoder objectives]]></description>
+</item>
+</channel>
+</rss>

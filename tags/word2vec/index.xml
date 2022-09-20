@@ -1,0 +1,32 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>word2vec - 标签 - Zubin`s Blog</title>
+        <link>https://zubingou.github.io/blog/tags/word2vec/</link>
+        <description>word2vec - 标签 - Zubin`s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>zebgou@gmail.com (ZubinGou)</managingEditor>
+            <webMaster>zebgou@gmail.com (ZubinGou)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 08 Mar 2021 13:46:57 &#43;0800</lastBuildDate><atom:link href="https://zubingou.github.io/blog/tags/word2vec/" rel="self" type="application/rss+xml" /><item>
+    <title>基于PyTorch实现word2vec模型及其优化</title>
+    <link>https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/</link>
+    <pubDate>Mon, 08 Mar 2021 13:46:57 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/</guid>
+    <description><![CDATA[SkipGram NegativeSampling implemented in PyTorch. GitHub: https://github.com/ZubinGou/SGNS-PyTorch Paper Efficient Estimation of Word Representations in Vector Space (original word2vec paper) Distributed Representations of Words and Phrases and their Compositionality (negative sampling paper) Notes Word2Vec是用无监督方式从文本中学习词向量来表征语义信息的模型，语义相]]></description>
+</item>
+<item>
+    <title>【NLP Papers】word2vec improvement</title>
+    <link>https://zubingou.github.io/blog/nlp-papersword2vec-improvement/</link>
+    <pubDate>Mon, 25 Jan 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nlp-papersword2vec-improvement/</guid>
+    <description><![CDATA[Distributed Representations of Words and Phrases and their Compositionality [Mikolov 2013] negative sampling with Skip-gram 1 Abstract &amp; Introduction several extensions of continuous skip-gram that improve quality and speed: subsampling of the frequent words speedup (around 2x - 10x) improve accuracy of less frequent words Noise Contrastive Estimation (NCE) replace hierarchical softmax nagative sampling (alternative to hierarchical softmax) treat word pairs / phase as one word interesting property of Skip-gram:]]></description>
+</item>
+<item>
+    <title>【NLP Papers】word2vec</title>
+    <link>https://zubingou.github.io/blog/nlp-papersword2vec/</link>
+    <pubDate>Mon, 25 Jan 2021 11:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nlp-papersword2vec/</guid>
+    <description><![CDATA[Efficient Estimation of Word Representations in Vector Space [Mikolov 2013] original word2vec paper images from The Pre-LSTM Ice-Age References https://machinelearningmedium.com/2017/07/11/word-to-vector-word-representations/ Y. Bengio, R. Ducharme, P. Vincent. A neural probabilistic language model. Journal of Machine Learning Research, 3:1137-1155, 2003. T. Mikolov, M. Karafi´at, L. Burget, J. ˇCernock´y, S. Khudanpur. Recurrent neural network]]></description>
+</item>
+</channel>
+</rss>

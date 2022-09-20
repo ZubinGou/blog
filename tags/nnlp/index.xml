@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>NNLP - 标签 - Zubin`s Blog</title>
+        <link>https://zubingou.github.io/blog/tags/nnlp/</link>
+        <description>NNLP - 标签 - Zubin`s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>zebgou@gmail.com (ZubinGou)</managingEditor>
+            <webMaster>zebgou@gmail.com (ZubinGou)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 02 Feb 2021 13:56:11 &#43;0800</lastBuildDate><atom:link href="https://zubingou.github.io/blog/tags/nnlp/" rel="self" type="application/rss+xml" /><item>
+    <title>NNLP: A Primer on Neural Network Models for Natural Language Processing</title>
+    <link>https://zubingou.github.io/blog/nnlp-notes/</link>
+    <pubDate>Tue, 02 Feb 2021 13:56:11 &#43;0800</pubDate>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nnlp-notes/</guid>
+    <description><![CDATA[一篇非常简洁的神经网络应用于NLP的综述（2016）。 1. Introduction purpose 过去近十年: NLP通常使用线性机器学习模型（SVM、LR）在高维稀疏特征向量上训]]></description>
+</item>
+</channel>
+</rss>
