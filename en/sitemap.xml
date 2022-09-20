@@ -2,7 +2,7 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://zubingou.github.io/blog/en/categories/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://zubingou.github.io/blog/en/categories/</loc><lastmod>2021-02-13T12:25:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://zubingou.github.io/blog/categories/"
@@ -10,150 +10,6 @@
                     rel="alternate"
                     hreflang="en"
                     href="https://zubingou.github.io/blog/en/categories/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/tags/configuration/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/tags/configuration/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/tags/configuration/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/tags/installation/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/tags/installation/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/tags/installation/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/posts/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/posts/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/posts/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/tags/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/tags/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/tags/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/theme-documentation-basics/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/theme-documentation-basics/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/theme-documentation-basics/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/tags/content/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/tags/content/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/tags/content/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/tags/markdown/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/tags/markdown/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/tags/markdown/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/theme-documentation-content/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/theme-documentation-content/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/theme-documentation-content/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/tags/shortcodes/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/tags/shortcodes/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/tags/shortcodes/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/theme-documentation-built-in-shortcodes/</loc><lastmod>2021-02-13T15:04:44&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/theme-documentation-built-in-shortcodes/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/theme-documentation-built-in-shortcodes/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/theme-documentation-extended-shortcodes/</loc><lastmod>2021-07-13T21:00:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/theme-documentation-extended-shortcodes/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/theme-documentation-extended-shortcodes/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/theme-basic-markdown-syntax/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/theme-basic-markdown-syntax/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/theme-basic-markdown-syntax/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/tags/html/</loc><lastmod>2021-04-06T17:23:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/tags/html/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/tags/html/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/tags/emoji/</loc><lastmod>2021-02-13T15:04:44&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/tags/emoji/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/tags/emoji/"
-                    /></url><url>
-            <loc>https://zubingou.github.io/blog/en/theme-emoji-support/</loc><lastmod>2021-02-13T15:04:44&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://zubingou.github.io/blog/theme-emoji-support/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://zubingou.github.io/blog/en/theme-emoji-support/"
                     /></url><url>
             <loc>https://zubingou.github.io/blog/en/categories/documentation/</loc><lastmod>2021-02-13T12:25:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
@@ -163,4 +19,22 @@
                     rel="alternate"
                     hreflang="en"
                     href="https://zubingou.github.io/blog/en/categories/documentation/"
+                    /></url><url>
+            <loc>https://zubingou.github.io/blog/en/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://zubingou.github.io/blog/tags/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://zubingou.github.io/blog/en/tags/"
+                    /></url><url>
+            <loc>https://zubingou.github.io/blog/en/</loc><lastmod>2021-02-13T12:25:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://zubingou.github.io/blog/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://zubingou.github.io/blog/en/"
                     /></url></urlset>
