@@ -13,7 +13,7 @@ $$
 净输入z在经过非线性函数 𝑓(⋅) 后，得到神经元的活性值（Activation）$a=f(z)$
 
 非线性函数 𝑓(⋅) 称为激活函数（Activation Function）
-![7d28900fd1d1cc8d2b023a0160ff98f3.png](/_resources/765784f8325947438aca3ed2be0d20f1.png)
+![7d28900fd1d1cc8d2b023a0160ff98f3.png](/blog/_resources/765784f8325947438aca3ed2be0d20f1.png)
 
 激活函数：
 1. 连续可导（允许少数点上不可导）的非线性函数
@@ -41,7 +41,7 @@ $$
 $$
 \tanh (x)=2 \sigma(2 x)-1
 $$
-![8619ce619f2e3511a119f55472700993.png](/_resources/4152da1b3afd4f868a1b854c911477b5.png)
+![8619ce619f2e3511a119f55472700993.png](/blog/_resources/4152da1b3afd4f868a1b854c911477b5.png)
 - Tanh函数输出是零中心化的（Zero-Centered），非零中心化的输出会使得其后一层的神经元的输入发生偏置偏移（Bias Shift），并进一步使得梯度下降的收敛速度变慢．
 
 #### 4.1.1.1 Hard-Logistic 函数和 Hard-Tanh 函数
@@ -66,7 +66,7 @@ $$
 \end{aligned}
 $$
 
-![7764b7a97d7da811d2d779bbf79c8574.png](/_resources/b9827de3a4014af5a543d60d04f78914.png)
+![7764b7a97d7da811d2d779bbf79c8574.png](/blog/_resources/b9827de3a4014af5a543d60d04f78914.png)
 
 
 ### 4.1.2 ReLU 函数
@@ -130,14 +130,14 @@ $$
 - Softplus 函数其导数刚好是 Logistic 函数
 - 单侧抑制、宽兴奋边界的特性，却没有稀疏激活性
 
-![e689bd1567b62772d50d4e76fc34b674.png](/_resources/94a0b966fbd94803aed687ab707f176b.png)
+![e689bd1567b62772d50d4e76fc34b674.png](/blog/_resources/94a0b966fbd94803aed687ab707f176b.png)
 
 ### 4.1.3 Swish 函数
 一种自门控（Self-Gated）激活函数
 $$
 \operatorname{swish}(x)=x \sigma(\beta x)
 $$
-![61c3a15d0ff86603bc42a17984b7b470.png](/_resources/a21689c07ebc4a94a02d9f27bc33783b.png)
+![61c3a15d0ff86603bc42a17984b7b470.png](/blog/_resources/a21689c07ebc4a94a02d9f27bc33783b.png)
 - 线性函数和 ReLU 函数之间的非线性插值函数，其程度由参数 𝛽 控制
 
 ### 4.1.4 GELU 函数
@@ -183,13 +183,13 @@ $$
 	- 图注意力网络（Graph Attention Network，GAT）
 	- 消息传递神经网络（Message Passing Neural Network，MPNN）
 
-![19fa0ec38c25d4584b0b10ca65795869.png](/_resources/c2ebd71d4bc344e59e5d28abf496db9d.png)
+![19fa0ec38c25d4584b0b10ca65795869.png](/blog/_resources/c2ebd71d4bc344e59e5d28abf496db9d.png)
 
 ## 4.3 前馈神经网络
 前馈神经网络（Feedforward Neural Network，FNN），也称多层感知器（Multi-Layer Perceptron，MLP）
 - MLP叫法不合理，FNN由多层Logistic回归模型（连续）组成，而非多层感知器（非连续）
-![52b06c39169b6a0c3206d0aaa62d4e7f.png](/_resources/d679ffef7e89410d8e59bdb282bfb5dc.png)
-![b35906494af58ca7ce3a8d49312ab9d1.png](/_resources/a97981117c22495f9bc41e33aba50a68.png)
+![52b06c39169b6a0c3206d0aaa62d4e7f.png](/blog/_resources/d679ffef7e89410d8e59bdb282bfb5dc.png)
+![b35906494af58ca7ce3a8d49312ab9d1.png](/blog/_resources/a97981117c22495f9bc41e33aba50a68.png)
 $$
 \begin{array}{l}
 z^{(l)}=W^{(l)} a^{(l-1)}+b^{(l)} \\\\
@@ -202,7 +202,7 @@ $$
 ### 4.3.1 通用近似定理
 - FNN可以近似任何连续非线性函数
 - 通用近似定理（Universal Approximation Theorem）
-	![9f5f96a110ffa5411875972e7294133e.png](/_resources/6e13ea82ba584adf8e3ecadfb38a179a.png)XML
+	![9f5f96a110ffa5411875972e7294133e.png](/blog/_resources/6e13ea82ba584adf8e3ecadfb38a179a.png)XML
 
 ### 4.3.2 应用到机器学习
 多层前馈神经网络也可以看成是一种特征转换方法，其输出 𝜙(𝒙) 作为分类器的输入进行分类
@@ -257,7 +257,7 @@ BP训练FNN过程：
 2. 反向传播计算每一层的误差项 𝛿(𝑙)；
 3. 计算每一层参数的偏导数，并更新参数．
 
-![b1979b630804acffa86c63beca242ca2.png](/_resources/5e1471e2964a42ff83cf0c89fef16a4f.png)
+![b1979b630804acffa86c63beca242ca2.png](/blog/_resources/5e1471e2964a42ff83cf0c89fef16a4f.png)
 
 ## 4.5 自动梯度计算
 自动计算梯度的方法三类：
@@ -299,7 +299,7 @@ $$
 - 符号微分的处理对象是数学表达式，而自动微分的处理对象是一个函数或一段程序
 - 思想：链式法则计算复合函数梯度
 - 计算图（Computational Graph）：数学运算的图形化表示
-![a5b776a74918b4258a5d227e5c7b21c4.png](/_resources/470a58cee0174ca7810a89249fc8e698.png)
+![a5b776a74918b4258a5d227e5c7b21c4.png](/blog/_resources/470a58cee0174ca7810a89249fc8e698.png)
 $$
 \begin{aligned}
 \frac{\partial f(x ; w, b)}{\partial w} &=\frac{\partial f(x ; w, b)}{\partial h\_{6}} \frac{\partial h\_{6}}{\partial h\_{5}} \frac{\partial h\_{5}}{\partial h\_{4}} \frac{\partial h\_{4}}{\partial h\_{3}} \frac{\partial h\_{3}}{\partial h\_{2}} \frac{\partial h\_{2}}{\partial h\_{1}} \frac{\partial h\_{1}}{\partial w} \\\\
@@ -314,12 +314,12 @@ $$
 	- 静态计算图（Static Computational Graph）：编译时构建计算图，构建时可以优化，并行能力强
 	- 动态计算图（Dynamic Computational Graph）：运行时构建集散图，灵活性高
 - 符号微分和自动微分
-![19b82ad7241055bea42835b51807b852.png](/_resources/22500828ab814d4ea8179b1360647f0f.png)
+![19b82ad7241055bea42835b51807b852.png](/blog/_resources/22500828ab814d4ea8179b1360647f0f.png)
 
 
 ## 4.6 优化问题
 ### 4.6.1 非凸优化问题
-![c26339589097ba278354bd00149f4111.png](/_resources/c833e52307d849a38935b0e4ed3441a9.png)
+![c26339589097ba278354bd00149f4111.png](/blog/_resources/c833e52307d849a38935b0e4ed3441a9.png)
 
 ### 4.6.2 梯度消失问题
 误差反向传播的迭代公式为
@@ -327,7 +327,7 @@ $$
 \delta^{(l)}=f\_{l}^{\prime}\left(z^{(l)}\right) \odot\left(W^{(l+1)}\right)^{\top} \delta^{(l+1)}
 $$
 每一层都乘以激活函数导数，使用Sigmoid型函数时，其导数：
-![084e0fa7ea65282d41a08fbc7bcedc34.png](/_resources/6464c9e84f424eaa8c50c5751c68ae31.png)
+![084e0fa7ea65282d41a08fbc7bcedc34.png](/blog/_resources/6464c9e84f424eaa8c50c5751c68ae31.png)
 
 梯度消失问题（Vanishing Gradient Problem）/梯度弥散问题：Sigmoid型函数导数值域小，两端饱和区导数更是接近于0。这样，误差在传递中不断衰减，网络很深时，梯度过小甚至消失，使得网络很难训练。
 
@@ -335,7 +335,7 @@ $$
 
 
 ## 4.7 总结
-![988c424ef4fc3d197dcc26862b425928.png](/_resources/4d8409a2b29d4af48ec23ea9eaac2131.png)
+![988c424ef4fc3d197dcc26862b425928.png](/blog/_resources/4d8409a2b29d4af48ec23ea9eaac2131.png)
 
 ## 习题
 #### 习题 4-1 对于一个神经元 𝜎(𝒘T𝒙 + 𝑏)，并使用梯度下降优化参数 𝒘 时，如果输入𝒙 恒大于 0，其收敛速度会比零均值化的输入更慢

@@ -30,7 +30,7 @@ $$
 $$
 x^{\prime \prime}(t)=x(t+1)+x(t-1)-2 x(t)
 $$
-![42392b24f2b3bfe5966f35ec1078d264.png](/_resources/cccb0297140349709aa69b71464c4e04.png)
+![42392b24f2b3bfe5966f35ec1078d264.png](/blog/_resources/cccb0297140349709aa69b71464c4e04.png)
 - 上图卷积分别检测信号序列的低频和高频信息
 
 #### 二维卷积
@@ -41,9 +41,9 @@ $$
 - 简化：$\boldsymbol{Y}=\boldsymbol{W} * \boldsymbol{X}$
 - 均值滤波（Mean Filter）即是一种二维卷积
 
-![9d165e65f8c62b38985d0315ffa315e4.png](/_resources/cedc8d2749484c6d8e2e683780776bdf.png)
+![9d165e65f8c62b38985d0315ffa315e4.png](/blog/_resources/cedc8d2749484c6d8e2e683780776bdf.png)
 
-![d42af1e0a6c946685e264d2cdbe0a736.png](/_resources/d7b3859aa0d14db0930e5eca4bdf398a.png)
+![d42af1e0a6c946685e264d2cdbe0a736.png](/blog/_resources/d7b3859aa0d14db0930e5eca4bdf398a.png)
 - 第一个为高斯滤波器，后俩用来提取边缘特征
 
 ### 5.1.2 互相关
@@ -64,7 +64,7 @@ $$
 ### 5.1.3 卷积的变种
 步长（Stride）：卷积核滑动的时间间隔
 零填充（Zero Padding）：输入向量两端补零
-![49ead6aa388852c7484a5d93b64da0a9.png](/_resources/69c49ec1b0d1492c9142f5b31cb66b08.png)
+![49ead6aa388852c7484a5d93b64da0a9.png](/blog/_resources/69c49ec1b0d1492c9142f5b31cb66b08.png)
 
 
 设卷积大小为K，常用卷积（步长S均为1）：
@@ -121,7 +121,7 @@ $$
 - 局部连接
 - 权重共享：可以理解为一个卷积核捕捉一种局部特征
 
-![b362404d149f1a523d826c16fdc86a29.png](/_resources/3f67c0bd3c0a4977b0a9b74feebe5092.png)
+![b362404d149f1a523d826c16fdc86a29.png](/blog/_resources/3f67c0bd3c0a4977b0a9b74feebe5092.png)
 
 卷积层参数只有K维权重$w^{(l)}$和一维偏置$b^{(l)}$
 神经元数量满足（默认步长1，无零填充）：
@@ -131,7 +131,7 @@ $$
 
 ### 5.2.2 卷积层
 特征映射（Feature Map）：一幅图像（或其他特征映射）在经过卷积提取到的特征，每个特征映射可以作为一类抽取的图像特征
-![6c90f149f197867324e0a040dee5ff21.png](/_resources/8c84ce55a7ac4cf78d5764c21be0799f.png)
+![6c90f149f197867324e0a040dee5ff21.png](/blog/_resources/8c84ce55a7ac4cf78d5764c21be0799f.png)
 
 $$
 X \in \mathbb{R}^{M \times N \times D}
@@ -149,7 +149,7 @@ $$
 \end{array}
 $$
 
-![539df3c8e2119c3438127509404ab4fd.png](/_resources/2b93459095c741919e90314518612270.png)
+![539df3c8e2119c3438127509404ab4fd.png](/blog/_resources/2b93459095c741919e90314518612270.png)
 
 参数个数：$P \times D \times(U \times V)+P$
 
@@ -162,14 +162,14 @@ $$
 1. 最大汇聚（Maximum Pooling/ Max Pooling）：$y\_{m, n}^{d}=\max \_{i \in R\_{m, n}^{d}} x\_{i}$
 2. 平均汇聚（Mean Pooling）：$y\_{m, n}^{d}=\frac{1}{\left|R\_{m, n}^{d}\right|} \sum\_{i \in R\_{m, n}^{d}} x\_{i}$
 
-![56d213933845758d9f138d631f4c58a2.png](/_resources/0f26c6a440c44d15a4e7b6a4ec57de7d.png)
+![56d213933845758d9f138d631f4c58a2.png](/blog/_resources/0f26c6a440c44d15a4e7b6a4ec57de7d.png)
 
 汇聚层可以看作特殊的卷积层：卷积核大小为$K\times K$，步长为$S\times S$，卷积核为max函数或mean函数
 
 ### 5.2.4 卷积网络的整体结构
 一个典型的卷积网络是由卷积层、汇聚层、全连接层交叉堆叠而成
 
-![52be94f6d0a339e8782a8c5263e84833.png](/_resources/073f38173b2b4f2687d04323a8529e4e.png)
+![52be94f6d0a339e8782a8c5263e84833.png](/blog/_resources/073f38173b2b4f2687d04323a8529e4e.png)
 （N为1~100或更大，K一般为0~2）
 
 目前，趋向于使用小卷积核、深结构、少汇聚层的全卷积网络
@@ -217,22 +217,22 @@ $$
 ### 5.4.1 LeNet-5
 LeNet-5[LeCun et al., 1998] 
 
-![49c9858119839c413f3c8ccb2d069962.png](/_resources/1bc54a1bb40d4c0c84a4a80d78d7a5b9.png)
+![49c9858119839c413f3c8ccb2d069962.png](/blog/_resources/1bc54a1bb40d4c0c84a4a80d78d7a5b9.png)
 
 ### 5.4.2 AlexNet
 AlexNet[Krizhevsky et al., 2012]是第一个现代深度的CNN
 - 2012 年ImageNet 图像分类冠军
 
-![bd684df33fe25b753c520ff8d2080023.png](/_resources/71a1560d5ba5426ba28b6b4672cf0bc9.png)
+![bd684df33fe25b753c520ff8d2080023.png](/blog/_resources/71a1560d5ba5426ba28b6b4672cf0bc9.png)
 
 ### 5.4.3 Inception网络
 Inception 网络是由有多个 Inception 模块和少量的汇聚层堆叠而成
 
-![81efad8436c1a73921b2cbf9cbb7ece9.png](/_resources/72b4839baca24cacb3b484e7ee6a6f17.png)
+![81efad8436c1a73921b2cbf9cbb7ece9.png](/blog/_resources/72b4839baca24cacb3b484e7ee6a6f17.png)
 Inception v1：即GoogLeNet[Szegedy et al., 2015]
 - 2014 年 ImageNet 图像分类冠军
 
-![523e2cd40a48759d78e21d88cb9b4624.png](/_resources/a67bed52c7de4f489668a8d219f674b2.png)
+![523e2cd40a48759d78e21d88cb9b4624.png](/blog/_resources/a67bed52c7de4f489668a8d219f674b2.png)
 
 Inception v3 网络：用多层的小卷积核来替换大的卷积核
 
@@ -244,7 +244,7 @@ $$
 h(\boldsymbol{x})=\underbrace{\boldsymbol{x}}\_{\text {恒等函数 }}+\underbrace{(h(\boldsymbol{x})-\boldsymbol{x})}\_{\text {残差函数 }}
 $$
 
-![af4e41a34c3babe2823d011c9c969e9e.png](/_resources/7355f8f513b34545882c87b384d1e8a4.png)
+![af4e41a34c3babe2823d011c9c969e9e.png](/blog/_resources/7355f8f513b34545882c87b384d1e8a4.png)
 
 
 ## 5.5 其他卷积方式
@@ -280,14 +280,14 @@ $$
 我们将这种低维特征映射到高维特征的卷积操作成为转置卷积（Transposed Convolution），也称为反卷积（Deconvolution）
 
 卷积层的前向计算和后向传播也是一种转置关系
-![e3a97d5124dde886cf6458eb45ddb5d5.png](/_resources/9b5fe78043854a36a59bd7045bb656bb.png)
+![e3a97d5124dde886cf6458eb45ddb5d5.png](/blog/_resources/9b5fe78043854a36a59bd7045bb656bb.png)
 
 微步卷积：步长 $S\lt 1$ 的转置卷积
 
 ### 5.5.2 空洞卷积
 空洞卷积（Atrous Convolution）：不增加参数，增加了输出单元感受野，也成为膨胀（Dilated Convolution）
 
-![446b49a96d0043ab3741782300a0c351.png](/_resources/a32ab208685b436bbfc4f4d10f4b46a4.png)
+![446b49a96d0043ab3741782300a0c351.png](/blog/_resources/a32ab208685b436bbfc4f4d10f4b46a4.png)
 
 > 空洞卷积中选择D为半径的圆上的点，感受野是不是更加合理？考虑图像旋转后，方形的点位捕捉特征能力可能受到影响。
 > 进而，用圆形的卷积效果是否会更好？运算速度呢？

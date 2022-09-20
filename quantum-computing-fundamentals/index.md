@@ -19,7 +19,7 @@
 	- 测量影响了粒子本身的状态
 - 量子信息科学
 
-![3bf3e8e8d1751bbb7566f64283e5a755.png](/_resources/44d0ebf582164cf2bbba45fee2b9dcbc.png)
+![3bf3e8e8d1751bbb7566f64283e5a755.png](/blog/_resources/44d0ebf582164cf2bbba45fee2b9dcbc.png)
 
 ## 基础
 ### 量子力学理论基础
@@ -67,7 +67,7 @@
 		- 可观测量A的期望为$\langle A\rangle=\sum\_{i} w\_{i}\left\langle\psi\_{i}|A| \psi\_{i}\right\rangle=\sum\_{i}\left\langle b\_{i}|\rho A| b\_{i}\right\rangle=\operatorname{tr}(\rho A)$
 		- 密度算符：线性、非负、自伴、迹为1
 		- 
-	- Bloch sphere ![1ebabacb149e5ebe60398313c1ed4417.png](/_resources/29b2976731b145e3ba04838a3987cc8b.png)
+	- Bloch sphere ![1ebabacb149e5ebe60398313c1ed4417.png](/blog/_resources/29b2976731b145e3ba04838a3987cc8b.png)
 		- 纯态为球面上的点
 			- Z坐标衡量概率
 		- 混合态为球内的点
@@ -119,8 +119,8 @@
 	- 所有逻辑操作都是酉变换，所以输入、输出比特数量相等
 	- $|01\rangle$中0为高位，1为低位，左高右低
 	- CNOT门 
-		- $C N O T=\left[\begin{array}{cccc}1 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 1 \\\\ 0 & 0 & 1 & 0 \\\\ 0 & 1 & 0 & 0\end{array}\right]$ ![0a7c5be5883beb468deabf1037ed2d7b.png](/_resources/89401fef998f43a4bfe19f3175c5fe22.png)
-		- $C N O T=\left[\begin{array}{cccc}1 & 0 & 0 & 0 \\\\ 0 & 1 & 0 & 0 \\\\ 0 & 0 & 0 & 1 \\\\ 0 & 0 & 1 & 0\end{array}\right]$ ![82873c46406725d526a2715d3acad834.png](/_resources/9105b64524c64f99a41269e286f414e8.png)
+		- $C N O T=\left[\begin{array}{cccc}1 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 1 \\\\ 0 & 0 & 1 & 0 \\\\ 0 & 1 & 0 & 0\end{array}\right]$ ![0a7c5be5883beb468deabf1037ed2d7b.png](/blog/_resources/89401fef998f43a4bfe19f3175c5fe22.png)
+		- $C N O T=\left[\begin{array}{cccc}1 & 0 & 0 & 0 \\\\ 0 & 1 & 0 & 0 \\\\ 0 & 0 & 0 & 1 \\\\ 0 & 0 & 1 & 0\end{array}\right]$ ![82873c46406725d526a2715d3acad834.png](/blog/_resources/9105b64524c64f99a41269e286f414e8.png)
 	- CR门：控制相位门（Controlled phase gate）
 		- $C R(\theta)=\left[\begin{array}{cccc}1 & 0 & 0 & 0 \\\\ 0 & 1 & 0 & 0 \\\\ 0 & 0 & 1 & 0 \\\\ 0 & 0 & 0 & e^{i \theta}\end{array}\right]$
 	- ISWAP门：交换两个比特的状态
@@ -130,5 +130,5 @@
 - 量子计算的if和while
 	- 基于测量的跳转
 	- 基于量子信息的if和while
-- 量子逻辑门知识图谱：![921d0d390158641d6144e487880d66f7.png](/_resources/054c05e24c854fd89f4b2771b32caa7c.png)
+- 量子逻辑门知识图谱：![921d0d390158641d6144e487880d66f7.png](/blog/_resources/054c05e24c854fd89f4b2771b32caa7c.png)
 

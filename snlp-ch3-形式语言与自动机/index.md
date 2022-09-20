@@ -53,7 +53,7 @@
 
 #### CFG识别句子的派生树
 - 派生树也称语法树（syntactic tree）、分析树（parsing tree）、推导树
-- ![ced65054c416e6cbd535089e2171d7a4.png](/_resources/b4612b03745f49809e94b8e93cac2093.png)
+- ![ced65054c416e6cbd535089e2171d7a4.png](/blog/_resources/b4612b03745f49809e94b8e93cac2093.png)
 - 二义性文法：文法G对于同一个句子的分析树 >= 2
 
 
@@ -65,7 +65,7 @@
 - RG <-> FA
 
 #### （3）CFG与下推自动机PDA
-- ![f5bdc4ae48dc4b81d634b31c29955b88.png](/_resources/5f05d95a47474b2c87311952f2d443d1.png)
+- ![f5bdc4ae48dc4b81d634b31c29955b88.png](/blog/_resources/5f05d95a47474b2c87311952f2d443d1.png)
 - CNF(Chomsky Normal Form)文法格式：$A \rightarrow BC \mid a$
 - 2型文法（CFG）可以转换为等价CNF
 - CFG <-> PDA
@@ -92,7 +92,7 @@
 #### 单词形态分析
 - 有限状态转换机（finite state transducer, FST）
 	- FST在状态转移时输出，而FA/FSM只转移，不输出
-- ![06b65a903a22905c54b4310958db0eac.png](/_resources/d77b3664794e4a9c8fcebaecd69fa676.png)
+- ![06b65a903a22905c54b4310958db0eac.png](/blog/_resources/d77b3664794e4a9c8fcebaecd69fa676.png)
 	- 识别heavy单词原型
 	- 产生如下两条关于单词heavy的形态分析规则：
 		- heavier→heavy＋er

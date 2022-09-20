@@ -31,7 +31,7 @@ DNN 是高度非线性模型，其风险函数为非凸函数，因此风险最�
 
 平坦最小值（Flat Minima）和尖锐最小值（Sharp Minma）：深度网络参数多且冗余，局部最小解通常是平坦最小值，鲁棒性、抗扰动能力较好。
 
-![8b03b6bdabdd1b5b012138971fef2d31.png](/_resources/2603c35aca6a406d9f7647220cb5b9f4.png)
+![8b03b6bdabdd1b5b012138971fef2d31.png](/blog/_resources/2603c35aca6a406d9f7647220cb5b9f4.png)
 
 局部最小解等价性：大神经网络中，大部分局部最小解等价，且接近全局最小解的训练损失。没有必要找全局最小值，这反而可能过拟合。
 
@@ -112,7 +112,7 @@ $$
 \alpha\_{t}=\frac{1}{2} \alpha\_{0}\left(1+\cos \left(\frac{t \pi}{T}\right)\right)
 $$
 
-![0e85ca8db068d0e269b573f6b0cf7864.png](/_resources/665b10f03842415d808436f36a393e20.png)
+![0e85ca8db068d0e269b573f6b0cf7864.png](/blog/_resources/665b10f03842415d808436f36a393e20.png)
 
 #### 学习率预热
 常用：逐渐预热（Gradual Warmup）[Goyal et al., 2017]
@@ -127,7 +127,7 @@ $$
 - 带热重启的随机梯度下降（Stochastic Gradient Descent with Warm Restarts，SGDR）[Loshchilov et al., 2017a]
 	- 重启之后再余弦衰减
 
-![639eec26a903370e875d5b29e0770788.png](/_resources/983b26c9b4674a8e971bee5a5966cb77.png)
+![639eec26a903370e875d5b29e0770788.png](/blog/_resources/983b26c9b4674a8e971bee5a5966cb77.png)
 
 #### AdaGrad 算法
 AdaGrad 算法（Adaptive Gradient Algorithm）[Duchi et al., 2011] ：借鉴 l2 正则化思想，每次迭代自适应调整每个参数的学习率。
@@ -146,8 +146,8 @@ $$
 
 Hung-yi Lee:
 
-![d8d82ed693e6086e2055efcfa59b2359.png](/_resources/f691c2979f8141359831286b705234b2.png)
-![599d94f6bc898d9d2189834d9649dd79.png](/_resources/fada25cef7e34b2592370d322c1762ac.png)
+![d8d82ed693e6086e2055efcfa59b2359.png](/blog/_resources/f691c2979f8141359831286b705234b2.png)
+![599d94f6bc898d9d2189834d9649dd79.png](/blog/_resources/fada25cef7e34b2592370d322c1762ac.png)
 
 用梯度平方和近似二次微分
 
@@ -206,7 +206,7 @@ $$
 \Delta \theta\_{t}=\rho \Delta \theta\_{t-1}-\alpha \mathfrak{g}\_{t}\left(\theta\_{t-1}+\rho \Delta \theta\_{t-1}\right)
 $$
 
-![97f64dd99c652b6ba0010ff05ecfe20f.png](/_resources/924d30374b8644e588ea24a547cd16f7.png)
+![97f64dd99c652b6ba0010ff05ecfe20f.png](/blog/_resources/924d30374b8644e588ea24a547cd16f7.png)
 
 #### Adam 算法
 Adam算法（Adaptive Moment Estimation Algorithm）[Kingma et al., 2015]：梯度平方指数加权平均（RMSprop）+ 梯度指数加权平均（Momentum）
@@ -263,13 +263,13 @@ M\_{t} &=\phi\left(\mathbf{g}\_{1}, \cdots, \mathbf{g}\_{t}\right)
 \end{aligned}
 $$
 
-![23f888ad5e6500a4bda71388fb5414ca.png](/_resources/4c7d331e8c7145f08f3b6a5045c5dbe0.png)
+![23f888ad5e6500a4bda71388fb5414ca.png](/blog/_resources/4c7d331e8c7145f08f3b6a5045c5dbe0.png)
 
-![200397e2f0dc522a9ce06ad72220d8b0.png](/_resources/dee48c37fad84a14a3c69cdf0839b725.png)
+![200397e2f0dc522a9ce06ad72220d8b0.png](/blog/_resources/dee48c37fad84a14a3c69cdf0839b725.png)
 
 
 ## 7.3 参数初始化
-![f6dc542859738aaa426d8146bcdefb73.png](/_resources/f15690282dcb4ca8be099fc66bafe0f2.png)
+![f6dc542859738aaa426d8146bcdefb73.png](/blog/_resources/f15690282dcb4ca8be099fc66bafe0f2.png)
 *来源：https://www.cnblogs.com/shine-lee/p/11908610.html*
 
 
@@ -408,7 +408,7 @@ $$
 \operatorname{var}\left(w\_{i}^{(l)}\right)=\frac{2}{M\_{l-1}}
 $$
 
-![7fbb7a78dbe31bfbc29495c9da23136a.png](/_resources/fc76e7fdd8eb43fe873c92114fec086a.png)
+![7fbb7a78dbe31bfbc29495c9da23136a.png](/blog/_resources/fc76e7fdd8eb43fe873c92114fec086a.png)
 
 ### 7.3.3 正交初始化
 假设一个𝐿 层的等宽线性网络（激活函数为恒等函数）为
@@ -453,7 +453,7 @@ eg. 线性分类器尺度不变、KNN尺度敏感
 1. 为防止 tanh 等函数进入饱和区而梯度消失，对每个特征尺度需要进行特定初始化
 2. 梯度下降方向不指向最优解
 
-![3e95e86b27073a63b8cfc93e64e3048f.png](/_resources/a30049ff2f364a1eb9d3867e587dfa32.png)
+![3e95e86b27073a63b8cfc93e64e3048f.png](/blog/_resources/a30049ff2f364a1eb9d3867e587dfa32.png)
 
 **归一化（Normalization**）：泛指同一数据特征尺度的方法。
 1. 最大最小值归一化（Min-Max Normalization）
@@ -473,7 +473,7 @@ $$
 3. 白化（Whitening）：降低输入数据之间的冗余性，并使所有特征具有相同方差。
 	- 主要实现方式：主成分分析（Principal Component Analysis，PCA）去掉各成分相关性。
 
-![71831e4516edb51c09617331e212eb08.png](/_resources/d3bed5f37b2e4b728c9b18cc9ec01930.png)
+![71831e4516edb51c09617331e212eb08.png](/blog/_resources/d3bed5f37b2e4b728c9b18cc9ec01930.png)
 
 
 ## 7.5 逐层归一化
@@ -615,7 +615,7 @@ $$
 
 常用：时序模型优化（Sequential Model-Based Optimization，SMBO）
 
-![dfc8b96cdffa70d039835fabb06e2e6d.png](/_resources/804c762c47f649789aabeb3aad54293b.png)
+![dfc8b96cdffa70d039835fabb06e2e6d.png](/blog/_resources/804c762c47f649789aabeb3aad54293b.png)
 
 ### 7.6.4 动态资源分配
 较早估计出一组配置的效果会比较差，就可以中止这组配置的评估，关键是将有限资源分配给更有可能带来收益的组合。
@@ -623,7 +623,7 @@ $$
 
 最优臂问题（Best-Arm Problem）：即在给定有限的机会次数下，如何玩这些赌博机并找到收益最大的臂．
 
-![75c347356e3f49dc7483f4f232e797bb.png](/_resources/70e0fa5eb79d4e6485dcc9989994eb62.png)
+![75c347356e3f49dc7483f4f232e797bb.png](/blog/_resources/70e0fa5eb79d4e6485dcc9989994eb62.png)
 
 ### 7.6.5 神经架构调整
 可以认为，深度学习使机器学习中的“特征工程”问题转变为“网络架构工程”问题。
@@ -647,7 +647,7 @@ $$
 \end{aligned}
 $$
 
-![365ccc2e51808bd62d25f56584f82a95.png](/_resources/1ce45d3f758e405d8551f8737ec9129c.png)
+![365ccc2e51808bd62d25f56584f82a95.png](/blog/_resources/1ce45d3f758e405d8551f8737ec9129c.png)
 
 弹性网络正则化（Elastic Net Regularization）：同时加入 l1 和 l2 优化。
 
@@ -674,7 +674,7 @@ $$
 - 对于隐藏层神经单元，保留率 p 取 0.5 效果最好，随机生成的网络结构最具多样性
 - 对于输入层神经单元，通常保留率 p 更接近 1，使输入变化不会太大
 
-![2aaae000c873002e4d3eaa6d2131052c.png](/_resources/fde6487e62314fcdba5e5f1c41967927.png)
+![2aaae000c873002e4d3eaa6d2131052c.png](/blog/_resources/fde6487e62314fcdba5e5f1c41967927.png)
 
 集成学习角度的解释：假设共 n 个神经元，则 dropout 出了 $2^n$ 个子网络，每次迭代相当于训练不同的子网络，最终结果可以看作指数个模型集成。
 
@@ -691,11 +691,11 @@ $$
 
 1. Naive Dropout：可以对**非时间维度**的连接进行 Dropout：
 
-![44bad15230f86345f977ccb4cb16ee47.png](/_resources/f4b553b16b394b9cbdc11d6b7d4fb959.png)
+![44bad15230f86345f977ccb4cb16ee47.png](/blog/_resources/f4b553b16b394b9cbdc11d6b7d4fb959.png)
 
 2. 变分丢弃法（Variational Dropout）：根据贝叶斯学习，每次 dropout 采样的参数在各个时间应该不变，所有时刻应该使用相同的掩码：
 
-![c08e661b881d6151eab9c9035def9ba8.png](/_resources/e339e7325b8e4723b7972703049af9b3.png)
+![c08e661b881d6151eab9c9035def9ba8.png](/blog/_resources/e339e7325b8e4723b7972703049af9b3.png)
 
 ### 7.7.5 数据增强
 数据增强（Data Augmentation）：目前主要在图像上使用

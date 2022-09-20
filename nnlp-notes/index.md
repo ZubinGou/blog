@@ -74,7 +74,7 @@
 	4. Feed $\mathbf{x}$ to NN
 
 ### 3.1 Dense Vectors vs. One-Hot Representations
-![431f0696a20a8e6ae9e65842e0af2945.png](../_resources/7969ee84d9104a209f16ffb1f668c24d.png)
+![431f0696a20a8e6ae9e65842e0af2945.png](/blog/_resources/7969ee84d9104a209f16ffb1f668c24d.png)
 - One Hot:
 	- Each feature is its own dimension.
 	- Dimensionality of one-hot vector is same as number of distinct features.
@@ -133,7 +133,7 @@ $$\operatorname{WCBOW}\left(f\_{1}, \ldots, f\_{k}\right)=\frac{1}{\sum\_{i=1}^{
 ## 4. Feed-Forward Neural Networks
 
 ### 4.1 A Brain-Inspired Metaphor
-![0989f977e54268d864d75ea410417787.png](../_resources/e1ab762dfbb0463b9859ab3a9c23d19c.png)
+![0989f977e54268d864d75ea410417787.png](/blog/_resources/e1ab762dfbb0463b9859ab3a9c23d19c.png)
 - sigmoid shape: non-linear function
 - fully-connected layer / affine layer: each neuron is connected to all neurons in the next layer
 - each row -> a vector
@@ -176,7 +176,7 @@ $$\operatorname{WCBOW}\left(f\_{1}, \ldots, f\_{k}\right)=\frac{1}{\sum\_{i=1}^{
 $$
 \sigma(x)=1 /\left(1+e^{-x}\right)
 $$
-![79ce1ad67e4ca7a27f07c28db859a4f1.png](../_resources/c3735eb9678f4b2b9c0648515a1a698a.png)
+![79ce1ad67e4ca7a27f07c28db859a4f1.png](/blog/_resources/c3735eb9678f4b2b9c0648515a1a698a.png)
 - also called logistic function
 - currently considered to be deprecated for use in internal layers of neural networks
 
@@ -184,7 +184,7 @@ $$
 $$
 \tanh (x)=\frac{e^{2 x}-1}{e^{2 x}+1}
 $$
-![53f31b40fdfed992e0ca4627f10f4bbf.png](../_resources/3f31de9e390a4c63add9e870c4e4a7f5.png)
+![53f31b40fdfed992e0ca4627f10f4bbf.png](/blog/_resources/3f31de9e390a4c63add9e870c4e4a7f5.png)
 
 #### 4.4.3 Hard tanh
 
@@ -196,7 +196,7 @@ x & \text { otherwise }
 \end{array}\right.
 $$
 
-![f243ae244575e84eb1291529c881624b.png](../_resources/92d90019c513409687b22f5f68ecf8eb.png)
+![f243ae244575e84eb1291529c881624b.png](/blog/_resources/92d90019c513409687b22f5f68ecf8eb.png)
 - an approximation of the tanh function
 - faster to compute and take derivatives of
 
@@ -210,7 +210,7 @@ x & \text { otherwise }
 \end{array}\right.
 $$
 
-![0c042b2526d10ef1fef038d5a29cff57.png](../_resources/042ae54cb4584afd9cde0577f087f391.png)
+![0c042b2526d10ef1fef038d5a29cff57.png](/blog/_resources/042ae54cb4584afd9cde0577f087f391.png)
 - performs well for many tasks, especially when combined with the dropout regularization technique
 - As a rule of thumb, ReLU units work better than tanh, and tanh works better than sigmoid.
 
@@ -289,7 +289,7 @@ $$
 
 #### 4.7.1 Hinge (binary) / margin loss / SVM loss
 合页损失（长得像合页）
-![f5e592059171a3b8b1a92c17927b6334.png](../_resources/2683ce413d6942d08b3b3e02aab07311.png)
+![f5e592059171a3b8b1a92c17927b6334.png](/blog/_resources/2683ce413d6942d08b3b3e02aab07311.png)
 $$
 L\_{\text {hinge(binary) }}(\hat{y}, y)=\max (0,1-y \cdot \hat{y})
 $$
@@ -418,10 +418,10 @@ middle-ground: vector for word + vectors of sub-word
 ## 6. Neural Network Training
 ### 6.1 Stochastic Gradient Training
 SGD:
-![06f1abad5c520405bced6294318326a1.png](../_resources/96fd77c92dda428d8886df81259824ab.png)
+![06f1abad5c520405bced6294318326a1.png](/blog/_resources/96fd77c92dda428d8886df81259824ab.png)
 
 minibatch SGD:
-![920b57eb34ee2cf477721260271558bf.png](../_resources/8b47e46d704d4d218f1b895d01471f84.png)
+![920b57eb34ee2cf477721260271558bf.png](/blog/_resources/8b47e46d704d4d218f1b895d01471f84.png)
 
 others:
 - SGD + Momentum
@@ -432,17 +432,17 @@ others:
 computation graph: directed acyclic graph(DAG)
 
 example of compution:
-![76e36a8491d33f37d8987e539687abf3.png](../_resources/52a2c7c10cc549ceb9a06c53ab702614.png)
+![76e36a8491d33f37d8987e539687abf3.png](/blog/_resources/52a2c7c10cc549ceb9a06c53ab702614.png)
 
-![436ce6d30d60df47ddb580ff6f24c2d8.png](../_resources/2afb87661e1e4d91bab5414fe03cf177.png)
+![436ce6d30d60df47ddb580ff6f24c2d8.png](/blog/_resources/2afb87661e1e4d91bab5414fe03cf177.png)
 
 #### 6.2.1 Forward Computation
 topological order:
-![a938d97698f8b0e5bf2268f3cf713350.png](../_resources/38e5e73389804b25a40c9f3f74edba44.png)
+![a938d97698f8b0e5bf2268f3cf713350.png](/blog/_resources/38e5e73389804b25a40c9f3f74edba44.png)
 
 #### 6.2.2 Backward Computation (Derivatives, Backprop)
 误差乘以偏导再求和
-![50d095a5430d3d900297146beaec36d0.png](../_resources/9e11d25f76cc4b4d99f4b4bf62ccd691.png)
+![50d095a5430d3d900297146beaec36d0.png](/blog/_resources/9e11d25f76cc4b4d99f4b4bf62ccd691.png)
 
 #### 6.2.3 Software
 implement computation-graph model: Theano, Chainer, penne, CNN/pyCNN
@@ -456,7 +456,7 @@ other packages dynamic CG "on the fly":
 - especially convenient with recurrnt and recursive networds
 
 #### 6.2.4 Implementation Recipe
-![cdbc0803aa3007b0b393a0a0a050ead8.png](../_resources/75004299211c43dfacb5cbf307f5fb4b.png)
+![cdbc0803aa3007b0b393a0a0a050ead8.png](/blog/_resources/75004299211c43dfacb5cbf307f5fb4b.png)
 
 #### 6.2.5 Network Composition
 when networks's output is a vector, easy to compose
@@ -474,7 +474,7 @@ $$
 
 - too large or too small cause saturated
 - internal covariate shift: use batch normalization, adjust inputs to fix the activation function (vice versa)
-![a65f913f43bf78fc110dd150f60970b6.png](../_resources/e09a8c859f3c4fed8ee747c455d6f12d.png)
+![a65f913f43bf78fc110dd150f60970b6.png](/blog/_resources/e09a8c859f3c4fed8ee747c455d6f12d.png)
 [<font size=2>*image source*</font>](https://medium.com/@shiyan/xavier-initialization-and-batch-normalization-my-understanding-b5b91268c25c)
 
 He et al. (2015): ReLU initialized by sampling from a zero-mean Gaussian distribution whose standard deviation is $\sqrt{\frac{2}{d\_{\text {in }}}}$, works better than xavier in image classification
@@ -530,7 +530,7 @@ $$
 $$
 
 dropout: 每批训练中，忽略一半（或某层中一半）特征检测器（设为0），减少特征检测器（隐层结点）之间的相互作用。
-![d7ebf9373b8572ef601c3691a3eb39c9.png](../_resources/76fa7c284f2d4fcfbb61d3ffdec23ad6.png)
+![d7ebf9373b8572ef601c3691a3eb39c9.png](/blog/_resources/76fa7c284f2d4fcfbb61d3ffdec23ad6.png)
 <font size=2>*Srivastava, Nitish, et al. ”Dropout: a simple way to prevent neural networks from overfitting”, JMLR 2014*</font>
 - key factors in image classification, especially with ReLU
 - also matters in NLP
@@ -653,7 +653,7 @@ pooling: all d-dimensional vector -> single d-dimensional vector (max or average
 	- narrow convolution: m = n − k + 1 windows
 	- wide convolution: m = n + k + 1 windows
 
-![f2204506fa439d1131927109154ef78b.png](../_resources/003198d8cf4b49dba20481a578e886b0.png)
+![f2204506fa439d1131927109154ef78b.png](/blog/_resources/003198d8cf4b49dba20481a578e886b0.png)
 convolution layer:
 - m vectors p1, . . . , pm, $\mathbf{p}\_{\mathbf{i}} \in \mathbb{R}^{d\_{\text {conv }}}$
 $$
@@ -742,9 +742,9 @@ $$
 \mathrm{x}\_{\mathrm{i}} \in \mathbb{R}^{d\_{i n}}, \quad \mathbf{y}\_{\mathrm{i}} \in \mathbb{R}^{d\_{\text {out }}}, \quad \mathrm{s}\_{\mathrm{i}} \in \mathbb{R}^{f\left(d\_{\text {out }}\right)}
 \end{array}
 $$
-![a062e071fc7e16a657ebea8d1f3e5fba.png](../_resources/5fb0641348744180b6eb7b332ad93ae8.png)
+![a062e071fc7e16a657ebea8d1f3e5fba.png](/blog/_resources/5fb0641348744180b6eb7b332ad93ae8.png)
 unroll:
-![b24301e93071968e1c0919638a1b6dae.png](../_resources/12f8753b4c954a8298fab550ff23f022.png)
+![b24301e93071968e1c0919638a1b6dae.png](/blog/_resources/12f8753b4c954a8298fab550ff23f022.png)
 - $O$ function:
 	- Simple RNN (Elman Rnn) / GRU: identity mapping
 	- LSTM: fixed subset of state
@@ -758,7 +758,7 @@ backpropagation through time (BPTT): with unrolled computation graph.
 #### 10.2.1 Acceptor 接收器
 接收整个句子，从final output决策，loss根据$\mathbf{y}\_{\mathbf{n}}=O\left(\mathbf{s}\_{\mathbf{n}}\right)$定义，再BP回序列其他部分
 - eg. part-of-speech, sentiment analysis, non-phrase classfication
-![7624bc0a7d2dedfb41517b4c3b445cb1.png](../_resources/b45a05c972a84f25a3dd2655cb084254.png)
+![7624bc0a7d2dedfb41517b4c3b445cb1.png](/blog/_resources/b45a05c972a84f25a3dd2655cb084254.png)
 - 序列过长时，由于梯度消失，很难训练
 - 输入没有指明重点（？），很难训练
 
@@ -775,7 +775,7 @@ loss (or average / weighted average):
 $$
 L\left(\mathbf{y} \hat{\mathbf{1}: \mathbf{n}}, \mathbf{y}\_{\mathbf{1}: \mathbf{n}}\right)=\sum\_{i=1}^{n} L\_{\text {local }}\left(\hat{\mathbf{y}}\_{\mathbf{i}}, \mathbf{y}\_{\mathbf{i}}\right)
 $$
-![ef1300f8afe316783212b53d0df88f0d.png](../_resources/4fad65096efd49e787795dfb35bdbe94.png)
+![ef1300f8afe316783212b53d0df88f0d.png](/blog/_resources/4fad65096efd49e787795dfb35bdbe94.png)
 
 RNN transduces relax the Markov assumption and condition on the entire history. (powerful!)
 - generative character-level RNN models  (Sutskever, Martens, & Hinton, 2011)
@@ -788,11 +788,11 @@ eg.
 	- 输入句子倒置，使得$\mathbf{X_n}$对应开头，翻译时一一对应，效果更好
 - sequence transduction
 
-![ec9fae4ca729e85f9e8b384b4c37308a.png](../_resources/0798f9afbff542738f6cba5adbd34fbe.png)
+![ec9fae4ca729e85f9e8b384b4c37308a.png](/blog/_resources/0798f9afbff542738f6cba5adbd34fbe.png)
 
 ### 10.3 Multi-layer (Stacked) RNNs
 also called deep RNNs
-![074f1ada1b1003e0a72bd2db4ac538a8.png](../_resources/248167b42a8846288d3dfd8493afea0c.png)
+![074f1ada1b1003e0a72bd2db4ac538a8.png](/blog/_resources/248167b42a8846288d3dfd8493afea0c.png)
 
 deep RNNs works better than shallower ones on some tasks:
 - Sutskever et al. (2014) 4-layers RNN for machine-translation
@@ -820,7 +820,7 @@ main intuition: Encode the stack sequence
 - push: $\mathrm{s}\_{\mathrm{i+1}}=R(\mathrm{s}\_{\mathrm{i}}, \mathrm{x\_{i+1}})$
 - pop: persistent-stack (immutable) data-structure
 
-![8217eb9a9ae0718871d6c7cccc5f9caa.png](../_resources/0e07f74170304c6db0e4f7987cc4ea5b.png)
+![8217eb9a9ae0718871d6c7cccc5f9caa.png](/blog/_resources/0e07f74170304c6db0e4f7987cc4ea5b.png)
 
 ### 10.6 A Note on Reading the Literature
 Many aspects of the models are not yet standardized, be careful with ambiguous.
@@ -860,13 +860,13 @@ $$\mathbf{j} \in \mathbb{R}^{2 \cdot d\_{h}}, \mathbf{x}\_{\mathbf{i}} \in \math
 
 结构详解：https://colah.github.io/posts/2015-08-Understanding-LSTMs/
 - f：遗忘门
-	![35088973a70318d3199151aa44cacb36.png](../_resources/3e58144e12c147c3ab66e58722e91c8f.png)
+	![35088973a70318d3199151aa44cacb36.png](/blog/_resources/3e58144e12c147c3ab66e58722e91c8f.png)
 - i：记忆/输入门
-	![e8bbf4f28da874d79a3505e9224581c7.png](../_resources/32abdb9b7d294c078767cbab5dbf3c86.png)
+	![e8bbf4f28da874d79a3505e9224581c7.png](/blog/_resources/32abdb9b7d294c078767cbab5dbf3c86.png)
 	- 更新Cell：
-	![0e497d13407a222abcb98c95b3890a7d.png](../_resources/a9435ef2b5794b948e8d612fa23be284.png)
+	![0e497d13407a222abcb98c95b3890a7d.png](/blog/_resources/a9435ef2b5794b948e8d612fa23be284.png)
 - o：输出门
-	![5b0b34bea9d7d12e3511a0483da6b3c7.png](../_resources/6390f54be36640ebb67207260da85ca8.png)
+	![5b0b34bea9d7d12e3511a0483da6b3c7.png](/blog/_resources/6390f54be36640ebb67207260da85ca8.png)
 
 - further: PhD thesis by Alex Graves (2008)
 - LSTM character-level language model: Karpathy et al. (2015)
@@ -899,14 +899,14 @@ tree node $p$ encodes the entrie subtree rooted at $p$
 $$
 \operatorname{vec}(p)=f\left(\operatorname{vec}\left(c\_{1}\right), \operatorname{vec}\left(c\_{2}\right)\right)
 $$
-![a4f364f16781994a6c418647f36859a3.png](../_resources/9683730675e14e45a2f9e914f4cc2906.png)
+![a4f364f16781994a6c418647f36859a3.png](/blog/_resources/9683730675e14e45a2f9e914f4cc2906.png)
 
 ### 12.1 Formal Definition
 解析树：
 - unlabeled: 三元组集合 $(i, k, j)$
 - labeled：六元组集合 $(A \rightarrow B, C, i, k, j)$
 
-![66029a3beb85c4c497cd0b4b2d951141.png](../_resources/168e6593158c4f0e8b710caca7cb27f8.png)
+![66029a3beb85c4c497cd0b4b2d951141.png](/blog/_resources/168e6593158c4f0e8b710caca7cb27f8.png)
 
 $$
 \begin{aligned}

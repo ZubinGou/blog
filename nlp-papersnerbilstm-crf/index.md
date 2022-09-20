@@ -95,12 +95,12 @@ $$
 
 ## 2.3 Parameterization and Training
 网络的主要结构：
-![49afbc6e96c8e2b4d6abd69e69c7a8a4.png](..//_resources/5544c02e864045edb0e373c13123a707.png)
+![49afbc6e96c8e2b4d6abd69e69c7a8a4.png](/blog/_resources/5544c02e864045edb0e373c13123a707.png)
 BiLSRM的输出是每个词的各个词性的评分，即发射分值矩阵$\mathbf{P}$，由BiLSTM 得到的（word-in-context词向量$c_i$）与 二元语法的转移评分计算（$\mathbf{A}\_{y,y'}$) 计算 ？
 
 将$c_i$线性映射到每个标签上，从而得到得分。
 
-![d67f7ebf494b530226b4f64286aabc70.png](..//_resources/b96700de7b0e43b1a96418e82a368ae5.png)
+![d67f7ebf494b530226b4f64286aabc70.png](/blog/_resources/b96700de7b0e43b1a96418e82a368ae5.png)
 
 参数：
 - bigram compatibility scores $\mathbf{A}$
@@ -125,7 +125,7 @@ $c_i$与CRF层之间加入一个隐层，效果略好。
 - Pretrained embeddings(skip-n-gram)：对词顺序敏感
 
 ### 4.1 Character-based models of words
-![5b9a330f78ea63ea848ba5140d414dfb.png](..//_resources/25b4b08579454ba39d5e875928aa762b.png)
+![5b9a330f78ea63ea848ba5140d414dfb.png](/blog/_resources/25b4b08579454ba39d5e875928aa762b.png)
 如上图，每个单词的embeddings由三组embedding拼接：
 1. char-level（表征suffix）: forward LSTM
 2. char-level（表征prefix）: backward LSTM
@@ -155,7 +155,7 @@ CoNLL-2002 and CoNLL-2003 datasets
 预处理：英文NER中替换所有数字为0
 
 ### 5.3 Results
-![07bda40f3b19624539fa82809dc09999.png](..//_resources/86a3602112794a83acd92e3b30edfcd2.png)
+![07bda40f3b19624539fa82809dc09999.png](/blog/_resources/86a3602112794a83acd92e3b30edfcd2.png)
 
 BiLSTM-CRF 在CoNLL 2003 (English) 上的 F1 达到 90.94，在未使用额外语料的模型中达到SOTA
 
