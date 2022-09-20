@@ -4,23 +4,24 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>《神经网络与深度学习》第4章 - 前馈神经网络 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《神经网络与深度学习》第4章 - 前馈神经网络" />
 <meta property="og:description" content="ch4 前馈神经网络 4.1 神经元 $$ \begin{aligned} z &amp;=\sum_{d=1}^{D} w_{d} x_{d}&#43;b \\ &amp;=\boldsymbol{w}^{\top} \boldsymbol{x}&#43;b \end{aligned} $$ 净输入z在经过非线性函数 𝑓(⋅) 后，得到神经元的活性值（Activation）$a=f(z)$ 非" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" />
-<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="og:url" content="https://zubingou.github.io/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-01-22T17:56:11+08:00" />
-<meta property="article:modified_time" content="2021-01-22T17:56:11+08:00" />
+<meta property="article:modified_time" content="2021-01-22T17:56:11+08:00" /><meta property="og:site_name" content="My cool site" />
+
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://binko.me/logo.png"/>
+<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
 
 <meta name="twitter:title" content="《神经网络与深度学习》第4章 - 前馈神经网络"/>
 <meta name="twitter:description" content="ch4 前馈神经网络 4.1 神经元 $$ \begin{aligned} z &amp;=\sum_{d=1}^{D} w_{d} x_{d}&#43;b \\ &amp;=\boldsymbol{w}^{\top} \boldsymbol{x}&#43;b \end{aligned} $$ 净输入z在经过非线性函数 𝑓(⋅) 后，得到神经元的活性值（Activation）$a=f(z)$ 非"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="prev" href="https://binko.me/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" /><link rel="next" href="https://binko.me/nlp-papersword2vec/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="prev" href="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" /><link rel="next" href="https://zubingou.github.io/blog/nlp-papersword2vec/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,18 +29,18 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/binko.me\/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C\/"
+            "@id": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C\/"
         },"image": [{
                             "@type": "ImageObject",
-                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
                         }],"genre": "posts","keywords": "神经网络与深度学习, NLP, notes, DL","wordcount":  3822 ,
-        "url": "https:\/\/binko.me\/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C\/","datePublished": "2021-01-22T17:56:11+08:00","dateModified": "2021-01-22T17:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C\/","datePublished": "2021-01-22T17:56:11+08:00","dateModified": "2021-01-22T17:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "ZubinGou","logo": {
                     "@type": "ImageObject",
-                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
                     "width":  304 ,
                     "height":  304 
                 }},"author": {
@@ -48,58 +49,38 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-        <div id="mask"></div><div class="wrapper">
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-      tex2jax: {
-          inlineMath: [['$','$'], ['\\(','\\)']],
-          displayMath: [['$$','$$']],
-          processEscapes: true,
-          processEnvironments: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-          TeX: {
-              equationNumbers: { autoNumber: "AMS" },
-              extensions: ["AMSmath.js", "AMSsymbols.js"]
-          }
-      }
-  });
-</script>
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-
-<header class="desktop" id="header-desktop">
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" selected>简体中文</option></select>
-                    </a><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/blog/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" selected>简体中文</option></select>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+                <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -109,43 +90,42 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" selected>简体中文</option></select>
+                </div><a class="menu-item" href="/blog/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" selected>简体中文</option></select>
                 </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">《神经网络与深度学习》第4章 - 前馈神经网络</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/deep-learning/"><i class="far fa-folder fa-fw"></i>Deep Learning</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-22">2021-01-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3822 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《神经网络与深度学习》第4章 - 前馈神经网络</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/deep-learning/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Deep Learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-01-22">2021-01-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3822 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -219,7 +199,7 @@
 <h2 id="41-神经元">4.1 神经元</h2>
 <p>$$
 \begin{aligned}
-z &amp;=\sum_{d=1}^{D} w_{d} x_{d}+b \\<br>
+z &amp;=\sum_{d=1}^{D} w_{d} x_{d}+b \\
 &amp;=\boldsymbol{w}^{\top} \boldsymbol{x}+b
 \end{aligned}
 $$</p>
@@ -227,7 +207,7 @@ $$</p>
 <p>非线性函数 𝑓(⋅) 称为激活函数（Activation Function）
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/765784f8325947438aca3ed2be0d20f1.png"
         data-srcset="../../_resources/765784f8325947438aca3ed2be0d20f1.png, ../../_resources/765784f8325947438aca3ed2be0d20f1.png 1.5x, ../../_resources/765784f8325947438aca3ed2be0d20f1.png 2x"
         data-sizes="auto"
@@ -265,7 +245,7 @@ $$
 $$
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/4152da1b3afd4f868a1b854c911477b5.png"
         data-srcset="../../_resources/4152da1b3afd4f868a1b854c911477b5.png, ../../_resources/4152da1b3afd4f868a1b854c911477b5.png 1.5x, ../../_resources/4152da1b3afd4f868a1b854c911477b5.png 2x"
         data-sizes="auto"
@@ -279,23 +259,23 @@ $$
 <p>$$
 \begin{aligned}
 \text { hard-logistic }(x)=&amp;\left{\begin{array}{ll}
-1 &amp; g_{l}(x) \geq 1 \\<br>
-g_{l} &amp; 0&lt;g_{l}(x)&lt;1 \\<br>
+1 &amp; g_{l}(x) \geq 1 \\
+g_{l} &amp; 0&lt;g_{l}(x)&lt;1 \\
 0 &amp; g_{l}(x) \leq 0
-\end{array}\right.\<br>
-&amp;=\max \left(\min \left(g_{l}(x), 1\right), 0\right) \\<br>
+\end{array}\right.\
+&amp;=\max \left(\min \left(g_{l}(x), 1\right), 0\right) \\
 &amp;=\max (\min (0.25 x+0.5,1), 0) .
 \end{aligned}
 $$</p>
 <p>$$
 \begin{aligned}
-\operatorname{hard}-\tanh (x) &amp;=\max \left(\min \left(g_{t}(x), 1\right),-1\right) \\<br>
+\operatorname{hard}-\tanh (x) &amp;=\max \left(\min \left(g_{t}(x), 1\right),-1\right) \\
 &amp;=\max (\min (x, 1),-1)
 \end{aligned}
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/b9827de3a4014af5a543d60d04f78914.png"
         data-srcset="../../_resources/b9827de3a4014af5a543d60d04f78914.png, ../../_resources/b9827de3a4014af5a543d60d04f78914.png 1.5x, ../../_resources/b9827de3a4014af5a543d60d04f78914.png 2x"
         data-sizes="auto"
@@ -306,9 +286,9 @@ $$</p>
 <p>$$
 \begin{aligned}
 \operatorname{ReLU}(x) &amp;=\left{\begin{array}{ll}
-x &amp; x \geq 0 \\<br>
+x &amp; x \geq 0 \\
 0 &amp; x&lt;0
-\end{array}\right.\<br>
+\end{array}\right.\
 &amp;=\max (0, x)
 \end{aligned}
 $$</p>
@@ -332,9 +312,9 @@ $$
 <p>$$
 \begin{aligned}
 \operatorname{PReLU}_{i}(x) &amp;=\left{\begin{array}{ll}
-x &amp; \text { if } x&gt;0 \\<br>
+x &amp; \text { if } x&gt;0 \\
 \gamma_{i} x &amp; \text { if } x \leq 0
-\end{array}\right.\<br>
+\end{array}\right.\
 &amp;=\max (0, x)+\gamma_{i} \min (0, x)
 \end{aligned}
 $$
@@ -344,9 +324,9 @@ $$
 $$
 \begin{aligned}
 \operatorname{ELU}(x) &amp;=\left{\begin{array}{ll}
-x &amp; \text { if } x&gt;0 \\<br>
+x &amp; \text { if } x&gt;0 \\
 \gamma(\exp (x)-1) &amp; \text { if } x \leq 0
-\end{array}\right.\<br>
+\end{array}\right.\
 &amp;=\max (0, x)+\min (0, \gamma(\exp (x)-1)),
 \end{aligned}
 $$
@@ -362,7 +342,7 @@ $$</p>
 </ul>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/94a0b966fbd94803aed687ab707f176b.png"
         data-srcset="../../_resources/94a0b966fbd94803aed687ab707f176b.png, ../../_resources/94a0b966fbd94803aed687ab707f176b.png 1.5x, ../../_resources/94a0b966fbd94803aed687ab707f176b.png 2x"
         data-sizes="auto"
@@ -375,7 +355,7 @@ $$
 $$
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/a21689c07ebc4a94a02d9f27bc33783b.png"
         data-srcset="../../_resources/a21689c07ebc4a94a02d9f27bc33783b.png, ../../_resources/a21689c07ebc4a94a02d9f27bc33783b.png 1.5x, ../../_resources/a21689c07ebc4a94a02d9f27bc33783b.png 2x"
         data-sizes="auto"
@@ -441,7 +421,7 @@ $$</li>
 </ul>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/c2ebd71d4bc344e59e5d28abf496db9d.png"
         data-srcset="../../_resources/c2ebd71d4bc344e59e5d28abf496db9d.png, ../../_resources/c2ebd71d4bc344e59e5d28abf496db9d.png 1.5x, ../../_resources/c2ebd71d4bc344e59e5d28abf496db9d.png 2x"
         data-sizes="auto"
@@ -453,7 +433,7 @@ $$</li>
 <li>MLP叫法不合理，FNN由多层Logistic回归模型（连续）组成，而非多层感知器（非连续）
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/d679ffef7e89410d8e59bdb282bfb5dc.png"
         data-srcset="../../_resources/d679ffef7e89410d8e59bdb282bfb5dc.png, ../../_resources/d679ffef7e89410d8e59bdb282bfb5dc.png 1.5x, ../../_resources/d679ffef7e89410d8e59bdb282bfb5dc.png 2x"
         data-sizes="auto"
@@ -461,7 +441,7 @@ $$</li>
         title="52b06c39169b6a0c3206d0aaa62d4e7f.png" />
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/a97981117c22495f9bc41e33aba50a68.png"
         data-srcset="../../_resources/a97981117c22495f9bc41e33aba50a68.png, ../../_resources/a97981117c22495f9bc41e33aba50a68.png 1.5x, ../../_resources/a97981117c22495f9bc41e33aba50a68.png 2x"
         data-sizes="auto"
@@ -469,7 +449,7 @@ $$</li>
         title="b35906494af58ca7ce3a8d49312ab9d1.png" />
 $$
 \begin{array}{l}
-z^{(l)}=W^{(l)} a^{(l-1)}+b^{(l)} \\<br>
+z^{(l)}=W^{(l)} a^{(l-1)}+b^{(l)} \\
 a^{(l)}=f_{l}\left(z^{(l)}\right)
 \end{array}
 $$</li>
@@ -482,7 +462,7 @@ $$</li>
 <li>通用近似定理（Universal Approximation Theorem）
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/6e13ea82ba584adf8e3ecadfb38a179a.png"
         data-srcset="../../_resources/6e13ea82ba584adf8e3ecadfb38a179a.png, ../../_resources/6e13ea82ba584adf8e3ecadfb38a179a.png 1.5x, ../../_resources/6e13ea82ba584adf8e3ecadfb38a179a.png 2x"
         data-sizes="auto"
@@ -501,9 +481,9 @@ $$
 误差项𝛿(𝑙) 也间接反映了不同神经元对网络能力的贡献程度，从而比较好地解决了贡献度分配问题（Credit Assignment Problem，CAP）</p>
 <p>$$
 \begin{aligned}
-\delta^{(l)} &amp; \triangleq \frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{z}^{(l)}} \\<br>
-&amp;=\frac{\partial \boldsymbol{a}^{(l)}}{\partial \boldsymbol{z}^{(l)}} \cdot \cdot \cdot \frac{\partial \boldsymbol{z}^{(l+1)}}{\partial \boldsymbol{a}^{(l)}} \cdot {\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{z}^{(l+1)}}} \\<br>
-&amp;={\operatorname{diag}\left(f_{l}^{\prime}\left(\boldsymbol{z}^{(l)}\right)\right)}\left(\boldsymbol{W}^{(l+1)}\right)^{\mathrm{T}} \cdot {\delta}^{(l+1)} \\<br>
+\delta^{(l)} &amp; \triangleq \frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{z}^{(l)}} \\
+&amp;=\frac{\partial \boldsymbol{a}^{(l)}}{\partial \boldsymbol{z}^{(l)}} \cdot \cdot \cdot \frac{\partial \boldsymbol{z}^{(l+1)}}{\partial \boldsymbol{a}^{(l)}} \cdot {\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{z}^{(l+1)}}} \\
+&amp;={\operatorname{diag}\left(f_{l}^{\prime}\left(\boldsymbol{z}^{(l)}\right)\right)}\left(\boldsymbol{W}^{(l+1)}\right)^{\mathrm{T}} \cdot {\delta}^{(l+1)} \\
 &amp;=f_{l}^{\prime}\left(\boldsymbol{z}^{(l)}\right) \odot\left(\left(\boldsymbol{W}^{(l+1)}\right)^{\top} \delta^{(l+1)}\right) \quad \in \mathbb{R}^{M}
 \end{aligned}
 $$
@@ -511,8 +491,8 @@ $$
 <p>BP算法内涵：l层一个神经元误差项是所有与该神经元相连的l+1层神经元的误差项的权重和，再乘上该神经元激活函数的梯度
 $$
 \begin{aligned}
-\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial w_{i j}^{(l)}} &amp;=\llbracket_{i}\left(a_{j}^{(l-1)}\right) \delta^{(l)} \\<br>
-&amp;=\left[0, \cdots, a_{j}^{(l-1)}, \cdots, 0\right]\left[\delta_{1}^{(l)}, \cdots, \delta_{i}^{(l)}, \cdots, \delta_{M_{l}}^{(l)}\right]^{\top} \\<br>
+\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial w_{i j}^{(l)}} &amp;=\llbracket_{i}\left(a_{j}^{(l-1)}\right) \delta^{(l)} \\
+&amp;=\left[0, \cdots, a_{j}^{(l-1)}, \cdots, 0\right]\left[\delta_{1}^{(l)}, \cdots, \delta_{i}^{(l)}, \cdots, \delta_{M_{l}}^{(l)}\right]^{\top} \\
 &amp;=\delta_{i}^{(l)} a_{j}^{(l-1)}
 \end{aligned}
 $$</p>
@@ -536,7 +516,7 @@ $$</p>
 </ol>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/5e1471e2964a42ff83cf0c89fef16a4f.png"
         data-srcset="../../_resources/5e1471e2964a42ff83cf0c89fef16a4f.png, ../../_resources/5e1471e2964a42ff83cf0c89fef16a4f.png 1.5x, ../../_resources/5e1471e2964a42ff83cf0c89fef16a4f.png 2x"
         data-sizes="auto"
@@ -597,7 +577,7 @@ $$</li>
 <p>计算图（Computational Graph）：数学运算的图形化表示
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/470a58cee0174ca7810a89249fc8e698.png"
         data-srcset="../../_resources/470a58cee0174ca7810a89249fc8e698.png, ../../_resources/470a58cee0174ca7810a89249fc8e698.png 1.5x, ../../_resources/470a58cee0174ca7810a89249fc8e698.png 2x"
         data-sizes="auto"
@@ -605,7 +585,7 @@ $$</li>
         title="a5b776a74918b4258a5d227e5c7b21c4.png" />
 $$
 \begin{aligned}
-\frac{\partial f(x ; w, b)}{\partial w} &amp;=\frac{\partial f(x ; w, b)}{\partial h_{6}} \frac{\partial h_{6}}{\partial h_{5}} \frac{\partial h_{5}}{\partial h_{4}} \frac{\partial h_{4}}{\partial h_{3}} \frac{\partial h_{3}}{\partial h_{2}} \frac{\partial h_{2}}{\partial h_{1}} \frac{\partial h_{1}}{\partial w} \\<br>
+\frac{\partial f(x ; w, b)}{\partial w} &amp;=\frac{\partial f(x ; w, b)}{\partial h_{6}} \frac{\partial h_{6}}{\partial h_{5}} \frac{\partial h_{5}}{\partial h_{4}} \frac{\partial h_{4}}{\partial h_{3}} \frac{\partial h_{3}}{\partial h_{2}} \frac{\partial h_{2}}{\partial h_{1}} \frac{\partial h_{1}}{\partial w} \\
 \frac{\partial f(x ; w, b)}{\partial b} &amp;=\frac{\partial f(x ; w, b)}{\partial h_{6}} \frac{\partial h_{6}}{\partial h_{5}} \frac{\partial h_{5}}{\partial h_{4}} \frac{\partial h_{4}}{\partial h_{3}} \frac{\partial h_{3}}{\partial h_{2}} \frac{\partial h_{2}}{\partial b}
 \end{aligned}
 $$</p>
@@ -628,7 +608,7 @@ $$</p>
 <p>符号微分和自动微分
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/22500828ab814d4ea8179b1360647f0f.png"
         data-srcset="../../_resources/22500828ab814d4ea8179b1360647f0f.png, ../../_resources/22500828ab814d4ea8179b1360647f0f.png 1.5x, ../../_resources/22500828ab814d4ea8179b1360647f0f.png 2x"
         data-sizes="auto"
@@ -640,7 +620,7 @@ $$</p>
 <h3 id="461-非凸优化问题">4.6.1 非凸优化问题</h3>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/c833e52307d849a38935b0e4ed3441a9.png"
         data-srcset="../../_resources/c833e52307d849a38935b0e4ed3441a9.png, ../../_resources/c833e52307d849a38935b0e4ed3441a9.png 1.5x, ../../_resources/c833e52307d849a38935b0e4ed3441a9.png 2x"
         data-sizes="auto"
@@ -654,7 +634,7 @@ $$
 每一层都乘以激活函数导数，使用Sigmoid型函数时，其导数：
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/6464c9e84f424eaa8c50c5751c68ae31.png"
         data-srcset="../../_resources/6464c9e84f424eaa8c50c5751c68ae31.png, ../../_resources/6464c9e84f424eaa8c50c5751c68ae31.png 1.5x, ../../_resources/6464c9e84f424eaa8c50c5751c68ae31.png 2x"
         data-sizes="auto"
@@ -665,7 +645,7 @@ $$
 <h2 id="47-总结">4.7 总结</h2>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/4d8409a2b29d4af48ec23ea9eaac2131.png"
         data-srcset="../../_resources/4d8409a2b29d4af48ec23ea9eaac2131.png, ../../_resources/4d8409a2b29d4af48ec23ea9eaac2131.png 1.5x, ../../_resources/4d8409a2b29d4af48ec23ea9eaac2131.png 2x"
         data-sizes="auto"
@@ -677,7 +657,7 @@ $$
 <h4 id="习题-4-2-试设计一个前馈神经网络来解决-xor-问题要求该前馈神经网络具有两个隐藏神经元和一个输出神经元并使用-relu-作为激活函数">习题 4-2 试设计一个前馈神经网络来解决 XOR 问题，要求该前馈神经网络具有两个隐藏神经元和一个输出神经元，并使用 ReLU 作为激活函数．</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -700,28 +680,28 @@ $$
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">keras.optimizers</span> <span class="kn">import</span> <span class="n">SGD</span>
-<span class="kn">from</span> <span class="nn">keras.layers.core</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Activation</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
-<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
-<span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
-
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
-<span class="n">sgd</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">sgd</span><span class="p">)</span>
-
-<span class="k">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
-<span class="k">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">())</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">())</span>
-<span class="k">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">keras.optimizers</span> <span class="kn">import</span> <span class="n">SGD</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">keras.layers.core</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Activation</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">sgd</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">sgd</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>随缘，经常遇到死亡ReLU，换成softplus就好了</p>
 <h4 id="习题-4-3-试举例说明死亡-relu-问题并提出解决方法">习题 4-3 试举例说明“死亡 ReLU 问题”，并提出解决方法．</h4>
@@ -741,46 +721,40 @@ w数量：$M \times \frac{N}{L}+(L-1)(\frac{N}{L})^2+\frac{N}{L}$</p>
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2021-01-22</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第4章 - 前馈神经网络" data-hashtags="神经网络与深度学习,NLP,notes,DL"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第4章 - 前馈神经网络"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第4章 - 前馈神经网络"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第4章 - 前馈神经网络"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第4章 - 前馈神经网络" data-hashtags="神经网络与深度学习,NLP,notes,DL"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第4章 - 前馈神经网络"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第4章 - 前馈神经网络"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第4章 - 前馈神经网络"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/notes/">Notes</a>,&nbsp;<a href="/tags/dl/">DL</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a>,&nbsp;<a href="/blog/tags/dl/">DL</a></section>
         <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" class="prev" rel="prev" title="《神经网络与深度学习》第3章 - 线性模型"><i class="fas fa-angle-left fa-fw"></i>《神经网络与深度学习》第3章 - 线性模型</a>
-            <a href="/nlp-papersword2vec/" class="next" rel="next" title="【NLP Papers】word2vec">【NLP Papers】word2vec<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" class="prev" rel="prev" title="《神经网络与深度学习》第3章 - 线性模型"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>《神经网络与深度学习》第3章 - 线性模型</a>
+            <a href="/blog/nlp-papersword2vec/" class="next" rel="next" title="【NLP Papers】word2vec">【NLP Papers】word2vec<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-<div id="comments"><div id="utterances"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container">
-
-            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
-
-                
-            </div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
 </html>

@@ -1,84 +1,94 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>所有文章 - Zubin`s Site</title>
-        <link>https://binko.me/posts/</link>
+        <link>https://zubingou.github.io/blog/posts/</link>
         <description>所有文章 | Zubin`s Site</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>zebgou@gmail.com (ZubinGou)</managingEditor>
-            <webMaster>zebgou@gmail.com (ZubinGou)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 01 Aug 2021 13:56:11 &#43;0800</lastBuildDate><atom:link href="https://binko.me/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>zebgou@gmail.com (ZubinGou)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 01 Aug 2021 13:56:11 &#43;0800</lastBuildDate><atom:link href="https://zubingou.github.io/blog/posts/" rel="self" type="application/rss+xml" /><item>
     <title>基于PyTorch实现BiLSTM-CRF-NER模型及其改进</title>
-    <link>https://binko.me/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0bilstm-crf-ner%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E6%94%B9%E8%BF%9B/</link>
+    <link>https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0bilstm-crf-ner%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E6%94%B9%E8%BF%9B/</link>
     <pubDate>Tue, 16 Mar 2021 13:46:57 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://binko.me/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0bilstm-crf-ner%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E6%94%B9%E8%BF%9B/</guid>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0bilstm-crf-ner%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E6%94%B9%E8%BF%9B/</guid>
     <description><![CDATA[PyTorch implementation of BiLSTM-CRF and Bi-LSTM-CNN-CRF models for named entity recognition. GitHub: https://github.com/ZubinGou/NER-BiLSTM-CRF-PyTorch Requirements Python 3 PyTorch 1.x Papers Bidirectional LSTM-CRF Models for Sequence Tagging (Huang et al., 2015) the first paper apply BiLSTM-CRF to NER Neural Architectures for Named Entity Recognition (Lample et al., 2016) introducing character-level features: pre-trained word embedding（skip-n-gr]]></description>
-</item><item>
+</item>
+<item>
     <title>机器学习写诗项目-AI诗人</title>
-    <link>https://binko.me/project-ai-poet-totoro/</link>
+    <link>https://zubingou.github.io/blog/project-ai-poet-totoro/</link>
     <pubDate>Sun, 10 Feb 2019 13:46:57 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://binko.me/project-ai-poet-totoro/</guid>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/project-ai-poet-totoro/</guid>
     <description><![CDATA[]]></description>
-</item><item>
+</item>
+<item>
     <title>虚无、意义与存在主义 -《未来简史》读罢的思考</title>
-    <link>https://binko.me/nihilism/</link>
+    <link>https://zubingou.github.io/blog/nihilism/</link>
     <pubDate>Sat, 11 May 2019 13:16:38 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://binko.me/nihilism/</guid>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nihilism/</guid>
     <description><![CDATA[]]></description>
-</item><item>
+</item>
+<item>
     <title>《神经网络与深度学习》第10章 - 模型独立的学习方式</title>
-    <link>https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/</link>
+    <link>https://zubingou.github.io/blog/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/</link>
     <pubDate>Sun, 01 Aug 2021 13:56:11 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/</guid>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/</guid>
     <description><![CDATA[10.1 集成学习 M 个模型在同一任务上的期望错误： $$ \begin{aligned} \mathcal{R}\left(f_{m}\right) &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\left(f_{m}(\boldsymbol{x})-h(\boldsymbol{x})\right)^{2}\right] \\ &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})^{2}\right] \end{aligned} $$ 则所有模型平均错误： $$ \overline{\mathcal{R}}(f)=\frac{1}{M} \sum_{m=1}^{M} \mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})^{2}\right] $$ 集成学习（Ensemble Learning）：群体决]]></description>
-</item><item>
+</item>
+<item>
     <title>《神经网络与深度学习》第9章 - 无监督学习</title>
-    <link>https://binko.me/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</link>
+    <link>https://zubingou.github.io/blog/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</link>
     <pubDate>Thu, 29 Jul 2021 13:56:11 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://binko.me/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</guid>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</guid>
     <description><![CDATA[ch9 无监督学习 9.1 无监督特征学习 无监督学习问题分类： 无监督特征学习（Unsupervised Feature Learning） 降维、可视化、监督学习前的预处理]]></description>
-</item><item>
+</item>
+<item>
     <title>《神经网络与深度学习》第7章 - 网络优化与正则化</title>
-    <link>https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/</link>
+    <link>https://zubingou.github.io/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/</link>
     <pubDate>Tue, 20 Jul 2021 17:00:11 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/</guid>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/</guid>
     <description><![CDATA[ch7 网络优化与正则化 任何数学技巧都不能弥补信息的缺失． —— 科尼利厄斯·兰佐斯（Cornelius Lanczos） 匈牙利数学家、物理学家 神经网络]]></description>
-</item><item>
+</item>
+<item>
     <title>【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</title>
-    <link>https://binko.me/nlp-papersbert_-pre-training-of-deep-bidirection/</link>
+    <link>https://zubingou.github.io/blog/nlp-papersbert_-pre-training-of-deep-bidirection/</link>
     <pubDate>Wed, 24 Mar 2021 14:56:11 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://binko.me/nlp-papersbert_-pre-training-of-deep-bidirection/</guid>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nlp-papersbert_-pre-training-of-deep-bidirection/</guid>
     <description><![CDATA[[Devlin et al., NAACL 2019]
 BERT: Bidirectional Encoder representations from Transformers
 1 Introduction two pre-train strategies:
  feature-based  ELMo: task-specific architecture   fine-tuning  GPT     limitations: standard language models are unidirectional masked language model (MLM, inspired by Cloze task) use a &ldquo;next sentence prediction&rdquo; task that jointly pretain text-pair representations  2 Related Work 2.1 Unsupervised Feature-based Approaches from word2vec to ELMo&hellip;
 2.2 Unsupervised Fine-tuning Approaches GPT use left-to-right language modeling and auto-encoder objectives]]></description>
-</item><item>
+</item>
+<item>
     <title>【NLP Papers】Contextual Word Representations: A Contextual Introduction</title>
-    <link>https://binko.me/nlp-paperscontextual-word-representations_-a-con/</link>
+    <link>https://zubingou.github.io/blog/nlp-paperscontextual-word-representations_-a-con/</link>
     <pubDate>Wed, 24 Mar 2021 13:56:11 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://binko.me/nlp-paperscontextual-word-representations_-a-con/</guid>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nlp-paperscontextual-word-representations_-a-con/</guid>
     <description><![CDATA[Word Representations 综述 [Noah A. Smith, 2020] 1 Preliminaries 两种word定义： word token：word observed in a piece of text word type: distinct word, rather than a specific instance 每个word type可能有多个word token实]]></description>
-</item><item>
+</item>
+<item>
     <title>【NLP Papers】ELMo: Deep contextualized word representations</title>
-    <link>https://binko.me/nlp-paperselmo_-deep-contextualized-word-represe/</link>
+    <link>https://zubingou.github.io/blog/nlp-paperselmo_-deep-contextualized-word-represe/</link>
     <pubDate>Wed, 24 Mar 2021 13:56:11 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://binko.me/nlp-paperselmo_-deep-contextualized-word-represe/</guid>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nlp-paperselmo_-deep-contextualized-word-represe/</guid>
     <description><![CDATA[[Peters et al., NAACL 2018a]
  use bidirectional language model to train contextual word vector. use these vector as pre-train part of existing models, improve SOTA across six tasks. analysis showing that exposing the deep internals of the pre-trained network is crucial  1 Introduction pre-trained word representations should model both:
  complex characteristic of word use (e.g., syntax and semantics) how these uses vary across linguistic contexts (i.e., to model polysemy)  ELMo: Embeddings from Language Models]]></description>
-</item><item>
+</item>
+<item>
     <title>《神经网络与深度学习》第15章 - 序列生成模型</title>
-    <link>https://binko.me/nndl-book-ch15-%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/</link>
+    <link>https://zubingou.github.io/blog/nndl-book-ch15-%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/</link>
     <pubDate>Tue, 23 Mar 2021 13:56:11 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://binko.me/nndl-book-ch15-%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/</guid>
+    <author>ZubinGou</author>
+    <guid>https://zubingou.github.io/blog/nndl-book-ch15-%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/</guid>
     <description><![CDATA[类似一般概率模型，序列概率模型的两个基本问题： 概率密度估计 样本生成 15.1 序列概率模型 序列数据的概率密度估计可以转换为单变量的条件概率估计问题： $$]]></description>
-</item></channel>
+</item>
+</channel>
 </rss>

@@ -4,23 +4,24 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>《神经网络与深度学习》第10章 - 模型独立的学习方式 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《神经网络与深度学习》第10章 - 模型独立的学习方式" />
 <meta property="og:description" content="10.1 集成学习 M 个模型在同一任务上的期望错误： $$ \begin{aligned} \mathcal{R}\left(f_{m}\right) &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\left(f_{m}(\boldsymbol{x})-h(\boldsymbol{x})\right)^{2}\right] \\ &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})^{2}\right] \end{aligned} $$ 则所有模型平均错误： $$ \overline{\mathcal{R}}(f)=\frac{1}{M} \sum_{m=1}^{M} \mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})^{2}\right] $$ 集成学习（Ensemble Learning）：群体决" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" />
-<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="og:url" content="https://zubingou.github.io/blog/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-08-01T13:56:11+08:00" />
-<meta property="article:modified_time" content="2021-08-01T13:56:11+08:00" />
+<meta property="article:modified_time" content="2021-08-01T13:56:11+08:00" /><meta property="og:site_name" content="My cool site" />
+
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://binko.me/logo.png"/>
+<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
 
 <meta name="twitter:title" content="《神经网络与深度学习》第10章 - 模型独立的学习方式"/>
 <meta name="twitter:description" content="10.1 集成学习 M 个模型在同一任务上的期望错误： $$ \begin{aligned} \mathcal{R}\left(f_{m}\right) &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\left(f_{m}(\boldsymbol{x})-h(\boldsymbol{x})\right)^{2}\right] \\ &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})^{2}\right] \end{aligned} $$ 则所有模型平均错误： $$ \overline{\mathcal{R}}(f)=\frac{1}{M} \sum_{m=1}^{M} \mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})^{2}\right] $$ 集成学习（Ensemble Learning）：群体决"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" /><link rel="prev" href="https://binko.me/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" /><link rel="next" href="https://binko.me/nihilism/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" /><link rel="prev" href="https://zubingou.github.io/blog/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" /><link rel="next" href="https://zubingou.github.io/blog/nihilism/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,18 +29,18 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/binko.me\/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F\/"
+            "@id": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F\/"
         },"image": [{
                             "@type": "ImageObject",
-                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
                         }],"genre": "posts","keywords": "神经网络与深度学习, NLP, notes, ML","wordcount":  3760 ,
-        "url": "https:\/\/binko.me\/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F\/","datePublished": "2021-08-01T13:56:11+08:00","dateModified": "2021-08-01T13:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F\/","datePublished": "2021-08-01T13:56:11+08:00","dateModified": "2021-08-01T13:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "ZubinGou","logo": {
                     "@type": "ImageObject",
-                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
                     "width":  304 ,
                     "height":  304 
                 }},"author": {
@@ -48,58 +49,38 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-        <div id="mask"></div><div class="wrapper">
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-      tex2jax: {
-          inlineMath: [['$','$'], ['\\(','\\)']],
-          displayMath: [['$$','$$']],
-          processEscapes: true,
-          processEnvironments: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-          TeX: {
-              equationNumbers: { autoNumber: "AMS" },
-              extensions: ["AMSmath.js", "AMSsymbols.js"]
-          }
-      }
-  });
-</script>
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-
-<header class="desktop" id="header-desktop">
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" selected>简体中文</option></select>
-                    </a><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/blog/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" selected>简体中文</option></select>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+                <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -109,43 +90,42 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" selected>简体中文</option></select>
+                </div><a class="menu-item" href="/blog/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" selected>简体中文</option></select>
                 </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">《神经网络与深度学习》第10章 - 模型独立的学习方式</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/deep-learning/"><i class="far fa-folder fa-fw"></i>Deep Learning</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-01">2021-08-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3760 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《神经网络与深度学习》第10章 - 模型独立的学习方式</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/deep-learning/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Deep Learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-01">2021-08-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3760 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -189,7 +169,7 @@
 <p>M 个模型在同一任务上的期望错误：</p>
 <p>$$
 \begin{aligned}
-\mathcal{R}\left(f_{m}\right) &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\left(f_{m}(\boldsymbol{x})-h(\boldsymbol{x})\right)^{2}\right] \\<br>
+\mathcal{R}\left(f_{m}\right) &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\left(f_{m}(\boldsymbol{x})-h(\boldsymbol{x})\right)^{2}\right] \\
 &amp;=\mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})^{2}\right]
 \end{aligned}
 $$</p>
@@ -225,7 +205,7 @@ $$</p>
 <p>AdaBoost（Adaptive Boosting）算法：加法模型，指数损失函数，前向分步（Stage-Wise）优化的二类分类学习方法。</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../../_resources/58e89671133641f4b76d901df9f9143e.png"
         data-srcset="../../../_resources/58e89671133641f4b76d901df9f9143e.png, ../../../_resources/58e89671133641f4b76d901df9f9143e.png 1.5x, ../../../_resources/58e89671133641f4b76d901df9f9143e.png 2x"
         data-sizes="auto"
@@ -237,7 +217,7 @@ $$</p>
 <p>自训练（Self-Training，或 Self-Teaching）：自举法（Bootstrapping），将预测置信度高的样本及其伪标签加入训练集，然后重新训练，不断反复。</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../../_resources/945904d218fe44b099e5e5084a3f7f02.png"
         data-srcset="../../../_resources/945904d218fe44b099e5e5084a3f7f02.png, ../../../_resources/945904d218fe44b099e5e5084a3f7f02.png 1.5x, ../../../_resources/945904d218fe44b099e5e5084a3f7f02.png 2x"
         data-sizes="auto"
@@ -255,7 +235,7 @@ $$</p>
 <p>协同训练步骤：训练不同视角两个模型，在无标注数据集预测并各自选取置信度较高的样本加入训练集，重新训练两个模型，不断反复。</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../../_resources/616d443216324cd8a11cb05a71ba7929.png"
         data-srcset="../../../_resources/616d443216324cd8a11cb05a71ba7929.png, ../../../_resources/616d443216324cd8a11cb05a71ba7929.png 1.5x, ../../../_resources/616d443216324cd8a11cb05a71ba7929.png 2x"
         data-sizes="auto"
@@ -268,7 +248,7 @@ $$</p>
 <p>主要挑战：设计<strong>共享机制</strong></p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../../_resources/452d8f87fa894184b4379acd30049d32.png"
         data-srcset="../../../_resources/452d8f87fa894184b4379acd30049d32.png, ../../../_resources/452d8f87fa894184b4379acd30049d32.png 1.5x, ../../../_resources/452d8f87fa894184b4379acd30049d32.png 2x"
         data-sizes="auto"
@@ -286,7 +266,7 @@ $$</p>
 <p>迁移学习：两个不同领域的知识迁移过程</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../../_resources/ba705b13080d41a18729098d7783734a.png"
         data-srcset="../../../_resources/ba705b13080d41a18729098d7783734a.png, ../../../_resources/ba705b13080d41a18729098d7783734a.png 1.5x, ../../../_resources/ba705b13080d41a18729098d7783734a.png 2x"
         data-sizes="auto"
@@ -333,7 +313,7 @@ $$</p>
 <p>如果可以学习一个映射函数，使得映射后特征空间中源领域和目标领域的边际分布相同 $p_{S}\left(g\left(\boldsymbol{x} ; \theta_{g}\right)\right)=p_{T}\left(g\left(\boldsymbol{x} ; \theta_{g}\right)\right)$，设 $\theta_g$ 为映射函数的参数，则目标函数可以近似为：</p>
 <p>$$
 \begin{aligned}
-\mathcal{R}_{T}\left(\theta_{f}, \theta_{g}\right) &amp;=\mathbb{E}_{(\boldsymbol{x}, y) \sim p_{S}(\boldsymbol{x}, y)}\left[\mathcal{L}\left(f\left(g\left(\boldsymbol{x} ; \theta_{\mathrm{g}}\right) ; \theta_{f}\right), y\right)\right]+\gamma d_{\mathrm{g}}(S, T) \\<br>
+\mathcal{R}_{T}\left(\theta_{f}, \theta_{g}\right) &amp;=\mathbb{E}_{(\boldsymbol{x}, y) \sim p_{S}(\boldsymbol{x}, y)}\left[\mathcal{L}\left(f\left(g\left(\boldsymbol{x} ; \theta_{\mathrm{g}}\right) ; \theta_{f}\right), y\right)\right]+\gamma d_{\mathrm{g}}(S, T) \\
 &amp;=\mathcal{R}_{S}\left(\theta_{f}, \theta_{\mathrm{g}}\right)+\gamma d_{\mathrm{g}}(S, T),
 \end{aligned}
 $$</p>
@@ -347,7 +327,7 @@ $$</p>
 <p>源和目标领域训练数据：</p>
 <p>$$
 \begin{aligned}
-&amp;\mathcal{D}_{S}=\{(\boldsymbol{x}_{S}^{(n)}, y_{S}^{(n)})\}_{n=1}^{N} \sim p_{S}(\boldsymbol{x}, y) \\<br>
+&amp;\mathcal{D}_{S}=\{(\boldsymbol{x}_{S}^{(n)}, y_{S}^{(n)})\}_{n=1}^{N} \sim p_{S}(\boldsymbol{x}, y) \\
 &amp;\mathcal{D}_{T}=\{\boldsymbol{x}_{T}^{(m)}\}_{m=1}^{M} \sim p_{T}(\boldsymbol{x}, y)
 \end{aligned}
 $$</p>
@@ -369,7 +349,7 @@ $$</p>
 <p>其中 $\mathcal{D}=\mathcal{D}_{A} \cup \mathcal{D}_{B}$ ，根据独立同分布假设，上式可以写为：</p>
 <p>$$
 \begin{aligned}
-\log p(\theta \mid \mathcal{D}) &amp;=\underline{\log p\left(\mathcal{D}_{A} \mid \theta\right)}+\log p\left(\mathcal{D}_{B} \mid \theta\right)+\underline{\log p(\theta)}-\log p\left(\mathcal{D}_{A}\right)-\log p\left(\mathcal{D}_{B}\right) \\<br>
+\log p(\theta \mid \mathcal{D}) &amp;=\underline{\log p\left(\mathcal{D}_{A} \mid \theta\right)}+\log p\left(\mathcal{D}_{B} \mid \theta\right)+\underline{\log p(\theta)}-\log p\left(\mathcal{D}_{A}\right)-\log p\left(\mathcal{D}_{B}\right) \\
 &amp;=\log p\left(\mathcal{D}_{B} \mid \theta\right)+\underline{\log p\left(\theta \mid \mathcal{D}_{A}\right)}-\log p\left(\mathcal{D}_{B}\right)
 \end{aligned}
 $$</p>
@@ -393,7 +373,7 @@ $$</p>
 <p>不同的优化算法的区别在于更新参数的规则不同，因此一种很自然的元学习是自动学习参数更新规则，即通过另一个神经网络建模梯度下降过程。</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../../_resources/1299c3b56b434212b7f5c82efd4b0609.png"
         data-srcset="../../../_resources/1299c3b56b434212b7f5c82efd4b0609.png, ../../../_resources/1299c3b56b434212b7f5c82efd4b0609.png 1.5x, ../../../_resources/1299c3b56b434212b7f5c82efd4b0609.png 2x"
         data-sizes="auto"
@@ -406,8 +386,8 @@ $$</p>
 <p>学习优化器可以看作元学习过程，目标是找到适用不同任务的优化器，每步迭代目标是 $\mathcal{L}(\theta)$ 最小：</p>
 <p>$$
 \begin{aligned}
-\mathcal{L}(\phi) &amp;=\mathbb{E}_{f}\left[\sum_{t=1}^{T} w_{t} \mathcal{L}\left(\theta_{t}\right)\right] \\<br>
-\theta_{t} &amp;=\theta_{t-1}+g_{t}, \\<br>
+\mathcal{L}(\phi) &amp;=\mathbb{E}_{f}\left[\sum_{t=1}^{T} w_{t} \mathcal{L}\left(\theta_{t}\right)\right] \\
+\theta_{t} &amp;=\theta_{t-1}+g_{t}, \\
 \left[g_{t} ; \boldsymbol{h}_{t}\right] &amp;=\operatorname{LSTM}\left(\nabla \mathcal{L}\left(\theta_{t-1}\right), \boldsymbol{h}_{t-1} ; \phi\right),
 \end{aligned}
 $$</p>
@@ -425,14 +405,14 @@ $$</p>
 <p>用梯度下降在所有任务上元优化（Meta-Optimization）：
 $$
 \begin{aligned}
-\theta &amp; \leftarrow \theta-\beta \nabla_{\theta} \sum_{m=1}^{M} \mathcal{L}_{\mathcal{T}_{m}}\left(f_{\theta_{m}^{\prime}}\right) \\<br>
+\theta &amp; \leftarrow \theta-\beta \nabla_{\theta} \sum_{m=1}^{M} \mathcal{L}_{\mathcal{T}_{m}}\left(f_{\theta_{m}^{\prime}}\right) \\
 &amp;=\theta-\beta \sum_{m=1}^{M} \nabla_{\theta} \mathcal{L}_{\mathcal{T}_{m}}\left(f_{\theta_{m}}\right)\left(I-\alpha \nabla_{\theta}^{2} \mathcal{L}_{\mathcal{T}_{m}}\left(f_{\theta_{m}}\right)\right)
 \end{aligned}
 $$</p>
 <p>$\beta$ 为元学习率，$\alpha$ 较小时 MAML 近似为普通多任务学习优化方法。MAML 需要计算二阶梯度，可以用一阶方法近似。</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../../_resources/bd8fe2eb2abf48a78f9829473226ae65.png"
         data-srcset="../../../_resources/bd8fe2eb2abf48a78f9829473226ae65.png, ../../../_resources/bd8fe2eb2abf48a78f9829473226ae65.png 1.5x, ../../../_resources/bd8fe2eb2abf48a78f9829473226ae65.png 2x"
         data-sizes="auto"
@@ -460,46 +440,40 @@ $$</p>
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2021-08-01</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/blog/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" data-title="《神经网络与深度学习》第10章 - 模型独立的学习方式" data-hashtags="神经网络与深度学习,NLP,notes,ML"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" data-title="《神经网络与深度学习》第10章 - 模型独立的学习方式"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" data-title="《神经网络与深度学习》第10章 - 模型独立的学习方式"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" data-title="《神经网络与深度学习》第10章 - 模型独立的学习方式"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" data-title="《神经网络与深度学习》第10章 - 模型独立的学习方式" data-hashtags="神经网络与深度学习,NLP,notes,ML"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" data-title="《神经网络与深度学习》第10章 - 模型独立的学习方式"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" data-title="《神经网络与深度学习》第10章 - 模型独立的学习方式"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/nndl-book-ch10-%E6%A8%A1%E5%9E%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" data-title="《神经网络与深度学习》第10章 - 模型独立的学习方式"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/notes/">Notes</a>,&nbsp;<a href="/tags/ml/">ML</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a>,&nbsp;<a href="/blog/tags/ml/">ML</a></section>
         <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="prev" rel="prev" title="《神经网络与深度学习》第9章 - 无监督学习"><i class="fas fa-angle-left fa-fw"></i>《神经网络与深度学习》第9章 - 无监督学习</a>
-            <a href="/nihilism/" class="next" rel="next" title="虚无、意义与存在主义 -《未来简史》读罢的思考">虚无、意义与存在主义 -《未来简史》读罢的思考<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/blog/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="prev" rel="prev" title="《神经网络与深度学习》第9章 - 无监督学习"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>《神经网络与深度学习》第9章 - 无监督学习</a>
+            <a href="/blog/nihilism/" class="next" rel="next" title="虚无、意义与存在主义 -《未来简史》读罢的思考">虚无、意义与存在主义 -《未来简史》读罢的思考<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-<div id="comments"><div id="utterances"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container">
-
-            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
-
-                
-            </div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
 </html>

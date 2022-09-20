@@ -4,23 +4,24 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>NNLP: A Primer on Neural Network Models for Natural Language Processing - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="NNLP: A Primer on Neural Network Models for Natural Language Processing" />
 <meta property="og:description" content="一篇非常简洁的神经网络应用于NLP的综述（2016）。 1. Introduction purpose 过去近十年: NLP通常使用线性机器学习模型（SVM、LR）在高维稀疏特征向量上训" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://binko.me/nnlp-notes/" />
-<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="og:url" content="https://zubingou.github.io/blog/nnlp-notes/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-02-02T13:56:11+08:00" />
-<meta property="article:modified_time" content="2021-04-06T18:31:46+08:00" />
+<meta property="article:modified_time" content="2021-04-06T18:31:46+08:00" /><meta property="og:site_name" content="My cool site" />
+
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://binko.me/logo.png"/>
+<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
 
 <meta name="twitter:title" content="NNLP: A Primer on Neural Network Models for Natural Language Processing"/>
 <meta name="twitter:description" content="一篇非常简洁的神经网络应用于NLP的综述（2016）。 1. Introduction purpose 过去近十年: NLP通常使用线性机器学习模型（SVM、LR）在高维稀疏特征向量上训"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/nnlp-notes/" /><link rel="prev" href="https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="next" href="https://binko.me/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/nnlp-notes/" /><link rel="prev" href="https://zubingou.github.io/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="next" href="https://zubingou.github.io/blog/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,18 +29,18 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/binko.me\/nnlp-notes\/"
+            "@id": "https:\/\/zubingou.github.io\/blog\/nnlp-notes\/"
         },"image": [{
                             "@type": "ImageObject",
-                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
                         }],"genre": "posts","keywords": "NNLP, NLP, Neural Network, notes","wordcount":  5396 ,
-        "url": "https:\/\/binko.me\/nnlp-notes\/","datePublished": "2021-02-02T13:56:11+08:00","dateModified": "2021-04-06T18:31:46+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "https:\/\/zubingou.github.io\/blog\/nnlp-notes\/","datePublished": "2021-02-02T13:56:11+08:00","dateModified": "2021-04-06T18:31:46+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "ZubinGou","logo": {
                     "@type": "ImageObject",
-                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
                     "width":  304 ,
                     "height":  304 
                 }},"author": {
@@ -48,58 +49,38 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-        <div id="mask"></div><div class="wrapper">
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-      tex2jax: {
-          inlineMath: [['$','$'], ['\\(','\\)']],
-          displayMath: [['$$','$$']],
-          processEscapes: true,
-          processEnvironments: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-          TeX: {
-              equationNumbers: { autoNumber: "AMS" },
-              extensions: ["AMSmath.js", "AMSsymbols.js"]
-          }
-      }
-  });
-</script>
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-
-<header class="desktop" id="header-desktop">
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/nnlp-notes/" selected>简体中文</option></select>
-                    </a><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/blog/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/nnlp-notes/" selected>简体中文</option></select>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+                <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -109,43 +90,42 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/nnlp-notes/" selected>简体中文</option></select>
+                </div><a class="menu-item" href="/blog/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/nnlp-notes/" selected>简体中文</option></select>
                 </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">NNLP: A Primer on Neural Network Models for Natural Language Processing</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/nlp/"><i class="far fa-folder fa-fw"></i>NLP</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-02-02">2021-02-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5396 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">NNLP: A Primer on Neural Network Models for Natural Language Processing</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/nlp/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>NLP</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-02-02">2021-02-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5396 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -416,7 +396,7 @@
 <h3 id="31-dense-vectors-vs-one-hot-representations">3.1 Dense Vectors vs. One-Hot Representations</h3>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/7969ee84d9104a209f16ffb1f668c24d.png"
         data-srcset="../_resources/7969ee84d9104a209f16ffb1f668c24d.png, ../_resources/7969ee84d9104a209f16ffb1f668c24d.png 1.5x, ../_resources/7969ee84d9104a209f16ffb1f668c24d.png 2x"
         data-sizes="auto"
@@ -512,7 +492,7 @@ $$\operatorname{WCBOW}\left(f_{1}, \ldots, f_{k}\right)=\frac{1}{\sum_{i=1}^{k} 
 <h3 id="41-a-brain-inspired-metaphor">4.1 A Brain-Inspired Metaphor</h3>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/e1ab762dfbb0463b9859ab3a9c23d19c.png"
         data-srcset="../_resources/e1ab762dfbb0463b9859ab3a9c23d19c.png, ../_resources/e1ab762dfbb0463b9859ab3a9c23d19c.png 1.5x, ../_resources/e1ab762dfbb0463b9859ab3a9c23d19c.png 2x"
         data-sizes="auto"
@@ -574,7 +554,7 @@ $$\begin{aligned} \mathrm{NN}_{\mathrm{MLP} 2}(\mathrm{x}) &amp;=\mathrm{y} \\ \
 $$
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/c3735eb9678f4b2b9c0648515a1a698a.png"
         data-srcset="../_resources/c3735eb9678f4b2b9c0648515a1a698a.png, ../_resources/c3735eb9678f4b2b9c0648515a1a698a.png 1.5x, ../_resources/c3735eb9678f4b2b9c0648515a1a698a.png 2x"
         data-sizes="auto"
@@ -590,7 +570,7 @@ $$
 $$
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/3f31de9e390a4c63add9e870c4e4a7f5.png"
         data-srcset="../_resources/3f31de9e390a4c63add9e870c4e4a7f5.png, ../_resources/3f31de9e390a4c63add9e870c4e4a7f5.png 1.5x, ../_resources/3f31de9e390a4c63add9e870c4e4a7f5.png 2x"
         data-sizes="auto"
@@ -599,14 +579,14 @@ $$
 <h4 id="443-hard-tanh">4.4.3 Hard tanh</h4>
 <p>$$
 \operatorname{hardtanh}(x)=\left{\begin{array}{ll}
--1 &amp; x&lt;-1 \\<br>
-1 &amp; x&gt;1 \\<br>
+-1 &amp; x&lt;-1 \\
+1 &amp; x&gt;1 \\
 x &amp; \text { otherwise }
 \end{array}\right.
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/92d90019c513409687b22f5f68ecf8eb.png"
         data-srcset="../_resources/92d90019c513409687b22f5f68ecf8eb.png, ../_resources/92d90019c513409687b22f5f68ecf8eb.png 1.5x, ../_resources/92d90019c513409687b22f5f68ecf8eb.png 2x"
         data-sizes="auto"
@@ -620,13 +600,13 @@ $$</p>
 <p>The Rectifier activation function</p>
 <p>$$
 \operatorname{ReLU}(x)=\max (0, x)=\left{\begin{array}{ll}
-0 &amp; x&lt;0 \\<br>
+0 &amp; x&lt;0 \\
 x &amp; \text { otherwise }
 \end{array}\right.
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/042ae54cb4584afd9cde0577f087f391.png"
         data-srcset="../_resources/042ae54cb4584afd9cde0577f087f391.png, ../_resources/042ae54cb4584afd9cde0577f087f391.png 1.5x, ../_resources/042ae54cb4584afd9cde0577f087f391.png 2x"
         data-sizes="auto"
@@ -640,7 +620,7 @@ $$</p>
 <p>softmax:</p>
 <p>$$
 \begin{aligned}
-\mathbf{x} &amp;=x_{1}, \ldots, x_{k} \\<br>
+\mathbf{x} &amp;=x_{1}, \ldots, x_{k} \\
 \operatorname{softmax}\left(x_{i}\right) &amp;=\frac{e^{x_{i}}}{\sum_{j=1}^{k} e^{x_{j}}}
 \end{aligned}
 $$</p>
@@ -655,18 +635,18 @@ $$</p>
 <li>concatenate:
 $$
 \begin{aligned}
-\mathbf{x}=c\left(f_{1}, f_{2}, f_{3}\right) &amp;=\left[v\left(f_{1}\right) ; v\left(f_{2}\right) ; v\left(f_{3}\right)\right] \\<br>
-\mathrm{NN}_{\mathrm{MLP} 1}(\mathbf{x}) &amp;=\mathrm{NN}_{\mathrm{MLP} 1}\left(c\left(f_{1}, f_{2}, f_{3}\right)\right) \\<br>
-&amp;=\mathrm{N} \mathrm{N}_{\mathrm{MLP} 1}\left(\left[v\left(f_{1}\right) ; v\left(f_{2}\right) ; v\left(f_{3}\right)\right]\right) \\<br>
+\mathbf{x}=c\left(f_{1}, f_{2}, f_{3}\right) &amp;=\left[v\left(f_{1}\right) ; v\left(f_{2}\right) ; v\left(f_{3}\right)\right] \\
+\mathrm{NN}_{\mathrm{MLP} 1}(\mathbf{x}) &amp;=\mathrm{NN}_{\mathrm{MLP} 1}\left(c\left(f_{1}, f_{2}, f_{3}\right)\right) \\
+&amp;=\mathrm{N} \mathrm{N}_{\mathrm{MLP} 1}\left(\left[v\left(f_{1}\right) ; v\left(f_{2}\right) ; v\left(f_{3}\right)\right]\right) \\
 &amp;=\left(g\left(\left[v\left(f_{1}\right) ; v\left(f_{2}\right) ; v\left(f_{3}\right)\right] \mathbf{W}^{1}+\mathbf{b}^{1}\right)\right) \mathbf{W}^{2}+\mathbf{b}^{2}
 \end{aligned}
 $$</li>
 <li>sum:
 $$
 \begin{aligned}
-\mathbf{x}=c\left(f_{1}, f_{2}, f_{3}\right) &amp;=v\left(f_{1}\right)+v\left(f_{2}\right)+v\left(f_{3}\right) \\<br>
-\mathrm{NN}_{\mathrm{MLP} 1}(\mathbf{x}) &amp;=\mathrm{NN}_{\mathrm{MLP} 1}\left(c\left(f_{1}, f_{2}, f_{3}\right)\right) \\<br>
-&amp;=\mathrm{NN}_{\mathrm{MLP} 1}\left(v\left(f_{1}\right)+v\left(f_{2}\right)+v\left(f_{3}\right)\right) \\<br>
+\mathbf{x}=c\left(f_{1}, f_{2}, f_{3}\right) &amp;=v\left(f_{1}\right)+v\left(f_{2}\right)+v\left(f_{3}\right) \\
+\mathrm{NN}_{\mathrm{MLP} 1}(\mathbf{x}) &amp;=\mathrm{NN}_{\mathrm{MLP} 1}\left(c\left(f_{1}, f_{2}, f_{3}\right)\right) \\
+&amp;=\mathrm{NN}_{\mathrm{MLP} 1}\left(v\left(f_{1}\right)+v\left(f_{2}\right)+v\left(f_{3}\right)\right) \\
 &amp;=\left(g\left(\left(v\left(f_{1}\right)+v\left(f_{2}\right)+v\left(f_{3}\right)\right) \mathbf{W}^{1}+\mathbf{b}^{1}\right)\right) \mathbf{W}^{2}+\mathbf{b}^{2}
 \end{aligned}
 $$</li>
@@ -694,7 +674,7 @@ $$
 first layers:
 $$
 \begin{array}{l}
-\mathrm{xW}+\mathrm{b}=\left(\sum_{i=1}^{k} \mathrm{f}_{\mathrm{i}}\right) \mathbf{W} \\<br>
+\mathrm{xW}+\mathrm{b}=\left(\sum_{i=1}^{k} \mathrm{f}_{\mathrm{i}}\right) \mathbf{W} \\
 \mathbf{W} \in \mathbb{R}^{|V| \times d}, \quad \mathbf{b} \in \mathbb{R}^{d}
 \end{array}
 $$</p>
@@ -717,7 +697,7 @@ $$</p>
 <p>合页损失（长得像合页）
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/2683ce413d6942d08b3b3e02aab07311.png"
         data-srcset="../_resources/2683ce413d6942d08b3b3e02aab07311.png, ../_resources/2683ce413d6942d08b3b3e02aab07311.png 1.5x, ../_resources/2683ce413d6942d08b3b3e02aab07311.png 2x"
         data-sizes="auto"
@@ -889,7 +869,7 @@ $$</p>
 <p>SGD:
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/96fd77c92dda428d8886df81259824ab.png"
         data-srcset="../_resources/96fd77c92dda428d8886df81259824ab.png, ../_resources/96fd77c92dda428d8886df81259824ab.png 1.5x, ../_resources/96fd77c92dda428d8886df81259824ab.png 2x"
         data-sizes="auto"
@@ -898,7 +878,7 @@ $$</p>
 <p>minibatch SGD:
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/8b47e46d704d4d218f1b895d01471f84.png"
         data-srcset="../_resources/8b47e46d704d4d218f1b895d01471f84.png, ../_resources/8b47e46d704d4d218f1b895d01471f84.png 1.5x, ../_resources/8b47e46d704d4d218f1b895d01471f84.png 2x"
         data-sizes="auto"
@@ -915,7 +895,7 @@ $$</p>
 <p>example of compution:
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/52a2c7c10cc549ceb9a06c53ab702614.png"
         data-srcset="../_resources/52a2c7c10cc549ceb9a06c53ab702614.png, ../_resources/52a2c7c10cc549ceb9a06c53ab702614.png 1.5x, ../_resources/52a2c7c10cc549ceb9a06c53ab702614.png 2x"
         data-sizes="auto"
@@ -923,7 +903,7 @@ $$</p>
         title="76e36a8491d33f37d8987e539687abf3.png" /></p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/2afb87661e1e4d91bab5414fe03cf177.png"
         data-srcset="../_resources/2afb87661e1e4d91bab5414fe03cf177.png, ../_resources/2afb87661e1e4d91bab5414fe03cf177.png 1.5x, ../_resources/2afb87661e1e4d91bab5414fe03cf177.png 2x"
         data-sizes="auto"
@@ -933,7 +913,7 @@ $$</p>
 <p>topological order:
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/38e5e73389804b25a40c9f3f74edba44.png"
         data-srcset="../_resources/38e5e73389804b25a40c9f3f74edba44.png, ../_resources/38e5e73389804b25a40c9f3f74edba44.png 1.5x, ../_resources/38e5e73389804b25a40c9f3f74edba44.png 2x"
         data-sizes="auto"
@@ -943,7 +923,7 @@ $$</p>
 <p>误差乘以偏导再求和
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/9e11d25f76cc4b4d99f4b4bf62ccd691.png"
         data-srcset="../_resources/9e11d25f76cc4b4d99f4b4bf62ccd691.png, ../_resources/9e11d25f76cc4b4d99f4b4bf62ccd691.png 1.5x, ../_resources/9e11d25f76cc4b4d99f4b4bf62ccd691.png 2x"
         data-sizes="auto"
@@ -964,7 +944,7 @@ $$</p>
 <h4 id="624-implementation-recipe">6.2.4 Implementation Recipe</h4>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/75004299211c43dfacb5cbf307f5fb4b.png"
         data-srcset="../_resources/75004299211c43dfacb5cbf307f5fb4b.png, ../_resources/75004299211c43dfacb5cbf307f5fb4b.png 1.5x, ../_resources/75004299211c43dfacb5cbf307f5fb4b.png 2x"
         data-sizes="auto"
@@ -987,13 +967,13 @@ $$</p>
 <li>internal covariate shift: use batch normalization, adjust inputs to fix the activation function (vice versa)
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/e09a8c859f3c4fed8ee747c455d6f12d.png"
         data-srcset="../_resources/e09a8c859f3c4fed8ee747c455d6f12d.png, ../_resources/e09a8c859f3c4fed8ee747c455d6f12d.png 1.5x, ../_resources/e09a8c859f3c4fed8ee747c455d6f12d.png 2x"
         data-sizes="auto"
         alt="../_resources/e09a8c859f3c4fed8ee747c455d6f12d.png"
         title="a65f913f43bf78fc110dd150f60970b6.png" />
-<a href="https://medium.com/@shiyan/xavier-initialization-and-batch-normalization-my-understanding-b5b91268c25c" target="_blank" rel="noopener noreffer"><font size=2><em>image source</em></font></a></li>
+<a href="https://medium.com/@shiyan/xavier-initialization-and-batch-normalization-my-understanding-b5b91268c25c" target="_blank" rel="noopener noreffer "><font size=2><em>image source</em></font></a></li>
 </ul>
 <p>He et al. (2015): ReLU initialized by sampling from a zero-mean Gaussian distribution whose standard deviation is $\sqrt{\frac{2}{d_{\text {in }}}}$, works better than xavier in image classification</p>
 <h4 id="632-vanishing-and-exploding-gradients">6.3.2 Vanishing and Exploding Gradients</h4>
@@ -1051,7 +1031,7 @@ $$</p>
 <p>dropout: 每批训练中，忽略一半（或某层中一半）特征检测器（设为0），减少特征检测器（隐层结点）之间的相互作用。
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/76fa7c284f2d4fcfbb61d3ffdec23ad6.png"
         data-srcset="../_resources/76fa7c284f2d4fcfbb61d3ffdec23ad6.png, ../_resources/76fa7c284f2d4fcfbb61d3ffdec23ad6.png 1.5x, ../_resources/76fa7c284f2d4fcfbb61d3ffdec23ad6.png 2x"
         data-sizes="auto"
@@ -1115,7 +1095,7 @@ $$</p>
 $$
 \operatorname{score}(x, y)=\sum_{p \in y} \mathrm{NN}_{\mathrm{MLP1}}(c(p))=\sum_{p \in y}\left(g\left(c(p) \mathbf{W}^{1}+\mathbf{b}^{1}\right)\right) \mathbf{w}
 $$</p>
-<p>find the best scoring structure $y'$, generalized perceptron loss:
+<p>find the best scoring structure $y&rsquo;$, generalized perceptron loss:
 $$
 \max _{y^{\prime}} \operatorname{score}\left(x, y^{\prime}\right)-\operatorname{score}(x, y)
 $$</p>
@@ -1127,7 +1107,7 @@ $$</p>
 <p>conditional random fields, “CRF”: treat each parts scores as a <em>clique potential</em> and define score:
 $$
 \begin{aligned}
-\operatorname{score}_{\mathrm{CRF}}(x, y)=P(y \mid x) &amp;=\frac{\exp \left(\sum_{p \in y} \operatorname{score}(p)\right)}{\sum_{y^{\prime} \in \mathcal{Y}(x)} \exp \left(\sum_{p \in y^{\prime}} \operatorname{score}(p)\right)} \\<br>
+\operatorname{score}_{\mathrm{CRF}}(x, y)=P(y \mid x) &amp;=\frac{\exp \left(\sum_{p \in y} \operatorname{score}(p)\right)}{\sum_{y^{\prime} \in \mathcal{Y}(x)} \exp \left(\sum_{p \in y^{\prime}} \operatorname{score}(p)\right)} \\
 &amp;=\frac{\exp \left(\sum_{p \in y} \operatorname{NN}(\phi(p))\right)}{\sum_{y^{\prime} \in \mathcal{Y}(x)} \exp \left(\sum_{p \in y^{\prime}} \operatorname{NN}(\phi(p))\right)}
 \end{aligned}
 $$</p>
@@ -1189,7 +1169,7 @@ pooling: all d-dimensional vector -&gt; single d-dimensional vector (max or aver
 </ul>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/003198d8cf4b49dba20481a578e886b0.png"
         data-srcset="../_resources/003198d8cf4b49dba20481a578e886b0.png, ../_resources/003198d8cf4b49dba20481a578e886b0.png 1.5x, ../_resources/003198d8cf4b49dba20481a578e886b0.png 2x"
         data-sizes="auto"
@@ -1214,10 +1194,10 @@ $$</p>
 <p>k-max pooling:
 $$
 \left[\begin{array}{lll}
-1 &amp; 2 &amp; 3 \\<br>
-9 &amp; 6 &amp; 5 \\<br>
-2 &amp; 3 &amp; 1 \\<br>
-7 &amp; 8 &amp; 1 \\<br>
+1 &amp; 2 &amp; 3 \\
+9 &amp; 6 &amp; 5 \\
+2 &amp; 3 &amp; 1 \\
+7 &amp; 8 &amp; 1 \\
 3 &amp; 4 &amp; 1
 \end{array}\right]
 $$</p>
@@ -1231,7 +1211,7 @@ $$</li>
 <li>2-max:
 $$
 \left[\begin{array}{lll}
-9 &amp; 6 &amp; 3 \\<br>
+9 &amp; 6 &amp; 3 \\
 7 &amp; 8 &amp; 5
 \end{array}\right]
 $$
@@ -1272,15 +1252,15 @@ $$</p>
 <p>RNN don&rsquo;t need Markov assumption, and works better than n-gram.</p>
 <p>$$
 \begin{array}{c}
-\mathrm{RNN}\left(\mathrm{s}_{0}, \mathrm{x}_{1: \mathrm{n}}\right)=\mathrm{s}_{1: \mathrm{n}}, \mathrm{y}_{1: \mathrm{n}} \\<br>
-\mathrm{s}_{\mathrm{i}}=R\left(\mathrm{~s}_{\mathrm{i}-1}, \mathrm{x}_{\mathrm{i}}\right) \\<br>
-\mathrm{y}_{\mathrm{i}}=O\left(\mathrm{~s}_{\mathrm{i}}\right) \\<br>
+\mathrm{RNN}\left(\mathrm{s}_{0}, \mathrm{x}_{1: \mathrm{n}}\right)=\mathrm{s}_{1: \mathrm{n}}, \mathrm{y}_{1: \mathrm{n}} \\
+\mathrm{s}_{\mathrm{i}}=R\left(\mathrm{~s}_{\mathrm{i}-1}, \mathrm{x}_{\mathrm{i}}\right) \\
+\mathrm{y}_{\mathrm{i}}=O\left(\mathrm{~s}_{\mathrm{i}}\right) \\
 \mathrm{x}_{\mathrm{i}} \in \mathbb{R}^{d_{i n}}, \quad \mathbf{y}_{\mathrm{i}} \in \mathbb{R}^{d_{\text {out }}}, \quad \mathrm{s}_{\mathrm{i}} \in \mathbb{R}^{f\left(d_{\text {out }}\right)}
 \end{array}
 $$
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/5fb0641348744180b6eb7b332ad93ae8.png"
         data-srcset="../_resources/5fb0641348744180b6eb7b332ad93ae8.png, ../_resources/5fb0641348744180b6eb7b332ad93ae8.png 1.5x, ../_resources/5fb0641348744180b6eb7b332ad93ae8.png 2x"
         data-sizes="auto"
@@ -1289,7 +1269,7 @@ $$
 unroll:
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/12f8753b4c954a8298fab550ff23f022.png"
         data-srcset="../_resources/12f8753b4c954a8298fab550ff23f022.png, ../_resources/12f8753b4c954a8298fab550ff23f022.png 1.5x, ../_resources/12f8753b4c954a8298fab550ff23f022.png 2x"
         data-sizes="auto"
@@ -1319,7 +1299,7 @@ unroll:
 <li>eg. part-of-speech, sentiment analysis, non-phrase classfication
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/b45a05c972a84f25a3dd2655cb084254.png"
         data-srcset="../_resources/b45a05c972a84f25a3dd2655cb084254.png, ../_resources/b45a05c972a84f25a3dd2655cb084254.png 1.5x, ../_resources/b45a05c972a84f25a3dd2655cb084254.png 2x"
         data-sizes="auto"
@@ -1343,7 +1323,7 @@ L\left(\mathbf{y} \hat{\mathbf{1}: \mathbf{n}}, \mathbf{y}_{\mathbf{1}: \mathbf{
 $$
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/4fad65096efd49e787795dfb35bdbe94.png"
         data-srcset="../_resources/4fad65096efd49e787795dfb35bdbe94.png, ../_resources/4fad65096efd49e787795dfb35bdbe94.png 1.5x, ../_resources/4fad65096efd49e787795dfb35bdbe94.png 2x"
         data-sizes="auto"
@@ -1367,7 +1347,7 @@ eg.</p>
 </ul>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/0798f9afbff542738f6cba5adbd34fbe.png"
         data-srcset="../_resources/0798f9afbff542738f6cba5adbd34fbe.png, ../_resources/0798f9afbff542738f6cba5adbd34fbe.png 1.5x, ../_resources/0798f9afbff542738f6cba5adbd34fbe.png 2x"
         data-sizes="auto"
@@ -1377,7 +1357,7 @@ eg.</p>
 <p>also called deep RNNs
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/248167b42a8846288d3dfd8493afea0c.png"
         data-srcset="../_resources/248167b42a8846288d3dfd8493afea0c.png, ../_resources/248167b42a8846288d3dfd8493afea0c.png 1.5x, ../_resources/248167b42a8846288d3dfd8493afea0c.png 2x"
         data-sizes="auto"
@@ -1409,7 +1389,7 @@ $$</p>
 </ul>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/0e07f74170304c6db0e4f7987cc4ea5b.png"
         data-srcset="../_resources/0e07f74170304c6db0e4f7987cc4ea5b.png, ../_resources/0e07f74170304c6db0e4f7987cc4ea5b.png 1.5x, ../_resources/0e07f74170304c6db0e4f7987cc4ea5b.png 2x"
         data-sizes="auto"
@@ -1422,8 +1402,8 @@ $$</p>
 <p>also: Elman Network (Elman, 1990)</p>
 <p>$$
 \begin{array}{c}
-\mathbf{S}_{\mathbf{i}}=R_{\mathrm{SRNN}}\left(\mathbf{s}_{\mathbf{i}-\mathbf{1}}, \mathbf{x}_{\mathbf{i}}\right)=g\left(\mathbf{x}_{\mathbf{i}} \mathbf{W}^{\mathbf{x}}+\mathbf{s}_{\mathbf{i}-\mathbf{1}} \mathbf{W}^{\mathbf{s}}+\mathbf{b}\right) \\<br>
-\mathbf{y}_{\mathbf{i}}=O_{\mathrm{SRNN}}\left(\mathbf{s}_{\mathbf{i}}\right)=\mathbf{s}_{\mathbf{i}} \\<br>
+\mathbf{S}_{\mathbf{i}}=R_{\mathrm{SRNN}}\left(\mathbf{s}_{\mathbf{i}-\mathbf{1}}, \mathbf{x}_{\mathbf{i}}\right)=g\left(\mathbf{x}_{\mathbf{i}} \mathbf{W}^{\mathbf{x}}+\mathbf{s}_{\mathbf{i}-\mathbf{1}} \mathbf{W}^{\mathbf{s}}+\mathbf{b}\right) \\
+\mathbf{y}_{\mathbf{i}}=O_{\mathrm{SRNN}}\left(\mathbf{s}_{\mathbf{i}}\right)=\mathbf{s}_{\mathbf{i}} \\
 \mathbf{s}_{\mathbf{i}}, \mathbf{y}_{\mathbf{i}} \in \mathbb{R}^{d_{s}}, \mathbf{x}_{\mathbf{i}} \in \mathbb{R}^{d_{x}}, \mathbf{W}^{\mathbf{x}} \in \mathbb{R}^{d_{x} \times d_{s}}, \mathbf{W}^{\mathbf{s}} \in \mathbb{R}^{d_{s} \times d_{s}}, \mathbf{b} \in \mathbb{R}^{d_{s}}
 \end{array}
 $$</p>
@@ -1448,7 +1428,7 @@ $$</p>
 <p>f：遗忘门
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/3e58144e12c147c3ab66e58722e91c8f.png"
         data-srcset="../_resources/3e58144e12c147c3ab66e58722e91c8f.png, ../_resources/3e58144e12c147c3ab66e58722e91c8f.png 1.5x, ../_resources/3e58144e12c147c3ab66e58722e91c8f.png 2x"
         data-sizes="auto"
@@ -1459,7 +1439,7 @@ $$</p>
 <p>i：记忆/输入门
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/32abdb9b7d294c078767cbab5dbf3c86.png"
         data-srcset="../_resources/32abdb9b7d294c078767cbab5dbf3c86.png, ../_resources/32abdb9b7d294c078767cbab5dbf3c86.png 1.5x, ../_resources/32abdb9b7d294c078767cbab5dbf3c86.png 2x"
         data-sizes="auto"
@@ -1469,7 +1449,7 @@ $$</p>
 <li>更新Cell：
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/a9435ef2b5794b948e8d612fa23be284.png"
         data-srcset="../_resources/a9435ef2b5794b948e8d612fa23be284.png, ../_resources/a9435ef2b5794b948e8d612fa23be284.png 1.5x, ../_resources/a9435ef2b5794b948e8d612fa23be284.png 2x"
         data-sizes="auto"
@@ -1481,7 +1461,7 @@ $$</p>
 <p>o：输出门
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/6390f54be36640ebb67207260da85ca8.png"
         data-srcset="../_resources/6390f54be36640ebb67207260da85ca8.png, ../_resources/6390f54be36640ebb67207260da85ca8.png 1.5x, ../_resources/6390f54be36640ebb67207260da85ca8.png 2x"
         data-sizes="auto"
@@ -1522,7 +1502,7 @@ $$
 $$
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/9683730675e14e45a2f9e914f4cc2906.png"
         data-srcset="../_resources/9683730675e14e45a2f9e914f4cc2906.png, ../_resources/9683730675e14e45a2f9e914f4cc2906.png 1.5x, ../_resources/9683730675e14e45a2f9e914f4cc2906.png 2x"
         data-sizes="auto"
@@ -1536,7 +1516,7 @@ $$
 </ul>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../_resources/168e6593158c4f0e8b710caca7cb27f8.png"
         data-srcset="../_resources/168e6593158c4f0e8b710caca7cb27f8.png, ../_resources/168e6593158c4f0e8b710caca7cb27f8.png 1.5x, ../_resources/168e6593158c4f0e8b710caca7cb27f8.png 2x"
         data-sizes="auto"
@@ -1544,8 +1524,8 @@ $$
         title="66029a3beb85c4c497cd0b4b2d951141.png" /></p>
 <p>$$
 \begin{aligned}
-\operatorname{RecNN}\left(x_{1}, \ldots, x_{n}, \mathcal{T}\right) &amp;=\left{\mathbf{s}_{\mathbf{i}: \mathbf{j}}^{\mathbf{A}} \in \mathbb{R}^{d} \mid q_{i: j}^{A} \in \mathcal{T}\right} \\<br>
-\mathbf{s}_{\mathbf{i}: \mathbf{i}}^{\mathbf{A}} &amp;=v\left(x_{i}\right) \\<br>
+\operatorname{RecNN}\left(x_{1}, \ldots, x_{n}, \mathcal{T}\right) &amp;=\left{\mathbf{s}_{\mathbf{i}: \mathbf{j}}^{\mathbf{A}} \in \mathbb{R}^{d} \mid q_{i: j}^{A} \in \mathcal{T}\right} \\
+\mathbf{s}_{\mathbf{i}: \mathbf{i}}^{\mathbf{A}} &amp;=v\left(x_{i}\right) \\
 \mathbf{s}_{\mathbf{i}: \mathbf{j}}^{\mathbf{A}} &amp;=R\left(A, B, C, \mathbf{s}_{\mathbf{i}: \mathbf{k}}^{\mathbf{B}}, \mathbf{s}_{\mathbf{k}+\mathbf{1} :\mathbf{j}}^{\mathbf{C}}\right) \quad q_{i: k}^{B} \in \mathcal{T}, \quad q_{k+1: j}^{C} \in \mathcal{T}
 \end{aligned}
 $$</p>
@@ -1575,47 +1555,41 @@ $$</p>
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2021-04-06&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/5954bd5900dedc5879621ad21beea0b37a5366d8" target="_blank" title="commit by ZubinGou(zebgou@gmail.com) 5954bd5900dedc5879621ad21beea0b37a5366d8: fix mathjax and some bugs">
-                                    <i class="fas fa-hashtag fa-fw"></i>5954bd5</a></span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>5954bd5</a></span>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/nnlp-notes/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/blog/nnlp-notes/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/nnlp-notes/" data-title="NNLP: A Primer on Neural Network Models for Natural Language Processing" data-hashtags="NNLP,NLP,Neural Network,notes"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/nnlp-notes/" data-hashtag="NNLP"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/nnlp-notes/" data-title="NNLP: A Primer on Neural Network Models for Natural Language Processing"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/nnlp-notes/" data-title="NNLP: A Primer on Neural Network Models for Natural Language Processing"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/nnlp-notes/" data-title="NNLP: A Primer on Neural Network Models for Natural Language Processing"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/nnlp-notes/" data-title="NNLP: A Primer on Neural Network Models for Natural Language Processing" data-hashtags="NNLP,NLP,Neural Network,notes"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/nnlp-notes/" data-hashtag="NNLP"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/nnlp-notes/" data-title="NNLP: A Primer on Neural Network Models for Natural Language Processing"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/nnlp-notes/" data-title="NNLP: A Primer on Neural Network Models for Natural Language Processing"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/nnlp-notes/" data-title="NNLP: A Primer on Neural Network Models for Natural Language Processing"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/nnlp/">NNLP</a>,&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/neural-network/">Neural Network</a>,&nbsp;<a href="/tags/notes/">Notes</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/nnlp/">NNLP</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/neural-network/">Neural Network</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a></section>
         <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="prev" rel="prev" title="《神经网络与深度学习》第6章 - 循环神经网络"><i class="fas fa-angle-left fa-fw"></i>《神经网络与深度学习》第6章 - 循环神经网络</a>
-            <a href="/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="next" rel="next" title="《神经网络与深度学习》第5章 - 卷积神经网络">《神经网络与深度学习》第5章 - 卷积神经网络<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="prev" rel="prev" title="《神经网络与深度学习》第6章 - 循环神经网络"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>《神经网络与深度学习》第6章 - 循环神经网络</a>
+            <a href="/blog/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="next" rel="next" title="《神经网络与深度学习》第5章 - 卷积神经网络">《神经网络与深度学习》第5章 - 卷积神经网络<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-<div id="comments"><div id="utterances"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container">
-
-            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
-
-                
-            </div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
 </html>

@@ -4,23 +4,24 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>《神经网络与深度学习》第6章 - 循环神经网络 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《神经网络与深度学习》第6章 - 循环神经网络" />
 <meta property="og:description" content="ch6 循环神经网络 学习：随时间反向传播算法 长程依赖：长序列时梯度爆炸和消失 -&gt; 门控机制（Gating Mechanism） 广义记忆网络：递归神经网络" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" />
-<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="og:url" content="https://zubingou.github.io/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-02-01T17:56:11+08:00" />
-<meta property="article:modified_time" content="2021-02-01T17:56:11+08:00" />
+<meta property="article:modified_time" content="2021-02-01T17:56:11+08:00" /><meta property="og:site_name" content="My cool site" />
+
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://binko.me/logo.png"/>
+<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
 
 <meta name="twitter:title" content="《神经网络与深度学习》第6章 - 循环神经网络"/>
 <meta name="twitter:description" content="ch6 循环神经网络 学习：随时间反向传播算法 长程依赖：长序列时梯度爆炸和消失 -&gt; 门控机制（Gating Mechanism） 广义记忆网络：递归神经网络"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="prev" href="https://binko.me/nlp-papersword2vec-improvement/" /><link rel="next" href="https://binko.me/nnlp-notes/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="prev" href="https://zubingou.github.io/blog/nlp-papersword2vec-improvement/" /><link rel="next" href="https://zubingou.github.io/blog/nnlp-notes/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,18 +29,18 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/binko.me\/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C\/"
+            "@id": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C\/"
         },"image": [{
                             "@type": "ImageObject",
-                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
                         }],"genre": "posts","keywords": "神经网络与深度学习, NLP, notes, DL","wordcount":  2926 ,
-        "url": "https:\/\/binko.me\/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C\/","datePublished": "2021-02-01T17:56:11+08:00","dateModified": "2021-02-01T17:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C\/","datePublished": "2021-02-01T17:56:11+08:00","dateModified": "2021-02-01T17:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "ZubinGou","logo": {
                     "@type": "ImageObject",
-                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
                     "width":  304 ,
                     "height":  304 
                 }},"author": {
@@ -48,58 +49,38 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-        <div id="mask"></div><div class="wrapper">
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-      tex2jax: {
-          inlineMath: [['$','$'], ['\\(','\\)']],
-          displayMath: [['$$','$$']],
-          processEscapes: true,
-          processEnvironments: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-          TeX: {
-              equationNumbers: { autoNumber: "AMS" },
-              extensions: ["AMSmath.js", "AMSsymbols.js"]
-          }
-      }
-  });
-</script>
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-
-<header class="desktop" id="header-desktop">
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" selected>简体中文</option></select>
-                    </a><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/blog/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" selected>简体中文</option></select>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+                <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -109,43 +90,42 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" selected>简体中文</option></select>
+                </div><a class="menu-item" href="/blog/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" selected>简体中文</option></select>
                 </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">《神经网络与深度学习》第6章 - 循环神经网络</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/deep-learning/"><i class="far fa-folder fa-fw"></i>Deep Learning</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-02-01">2021-02-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2926 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《神经网络与深度学习》第6章 - 循环神经网络</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/deep-learning/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Deep Learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-02-01">2021-02-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2926 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -242,7 +222,7 @@ $$
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/0bdf149e55604324a5ba88d700bc1455.png"
         data-srcset="../../_resources/0bdf149e55604324a5ba88d700bc1455.png, ../../_resources/0bdf149e55604324a5ba88d700bc1455.png 1.5x, ../../_resources/0bdf149e55604324a5ba88d700bc1455.png 2x"
         data-sizes="auto"
@@ -262,14 +242,14 @@ $$</p>
 <p>对于：
 $$
 \begin{array}{l}
-\boldsymbol{h}_{t}=f\left(\boldsymbol{U} \boldsymbol{h}_{t-1}+\boldsymbol{W} \boldsymbol{x}_{t}+\boldsymbol{b}\right) \\<br>
+\boldsymbol{h}_{t}=f\left(\boldsymbol{U} \boldsymbol{h}_{t-1}+\boldsymbol{W} \boldsymbol{x}_{t}+\boldsymbol{b}\right) \\
 \boldsymbol{y}_{t}=\boldsymbol{V} \boldsymbol{h}_{t}
 \end{array}
 $$</p>
 <p>RNN的通用近似定理：全连接RNN在足够多sigmoid隐藏神经元的情况下，可以以任意准确度近似任何一个非线性动力系统：
 $$
 \begin{array}{l}
-\boldsymbol{s}_{t}=g\left(\boldsymbol{s}_{t-1}, \boldsymbol{x}_{t}\right) \\<br>
+\boldsymbol{s}_{t}=g\left(\boldsymbol{s}_{t-1}, \boldsymbol{x}_{t}\right) \\
 \boldsymbol{y}_{t}=o\left(\boldsymbol{s}_{t}\right)
 \end{array}
 $$</p>
@@ -283,7 +263,7 @@ $$</p>
 </ul>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/635fea0b68a447e4bc084e4196738e6a.png"
         data-srcset="../../_resources/635fea0b68a447e4bc084e4196738e6a.png, ../../_resources/635fea0b68a447e4bc084e4196738e6a.png 1.5x, ../../_resources/635fea0b68a447e4bc084e4196738e6a.png 2x"
         data-sizes="auto"
@@ -296,7 +276,7 @@ $$
 $$
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/b5d5258f9b154c3abdf742c9a8a95317.png"
         data-srcset="../../_resources/b5d5258f9b154c3abdf742c9a8a95317.png, ../../_resources/b5d5258f9b154c3abdf742c9a8a95317.png 1.5x, ../../_resources/b5d5258f9b154c3abdf742c9a8a95317.png 2x"
         data-sizes="auto"
@@ -306,14 +286,14 @@ $$
 <p>也称编码器-解码器（Encoder-Decoder）模型
 $$
 \begin{aligned}
-\boldsymbol{h}_{t} &amp;=f_{1}\left(\boldsymbol{h}_{t-1}, \boldsymbol{x}_{t}\right), &amp; &amp; \forall t \in[1, T] \\<br>
-\boldsymbol{h}_{T+t} &amp;=f_{2}\left(\boldsymbol{h}_{T+t-1}, \hat{\boldsymbol{y}}_{t-1}\right), &amp; &amp; \forall t \in[1, M] \\<br>
+\boldsymbol{h}_{t} &amp;=f_{1}\left(\boldsymbol{h}_{t-1}, \boldsymbol{x}_{t}\right), &amp; &amp; \forall t \in[1, T] \\
+\boldsymbol{h}_{T+t} &amp;=f_{2}\left(\boldsymbol{h}_{T+t-1}, \hat{\boldsymbol{y}}_{t-1}\right), &amp; &amp; \forall t \in[1, M] \\
 \hat{y}_{t} &amp;=g\left(\boldsymbol{h}_{T+t}\right), &amp; &amp; \forall t \in[1, M]
 \end{aligned}
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/d76fb7f95df3464bbf3db7294b4df942.png"
         data-srcset="../../_resources/d76fb7f95df3464bbf3db7294b4df942.png, ../../_resources/d76fb7f95df3464bbf3db7294b4df942.png 1.5x, ../../_resources/d76fb7f95df3464bbf3db7294b4df942.png 2x"
         data-sizes="auto"
@@ -338,8 +318,8 @@ $$</p>
 <p>t时刻的损失对k时刻的隐藏层净输入的导数：
 $$
 \begin{aligned}
-\delta_{t, k} &amp;=\frac{\partial \mathcal{L}_{t}}{\partial z_{k}} \\<br>
-&amp;=\frac{\partial \boldsymbol{h}_{k}}{\partial \boldsymbol{z}_{k}} \frac{\partial \boldsymbol{z}_{k+1}}{\partial \boldsymbol{h}_{k}} \frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k+1}} \\<br>
+\delta_{t, k} &amp;=\frac{\partial \mathcal{L}_{t}}{\partial z_{k}} \\
+&amp;=\frac{\partial \boldsymbol{h}_{k}}{\partial \boldsymbol{z}_{k}} \frac{\partial \boldsymbol{z}_{k+1}}{\partial \boldsymbol{h}_{k}} \frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k+1}} \\
 &amp;=\operatorname{diag}\left(f^{\prime}\left(\boldsymbol{z}_{k}\right)\right) \boldsymbol{U}^{\top} \delta_{t, k+1}
 \end{aligned}
 $$</p>
@@ -349,13 +329,13 @@ $$
 $$
 $$
 \begin{aligned}
-\frac{\partial \mathcal{L}}{\partial \boldsymbol{W}} &amp;=\sum_{t=1}^{T} \sum_{k=1}^{t} \delta_{t, k} \boldsymbol{x}_{k}^{\top}, \\<br>
+\frac{\partial \mathcal{L}}{\partial \boldsymbol{W}} &amp;=\sum_{t=1}^{T} \sum_{k=1}^{t} \delta_{t, k} \boldsymbol{x}_{k}^{\top}, \\
 \frac{\partial \mathcal{L}}{\partial \boldsymbol{b}} &amp;=\sum_{t=1}^{T} \sum_{k=1}^{t} \delta_{t, k}
 \end{aligned}
 $$
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/7b3142af8f174aef8a8237f9882db903.png"
         data-srcset="../../_resources/7b3142af8f174aef8a8237f9882db903.png, ../../_resources/7b3142af8f174aef8a8237f9882db903.png 1.5x, ../../_resources/7b3142af8f174aef8a8237f9882db903.png 2x"
         data-sizes="auto"
@@ -384,7 +364,7 @@ $$</p>
 <p>引入新的内部状态（internal state）$\boldsymbol{c}_{t} \in \mathbb{R}^{D}$ 专门进行线性的循环信息传递，同时非线性地输出信息给隐藏层的外部状态 $\boldsymbol{h}_{t} \in \mathbb{R}^{D}$</p>
 <p>$$
 \begin{aligned}
-\boldsymbol{c}_{t} &amp;=\boldsymbol{f}_{t} \odot \boldsymbol{c}_{t-1}+\boldsymbol{i}_{t} \odot \tilde{\boldsymbol{c}}_{t} \\<br>
+\boldsymbol{c}_{t} &amp;=\boldsymbol{f}_{t} \odot \boldsymbol{c}_{t-1}+\boldsymbol{i}_{t} \odot \tilde{\boldsymbol{c}}_{t} \\
 \boldsymbol{h}_{t} &amp;=\boldsymbol{o}_{t} \odot \tanh \left(\boldsymbol{c}_{t}\right)
 \end{aligned}
 $$</p>
@@ -395,14 +375,14 @@ $$</p>
 <p>门控机制：
 $$
 \begin{aligned}
-\boldsymbol{i}_{t} &amp;=\sigma\left(\boldsymbol{W}_{i} \boldsymbol{x}_{t}+\boldsymbol{U}_{i} \boldsymbol{h}_{t-1}+\boldsymbol{b}_{i}\right) \\<br>
-\boldsymbol{f}_{t} &amp;=\sigma\left(\boldsymbol{W}_{f} \boldsymbol{x}_{t}+\boldsymbol{U}_{f} \boldsymbol{h}_{t-1}+\boldsymbol{b}_{f}\right) \\<br>
+\boldsymbol{i}_{t} &amp;=\sigma\left(\boldsymbol{W}_{i} \boldsymbol{x}_{t}+\boldsymbol{U}_{i} \boldsymbol{h}_{t-1}+\boldsymbol{b}_{i}\right) \\
+\boldsymbol{f}_{t} &amp;=\sigma\left(\boldsymbol{W}_{f} \boldsymbol{x}_{t}+\boldsymbol{U}_{f} \boldsymbol{h}_{t-1}+\boldsymbol{b}_{f}\right) \\
 \boldsymbol{o}_{t} &amp;=\sigma\left(\boldsymbol{W}_{o} \boldsymbol{x}_{t}+\boldsymbol{U}_{o} \boldsymbol{h}_{t-1}+\boldsymbol{b}_{o}\right)
 \end{aligned}
 $$
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/f361134743fc46d1860e3fe8d5b039e6.png"
         data-srcset="../../_resources/f361134743fc46d1860e3fe8d5b039e6.png, ../../_resources/f361134743fc46d1860e3fe8d5b039e6.png 1.5x, ../../_resources/f361134743fc46d1860e3fe8d5b039e6.png 2x"
         data-sizes="auto"
@@ -412,20 +392,20 @@ $$
 $$
 \begin{aligned}
 \left[\begin{array}{c}
-\tilde{\boldsymbol{c}}_{t} \\<br>
-\boldsymbol{o}_{t} \\<br>
-\boldsymbol{i}_{t} \\<br>
+\tilde{\boldsymbol{c}}_{t} \\
+\boldsymbol{o}_{t} \\
+\boldsymbol{i}_{t} \\
 \boldsymbol{f}_{t}
 \end{array}\right] &amp;=\left[\begin{array}{c}
-\tanh \\<br>
-\sigma \\<br>
-\sigma \\<br>
+\tanh \\
+\sigma \\
+\sigma \\
 \sigma
 \end{array}\right]\left(\boldsymbol{W}\left[\begin{array}{c}
-\boldsymbol{x}_{t} \\<br>
+\boldsymbol{x}_{t} \\
 \boldsymbol{h}_{t-1}
-\end{array}\right]+\boldsymbol{b}\right), \\<br>
-\boldsymbol{c}_{t} &amp;=\boldsymbol{f}_{t} \odot \boldsymbol{c}_{t-1}+\boldsymbol{i}_{t} \odot \tilde{\boldsymbol{c}}_{t} \\<br>
+\end{array}\right]+\boldsymbol{b}\right), \\
+\boldsymbol{c}_{t} &amp;=\boldsymbol{f}_{t} \odot \boldsymbol{c}_{t-1}+\boldsymbol{i}_{t} \odot \tilde{\boldsymbol{c}}_{t} \\
 \boldsymbol{h}_{t} &amp;=\boldsymbol{o}_{t} \odot \tanh \left(\boldsymbol{c}_{t}\right)
 \end{aligned}
 $$</p>
@@ -450,8 +430,8 @@ $$</p>
 <p>peephole连接：也依赖与上一时刻记忆单元：
 $$
 \begin{aligned}
-\boldsymbol{i}_{t} &amp;=\sigma\left(\boldsymbol{W}_{i} \boldsymbol{x}_{t}+\boldsymbol{U}_{i} \boldsymbol{h}_{t-1}+\boldsymbol{V}_{i} \boldsymbol{c}_{t-1}+\boldsymbol{b}_{i}\right) \\<br>
-\boldsymbol{f}_{t} &amp;=\sigma\left(\boldsymbol{W}_{f} \boldsymbol{x}_{t}+\boldsymbol{U}_{f} \boldsymbol{h}_{t-1}+\boldsymbol{V}_{f} \boldsymbol{c}_{t-1}+\boldsymbol{b}_{f}\right) \\<br>
+\boldsymbol{i}_{t} &amp;=\sigma\left(\boldsymbol{W}_{i} \boldsymbol{x}_{t}+\boldsymbol{U}_{i} \boldsymbol{h}_{t-1}+\boldsymbol{V}_{i} \boldsymbol{c}_{t-1}+\boldsymbol{b}_{i}\right) \\
+\boldsymbol{f}_{t} &amp;=\sigma\left(\boldsymbol{W}_{f} \boldsymbol{x}_{t}+\boldsymbol{U}_{f} \boldsymbol{h}_{t-1}+\boldsymbol{V}_{f} \boldsymbol{c}_{t-1}+\boldsymbol{b}_{f}\right) \\
 \boldsymbol{o}_{t} &amp;=\sigma\left(\boldsymbol{W}_{o} \boldsymbol{x}_{t}+\boldsymbol{U}_{o} \boldsymbol{h}_{t-1}+\boldsymbol{V}_{o} \boldsymbol{c}_{t}+\boldsymbol{b}_{o}\right)
 \end{aligned}
 $$</p>
@@ -484,7 +464,7 @@ $$</li>
 </ul>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/cba3271bf4a145739bb6734065d163a3.png"
         data-srcset="../../_resources/cba3271bf4a145739bb6734065d163a3.png, ../../_resources/cba3271bf4a145739bb6734065d163a3.png 1.5x, ../../_resources/cba3271bf4a145739bb6734065d163a3.png 2x"
         data-sizes="auto"
@@ -505,7 +485,7 @@ $$</li>
 $$
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/d9c6db16a0a24964a5497bb6d88b44bb.png"
         data-srcset="../../_resources/d9c6db16a0a24964a5497bb6d88b44bb.png, ../../_resources/d9c6db16a0a24964a5497bb6d88b44bb.png 1.5x, ../../_resources/d9c6db16a0a24964a5497bb6d88b44bb.png 2x"
         data-sizes="auto"
@@ -515,14 +495,14 @@ $$
 <p>双向循环神经网络（Bidirectional Recurrent Neural Network，Bi-RNN）</p>
 <p>$$
 \begin{aligned}
-\boldsymbol{h}_{t}^{(1)} &amp;=f\left(\boldsymbol{U}^{(1)} \boldsymbol{h}_{t-1}^{(1)}+\boldsymbol{W}^{(1)} \boldsymbol{x}_{t}+\boldsymbol{b}^{(1)}\right) \\<br>
-\boldsymbol{h}_{t}^{(2)} &amp;=f\left(\boldsymbol{U}^{(2)} \boldsymbol{h}_{t+1}^{(2)}+\boldsymbol{W}^{(2)} \boldsymbol{x}_{t}+\boldsymbol{b}^{(2)}\right) \\<br>
+\boldsymbol{h}_{t}^{(1)} &amp;=f\left(\boldsymbol{U}^{(1)} \boldsymbol{h}_{t-1}^{(1)}+\boldsymbol{W}^{(1)} \boldsymbol{x}_{t}+\boldsymbol{b}^{(1)}\right) \\
+\boldsymbol{h}_{t}^{(2)} &amp;=f\left(\boldsymbol{U}^{(2)} \boldsymbol{h}_{t+1}^{(2)}+\boldsymbol{W}^{(2)} \boldsymbol{x}_{t}+\boldsymbol{b}^{(2)}\right) \\
 \boldsymbol{h}_{t} &amp;=\boldsymbol{h}_{t}^{(1)} \oplus \boldsymbol{h}_{t}^{(2)}
 \end{aligned}
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/8100f4e648b14ddeb4a6692e740ce82c.png"
         data-srcset="../../_resources/8100f4e648b14ddeb4a6692e740ce82c.png, ../../_resources/8100f4e648b14ddeb4a6692e740ce82c.png 1.5x, ../../_resources/8100f4e648b14ddeb4a6692e740ce82c.png 2x"
         data-sizes="auto"
@@ -533,7 +513,7 @@ $$</p>
 <p>递归神经网络（Recursive Neural Network，RecNN）：RNN在有向无环图上的扩展
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/18e3c5dc6352458ebf5b91d8a8c11435.png"
         data-srcset="../../_resources/18e3c5dc6352458ebf5b91d8a8c11435.png, ../../_resources/18e3c5dc6352458ebf5b91d8a8c11435.png 1.5x, ../../_resources/18e3c5dc6352458ebf5b91d8a8c11435.png 2x"
         data-sizes="auto"
@@ -549,7 +529,7 @@ $$</p>
 <p>每个结点 v 用一组神经元表示其状态$\boldsymbol{h}^{(v)}$，初始状态为节点 v 的输入特征$\boldsymbol{x}^{(v)}$。每个节点接收相邻节点的消息，并更新自己的状态</p>
 <p>$$
 \begin{aligned}
-\boldsymbol{m}_{t}^{(v)} &amp;=\sum_{u \in \mathcal{N}(v)} f\left(\boldsymbol{h}_{t-1}^{(v)}, \boldsymbol{h}_{t-1}^{(u)}, \boldsymbol{e}^{(u, v)}\right), \\<br>
+\boldsymbol{m}_{t}^{(v)} &amp;=\sum_{u \in \mathcal{N}(v)} f\left(\boldsymbol{h}_{t-1}^{(v)}, \boldsymbol{h}_{t-1}^{(u)}, \boldsymbol{e}^{(u, v)}\right), \\
 \boldsymbol{h}_{t}^{(v)} &amp;=g\left(\boldsymbol{h}_{t-1}^{(v)}, \boldsymbol{m}_{t}^{(v)}\right)
 \end{aligned}
 $$</p>
@@ -583,8 +563,8 @@ $$</p>
 $$ -->
 <p>$$
 \begin{aligned}
-\delta_{t, k} &amp;=\frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k}} \\<br>
-&amp;=\frac{\partial \boldsymbol{h}_{k}}{\partial \boldsymbol{z}_{k}} \frac{\partial \boldsymbol{z}_{k+1}}{\partial \boldsymbol{h}_{k}} \frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k+1}} \\<br>
+\delta_{t, k} &amp;=\frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k}} \\
+&amp;=\frac{\partial \boldsymbol{h}_{k}}{\partial \boldsymbol{z}_{k}} \frac{\partial \boldsymbol{z}_{k+1}}{\partial \boldsymbol{h}_{k}} \frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k+1}} \\
 &amp;=\operatorname{diag}\left(f^{\prime}\left(\boldsymbol{z}_{k}\right)\right) \boldsymbol{U}^{\top} \delta_{t, k+1}
 \end{aligned}
 $$</p>
@@ -598,7 +578,7 @@ $$</p>
 <p>RecNN 退化为线性序列结构时：
 $$
 \boldsymbol{h}_{t}=\sigma\left(\boldsymbol{W}\left[\begin{array}{l}
-\boldsymbol{h}_{t-1} \\<br>
+\boldsymbol{h}_{t-1} \\
 \boldsymbol{x}_{t}
 \end{array}\right]+\boldsymbol{b}\right)
 $$</p>
@@ -608,46 +588,40 @@ $$</p>
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2021-02-01</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第6章 - 循环神经网络" data-hashtags="神经网络与深度学习,NLP,notes,DL"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第6章 - 循环神经网络"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第6章 - 循环神经网络"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第6章 - 循环神经网络"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第6章 - 循环神经网络" data-hashtags="神经网络与深度学习,NLP,notes,DL"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第6章 - 循环神经网络"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第6章 - 循环神经网络"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" data-title="《神经网络与深度学习》第6章 - 循环神经网络"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/notes/">Notes</a>,&nbsp;<a href="/tags/dl/">DL</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a>,&nbsp;<a href="/blog/tags/dl/">DL</a></section>
         <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/nlp-papersword2vec-improvement/" class="prev" rel="prev" title="【NLP Papers】word2vec improvement"><i class="fas fa-angle-left fa-fw"></i>【NLP Papers】word2vec improvement</a>
-            <a href="/nnlp-notes/" class="next" rel="next" title="NNLP: A Primer on Neural Network Models for Natural Language Processing">NNLP: A Primer on Neural Network Models for Natural Language Processing<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/blog/nlp-papersword2vec-improvement/" class="prev" rel="prev" title="【NLP Papers】word2vec improvement"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>【NLP Papers】word2vec improvement</a>
+            <a href="/blog/nnlp-notes/" class="next" rel="next" title="NNLP: A Primer on Neural Network Models for Natural Language Processing">NNLP: A Primer on Neural Network Models for Natural Language Processing<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-<div id="comments"><div id="utterances"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container">
-
-            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
-
-                
-            </div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
 </html>

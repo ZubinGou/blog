@@ -4,23 +4,24 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>《神经网络与深度学习》第8章 - 注意力机制和外部记忆 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《神经网络与深度学习》第8章 - 注意力机制和外部记忆" />
 <meta property="og:description" content="用CNN等编码一个向量表示文本所有特征，存在信息瓶颈 网络容量（Network Capacity）：存储信息受限与神经元数量和网络复杂度 对于过载" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://binko.me/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" />
-<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="og:url" content="https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-02-26T13:56:11+08:00" />
-<meta property="article:modified_time" content="2021-02-26T13:56:11+08:00" />
+<meta property="article:modified_time" content="2021-02-26T13:56:11+08:00" /><meta property="og:site_name" content="My cool site" />
+
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://binko.me/logo.png"/>
+<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
 
 <meta name="twitter:title" content="《神经网络与深度学习》第8章 - 注意力机制和外部记忆"/>
 <meta name="twitter:description" content="用CNN等编码一个向量表示文本所有特征，存在信息瓶颈 网络容量（Network Capacity）：存储信息受限与神经元数量和网络复杂度 对于过载"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" /><link rel="prev" href="https://binko.me/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="next" href="https://binko.me/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" /><link rel="prev" href="https://zubingou.github.io/blog/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="next" href="https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,18 +29,18 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/binko.me\/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86\/"
+            "@id": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86\/"
         },"image": [{
                             "@type": "ImageObject",
-                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
                         }],"genre": "posts","keywords": "神经网络与深度学习, NLP, notes, ML","wordcount":  4092 ,
-        "url": "https:\/\/binko.me\/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86\/","datePublished": "2021-02-26T13:56:11+08:00","dateModified": "2021-02-26T13:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86\/","datePublished": "2021-02-26T13:56:11+08:00","dateModified": "2021-02-26T13:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "ZubinGou","logo": {
                     "@type": "ImageObject",
-                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
                     "width":  304 ,
                     "height":  304 
                 }},"author": {
@@ -48,58 +49,38 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-        <div id="mask"></div><div class="wrapper">
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-      tex2jax: {
-          inlineMath: [['$','$'], ['\\(','\\)']],
-          displayMath: [['$$','$$']],
-          processEscapes: true,
-          processEnvironments: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-          TeX: {
-              equationNumbers: { autoNumber: "AMS" },
-              extensions: ["AMSmath.js", "AMSsymbols.js"]
-          }
-      }
-  });
-</script>
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-
-<header class="desktop" id="header-desktop">
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" selected>简体中文</option></select>
-                    </a><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/blog/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" selected>简体中文</option></select>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+                <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -109,43 +90,42 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" selected>简体中文</option></select>
+                </div><a class="menu-item" href="/blog/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" selected>简体中文</option></select>
                 </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">《神经网络与深度学习》第8章 - 注意力机制和外部记忆</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/deep-learning/"><i class="far fa-folder fa-fw"></i>Deep Learning</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-02-26">2021-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4092 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《神经网络与深度学习》第8章 - 注意力机制和外部记忆</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/deep-learning/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Deep Learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-02-26">2021-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4092 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -216,8 +196,8 @@
 <p><strong>注意力分布</strong>
 $$
 \begin{aligned}
-\alpha_{n} &amp;=p(z=n \mid \boldsymbol{X}, \boldsymbol{q}) \\<br>
-&amp;=\operatorname{softmax}\left(s\left(\boldsymbol{x}_{n}, \boldsymbol{q}\right)\right) \\<br>
+\alpha_{n} &amp;=p(z=n \mid \boldsymbol{X}, \boldsymbol{q}) \\
+&amp;=\operatorname{softmax}\left(s\left(\boldsymbol{x}_{n}, \boldsymbol{q}\right)\right) \\
 &amp;=\frac{\exp \left(s\left(\boldsymbol{x}_{n}, \boldsymbol{q}\right)\right)}{\sum_{j=1}^{N} \exp \left(s\left(\boldsymbol{x}_{j}, \boldsymbol{q}\right)\right)}
 \end{aligned}
 $$</p>
@@ -230,9 +210,9 @@ $$</p>
 <p>$$
 \begin{aligned}
 \text { 加性模型 } &amp; &amp;
-s(\boldsymbol{x}, \boldsymbol{q})&amp;=\boldsymbol{v}^{\top} \tanh (\boldsymbol{W} \boldsymbol{x}+\boldsymbol{U} \boldsymbol{q})\<br>
-\text { 点积模型 } &amp; &amp; s(\boldsymbol{x}, \boldsymbol{q}) &amp;=\boldsymbol{x}^{\top} \boldsymbol{q} \\<br>
-\text { 缩放点积模型 } &amp; &amp; s(\boldsymbol{x}, \boldsymbol{q}) &amp;=\frac{\boldsymbol{x}^{\top} \boldsymbol{q}}{\sqrt{D}}, \\<br>
+s(\boldsymbol{x}, \boldsymbol{q})&amp;=\boldsymbol{v}^{\top} \tanh (\boldsymbol{W} \boldsymbol{x}+\boldsymbol{U} \boldsymbol{q})\
+\text { 点积模型 } &amp; &amp; s(\boldsymbol{x}, \boldsymbol{q}) &amp;=\boldsymbol{x}^{\top} \boldsymbol{q} \\
+\text { 缩放点积模型 } &amp; &amp; s(\boldsymbol{x}, \boldsymbol{q}) &amp;=\frac{\boldsymbol{x}^{\top} \boldsymbol{q}}{\sqrt{D}}, \\
 \text { 双线性模型 } &amp; &amp; s(\boldsymbol{x}, \boldsymbol{q})&amp;=\boldsymbol{x}^{\top} \boldsymbol{W} \boldsymbol{q},
 \end{aligned}
 $$</p>
@@ -240,13 +220,13 @@ $$</p>
 软性注意力机制（Soft Attention Mechanism
 $$
 \begin{aligned}
-\operatorname{att}(\boldsymbol{X}, \boldsymbol{q}) &amp;=\sum_{n=1}^{N} \alpha_{n} \boldsymbol{x}_{n}, \\<br>
+\operatorname{att}(\boldsymbol{X}, \boldsymbol{q}) &amp;=\sum_{n=1}^{N} \alpha_{n} \boldsymbol{x}_{n}, \\
 &amp;=\mathbb{E}_{\boldsymbol{z} \sim p(z \mid \boldsymbol{X}, \boldsymbol{q})}\left[\boldsymbol{x}_{z}\right]
 \end{aligned}
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/b379b8fe2711480f8af5978078e21fec.png"
         data-srcset="../../_resources/b379b8fe2711480f8af5978078e21fec.png, ../../_resources/b379b8fe2711480f8af5978078e21fec.png 1.5x, ../../_resources/b379b8fe2711480f8af5978078e21fec.png 2x"
         data-sizes="auto"
@@ -265,7 +245,7 @@ $$</p>
 <p>键计算注意力分布，值计算聚合信息
 $$
 \begin{aligned}
-\operatorname{att}((\boldsymbol{K}, \boldsymbol{V}), \boldsymbol{q}) &amp;=\sum_{n=1}^{N} \alpha_{n} \boldsymbol{v}_{n} \\<br>
+\operatorname{att}((\boldsymbol{K}, \boldsymbol{V}), \boldsymbol{q}) &amp;=\sum_{n=1}^{N} \alpha_{n} \boldsymbol{v}_{n} \\
 &amp;=\sum_{n=1}^{N} \frac{\exp \left(s\left(\boldsymbol{k}_{n}, \boldsymbol{q}\right)\right)}{\sum_{j} \exp \left(s\left(\boldsymbol{k}_{j}, \boldsymbol{q}\right)\right)} \boldsymbol{v}_{n},
 \end{aligned}
 $$</p>
@@ -283,7 +263,7 @@ $$</p>
 <p>输出为输入序列的下标</p>
 <p>$$
 \begin{aligned}
-p\left(c_{1: M} \mid \boldsymbol{x}_{1: N}\right) &amp;=\prod_{m=1}^{M} p\left(c_{m} \mid c_{1:(m-1)}, \boldsymbol{x}_{1: N}\right) \\<br>
+p\left(c_{1: M} \mid \boldsymbol{x}_{1: N}\right) &amp;=\prod_{m=1}^{M} p\left(c_{m} \mid c_{1:(m-1)}, \boldsymbol{x}_{1: N}\right) \\
 &amp; \approx \prod_{m=1}^{M} p\left(c_{m} \mid \boldsymbol{x}_{c_{1}}, \cdots, \boldsymbol{x}_{c_{m-1}}, \boldsymbol{x}_{1: N}\right),
 \end{aligned}
 $$</p>
@@ -295,7 +275,7 @@ s_{m, n}=\boldsymbol{v}^{\top} \tanh \left(\boldsymbol{W} \boldsymbol{x}_{n}+\bo
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/43a613fd332042f3a2d3be63c377a81e.png"
         data-srcset="../../_resources/43a613fd332042f3a2d3be63c377a81e.png, ../../_resources/43a613fd332042f3a2d3be63c377a81e.png 1.5x, ../../_resources/43a613fd332042f3a2d3be63c377a81e.png 2x"
         data-sizes="auto"
@@ -307,7 +287,7 @@ $$</p>
 <p>经常采用查询-键-值（Query-Key-Value，QKV）模式</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/ff0c8448082f4eaba2e4762f11527df3.png"
         data-srcset="../../_resources/ff0c8448082f4eaba2e4762f11527df3.png, ../../_resources/ff0c8448082f4eaba2e4762f11527df3.png 1.5x, ../../_resources/ff0c8448082f4eaba2e4762f11527df3.png 2x"
         data-sizes="auto"
@@ -315,15 +295,15 @@ $$</p>
         title="87adaecfc12645c8f7cbc44cb917b18e.png" /></p>
 <p>$$
 \begin{array}{l}
-\boldsymbol{Q}=\boldsymbol{W}_{q} \boldsymbol{X} \in \mathbb{R}^{D_{k} \times N} \\<br>
-\boldsymbol{K}=\boldsymbol{W}_{k} \boldsymbol{X} \in \mathbb{R}^{D_{k} \times N} \\<br>
+\boldsymbol{Q}=\boldsymbol{W}_{q} \boldsymbol{X} \in \mathbb{R}^{D_{k} \times N} \\
+\boldsymbol{K}=\boldsymbol{W}_{k} \boldsymbol{X} \in \mathbb{R}^{D_{k} \times N} \\
 \boldsymbol{V}=\boldsymbol{W}_{v} \boldsymbol{X} \in \mathbb{R}^{D_{v} \times N}
 \end{array}
 $$</p>
 <p>$$
 \begin{aligned}
-\boldsymbol{h}_{n} &amp;=\operatorname{att}\left((\boldsymbol{K}, \boldsymbol{V}), \boldsymbol{q}_{n}\right) \\<br>
-&amp;=\sum_{j=1}^{N} \alpha_{n j} \boldsymbol{v}_{j} \\<br>
+\boldsymbol{h}_{n} &amp;=\operatorname{att}\left((\boldsymbol{K}, \boldsymbol{V}), \boldsymbol{q}_{n}\right) \\
+&amp;=\sum_{j=1}^{N} \alpha_{n j} \boldsymbol{v}_{j} \\
 &amp;=\sum_{j=1}^{N} \operatorname{softmax}\left(s\left(\boldsymbol{k}_{j}, \boldsymbol{q}_{n}\right)\right) \boldsymbol{v}_{j},
 \end{aligned}
 $$</p>
@@ -333,7 +313,7 @@ $$
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/66a6091dc1aa44d9ba9e7f9d965f6134.png"
         data-srcset="../../_resources/66a6091dc1aa44d9ba9e7f9d965f6134.png, ../../_resources/66a6091dc1aa44d9ba9e7f9d965f6134.png 1.5x, ../../_resources/66a6091dc1aa44d9ba9e7f9d965f6134.png 2x"
         data-sizes="auto"
@@ -380,7 +360,7 @@ $$</p>
 </ol>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/8a5706990c284ab193cce496ca1f7412.png"
         data-srcset="../../_resources/8a5706990c284ab193cce496ca1f7412.png, ../../_resources/8a5706990c284ab193cce496ca1f7412.png 1.5x, ../../_resources/8a5706990c284ab193cce496ca1f7412.png 2x"
         data-sizes="auto"
@@ -390,7 +370,7 @@ $$</p>
 <p>记忆增强神经网络（Memory Augmented Neural Network，MANN）：简称为记忆网络（Memory Network，MN），装备外部记忆的神经网络。</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/1901836e0eea40c78bcd5df784fa77c5.png"
         data-srcset="../../_resources/1901836e0eea40c78bcd5df784fa77c5.png, ../../_resources/1901836e0eea40c78bcd5df784fa77c5.png 1.5x, ../../_resources/1901836e0eea40c78bcd5df784fa77c5.png 2x"
         data-sizes="auto"
@@ -410,7 +390,7 @@ $$</p>
 <p>多跳操作：主网络与外部记忆进行多轮交互，根据上次读取信息继续查询读取。</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/995e0678775f4c469114e2a7aeb93079.png"
         data-srcset="../../_resources/995e0678775f4c469114e2a7aeb93079.png, ../../_resources/995e0678775f4c469114e2a7aeb93079.png 1.5x, ../../_resources/995e0678775f4c469114e2a7aeb93079.png 2x"
         data-sizes="auto"
@@ -426,7 +406,7 @@ $$</p>
 <p>基于内容：
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/794eb31a2924496b929fabd58f5010be.png"
         data-srcset="../../_resources/794eb31a2924496b929fabd58f5010be.png, ../../_resources/794eb31a2924496b929fabd58f5010be.png 1.5x, ../../_resources/794eb31a2924496b929fabd58f5010be.png 2x"
         data-sizes="auto"
@@ -451,7 +431,7 @@ $$</p>
 <p>Hopfield 网络（Hopfield Network）：一种RNN模型，由一组相互连接的神经元构成。所有神经元连接不分层。</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/bb19850f03ac4f4f9bfef51248403cdc.png"
         data-srcset="../../_resources/bb19850f03ac4f4f9bfef51248403cdc.png, ../../_resources/bb19850f03ac4f4f9bfef51248403cdc.png 1.5x, ../../_resources/bb19850f03ac4f4f9bfef51248403cdc.png 2x"
         data-sizes="auto"
@@ -461,14 +441,14 @@ $$</p>
 <p>第i个神经元更新规则：
 $$
 S_{i}=\left{\begin{array}{ll}
-+1 &amp; \text { if } \sum_{j=1}^{M} w_{i j} S_{j}+b_{i} \geq 0 \\<br>
++1 &amp; \text { if } \sum_{j=1}^{M} w_{i j} S_{j}+b_{i} \geq 0 \\
 -1 &amp; \text { otherwise }
 \end{array}\right.
 $$</p>
 <p>连接权重 $w_{ij}$ 有以下性质：
 $$
 \begin{array}{ll}
-w_{i i} &amp; =0 \quad \forall i \in[1, M] \\<br>
+w_{i i} &amp; =0 \quad \forall i \in[1, M] \\
 w_{i j} &amp; =w_{j i} \quad \forall i, j \in[1, M]
 \end{array}
 $$</p>
@@ -481,14 +461,14 @@ $$</p>
 Hopfield 网络的能量函数（Energy Function）：
 $$
 \begin{aligned}
-E &amp;=-\frac{1}{2} \sum_{i, j} w_{i j} s_{i} s_{j}-\sum_{i} b_{i} s_{i} \\<br>
+E &amp;=-\frac{1}{2} \sum_{i, j} w_{i j} s_{i} s_{j}-\sum_{i} b_{i} s_{i} \\
 &amp;=-\frac{1}{2} \boldsymbol{s}^{\top} \boldsymbol{W} \boldsymbol{s}-\boldsymbol{b}^{\top} \boldsymbol{s}
 \end{aligned}
 $$</p>
 <p>吸引点（Attractor）：稳态，能量的局部最低点
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/8d58d18e599044bea061c95acd00ecd5.png"
         data-srcset="../../_resources/8d58d18e599044bea061c95acd00ecd5.png, ../../_resources/8d58d18e599044bea061c95acd00ecd5.png 1.5x, ../../_resources/8d58d18e599044bea061c95acd00ecd5.png 2x"
         data-sizes="auto"
@@ -513,7 +493,7 @@ $$</p>
 <h4 id="习题-8-1-分析-lstm-模型中隐藏层神经元数量与参数数量之间的关系">习题 8-1 分析 LSTM 模型中隐藏层神经元数量与参数数量之间的关系．</h4>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/97408a607c0c4569b5adf1f53585d232.png"
         data-srcset="../../_resources/97408a607c0c4569b5adf1f53585d232.png, ../../_resources/97408a607c0c4569b5adf1f53585d232.png 1.5x, ../../_resources/97408a607c0c4569b5adf1f53585d232.png 2x"
         data-sizes="auto"
@@ -534,9 +514,9 @@ E\left(q_{i} k_{i}\right)=E q_{i} E k_{i}=0
 $$</p>
 <p>$$
 \begin{aligned}
-D\left(q_{i} k_{i}\right) &amp;=E\left(q_{i}^{2} k_{i}^{2}\right)-\left(E\left(q_{i} k_{i}\right)\right)^{2} \\<br>
-&amp;=E q_{i}^{2} E k_{i}^{2} \\<br>
-&amp;=\left(D\left(q_{i}\right)+\left(E q_{i}\right)^{2}\right)\left(D\left(k_{i}\right)+\left(E k_{i}\right)^{2}\right) \\<br>
+D\left(q_{i} k_{i}\right) &amp;=E\left(q_{i}^{2} k_{i}^{2}\right)-\left(E\left(q_{i} k_{i}\right)\right)^{2} \\
+&amp;=E q_{i}^{2} E k_{i}^{2} \\
+&amp;=\left(D\left(q_{i}\right)+\left(E q_{i}\right)^{2}\right)\left(D\left(k_{i}\right)+\left(E k_{i}\right)^{2}\right) \\
 &amp;=\sigma^{4}=1
 \end{aligned}
 $$</p>
@@ -550,7 +530,7 @@ $$</p>
 <h4 id="习题-8-3-当将自注意力模型作为一个神经层使用时分析它和卷积层以及循环层在建模长距离依赖关系的效率和计算复杂度方面的差异">习题 8-3 当将自注意力模型作为一个神经层使用时，分析它和卷积层以及循环层在建模长距离依赖关系的效率和计算复杂度方面的差异．</h4>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/6e4ab592f48f4e4dba2d1a17f14191ce.png"
         data-srcset="../../_resources/6e4ab592f48f4e4dba2d1a17f14191ce.png, ../../_resources/6e4ab592f48f4e4dba2d1a17f14191ce.png 1.5x, ../../_resources/6e4ab592f48f4e4dba2d1a17f14191ce.png 2x"
         data-sizes="auto"
@@ -565,7 +545,7 @@ $$</p>
 </ul>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/7611df07cdf14af9b62fde51577eedff.png"
         data-srcset="../../_resources/7611df07cdf14af9b62fde51577eedff.png, ../../_resources/7611df07cdf14af9b62fde51577eedff.png 1.5x, ../../_resources/7611df07cdf14af9b62fde51577eedff.png 2x"
         data-sizes="auto"
@@ -587,46 +567,40 @@ $$</p>
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2021-02-26</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" data-title="《神经网络与深度学习》第8章 - 注意力机制和外部记忆" data-hashtags="神经网络与深度学习,NLP,notes,ML"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" data-title="《神经网络与深度学习》第8章 - 注意力机制和外部记忆"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" data-title="《神经网络与深度学习》第8章 - 注意力机制和外部记忆"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" data-title="《神经网络与深度学习》第8章 - 注意力机制和外部记忆"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" data-title="《神经网络与深度学习》第8章 - 注意力机制和外部记忆" data-hashtags="神经网络与深度学习,NLP,notes,ML"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" data-title="《神经网络与深度学习》第8章 - 注意力机制和外部记忆"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" data-title="《神经网络与深度学习》第8章 - 注意力机制和外部记忆"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" data-title="《神经网络与深度学习》第8章 - 注意力机制和外部记忆"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/notes/">Notes</a>,&nbsp;<a href="/tags/ml/">ML</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a>,&nbsp;<a href="/blog/tags/ml/">ML</a></section>
         <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="prev" rel="prev" title="《神经网络与深度学习》第5章 - 卷积神经网络"><i class="fas fa-angle-left fa-fw"></i>《神经网络与深度学习》第5章 - 卷积神经网络</a>
-            <a href="/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" class="next" rel="next" title="基于PyTorch实现word2vec模型及其优化">基于PyTorch实现word2vec模型及其优化<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/blog/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="prev" rel="prev" title="《神经网络与深度学习》第5章 - 卷积神经网络"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>《神经网络与深度学习》第5章 - 卷积神经网络</a>
+            <a href="/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" class="next" rel="next" title="基于PyTorch实现word2vec模型及其优化">基于PyTorch实现word2vec模型及其优化<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-<div id="comments"><div id="utterances"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container">
-
-            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
-
-                
-            </div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
 </html>

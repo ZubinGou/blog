@@ -4,23 +4,24 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>《神经网络与深度学习》第7章 - 网络优化与正则化 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《神经网络与深度学习》第7章 - 网络优化与正则化" />
 <meta property="og:description" content="ch7 网络优化与正则化 任何数学技巧都不能弥补信息的缺失． —— 科尼利厄斯·兰佐斯（Cornelius Lanczos） 匈牙利数学家、物理学家 神经网络" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" />
-<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="og:url" content="https://zubingou.github.io/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-07-20T17:00:11+08:00" />
-<meta property="article:modified_time" content="2021-07-20T17:00:11+08:00" />
+<meta property="article:modified_time" content="2021-07-20T17:00:11+08:00" /><meta property="og:site_name" content="My cool site" />
+
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://binko.me/logo.png"/>
+<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
 
 <meta name="twitter:title" content="《神经网络与深度学习》第7章 - 网络优化与正则化"/>
 <meta name="twitter:description" content="ch7 网络优化与正则化 任何数学技巧都不能弥补信息的缺失． —— 科尼利厄斯·兰佐斯（Cornelius Lanczos） 匈牙利数学家、物理学家 神经网络"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" /><link rel="prev" href="https://binko.me/nlp-papersbert_-pre-training-of-deep-bidirection/" /><link rel="next" href="https://binko.me/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" /><link rel="prev" href="https://zubingou.github.io/blog/nlp-papersbert_-pre-training-of-deep-bidirection/" /><link rel="next" href="https://zubingou.github.io/blog/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,18 +29,18 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/binko.me\/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96\/"
+            "@id": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96\/"
         },"image": [{
                             "@type": "ImageObject",
-                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
                         }],"genre": "posts","keywords": "神经网络与深度学习, NLP, notes, DL","wordcount":  6965 ,
-        "url": "https:\/\/binko.me\/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96\/","datePublished": "2021-07-20T17:00:11+08:00","dateModified": "2021-07-20T17:00:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96\/","datePublished": "2021-07-20T17:00:11+08:00","dateModified": "2021-07-20T17:00:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "ZubinGou","logo": {
                     "@type": "ImageObject",
-                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
                     "width":  304 ,
                     "height":  304 
                 }},"author": {
@@ -48,58 +49,38 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-        <div id="mask"></div><div class="wrapper">
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-      tex2jax: {
-          inlineMath: [['$','$'], ['\\(','\\)']],
-          displayMath: [['$$','$$']],
-          processEscapes: true,
-          processEnvironments: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-          TeX: {
-              equationNumbers: { autoNumber: "AMS" },
-              extensions: ["AMSmath.js", "AMSsymbols.js"]
-          }
-      }
-  });
-</script>
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-
-<header class="desktop" id="header-desktop">
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" selected>简体中文</option></select>
-                    </a><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/blog/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" selected>简体中文</option></select>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+                <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -109,43 +90,42 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" selected>简体中文</option></select>
+                </div><a class="menu-item" href="/blog/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" selected>简体中文</option></select>
                 </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">《神经网络与深度学习》第7章 - 网络优化与正则化</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/deep-learning/"><i class="far fa-folder fa-fw"></i>Deep Learning</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-20">2021-07-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6965 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 14 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《神经网络与深度学习》第7章 - 网络优化与正则化</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/deep-learning/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Deep Learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-07-20">2021-07-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 6965 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 14 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -267,7 +247,7 @@
 <p>平坦最小值（Flat Minima）和尖锐最小值（Sharp Minma）：深度网络参数多且冗余，局部最小解通常是平坦最小值，鲁棒性、抗扰动能力较好。</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/2603c35aca6a406d9f7647220cb5b9f4.png"
         data-srcset="../../_resources/2603c35aca6a406d9f7647220cb5b9f4.png, ../../_resources/2603c35aca6a406d9f7647220cb5b9f4.png 1.5x, ../../_resources/2603c35aca6a406d9f7647220cb5b9f4.png 2x"
         data-sizes="auto"
@@ -354,7 +334,7 @@ $$</p>
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/665b10f03842415d808436f36a393e20.png"
         data-srcset="../../_resources/665b10f03842415d808436f36a393e20.png, ../../_resources/665b10f03842415d808436f36a393e20.png 1.5x, ../../_resources/665b10f03842415d808436f36a393e20.png 2x"
         data-sizes="auto"
@@ -380,7 +360,7 @@ $$</p>
 </ul>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/983b26c9b4674a8e971bee5a5966cb77.png"
         data-srcset="../../_resources/983b26c9b4674a8e971bee5a5966cb77.png, ../../_resources/983b26c9b4674a8e971bee5a5966cb77.png 1.5x, ../../_resources/983b26c9b4674a8e971bee5a5966cb77.png 2x"
         data-sizes="auto"
@@ -399,7 +379,7 @@ $$</p>
 <p>Hung-yi Lee:</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/f691c2979f8141359831286b705234b2.png"
         data-srcset="../../_resources/f691c2979f8141359831286b705234b2.png, ../../_resources/f691c2979f8141359831286b705234b2.png 1.5x, ../../_resources/f691c2979f8141359831286b705234b2.png 2x"
         data-sizes="auto"
@@ -407,7 +387,7 @@ $$</p>
         title="d8d82ed693e6086e2055efcfa59b2359.png" />
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/fada25cef7e34b2592370d322c1762ac.png"
         data-srcset="../../_resources/fada25cef7e34b2592370d322c1762ac.png, ../../_resources/fada25cef7e34b2592370d322c1762ac.png 1.5x, ../../_resources/fada25cef7e34b2592370d322c1762ac.png 2x"
         data-sizes="auto"
@@ -420,7 +400,7 @@ $$</p>
 <p>梯度平方的指数衰减移动平均：</p>
 <p>$$
 \begin{aligned}
-G_{t} &amp;=\beta G_{t-1}+(1-\beta) g_{t} \odot g_{t} \\<br>
+G_{t} &amp;=\beta G_{t-1}+(1-\beta) g_{t} \odot g_{t} \\
 &amp;=(1-\beta) \sum_{\tau=1}^{t} \beta^{t-\tau} g_{\tau} \odot g_{\tau}
 \end{aligned}
 $$</p>
@@ -453,7 +433,7 @@ $$</p>
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/924d30374b8644e588ea24a547cd16f7.png"
         data-srcset="../../_resources/924d30374b8644e588ea24a547cd16f7.png, ../../_resources/924d30374b8644e588ea24a547cd16f7.png 1.5x, ../../_resources/924d30374b8644e588ea24a547cd16f7.png 2x"
         data-sizes="auto"
@@ -463,7 +443,7 @@ $$</p>
 <p>Adam算法（Adaptive Moment Estimation Algorithm）[Kingma et al., 2015]：梯度平方指数加权平均（RMSprop）+ 梯度指数加权平均（Momentum）</p>
 <p>$$
 \begin{gathered}
-M_{t}=\beta_{1} M_{t-1}+\left(1-\beta_{1}\right) g_{t} \\<br>
+M_{t}=\beta_{1} M_{t-1}+\left(1-\beta_{1}\right) g_{t} \\
 G_{t}=\beta_{2} G_{t-1}+\left(1-\beta_{2}\right) g_{t} \odot g_{t}
 \end{gathered}
 $$</p>
@@ -471,7 +451,7 @@ $$</p>
 <p>需要进行偏差修正：
 $$
 \begin{aligned}
-\hat{M}_{t} &amp;=\frac{M_{t}}{1-\beta_{1}^{t}} \\<br>
+\hat{M}_{t} &amp;=\frac{M_{t}}{1-\beta_{1}^{t}} \\
 \hat{G}_{t} &amp;=\frac{G_{t}}{1-\beta_{2}^{t}}
 \end{aligned}
 $$</p>
@@ -503,14 +483,14 @@ $$</p>
 <p>优化算法公式概括：</p>
 <p>$$
 \begin{aligned}
-\Delta \theta_{t} &amp;=-\frac{\alpha_{t}}{\sqrt{G_{t}+\epsilon}} M_{t} \\<br>
-G_{t} &amp;=\psi\left(\mathbf{g}_{1}, \cdots, \boldsymbol{g}_{t}\right) \\<br>
+\Delta \theta_{t} &amp;=-\frac{\alpha_{t}}{\sqrt{G_{t}+\epsilon}} M_{t} \\
+G_{t} &amp;=\psi\left(\mathbf{g}_{1}, \cdots, \boldsymbol{g}_{t}\right) \\
 M_{t} &amp;=\phi\left(\mathbf{g}_{1}, \cdots, \mathbf{g}_{t}\right)
 \end{aligned}
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/4c7d331e8c7145f08f3b6a5045c5dbe0.png"
         data-srcset="../../_resources/4c7d331e8c7145f08f3b6a5045c5dbe0.png, ../../_resources/4c7d331e8c7145f08f3b6a5045c5dbe0.png 1.5x, ../../_resources/4c7d331e8c7145f08f3b6a5045c5dbe0.png 2x"
         data-sizes="auto"
@@ -518,7 +498,7 @@ $$</p>
         title="23f888ad5e6500a4bda71388fb5414ca.png" /></p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/dee48c37fad84a14a3c69cdf0839b725.png"
         data-srcset="../../_resources/dee48c37fad84a14a3c69cdf0839b725.png, ../../_resources/dee48c37fad84a14a3c69cdf0839b725.png 1.5x, ../../_resources/dee48c37fad84a14a3c69cdf0839b725.png 2x"
         data-sizes="auto"
@@ -527,7 +507,7 @@ $$</p>
 <h2 id="73-参数初始化">7.3 参数初始化</h2>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/f15690282dcb4ca8be099fc66bafe0f2.png"
         data-srcset="../../_resources/f15690282dcb4ca8be099fc66bafe0f2.png, ../../_resources/f15690282dcb4ca8be099fc66bafe0f2.png 1.5x, ../../_resources/f15690282dcb4ca8be099fc66bafe0f2.png 2x"
         data-sizes="auto"
@@ -596,8 +576,8 @@ $$</p>
 <p>方差：
 $$
 \begin{aligned}
-\operatorname{var}\left(a^{(l)}\right) &amp;=\operatorname{var}\left(\sum_{i=1}^{M_{l-1}} w_{i}^{(l)} a_{i}^{(l-1)}\right) \\<br>
-&amp;=\sum_{i=1}^{M_{l-1}} \operatorname{var}\left(w_{i}^{(l)}\right) \operatorname{var}\left(a_{i}^{(l-1)}\right) \\<br>
+\operatorname{var}\left(a^{(l)}\right) &amp;=\operatorname{var}\left(\sum_{i=1}^{M_{l-1}} w_{i}^{(l)} a_{i}^{(l-1)}\right) \\
+&amp;=\sum_{i=1}^{M_{l-1}} \operatorname{var}\left(w_{i}^{(l)}\right) \operatorname{var}\left(a_{i}^{(l-1)}\right) \\
 &amp;=M_{l-1} \operatorname{var}\left(w_{i}^{(l)}\right) \operatorname{var}\left(a_{i}^{(l-1)}\right) .
 \end{aligned}
 $$</p>
@@ -630,30 +610,30 @@ $$</p>
 <p>两个独立随机变量的方差：
 $$
 \begin{aligned}
-\operatorname{Var}(X Y) &amp;=E\left((X Y)^{2}\right)-(E(X Y))^{2} \\<br>
-&amp;=E\left(X^{2}\right) E\left(Y^{2}\right)-(E(X) E(Y))^{2} \\<br>
-&amp;=\left(\operatorname{Var}(X)+(E(X))^{2}\right)\left(\operatorname{Var}(Y)+(E(Y))^{2}\right)-(E(X))^{2}(E(Y))^{2} \\<br>
+\operatorname{Var}(X Y) &amp;=E\left((X Y)^{2}\right)-(E(X Y))^{2} \\
+&amp;=E\left(X^{2}\right) E\left(Y^{2}\right)-(E(X) E(Y))^{2} \\
+&amp;=\left(\operatorname{Var}(X)+(E(X))^{2}\right)\left(\operatorname{Var}(Y)+(E(Y))^{2}\right)-(E(X))^{2}(E(Y))^{2} \\
 &amp;=\operatorname{Var}(X) \operatorname{Var}(Y)+(E(X))^{2} \operatorname{Var}(Y)+\operatorname{Var}(X)(E(Y))^{2}
 \end{aligned}
 $$</p>
 <p>又：
 $$
 \begin{aligned}
-\operatorname{var}(z) &amp;=\int_{-\infty}^{+\infty}(z-0)^{2} p(z) d z \\<br>
-&amp;=2 \int_{0}^{+\infty} z^{2} p(z) d z \\<br>
-&amp;=2 E\left(\max (0, z)^{2}\right) \\<br>
+\operatorname{var}(z) &amp;=\int_{-\infty}^{+\infty}(z-0)^{2} p(z) d z \\
+&amp;=2 \int_{0}^{+\infty} z^{2} p(z) d z \\
+&amp;=2 E\left(\max (0, z)^{2}\right) \\
 &amp;=2 E\left(a^2\right)
 \end{aligned}
 $$</p>
 <p>则 ReLU 输出方差：
 $$
 \begin{aligned}
-\operatorname{var}\left(z^{(l)}\right) &amp;=\operatorname{var}\left(\sum_{i=1}^{M_{l-1}} w_{i}^{(l)} a_{i}^{(l-1)}\right) \\<br>
-&amp;=\sum_{i=1}^{M_{l-1}} \operatorname{var}\left(w_{i}^{(l)} a_{i}^{(l-1)}\right) \\<br>
-&amp;=M_{l-1} (\operatorname{var}(w_{i}^{(l)}) \operatorname{var}(a_{i}^{(l-1)})+E(w_{i}^{(l)})^{2} \operatorname{var}(a_{i}^{(l-1)})+\operatorname{var}(w_{i}^{(l)}) E(a_{i}^{(l-1)})^{2}) \\<br>
-&amp;=M_{l-1} (\operatorname{var}(w_{i}^{(l)}) \operatorname{var}(a_{i}^{(l-1)})+\operatorname{var}(w_{i}^{(l)}) E(a_{i}^{(l-1)})^{2}) \\<br>
-&amp;=M_{l-1} \operatorname{var}\left(w_{i}^{(l)}\right) E((a_{i}^{(l-1)})^2) \\<br>
-&amp;=\frac{1}{2}M_{l-1} \operatorname{var}\left(w_{i}^{(l)}\right) \operatorname{var}(z_{i}^{(l-1)}) \\<br>
+\operatorname{var}\left(z^{(l)}\right) &amp;=\operatorname{var}\left(\sum_{i=1}^{M_{l-1}} w_{i}^{(l)} a_{i}^{(l-1)}\right) \\
+&amp;=\sum_{i=1}^{M_{l-1}} \operatorname{var}\left(w_{i}^{(l)} a_{i}^{(l-1)}\right) \\
+&amp;=M_{l-1} (\operatorname{var}(w_{i}^{(l)}) \operatorname{var}(a_{i}^{(l-1)})+E(w_{i}^{(l)})^{2} \operatorname{var}(a_{i}^{(l-1)})+\operatorname{var}(w_{i}^{(l)}) E(a_{i}^{(l-1)})^{2}) \\
+&amp;=M_{l-1} (\operatorname{var}(w_{i}^{(l)}) \operatorname{var}(a_{i}^{(l-1)})+\operatorname{var}(w_{i}^{(l)}) E(a_{i}^{(l-1)})^{2}) \\
+&amp;=M_{l-1} \operatorname{var}\left(w_{i}^{(l)}\right) E((a_{i}^{(l-1)})^2) \\
+&amp;=\frac{1}{2}M_{l-1} \operatorname{var}\left(w_{i}^{(l)}\right) \operatorname{var}(z_{i}^{(l-1)}) \\
 \end{aligned}
 $$</p>
 <p>所以：
@@ -662,7 +642,7 @@ $$
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/fc76e7fdd8eb43fe873c92114fec086a.png"
         data-srcset="../../_resources/fc76e7fdd8eb43fe873c92114fec086a.png, ../../_resources/fc76e7fdd8eb43fe873c92114fec086a.png 1.5x, ../../_resources/fc76e7fdd8eb43fe873c92114fec086a.png 2x"
         data-sizes="auto"
@@ -704,7 +684,7 @@ $$</p>
 </ol>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/a30049ff2f364a1eb9d3867e587dfa32.png"
         data-srcset="../../_resources/a30049ff2f364a1eb9d3867e587dfa32.png, ../../_resources/a30049ff2f364a1eb9d3867e587dfa32.png 1.5x, ../../_resources/a30049ff2f364a1eb9d3867e587dfa32.png 2x"
         data-sizes="auto"
@@ -733,7 +713,7 @@ $$</p>
 </ol>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/d3bed5f37b2e4b728c9b18cc9ec01930.png"
         data-srcset="../../_resources/d3bed5f37b2e4b728c9b18cc9ec01930.png, ../../_resources/d3bed5f37b2e4b728c9b18cc9ec01930.png 1.5x, ../../_resources/d3bed5f37b2e4b728c9b18cc9ec01930.png 2x"
         data-sizes="auto"
@@ -774,14 +754,14 @@ $$</p>
 <p>归一到 0 附近在使用 Sigmoid 函数时，取值在线性区间，削弱了神经网络的非线性性质，可以通过缩放平移来改变取值区间：</p>
 <p>$$
 \begin{aligned}
-\hat{\boldsymbol{z}}^{(l)} &amp;=\frac{\boldsymbol{z}^{(l)}-\mu_{\mathcal{B}}}{\sqrt{\sigma_{\mathcal{B}}^{2}+\epsilon}} \odot \boldsymbol{\gamma}+\boldsymbol{\beta} \\<br>
+\hat{\boldsymbol{z}}^{(l)} &amp;=\frac{\boldsymbol{z}^{(l)}-\mu_{\mathcal{B}}}{\sqrt{\sigma_{\mathcal{B}}^{2}+\epsilon}} \odot \boldsymbol{\gamma}+\boldsymbol{\beta} \\
 &amp; \triangleq \mathrm{B} \mathrm{N}_{\gamma, \boldsymbol{\beta}}\left(\boldsymbol{z}^{(l)}\right)
 \end{aligned}
 $$</p>
 <p>其中：
 $$
 \begin{aligned}
-\mu_{\mathcal{B}} &amp;=\frac{1}{K} \sum_{k=1}^{K} z^{(k, l)}, \\<br>
+\mu_{\mathcal{B}} &amp;=\frac{1}{K} \sum_{k=1}^{K} z^{(k, l)}, \\
 \sigma_{\mathcal{B}}^{2} &amp;=\frac{1}{K} \sum_{k=1}^{K}\left(\boldsymbol{z}^{(k, l)}-\mu_{\mathcal{B}}\right) \odot\left(\boldsymbol{z}^{(k, l)}-\mu_{\mathcal{B}}\right)
 \end{aligned}
 $$</p>
@@ -795,21 +775,21 @@ $$</p>
 <p>层归一化（Layer Normalization）：对中间一层的所有神经元进行归一化</p>
 <p>$$
 \begin{aligned}
-\hat{z}^{(l)} &amp;=\frac{z^{(l)}-\mu^{(l)}}{\sqrt{\sigma^{(l)^{2}+\epsilon}} \odot \gamma+\beta} \\<br>
+\hat{z}^{(l)} &amp;=\frac{z^{(l)}-\mu^{(l)}}{\sqrt{\sigma^{(l)^{2}+\epsilon}} \odot \gamma+\beta} \\
 &amp; \triangleq \mathrm{LN}_{\gamma, \beta}\left(z^{(l)}\right)
 \end{aligned}
 $$</p>
 <p>其中：
 $$
 \begin{aligned}
-\mu_{\mathcal{B}} &amp;=\frac{1}{K} \sum_{k=1}^{K} z^{(k, l)}, \\<br>
+\mu_{\mathcal{B}} &amp;=\frac{1}{K} \sum_{k=1}^{K} z^{(k, l)}, \\
 \sigma_{\mathcal{B}}^{2} &amp;=\frac{1}{K} \sum_{k=1}^{K}\left(\boldsymbol{z}^{(k, l)}-\mu_{\mathcal{B}}\right) \odot\left(\boldsymbol{z}^{(k, l)}-\mu_{\mathcal{B}}\right)
 \end{aligned}
 $$</p>
 <p>RNN 的层归一化：
 $$
 \begin{aligned}
-&amp;\boldsymbol{z}_{t}=\boldsymbol{U} \boldsymbol{h}_{t-1}+\boldsymbol{W} \boldsymbol{x}_{t} \\<br>
+&amp;\boldsymbol{z}_{t}=\boldsymbol{U} \boldsymbol{h}_{t-1}+\boldsymbol{W} \boldsymbol{x}_{t} \\
 &amp;\boldsymbol{h}_{t}=f\left(\mathrm{LN}_{\gamma, \beta}\left(\boldsymbol{z}_{t}\right)\right)
 \end{aligned}
 $$</p>
@@ -833,7 +813,7 @@ $$</p>
 <p>局部响应归一化（Local Response Normalization，LRN），常用于卷积层，</p>
 <p>$$
 \begin{aligned}
-\hat{\boldsymbol{Y}}^{p} &amp;=\boldsymbol{Y}^{p} /\left(k+\alpha \sum_{j=\max \left(1, p-\frac{n}{2}\right)}^{\min \left(P, p+\frac{n}{2}\right)}\left(\boldsymbol{Y}^{j}\right)^{2}\right)^{\beta} \\<br>
+\hat{\boldsymbol{Y}}^{p} &amp;=\boldsymbol{Y}^{p} /\left(k+\alpha \sum_{j=\max \left(1, p-\frac{n}{2}\right)}^{\min \left(P, p+\frac{n}{2}\right)}\left(\boldsymbol{Y}^{j}\right)^{2}\right)^{\beta} \\
 &amp; \triangleq \mathrm{LRN}_{n, k, \alpha, \beta}\left(\boldsymbol{Y}^{p}\right)
 \end{aligned}
 $$</p>
@@ -870,7 +850,7 @@ $$</p>
 <p>常用：时序模型优化（Sequential Model-Based Optimization，SMBO）</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/804c762c47f649789aabeb3aad54293b.png"
         data-srcset="../../_resources/804c762c47f649789aabeb3aad54293b.png, ../../_resources/804c762c47f649789aabeb3aad54293b.png 1.5x, ../../_resources/804c762c47f649789aabeb3aad54293b.png 2x"
         data-sizes="auto"
@@ -884,7 +864,7 @@ $$</p>
 <p>最优臂问题（Best-Arm Problem）：即在给定有限的机会次数下，如何玩这些赌博机并找到收益最大的臂．</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/70e0fa5eb79d4e6485dcc9989994eb62.png"
         data-srcset="../../_resources/70e0fa5eb79d4e6485dcc9989994eb62.png, ../../_resources/70e0fa5eb79d4e6485dcc9989994eb62.png 1.5x, ../../_resources/70e0fa5eb79d4e6485dcc9989994eb62.png 2x"
         data-sizes="auto"
@@ -902,13 +882,13 @@ $$</p>
 <p>则优化问题：
 $$
 \begin{aligned}
-\theta^{*}=&amp; \underset{\theta}{\arg \min } \frac{1}{N} \sum_{n=1}^{N} \mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ; \theta\right)\right), \\<br>
+\theta^{*}=&amp; \underset{\theta}{\arg \min } \frac{1}{N} \sum_{n=1}^{N} \mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ; \theta\right)\right), \\
 \text { s.t. } \quad \ell_{p}(\theta) \leq 1
 \end{aligned}
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/1ce45d3f758e405d8551f8737ec9129c.png"
         data-srcset="../../_resources/1ce45d3f758e405d8551f8737ec9129c.png, ../../_resources/1ce45d3f758e405d8551f8737ec9129c.png 1.5x, ../../_resources/1ce45d3f758e405d8551f8737ec9129c.png 2x"
         data-sizes="auto"
@@ -934,7 +914,7 @@ $$</p>
 </ul>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/fde6487e62314fcdba5e5f1c41967927.png"
         data-srcset="../../_resources/fde6487e62314fcdba5e5f1c41967927.png, ../../_resources/fde6487e62314fcdba5e5f1c41967927.png 1.5x, ../../_resources/fde6487e62314fcdba5e5f1c41967927.png 2x"
         data-sizes="auto"
@@ -944,7 +924,7 @@ $$</p>
 <p>贝叶斯学习角度的解释：dropout 可以看作一种贝叶斯学习的近似，即对要学习的网络多次采用后平均的结果：
 $$
 \begin{aligned}
-\mathbb{E}_{q(\theta)}[y] &amp;=\int_{q} f(\boldsymbol{x} ; \theta) q(\theta) d \theta \\<br>
+\mathbb{E}_{q(\theta)}[y] &amp;=\int_{q} f(\boldsymbol{x} ; \theta) q(\theta) d \theta \\
 &amp; \approx \frac{1}{M} \sum_{m=1}^{M} f\left(\boldsymbol{x}, \theta_{m}\right)
 \end{aligned}
 $$</p>
@@ -955,7 +935,7 @@ $$</p>
 </ol>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/f4b553b16b394b9cbdc11d6b7d4fb959.png"
         data-srcset="../../_resources/f4b553b16b394b9cbdc11d6b7d4fb959.png, ../../_resources/f4b553b16b394b9cbdc11d6b7d4fb959.png 1.5x, ../../_resources/f4b553b16b394b9cbdc11d6b7d4fb959.png 2x"
         data-sizes="auto"
@@ -966,7 +946,7 @@ $$</p>
 </ol>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/e339e7325b8e4723b7972703049af9b3.png"
         data-srcset="../../_resources/e339e7325b8e4723b7972703049af9b3.png, ../../_resources/e339e7325b8e4723b7972703049af9b3.png 1.5x, ../../_resources/e339e7325b8e4723b7972703049af9b3.png 2x"
         data-sizes="auto"
@@ -1015,46 +995,40 @@ $$</p>
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2021-07-20</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" data-title="《神经网络与深度学习》第7章 - 网络优化与正则化" data-hashtags="神经网络与深度学习,NLP,notes,DL"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" data-title="《神经网络与深度学习》第7章 - 网络优化与正则化"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" data-title="《神经网络与深度学习》第7章 - 网络优化与正则化"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" data-title="《神经网络与深度学习》第7章 - 网络优化与正则化"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" data-title="《神经网络与深度学习》第7章 - 网络优化与正则化" data-hashtags="神经网络与深度学习,NLP,notes,DL"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" data-title="《神经网络与深度学习》第7章 - 网络优化与正则化"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" data-title="《神经网络与深度学习》第7章 - 网络优化与正则化"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" data-title="《神经网络与深度学习》第7章 - 网络优化与正则化"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/notes/">Notes</a>,&nbsp;<a href="/tags/dl/">DL</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a>,&nbsp;<a href="/blog/tags/dl/">DL</a></section>
         <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/nlp-papersbert_-pre-training-of-deep-bidirection/" class="prev" rel="prev" title="【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"><i class="fas fa-angle-left fa-fw"></i>【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a>
-            <a href="/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="next" rel="next" title="《神经网络与深度学习》第9章 - 无监督学习">《神经网络与深度学习》第9章 - 无监督学习<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/blog/nlp-papersbert_-pre-training-of-deep-bidirection/" class="prev" rel="prev" title="【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a>
+            <a href="/blog/nndl-book-ch9-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="next" rel="next" title="《神经网络与深度学习》第9章 - 无监督学习">《神经网络与深度学习》第9章 - 无监督学习<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-<div id="comments"><div id="utterances"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container">
-
-            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
-
-                
-            </div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
 </html>

@@ -4,23 +4,24 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>《神经网络与深度学习》第3章 - 线性模型 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《神经网络与深度学习》第3章 - 线性模型" />
 <meta property="og:description" content="ch3 线性模型 线性模型：通过样本特征的线性组合来进行预测。其线性组合函数为： $$ \begin{aligned} f(\boldsymbol{x} ; \boldsymbol{w}) &amp;=w_{1} x_{1}&#43;w_{2} x_{2}&#43;\cdots&#43;w_{D} x_{D}&#43;b \\ &amp;=\boldsymbol{w}^{\top} \boldsymbol{x}&#43;b \end{aligned} $$ 线性回归：直接使用 $y=f(\boldsymbol{x} ; \boldsymbol{w})$ 来预测输出目标 分" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://binko.me/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" />
-<meta property="og:image" content="https://binko.me/logo.png"/>
+<meta property="og:url" content="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-01-22T15:56:11+08:00" />
-<meta property="article:modified_time" content="2021-01-22T15:56:11+08:00" />
+<meta property="article:modified_time" content="2021-01-22T15:56:11+08:00" /><meta property="og:site_name" content="My cool site" />
+
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://binko.me/logo.png"/>
+<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
 
 <meta name="twitter:title" content="《神经网络与深度学习》第3章 - 线性模型"/>
 <meta name="twitter:description" content="ch3 线性模型 线性模型：通过样本特征的线性组合来进行预测。其线性组合函数为： $$ \begin{aligned} f(\boldsymbol{x} ; \boldsymbol{w}) &amp;=w_{1} x_{1}&#43;w_{2} x_{2}&#43;\cdots&#43;w_{D} x_{D}&#43;b \\ &amp;=\boldsymbol{w}^{\top} \boldsymbol{x}&#43;b \end{aligned} $$ 线性回归：直接使用 $y=f(\boldsymbol{x} ; \boldsymbol{w})$ 来预测输出目标 分"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://binko.me/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" /><link rel="prev" href="https://binko.me/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" /><link rel="next" href="https://binko.me/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" /><link rel="prev" href="https://zubingou.github.io/blog/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" /><link rel="next" href="https://zubingou.github.io/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,18 +29,18 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/binko.me\/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B\/"
+            "@id": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B\/"
         },"image": [{
                             "@type": "ImageObject",
-                            "url": "https:\/\/binko.me\/images\/Apple-Devices-Preview.png",
+                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
                         }],"genre": "posts","keywords": "神经网络与深度学习, NLP, notes, DL","wordcount":  2860 ,
-        "url": "https:\/\/binko.me\/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B\/","datePublished": "2021-01-22T15:56:11+08:00","dateModified": "2021-01-22T15:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B\/","datePublished": "2021-01-22T15:56:11+08:00","dateModified": "2021-01-22T15:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "ZubinGou","logo": {
                     "@type": "ImageObject",
-                    "url": "https:\/\/binko.me\/images\/avatar.png",
+                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
                     "width":  304 ,
                     "height":  304 
                 }},"author": {
@@ -48,58 +49,38 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-        <div id="mask"></div><div class="wrapper">
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-      tex2jax: {
-          inlineMath: [['$','$'], ['\\(','\\)']],
-          displayMath: [['$$','$$']],
-          processEscapes: true,
-          processEnvironments: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-          TeX: {
-              equationNumbers: { autoNumber: "AMS" },
-              extensions: ["AMSmath.js", "AMSsymbols.js"]
-          }
-      }
-  });
-</script>
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-
-<header class="desktop" id="header-desktop">
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+            <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" selected>简体中文</option></select>
-                    </a><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/blog/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" selected>简体中文</option></select>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+                <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -109,43 +90,42 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" selected>简体中文</option></select>
+                </div><a class="menu-item" href="/blog/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" selected>简体中文</option></select>
                 </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">《神经网络与深度学习》第3章 - 线性模型</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/deep-learning/"><i class="far fa-folder fa-fw"></i>Deep Learning</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-22">2021-01-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2860 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《神经网络与深度学习》第3章 - 线性模型</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/deep-learning/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Deep Learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-01-22">2021-01-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2860 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -189,7 +169,7 @@
 <p>线性模型：通过样本特征的线性组合来进行预测。其线性组合函数为：
 $$
 \begin{aligned}
-f(\boldsymbol{x} ; \boldsymbol{w}) &amp;=w_{1} x_{1}+w_{2} x_{2}+\cdots+w_{D} x_{D}+b \\<br>
+f(\boldsymbol{x} ; \boldsymbol{w}) &amp;=w_{1} x_{1}+w_{2} x_{2}+\cdots+w_{D} x_{D}+b \\
 &amp;=\boldsymbol{w}^{\top} \boldsymbol{x}+b
 \end{aligned}
 $$</p>
@@ -218,7 +198,7 @@ $$
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/3820a4e403bc4102a1401762b3ea8701.png"
         data-srcset="../../_resources/3820a4e403bc4102a1401762b3ea8701.png, ../../_resources/3820a4e403bc4102a1401762b3ea8701.png 1.5x, ../../_resources/3820a4e403bc4102a1401762b3ea8701.png 2x"
         data-sizes="auto"
@@ -250,7 +230,7 @@ $$</p>
 <p>“一对其余”和“一对一”存在难以确定区域：
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/788b87d745544b6ba1015d136ca42cdf.png"
         data-srcset="../../_resources/788b87d745544b6ba1015d136ca42cdf.png, ../../_resources/788b87d745544b6ba1015d136ca42cdf.png 1.5x, ../../_resources/788b87d745544b6ba1015d136ca42cdf.png 2x"
         data-sizes="auto"
@@ -270,21 +250,21 @@ $$</p>
 <p>Logistic 回归使用 Logistic 函数作为激活函数。标签y=1的后验概率：
 $$
 \begin{aligned}
-p(y=1 \mid \boldsymbol{x}) &amp;=\sigma\left(\boldsymbol{w}^{\top} \boldsymbol{x}\right) \\<br>
+p(y=1 \mid \boldsymbol{x}) &amp;=\sigma\left(\boldsymbol{w}^{\top} \boldsymbol{x}\right) \\
 &amp; \triangleq \frac{1}{1+\exp \left(-\boldsymbol{w}^{\top} \boldsymbol{x}\right)},
 \end{aligned}
 $$</p>
 <p>变换得到：</p>
 <p>$$
 \begin{aligned}
-\boldsymbol{w}^{\top} \boldsymbol{x} &amp;=\log \frac{p(y=1 \mid \boldsymbol{x})}{1-p(y=1 \mid \boldsymbol{x})} \\<br>
+\boldsymbol{w}^{\top} \boldsymbol{x} &amp;=\log \frac{p(y=1 \mid \boldsymbol{x})}{1-p(y=1 \mid \boldsymbol{x})} \\
 &amp;=\log \frac{p(y=1 \mid \boldsymbol{x})}{p(y=0 \mid \boldsymbol{x})},
 \end{aligned}
 $$</p>
 <p>其中 $\frac{p(y=1 \mid \boldsymbol{x})}{p(y=0 \mid \boldsymbol{x})}$ 称为几率（Odds），几率的对数称为对数几率（Log Odds，或Logit）</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/49f4530a117b4dc09f8bbe4b4cdfacd1.png"
         data-srcset="../../_resources/49f4530a117b4dc09f8bbe4b4cdfacd1.png, ../../_resources/49f4530a117b4dc09f8bbe4b4cdfacd1.png 1.5x, ../../_resources/49f4530a117b4dc09f8bbe4b4cdfacd1.png 2x"
         data-sizes="auto"
@@ -295,21 +275,21 @@ $$</p>
 风险函数：</p>
 <p>$$
 \begin{aligned}
-\mathcal{R}(\boldsymbol{w})=&amp;-\frac{1}{N} \sum_{n=1}^{1 \mathrm{~N}}\left(p_{r}\left(y^{(n)}=1 \mid \boldsymbol{x}^{(n)}\right) \log \hat{y}^{(n)}+p_{r}\left(y^{(n)}=0 \mid \boldsymbol{x}^{(n)}\right) \log \left(1-\hat{y}^{(n)}\right)\right) \\<br>
+\mathcal{R}(\boldsymbol{w})=&amp;-\frac{1}{N} \sum_{n=1}^{1 \mathrm{~N}}\left(p_{r}\left(y^{(n)}=1 \mid \boldsymbol{x}^{(n)}\right) \log \hat{y}^{(n)}+p_{r}\left(y^{(n)}=0 \mid \boldsymbol{x}^{(n)}\right) \log \left(1-\hat{y}^{(n)}\right)\right) \\
 &amp;=-\frac{1}{N} \sum_{n=1}^{N}\left(y^{(n)} \log \hat{y}^{(n)}+\left(1-y^{(n)}\right) \log \left(1-\hat{y}^{(n)}\right)\right) .
 \end{aligned}
 $$</p>
 <p>求导：</p>
 <p>$$
 \begin{aligned}
-\frac{\partial \mathcal{R}(\boldsymbol{w})}{\partial \boldsymbol{w}} &amp;=-\frac{1}{N} \sum_{n=1}^{N}\left(y^{(n)} \frac{\hat{y}^{(n)}\left(1-\hat{y}^{(n)}\right)}{\hat{y}^{(n)}} \boldsymbol{x}^{(n)}-\left(1-y^{(n)}\right) \frac{\hat{y}^{(n)}\left(1-\hat{y}^{(n)}\right)}{1-\hat{y}^{(n)}} \boldsymbol{x}^{(n)}\right) \\<br>
-&amp;=-\frac{1}{N} \sum_{n=1}^{N}\left(y^{(n)}\left(1-\hat{y}^{(n)}\right) \boldsymbol{x}^{(n)}-\left(1-y^{(n)}\right) \hat{y}^{(n)} \boldsymbol{x}^{(n)}\right) \\<br>
+\frac{\partial \mathcal{R}(\boldsymbol{w})}{\partial \boldsymbol{w}} &amp;=-\frac{1}{N} \sum_{n=1}^{N}\left(y^{(n)} \frac{\hat{y}^{(n)}\left(1-\hat{y}^{(n)}\right)}{\hat{y}^{(n)}} \boldsymbol{x}^{(n)}-\left(1-y^{(n)}\right) \frac{\hat{y}^{(n)}\left(1-\hat{y}^{(n)}\right)}{1-\hat{y}^{(n)}} \boldsymbol{x}^{(n)}\right) \\
+&amp;=-\frac{1}{N} \sum_{n=1}^{N}\left(y^{(n)}\left(1-\hat{y}^{(n)}\right) \boldsymbol{x}^{(n)}-\left(1-y^{(n)}\right) \hat{y}^{(n)} \boldsymbol{x}^{(n)}\right) \\
 &amp;=-\frac{1}{N} \sum_{n=1}^{N} \boldsymbol{x}^{(n)}\left(y^{(n)}-\hat{y}^{(n)}\right)
 \end{aligned}
 $$</p>
 <p>梯度下降法参数更新：
 $$
-\boldsymbol{w}<em>{t+1} \leftarrow \boldsymbol{w}</em>{t}+\alpha \frac{1}{N} \sum_{n=1}^{N} \boldsymbol{x}^{(n)}\left(y^{(n)}-\hat{y}_{\boldsymbol{w}_{t}}^{(n)}\right)
+\boldsymbol{w}<em>{t+1} \leftarrow \boldsymbol{w}</em>{t}+\alpha \frac{1}{N} \sum_{n=1}^{N} \boldsymbol{x}^{(n)}\left(y^{(n)}-\hat{y}<em>{\boldsymbol{w}</em>{t}}^{(n)}\right)
 $$</p>
 <p>因为风险函数 $\mathcal{R}(\boldsymbol{w})$ 是关于参数的连续可导凸函数，所以还可以用更高阶的优化方法（如牛顿法）来优化。</p>
 <h2 id="33-softmax-回归">3.3 Softmax 回归</h2>
@@ -317,40 +297,40 @@ $$</p>
 <p>预测类别：</p>
 <p>$$
 \begin{aligned}
-p(y=c \mid \boldsymbol{x}) &amp;=\operatorname{softmax} (\boldsymbol{w}_{c}^{\top} \boldsymbol{x}) \\<br>
+p(y=c \mid \boldsymbol{x}) &amp;=\operatorname{softmax} (\boldsymbol{w}_{c}^{\top} \boldsymbol{x}) \\
 &amp;=\frac{\exp \left(\boldsymbol{w}_{c}^{\top} \boldsymbol{x}\right)}{\sum_{c^{\prime}=1}^{C} \exp \left(\boldsymbol{w}_{c^{\prime}}^{\top} \boldsymbol{x}\right)}
 \end{aligned}
 $$</p>
 <p>向量化表示：
 $$
 \begin{aligned}
-\hat{\boldsymbol{y}} &amp;=\operatorname{softmax}\left(\boldsymbol{W}^{\top} \boldsymbol{x}\right) \\<br>
+\hat{\boldsymbol{y}} &amp;=\operatorname{softmax}\left(\boldsymbol{W}^{\top} \boldsymbol{x}\right) \\
 &amp;=\frac{\exp \left(\boldsymbol{W}^{\top} \boldsymbol{x}\right)}{\mathbf{1}_{C}^{\mathrm{T}} \exp \left(\boldsymbol{W}^{\top} \boldsymbol{x}\right)}
 \end{aligned}
 $$</p>
 <p>决策函数：
 $$
 \begin{aligned}
-\hat{y} &amp;=\underset{c=1}{\arg \max } p(y=c \mid \boldsymbol{x}) \\<br>
+\hat{y} &amp;=\underset{c=1}{\arg \max } p(y=c \mid \boldsymbol{x}) \\
 &amp;=\underset{c=1}{\arg \max } \boldsymbol{w}_{c}^{\top} \boldsymbol{x} .
 \end{aligned}
 $$</p>
 <p>风险函数：
 $$
 \begin{aligned}
-\mathcal{R}(\boldsymbol{W}) &amp;=-\frac{1}{N} \sum_{n=1}^{N} \sum_{c=1}^{C} \boldsymbol{y}_{c}^{(n)} \log \hat{\boldsymbol{y}}_{c}^{(n)} \\<br>
+\mathcal{R}(\boldsymbol{W}) &amp;=-\frac{1}{N} \sum_{n=1}^{N} \sum_{c=1}^{C} \boldsymbol{y}<em>{c}^{(n)} \log \hat{\boldsymbol{y}}</em>{c}^{(n)} \\
 &amp;=-\frac{1}{N} \sum_{n=1}^{N}\left(\boldsymbol{y}^{(n)}\right)^{\mathrm{T}} \log \hat{\boldsymbol{y}}^{(n)}
 \end{aligned}
 $$</p>
 <p>Softmax 函数求导：</p>
 <p>$$
 \begin{aligned}
-&amp;\frac{\partial \operatorname{softmax}(\boldsymbol{x})}{\partial \boldsymbol{x}}=\frac{\partial\left(\frac{\exp (x)}{1_{K}^{\top} \exp (x)}\right)}{\partial \boldsymbol{x}} \\<br>
-&amp;=\frac{1}{\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})} \frac{\partial \exp (\boldsymbol{x})}{\partial \boldsymbol{x}}+\frac{\partial\left(\frac{1}{1_{K}^{\mathrm{T} \exp (x)}}\right)}{\partial \boldsymbol{x}}(\exp (\boldsymbol{x}))^{\top} \\<br>
-&amp;=\frac{\operatorname{diag}(\exp (\boldsymbol{x}))}{\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})}-\left(\frac{1}{\left(\mathbf{1}_{K}^{\mathrm{T}} \exp (\boldsymbol{x})\right)^{2}}\right) \frac{\partial\left(\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})\right)}{\partial \boldsymbol{x}}(\exp (\boldsymbol{x}))^{\top} \\<br>
-&amp;=\frac{\operatorname{diag}(\exp (\boldsymbol{x}))}{\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})}-\left(\frac{1}{\left(\mathbf{1}_{K}^{\mathrm{T}} \exp (\boldsymbol{x})\right)^{2}}\right) \operatorname{diag}(\exp (\boldsymbol{x})) \mathbf{1}_{K}(\exp (\boldsymbol{x}))^{\top} \\<br>
-&amp;=\frac{\operatorname{diag}(\exp (\boldsymbol{x}))}{\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})}-\left(\frac{1}{\left(\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})\right)^{2}}\right) \exp (\boldsymbol{x})(\exp (\boldsymbol{x}))^{\top} \\<br>
-&amp;=\operatorname{diag}\left(\frac{\exp (\boldsymbol{x})}{\mathbf{1}_{K}^{\mathrm{T}} \exp (\boldsymbol{x})}\right)-\frac{\exp (\boldsymbol{x})}{\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})} \frac{(\exp (\boldsymbol{x}))^{\mathrm{T}}}{\mathbf{1}_{K}^{\mathrm{T}} \exp (\boldsymbol{x})} \\<br>
+&amp;\frac{\partial \operatorname{softmax}(\boldsymbol{x})}{\partial \boldsymbol{x}}=\frac{\partial\left(\frac{\exp (x)}{1_{K}^{\top} \exp (x)}\right)}{\partial \boldsymbol{x}} \\
+&amp;=\frac{1}{\mathbf{1}<em>{K}^{\top} \exp (\boldsymbol{x})} \frac{\partial \exp (\boldsymbol{x})}{\partial \boldsymbol{x}}+\frac{\partial\left(\frac{1}{1</em>{K}^{\mathrm{T} \exp (x)}}\right)}{\partial \boldsymbol{x}}(\exp (\boldsymbol{x}))^{\top} \\
+&amp;=\frac{\operatorname{diag}(\exp (\boldsymbol{x}))}{\mathbf{1}<em>{K}^{\top} \exp (\boldsymbol{x})}-\left(\frac{1}{\left(\mathbf{1}</em>{K}^{\mathrm{T}} \exp (\boldsymbol{x})\right)^{2}}\right) \frac{\partial\left(\mathbf{1}<em>{K}^{\top} \exp (\boldsymbol{x})\right)}{\partial \boldsymbol{x}}(\exp (\boldsymbol{x}))^{\top} \\
+&amp;=\frac{\operatorname{diag}(\exp (\boldsymbol{x}))}{\mathbf{1}</em>{K}^{\top} \exp (\boldsymbol{x})}-\left(\frac{1}{\left(\mathbf{1}<em>{K}^{\mathrm{T}} \exp (\boldsymbol{x})\right)^{2}}\right) \operatorname{diag}(\exp (\boldsymbol{x})) \mathbf{1}</em>{K}(\exp (\boldsymbol{x}))^{\top} \\
+&amp;=\frac{\operatorname{diag}(\exp (\boldsymbol{x}))}{\mathbf{1}<em>{K}^{\top} \exp (\boldsymbol{x})}-\left(\frac{1}{\left(\mathbf{1}</em>{K}^{\top} \exp (\boldsymbol{x})\right)^{2}}\right) \exp (\boldsymbol{x})(\exp (\boldsymbol{x}))^{\top} \\
+&amp;=\operatorname{diag}\left(\frac{\exp (\boldsymbol{x})}{\mathbf{1}<em>{K}^{\mathrm{T}} \exp (\boldsymbol{x})}\right)-\frac{\exp (\boldsymbol{x})}{\mathbf{1}</em>{K}^{\top} \exp (\boldsymbol{x})} \frac{(\exp (\boldsymbol{x}))^{\mathrm{T}}}{\mathbf{1}_{K}^{\mathrm{T}} \exp (\boldsymbol{x})} \\
 &amp;=\operatorname{diag}(\operatorname{softmax}(\boldsymbol{x}))-\operatorname{softmax}(\boldsymbol{x}) \operatorname{softmax}(\boldsymbol{x})^{\top} .
 \end{aligned}
 $$</p>
@@ -385,7 +365,7 @@ $$</p>
 <p>梯度更新：</p>
 <p>$$
 \frac{\partial \mathcal{L}(\boldsymbol{w} ; \boldsymbol{x}, y)}{\partial \boldsymbol{w}}=\left{\begin{array}{lll}
-0 &amp; \text { if } &amp; y \boldsymbol{w}^{\top} \boldsymbol{x}&gt;0 \\<br>
+0 &amp; \text { if } &amp; y \boldsymbol{w}^{\top} \boldsymbol{x}&gt;0 \\
 -y \boldsymbol{x} &amp; \text { if } &amp; y \boldsymbol{w}^{\top} \boldsymbol{x}&lt;0
 \end{array}\right.
 $$</p>
@@ -393,7 +373,7 @@ $$</p>
 （黑色：当前权重向量，红色虚线：更新方向）
 <img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/db442afde21b44d3ac2276634e6114cb.png"
         data-srcset="../../_resources/db442afde21b44d3ac2276634e6114cb.png, ../../_resources/db442afde21b44d3ac2276634e6114cb.png 1.5x, ../../_resources/db442afde21b44d3ac2276634e6114cb.png 2x"
         data-sizes="auto"
@@ -414,9 +394,9 @@ $$</p>
 <p>平均感知器（Averaged Perceptron）[Collins, 2002]：</p>
 <p>$$
 \begin{aligned}
-\hat{y} &amp;=\operatorname{sgn}\left(\frac{1}{T} \sum_{k=1}^{K} c_{k}\left(\boldsymbol{w}_{k}^{\top} \boldsymbol{x}\right)\right) \\<br>
-&amp;=\operatorname{sgn}\left(\frac{1}{T}\left(\sum_{k=1}^{K} c_{k} \boldsymbol{w}_{k}\right)^{\top} \boldsymbol{x}\right) \\<br>
-&amp;=\operatorname{sgn}\left(\left(\frac{1}{T} \sum_{t=1}^{T} \boldsymbol{w}_{t}\right)^{\top} \boldsymbol{x}\right) \\<br>
+\hat{y} &amp;=\operatorname{sgn}\left(\frac{1}{T} \sum_{k=1}^{K} c_{k}\left(\boldsymbol{w}<em>{k}^{\top} \boldsymbol{x}\right)\right) \\
+&amp;=\operatorname{sgn}\left(\frac{1}{T}\left(\sum</em>{k=1}^{K} c_{k} \boldsymbol{w}<em>{k}\right)^{\top} \boldsymbol{x}\right) \\
+&amp;=\operatorname{sgn}\left(\left(\frac{1}{T} \sum</em>{t=1}^{T} \boldsymbol{w}_{t}\right)^{\top} \boldsymbol{x}\right) \\
 &amp;=\operatorname{sgn}\left(\overline{\boldsymbol{w}}^{\top} \boldsymbol{x}\right)
 \end{aligned}
 $$</p>
@@ -441,21 +421,21 @@ $$</p>
 <p>SVM的目标：</p>
 <p>$$
 \begin{array}{ll}
-\max _{\boldsymbol{w}, b} &amp; \gamma \\<br>
+\max _{\boldsymbol{w}, b} &amp; \gamma \\
 \text { s.t. } &amp; \frac{y^{(n)}\left(\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}+b\right)}{|\boldsymbol{w}|} \geq \gamma, \forall n \in{1, \cdots, N} .
 \end{array}
 $$</p>
 <p>由于 $\boldsymbol{w}$ 和 $b$ 可以同时缩放不改变间隔，可以限制 $|\boldsymbol{w}| \cdot \gamma=1$ ，则上式等价于：</p>
 <p>$$
 \begin{aligned}
-\max _{\boldsymbol{w}, b} &amp; \frac{1}{|\boldsymbol{w}|^{2}} \\<br>
+\max _{\boldsymbol{w}, b} &amp; \frac{1}{|\boldsymbol{w}|^{2}} \\
 \text { s.t. } &amp; y^{(n)}\left(\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}+b\right) \geq 1, \forall n \in{1, \cdots, N}
 \end{aligned}
 $$</p>
 <p>支持向量（Suport Vector）： 满足 $y^{(n)}\left(\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}+b\right)=1$ 的样本点。</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/5e42dd9a13b14ea681cb9cee1f719291.png"
         data-srcset="../../_resources/5e42dd9a13b14ea681cb9cee1f719291.png, ../../_resources/5e42dd9a13b14ea681cb9cee1f719291.png 1.5x, ../../_resources/5e42dd9a13b14ea681cb9cee1f719291.png 2x"
         data-sizes="auto"
@@ -466,8 +446,8 @@ $$</p>
 <p>最优参数的SVM决策函数：</p>
 <p>$$
 \begin{aligned}
-f(\boldsymbol{x}) &amp;=\operatorname{sgn}\left(\boldsymbol{w}^{* \top} \boldsymbol{x}+b^{*}\right) \\<br>
-&amp;=\operatorname{sgn}\left(\sum_{n=1}^{N} \lambda_{n}^{*} y^{(n)}\left(\boldsymbol{x}^{(n)}\right)^{\top} \boldsymbol{x}+b^{*}\right)
+f(\boldsymbol{x}) &amp;=\operatorname{sgn}\left(\boldsymbol{w}^{* \top} \boldsymbol{x}+b^{<em>}\right) \\
+&amp;=\operatorname{sgn}\left(\sum_{n=1}^{N} \lambda_{n}^{</em>} y^{(n)}\left(\boldsymbol{x}^{(n)}\right)^{\top} \boldsymbol{x}+b^{*}\right)
 \end{aligned}
 $$</p>
 <h3 id="352-核函数">3.5.2 核函数</h3>
@@ -475,7 +455,7 @@ $$</p>
 <p>则决策函数为：
 $$
 \begin{aligned}
-f(\boldsymbol{x}) &amp;=\operatorname{sgn}\left(\boldsymbol{w}^{*} \boldsymbol{\phi}(\boldsymbol{x})+b^{*}\right) \\<br>
+f(\boldsymbol{x}) &amp;=\operatorname{sgn}\left(\boldsymbol{w}^{*} \boldsymbol{\phi}(\boldsymbol{x})+b^{*}\right) \\
 &amp;=\operatorname{sgn}\left(\sum_{n=1}^{N} \lambda_{n}^{*} y^{(n)} k\left(\boldsymbol{x}^{(n)}, \boldsymbol{x}\right)+b^{*}\right)
 \end{aligned}
 $$</p>
@@ -491,8 +471,8 @@ $$</p>
 <p>当线性不可分时，为了容忍部分不满足约束的样本，引入松弛变量（Slack Variable）$\xi$，将优化问题变为</p>
 <p>$$
 \begin{array}{ll}
-\min _{\boldsymbol{w}, b} &amp; \frac{1}{2}|\boldsymbol{w}|^{2}+C \sum_{n=1}^{N} \xi_{n} \\<br>
-\text { s.t. } &amp; 1-y^{(n)}\left(\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}+b\right)-\xi_{n} \leq 0, \quad \forall n \in{1, \cdots, N} \\<br>
+\min _{\boldsymbol{w}, b} &amp; \frac{1}{2}|\boldsymbol{w}|^{2}+C \sum_{n=1}^{N} \xi_{n} \\
+\text { s.t. } &amp; 1-y^{(n)}\left(\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}+b\right)-\xi_{n} \leq 0, \quad \forall n \in{1, \cdots, N} \\
 &amp; \xi_{n} \geq 0, \quad \forall n \in{1, \cdots, N}
 \end{array}
 $$</p>
@@ -513,7 +493,7 @@ f(\boldsymbol{x} ; \boldsymbol{w})=\boldsymbol{w}^{\top} \boldsymbol{x}+b
 $$</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/57baee45892347eab9241cc1b47b588c.png"
         data-srcset="../../_resources/57baee45892347eab9241cc1b47b588c.png, ../../_resources/57baee45892347eab9241cc1b47b588c.png 1.5x, ../../_resources/57baee45892347eab9241cc1b47b588c.png 2x"
         data-sizes="auto"
@@ -525,7 +505,7 @@ $$</p>
 </blockquote>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
+        src="/blog/svg/loading.min.svg"
         data-src="../../_resources/ec087fd86375437da75ff6320802cdfe.png"
         data-srcset="../../_resources/ec087fd86375437da75ff6320802cdfe.png, ../../_resources/ec087fd86375437da75ff6320802cdfe.png 1.5x, ../../_resources/ec087fd86375437da75ff6320802cdfe.png 2x"
         data-sizes="auto"
@@ -553,46 +533,40 @@ $$</p>
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2021-01-22</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://binko.me/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" data-title="《神经网络与深度学习》第3章 - 线性模型" data-hashtags="神经网络与深度学习,NLP,notes,DL"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://binko.me/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://binko.me/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" data-title="《神经网络与深度学习》第3章 - 线性模型"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://binko.me/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" data-title="《神经网络与深度学习》第3章 - 线性模型"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://binko.me/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" data-title="《神经网络与深度学习》第3章 - 线性模型"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" data-title="《神经网络与深度学习》第3章 - 线性模型" data-hashtags="神经网络与深度学习,NLP,notes,DL"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" data-title="《神经网络与深度学习》第3章 - 线性模型"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" data-title="《神经网络与深度学习》第3章 - 线性模型"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" data-title="《神经网络与深度学习》第3章 - 线性模型"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/tags/nlp/">NLP</a>,&nbsp;<a href="/tags/notes/">Notes</a>,&nbsp;<a href="/tags/dl/">DL</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a>,&nbsp;<a href="/blog/tags/dl/">DL</a></section>
         <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" class="prev" rel="prev" title="《神经网络与深度学习》第2章 - 机器学习概述"><i class="fas fa-angle-left fa-fw"></i>《神经网络与深度学习》第2章 - 机器学习概述</a>
-            <a href="/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="next" rel="next" title="《神经网络与深度学习》第4章 - 前馈神经网络">《神经网络与深度学习》第4章 - 前馈神经网络<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/blog/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" class="prev" rel="prev" title="《神经网络与深度学习》第2章 - 机器学习概述"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>《神经网络与深度学习》第2章 - 机器学习概述</a>
+            <a href="/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="next" rel="next" title="《神经网络与深度学习》第4章 - 前馈神经网络">《神经网络与深度学习》第4章 - 前馈神经网络<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-<div id="comments"><div id="utterances"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container">
-
-            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">ZubinGou</a></span><span> | Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow">LoveIt</a></span> 
-
-                
-            </div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
 </html>
