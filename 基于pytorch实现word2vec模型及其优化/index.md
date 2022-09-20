@@ -31,11 +31,11 @@ Skip-gram是在给定目标单词的情况下，预测其上下文单词。
 ### Subsampling
 高频词数量远超训练所需，所以进行抽样，基于词频以一定概率丢弃词汇（论文中公式）：
 $$
-P\left(w\_{i}\right)=1-\sqrt{\frac{t}{f\left(w\_{i}\right)} }
+P\left(w\_{i}\right)=1-\sqrt{\frac{t}{f\left(w\_{i}\right)}}
 $$
 
 作者实际使用的公式（t默认0.0001）：
-$$P\left(w\_{i}\right)=\sqrt{\frac{t}{f\left(w\_{i}\right)} } + \frac{t}{f\left(w\_{i}\right)}$$
+$$P\left(w\_{i}\right)=\sqrt{\frac{t}{f\left(w\_{i}\right)}} + \frac{t}{f\left(w\_{i}\right)}$$
 
 ### Negative Sampling
 负采样使得每个训练样本仅更新一小部分权重。negative word指期望概率为0的单词，选取概率为：

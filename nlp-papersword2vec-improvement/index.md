@@ -25,7 +25,7 @@ $$
 
 defines $p(w\_{t+j}\mid w_t)$ using softmax:
 $$
-p\left(w\_{O} \mid w\_{I}\right)=\frac{\exp \left(v\_{w\_{O} }^{\prime}{ }^{\top} v\_{w\_{I} }\right)}{\sum\_{w=1}^{W} \exp \left(v\_{w}^{\prime}{ }^{\top} v\_{w\_{I} }\right)}
+p\left(w\_{O} \mid w\_{I}\right)=\frac{\exp \left(v\_{w\_{O}}^{\prime}{ }^{\top} v\_{w\_{I}}\right)}{\sum\_{w=1}^{W} \exp \left(v\_{w}^{\prime}{ }^{\top} v\_{w\_{I}}\right)}
 $$
 - impractical because the cost of computing $\nabla \log p\left(w\_{O} \mid w\_{I}\right)$ is proportional to W
 
@@ -33,7 +33,7 @@ $$
 1. CBOW
 输出层为以词在语料出现次数为权值构造的 Huffman 树，每个词为叶子结点，每个分支视为二分类（假设左负右正），路径上的概率之积：
 $$
-p(w \mid \operatorname{Context}(w))=\prod\_{j=2}^{l^{w} } p\left(d\_{j}^{w} \mid \mathbf{x}\_{w}, \theta\_{j-1}^{w}\right)
+p(w \mid \operatorname{Context}(w))=\prod\_{j=2}^{l^{w}} p\left(d\_{j}^{w} \mid \mathbf{x}\_{w}, \theta\_{j-1}^{w}\right)
 $$
 其中：
 $$
@@ -44,7 +44,7 @@ p\left(d\_{j}^{w} \mid \mathbf{x}\_{w}, \theta\_{j-1}^{w}\right)=\left\{\begin{a
 $$
 或者写成整体表达式：
 $$
-p\left(d\_{j}^{w} \mid \mathbf{x}\_{w}, \theta\_{j-1}^{w}\right)=\left[\sigma\left(\mathbf{x}\_{w}^{\top} \theta\_{j-1}^{w}\right)\right]^{1-d\_{j}^{w} } \cdot\left[1-\sigma\left(\mathbf{x}\_{w}^{\top} \theta\_{j-1}^{w}\right)\right]^{d\_{j}^{w} }
+p\left(d\_{j}^{w} \mid \mathbf{x}\_{w}, \theta\_{j-1}^{w}\right)=\left[\sigma\left(\mathbf{x}\_{w}^{\top} \theta\_{j-1}^{w}\right)\right]^{1-d\_{j}^{w}} \cdot\left[1-\sigma\left(\mathbf{x}\_{w}^{\top} \theta\_{j-1}^{w}\right)\right]^{d\_{j}^{w}}
 $$
 
 带入对数似然函数，采用随机梯度上升即可
@@ -52,18 +52,18 @@ $$
 2. SG
 同理：
 $$
-p(u \mid w)=\prod\_{j=2}^{l^{u} } p\left(d\_{j}^{u} \mid \mathbf{v}(w), \theta\_{j-1}^{u}\right)
+p(u \mid w)=\prod\_{j=2}^{l^{u}} p\left(d\_{j}^{u} \mid \mathbf{v}(w), \theta\_{j-1}^{u}\right)
 $$
 其中：
 $$
-p\left(d\_{j}^{u} \mid \mathbf{v}(w), \theta\_{j-1}^{u}\right)=\left[\sigma\left(\mathbf{v}(w)^{\top} \theta\_{j-1}^{u}\right)\right]^{1-d\_{j}^{u} } \cdot\left[1-\sigma\left(\mathbf{v}(w)^{\top} \theta\_{j-1}^{u}\right)\right]^{d\_{j}^{u} }
+p\left(d\_{j}^{u} \mid \mathbf{v}(w), \theta\_{j-1}^{u}\right)=\left[\sigma\left(\mathbf{v}(w)^{\top} \theta\_{j-1}^{u}\right)\right]^{1-d\_{j}^{u}} \cdot\left[1-\sigma\left(\mathbf{v}(w)^{\top} \theta\_{j-1}^{u}\right)\right]^{d\_{j}^{u}}
 $$
 
 
 ### 2.2 Negative Sampling
 增大正样本概率，降低一部分负样本概率：
 $$
-\log \sigma\left(v\_{w\_{O} }^{\prime}{ }^{\top} v\_{w\_{I} }\right)+\sum\_{i=1}^{k} \mathbb{E}\_{w\_{i} \sim P\_{n}(w)}\left[\log \sigma\left(-v\_{w\_{i} }^{\prime}{ }^{\top} v\_{w\_{I} }\right)\right]
+\log \sigma\left(v\_{w\_{O}}^{\prime}{ }^{\top} v\_{w\_{I}}\right)+\sum\_{i=1}^{k} \mathbb{E}\_{w\_{i} \sim P\_{n}(w)}\left[\log \sigma\left(-v\_{w\_{i}}^{\prime}{ }^{\top} v\_{w\_{I}}\right)\right]
 $$
 选取概率，noise distribution：
 $$
@@ -73,6 +73,6 @@ $$
 ### 2.3 Subsampling of Frequent Words
 每个词汇以一定概率丢弃：
 $$
-P\left(w\_{i}\right)=1-\sqrt{\frac{t}{f\left(w\_{i}\right)} }
+P\left(w\_{i}\right)=1-\sqrt{\frac{t}{f\left(w\_{i}\right)}}
 $$
 

@@ -40,7 +40,7 @@ $$
 \text { 加性模型 } & & 
 s(\boldsymbol{x}, \boldsymbol{q})&=\boldsymbol{v}^{\top} \tanh (\boldsymbol{W} \boldsymbol{x}+\boldsymbol{U} \boldsymbol{q})\\
 \text { 点积模型 } & & s(\boldsymbol{x}, \boldsymbol{q}) &=\boldsymbol{x}^{\top} \boldsymbol{q} \\\\
-\text { 缩放点积模型 } & & s(\boldsymbol{x}, \boldsymbol{q}) &=\frac{\boldsymbol{x}^{\top} \boldsymbol{q} }{\sqrt{D} }, \\\\
+\text { 缩放点积模型 } & & s(\boldsymbol{x}, \boldsymbol{q}) &=\frac{\boldsymbol{x}^{\top} \boldsymbol{q}}{\sqrt{D}}, \\\\
 \text { 双线性模型 } & & s(\boldsymbol{x}, \boldsymbol{q})&=\boldsymbol{x}^{\top} \boldsymbol{W} \boldsymbol{q},
 \end{aligned}
 $$
@@ -61,7 +61,7 @@ $$
 只关注某一个输入向量
 
 两种实现方式：
-1. 最大采样：$\operatorname{att}(\boldsymbol{X}, \boldsymbol{q})=\boldsymbol{x}\_{\hat{n} }$，$\hat{n}=\underset{n=1}{\arg \max } \alpha\_{n}$
+1. 最大采样：$\operatorname{att}(\boldsymbol{X}, \boldsymbol{q})=\boldsymbol{x}\_{\hat{n}}$，$\hat{n}=\underset{n=1}{\arg \max } \alpha\_{n}$
 2. 随机采样（根据注意力分布）
 
 硬性注意力缺点：损失函数和注意力分布函数关系不可导，无法用BP训练，通常采用强化学习训练。
@@ -97,7 +97,7 @@ $$
 $$
 \begin{aligned}
 p\left(c\_{1: M} \mid \boldsymbol{x}\_{1: N}\right) &=\prod\_{m=1}^{M} p\left(c\_{m} \mid c\_{1:(m-1)}, \boldsymbol{x}\_{1: N}\right) \\\\
-& \approx \prod\_{m=1}^{M} p\left(c\_{m} \mid \boldsymbol{x}\_{c\_{1} }, \cdots, \boldsymbol{x}\_{c\_{m-1} }, \boldsymbol{x}\_{1: N}\right),
+& \approx \prod\_{m=1}^{M} p\left(c\_{m} \mid \boldsymbol{x}\_{c\_{1}}, \cdots, \boldsymbol{x}\_{c\_{m-1}}, \boldsymbol{x}\_{1: N}\right),
 \end{aligned}
 $$
 
@@ -138,7 +138,7 @@ $$
 
 如使用缩放点积打分，输出可以简写为：
 $$
-\boldsymbol{H}=\boldsymbol{V} \operatorname{softmax}\left(\frac{\boldsymbol{K}^{\top} \boldsymbol{Q} }{\sqrt{D\_{k} }}\right)
+\boldsymbol{H}=\boldsymbol{V} \operatorname{softmax}\left(\frac{\boldsymbol{K}^{\top} \boldsymbol{Q}}{\sqrt{D\_{k}}}\right)
 $$
 
 ![c0f955a106e62040cc66ffb13a42e1ba.png](../../_resources/66a6091dc1aa44d9ba9e7f9d965f6134.png)
@@ -299,7 +299,7 @@ Hopfield 网络的最大容量为 0.14𝑀，玻尔兹曼机的容量为 0.6𝑀
 
 #### 习题 8-2 分析缩放点积模型可以缓解 Softmax 函数梯度消失的原因．
 $$
-\operatorname{Attention}(Q, K, V)=\operatorname{softmax}\left(\frac{Q K^{T} }{\sqrt{d\_{k} }}\right) V
+\operatorname{Attention}(Q, K, V)=\operatorname{softmax}\left(\frac{Q K^{T}}{\sqrt{d\_{k}}}\right) V
 $$
 
 向量点积往往很大，Softmax函数在输入值都很大大的区域会将元素差距拉得非常大，$\hat{y}\_{k}$接近1，梯度也就接近0了
@@ -319,11 +319,11 @@ D\left(q\_{i} k\_{i}\right) &=E\left(q\_{i}^{2} k\_{i}^{2}\right)-\left(E\left(q
 $$
 
 $$
-E\left(Q K^{T}\right)=\sum\_{i=1}^{d\_{k} } E\left(q\_{i} k\_{i}\right)=0
+E\left(Q K^{T}\right)=\sum\_{i=1}^{d\_{k}} E\left(q\_{i} k\_{i}\right)=0
 $$
 
 $$
-D\left(Q K^{T}\right)=\sum\_{i=1}^{d\_{k} } D\left(q\_{i} k\_{i}\right)=d\_{k} \sigma^{4}=d\_{k}
+D\left(Q K^{T}\right)=\sum\_{i=1}^{d\_{k}} D\left(q\_{i} k\_{i}\right)=d\_{k} \sigma^{4}=d\_{k}
 $$
 
 点积期望为0，通过除以标准差缩放，相当于进行了标准化Standardization，控制softmax输入的方差为1，有效解决了梯度消失问题。

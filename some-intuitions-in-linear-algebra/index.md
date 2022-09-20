@@ -22,11 +22,11 @@
 $$ c = \pm\sqrt{a^2 + b^2} $$
 
 $$J \equiv \left[\begin{array}{ccc}
-\frac{\partial f }{\partial x\_{1} } & \cdots & \frac{\partial f }{\partial x\_{n} }
+\frac{\partial f }{\partial x\_{1}} & \cdots & \frac{\partial f }{\partial x\_{n}}
 \end{array}\right]=\left[\begin{array}{ccc}
-\frac{\partial f\_{1} }{\partial x\_{1} } & \cdots & \frac{\partial f\_{1} }{\partial x\_{n} } \\\\ 
+\frac{\partial f\_{1}}{\partial x\_{1}} & \cdots & \frac{\partial f\_{1}}{\partial x\_{n}} \\\\ 
 \vdots & \ddots & \vdots \\\\ 
-\frac{\partial f\_{m} }{\partial x\_{1} } & \cdots & \frac{\partial f\_{m} }{\partial x\_{n} }
+\frac{\partial f\_{m}}{\partial x\_{1}} & \cdots & \frac{\partial f\_{m}}{\partial x\_{n}}
 \end{array}\right]$$
 
 
@@ -39,10 +39,10 @@ $$J \equiv \left[\begin{array}{ccc}
 ## Hessian矩阵 
 
 $$H =\left[\begin{array}{cccc}
-\frac{\partial^{2} f}{\partial x\_{1}^{2} } & \frac{\partial^{2} f}{\partial x\_{1} \partial x\_{2} } & \cdots & \frac{\partial^{2} f}{\partial x\_{1} \partial x\_{n} } \\\\ 
-\frac{\partial^{2} f}{\partial x\_{2} \partial x\_{1} } & \frac{\partial^{2} f}{\partial x\_{2}^{2} } & \cdots & \frac{\partial^{2} f}{\partial x\_{2} \partial x\_{n} } \\\\ 
+\frac{\partial^{2} f}{\partial x\_{1}^{2}} & \frac{\partial^{2} f}{\partial x\_{1} \partial x\_{2}} & \cdots & \frac{\partial^{2} f}{\partial x\_{1} \partial x\_{n}} \\\\ 
+\frac{\partial^{2} f}{\partial x\_{2} \partial x\_{1}} & \frac{\partial^{2} f}{\partial x\_{2}^{2}} & \cdots & \frac{\partial^{2} f}{\partial x\_{2} \partial x\_{n}} \\\\ 
 \vdots & \vdots & \ddots & \vdots \\\\ 
-\frac{\partial^{2} f}{\partial x\_{n} \partial x\_{1} } & \frac{\partial^{2} f}{\partial x\_{n} \partial x\_{2} } & \cdots & \frac{\partial^{2} f}{\partial x\_{n}^{2} }
+\frac{\partial^{2} f}{\partial x\_{n} \partial x\_{1}} & \frac{\partial^{2} f}{\partial x\_{n} \partial x\_{2}} & \cdots & \frac{\partial^{2} f}{\partial x\_{n}^{2}}
 \end{array}\right]$$
 
 - 多元函数的二阶偏导数构成的方阵，描述了函数的局部曲率。 

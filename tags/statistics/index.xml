@@ -10,7 +10,7 @@
     <pubDate>Wed, 20 Jan 2021 17:56:11 &#43;0800</pubDate>
     <author>ZubinGou</author>
     <guid>https://zubingou.github.io/blog/snlp-ch13-%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B8%8E%E6%83%85%E6%84%9F%E5%88%86%E7%B1%BB/</guid>
-    <description><![CDATA[ch13 文本分类与情感分类 13.1 文本分类概述 [Sebastiani, 2002]数学模型描述文本分类： 获得函数（分类器）：$\Phi: {D} \times {C} \rightarrow{ {T}, \quad {F}}$ 文档：$D={d_1, d_2, &hellip;,d_{|D|}}$]]></description>
+    <description><![CDATA[ch13 文本分类与情感分类 13.1 文本分类概述 [Sebastiani, 2002]数学模型描述文本分类： 获得函数（分类器）：$\Phi: {D} \times {C} \rightarrow{{T}, \quad {F}}$ 文档：$D={d_1, d_2, &hellip;,d_{|D|}}$ 类]]></description>
 </item>
 <item>
     <title>《统计自然语言处理》第9.1章 - 语义分析</title>

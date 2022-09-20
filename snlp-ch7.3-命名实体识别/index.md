@@ -81,9 +81,9 @@
 	- 输入：
 		- 词序列：$W=w\_{1} \quad w\_{2} \quad \cdots \quad w\_{i} \quad \cdots \quad w$
 		- 词性序列：$t\_{1} \quad t\_{2} \quad \cdots \quad \cdots \quad t\_{i} \quad \cdots \quad t\_{n}$
-	- 词形特征模型：$\mathrm{WC}^{\*}=\underset{\mathrm{WC} }{\operatorname{argmax} } P(\mathrm{WC}) \times P(W \mid \mathrm{WC})$
-	- 词性特征模型：$\mathrm{T} \mathrm{C}^{\*}=\underset{\mathrm{TC} }{\operatorname{argmax} } P(\mathrm{TC}) \times P(T \mid \mathrm{TC})$
-	- 混合：$\begin{aligned} &\left(\mathrm{WC}^{\*}, \mathrm{TC}^{\*}\right) \\\\=&\left.\operatorname{argmax}\_{(\mathrm{WC}, \mathrm{TO} }\right) P(\mathrm{WC}, \mathrm{TC} \mid W, T) \\\\=& \operatorname{argmax}\_{(\mathrm{WC}, \mathrm{TC})} P(\mathrm{WC}, \mathrm{TC}, W, T) / P(W, T) \\\\ \approx & \operatorname{argmax}\_{(\mathrm{WC}, \mathrm{TO} } P(\mathrm{WC}, W) \times[P(\mathrm{TC}, T)]^{\beta} \\\\ \approx & \operatorname{argmax}\_{(\mathrm{WC}, \mathrm{TO} } P(\mathrm{WC}) \times P(W \mid \mathrm{WC}) \times[P(\mathrm{TC}) \times P(T \mid \mathrm{TC})]^{-3} \end{aligned}$
+	- 词形特征模型：$\mathrm{WC}^{\*}=\underset{\mathrm{WC}}{\operatorname{argmax}} P(\mathrm{WC}) \times P(W \mid \mathrm{WC})$
+	- 词性特征模型：$\mathrm{T} \mathrm{C}^{\*}=\underset{\mathrm{TC}}{\operatorname{argmax}} P(\mathrm{TC}) \times P(T \mid \mathrm{TC})$
+	- 混合：$\begin{aligned} &\left(\mathrm{WC}^{\*}, \mathrm{TC}^{\*}\right) \\\\=&\left.\operatorname{argmax}\_{(\mathrm{WC}, \mathrm{TO}}\right) P(\mathrm{WC}, \mathrm{TC} \mid W, T) \\\\=& \operatorname{argmax}\_{(\mathrm{WC}, \mathrm{TC})} P(\mathrm{WC}, \mathrm{TC}, W, T) / P(W, T) \\\\ \approx & \operatorname{argmax}\_{(\mathrm{WC}, \mathrm{TO}} P(\mathrm{WC}, W) \times[P(\mathrm{TC}, T)]^{\beta} \\\\ \approx & \operatorname{argmax}\_{(\mathrm{WC}, \mathrm{TO}} P(\mathrm{WC}) \times P(W \mid \mathrm{WC}) \times[P(\mathrm{TC}) \times P(T \mid \mathrm{TC})]^{-3} \end{aligned}$
 		- β是平衡因子，平衡词形特征和词性特征的权重
 		- 词形上下文模型P（WC）
 		- 词性上下文模型P（TC）

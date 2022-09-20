@@ -69,19 +69,19 @@ tag转移矩阵：$\mathbf{A}$, size: $(k+2)\times (k+2)$
 
 分数定义为：
 $$
-s(\mathbf{X}, \mathbf{y})=\sum\_{i=0}^{n} A\_{y\_{i}, y\_{i+1} }+\sum\_{i=1}^{n} P\_{i, y\_{i} }
+s(\mathbf{X}, \mathbf{y})=\sum\_{i=0}^{n} A\_{y\_{i}, y\_{i+1}}+\sum\_{i=1}^{n} P\_{i, y\_{i}}
 $$
 
 softmax计算$y$的条件概率：
 $$
-p(\mathbf{y} \mid \mathbf{X})=\frac{e^{s(\mathbf{X}, \mathbf{y})} }{\sum\_{\widetilde{\mathbf{y} } \in \mathbf{Y}\_{\mathbf{X} }} e^{s(\mathbf{X}, \widetilde{\mathbf{y} })} }
+p(\mathbf{y} \mid \mathbf{X})=\frac{e^{s(\mathbf{X}, \mathbf{y})}}{\sum\_{\widetilde{\mathbf{y}} \in \mathbf{Y}\_{\mathbf{X}}} e^{s(\mathbf{X}, \widetilde{\mathbf{y}})}}
 $$
 
 训练优化正确tag序列的log-probability：
 $$
 \begin{aligned}
-\log (p(\mathbf{y} \mid \mathbf{X})) &=s(\mathbf{X}, \mathbf{y})-\log \left(\sum\_{\tilde{\mathbf{y} } \in \mathbf{Y}\_{\mathbf{X} }} e^{s(\mathbf{X}, \widetilde{\mathbf{y} })}\right) \\\\
-&=s(\mathbf{X}, \mathbf{y})-\underset{\widetilde{\mathbf{y} } \in \mathbf{Y}\_{\mathbf{X} }}{\operatorname{logadd} } s(\mathbf{X}, \widetilde{\mathbf{y} })
+\log (p(\mathbf{y} \mid \mathbf{X})) &=s(\mathbf{X}, \mathbf{y})-\log \left(\sum\_{\tilde{\mathbf{y}} \in \mathbf{Y}\_{\mathbf{X}}} e^{s(\mathbf{X}, \widetilde{\mathbf{y}})}\right) \\\\
+&=s(\mathbf{X}, \mathbf{y})-\underset{\widetilde{\mathbf{y}} \in \mathbf{Y}\_{\mathbf{X}}}{\operatorname{logadd}} s(\mathbf{X}, \widetilde{\mathbf{y}})
 \end{aligned}
 $$
 
@@ -89,7 +89,7 @@ $$
 
 预测：
 $$
-\mathbf{y}^{*}=\underset{\tilde{\mathbf{y} } \in \mathbf{Y}\_{\mathbf{X} }}{\operatorname{argmax} } s(\mathbf{X}, \widetilde{\mathbf{y} })
+\mathbf{y}^{*}=\underset{\tilde{\mathbf{y}} \in \mathbf{Y}\_{\mathbf{X}}}{\operatorname{argmax}} s(\mathbf{X}, \widetilde{\mathbf{y}})
 $$
 
 

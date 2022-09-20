@@ -24,8 +24,8 @@ ch9 无监督学习
 
 $$
 \begin{aligned}
-\sigma(\boldsymbol{X} ; \boldsymbol{w}) &=\frac{1}{N} \sum\_{n=1}^{N}\left(\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}-\boldsymbol{w}^{\top} \overline{\boldsymbol{x} }\right)^{2} \\\\
-&=\frac{1}{N}\left(\boldsymbol{w}^{\top} \boldsymbol{X}-\boldsymbol{w}^{\top} \overline{\boldsymbol{X} }\right)\left(\boldsymbol{w}^{\top} \boldsymbol{X}-\boldsymbol{w}^{\top} \overline{\boldsymbol{X} }\right)^{\top} \\\\
+\sigma(\boldsymbol{X} ; \boldsymbol{w}) &=\frac{1}{N} \sum\_{n=1}^{N}\left(\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}-\boldsymbol{w}^{\top} \overline{\boldsymbol{x}}\right)^{2} \\\\
+&=\frac{1}{N}\left(\boldsymbol{w}^{\top} \boldsymbol{X}-\boldsymbol{w}^{\top} \overline{\boldsymbol{X}}\right)\left(\boldsymbol{w}^{\top} \boldsymbol{X}-\boldsymbol{w}^{\top} \overline{\boldsymbol{X}}\right)^{\top} \\\\
 &=\boldsymbol{w}^{\top} \boldsymbol{\Sigma} \boldsymbol{w}
 \end{aligned}
 $$
@@ -33,7 +33,7 @@ $$
 其中：
 
 $$
-\boldsymbol{\Sigma}=\frac{1}{N}(\boldsymbol{X}-\overline{\boldsymbol{X} })(\boldsymbol{X}-\overline{\boldsymbol{X} })^{\top}
+\boldsymbol{\Sigma}=\frac{1}{N}(\boldsymbol{X}-\overline{\boldsymbol{X}})(\boldsymbol{X}-\overline{\boldsymbol{X}})^{\top}
 $$
 
 即原样本的协方差矩阵。
@@ -41,7 +41,7 @@ $$
 拉格朗日方法转化为无约束优化：
 
 $$
-\max \_{\boldsymbol{w} } \boldsymbol{w}^{\top} \boldsymbol{\Sigma} \boldsymbol{w}+\lambda\left(1-\boldsymbol{w}^{\top} \boldsymbol{w}\right)
+\max \_{\boldsymbol{w}} \boldsymbol{w}^{\top} \boldsymbol{\Sigma} \boldsymbol{w}+\lambda\left(1-\boldsymbol{w}^{\top} \boldsymbol{w}\right)
 $$
 
 求导令导数为0：
@@ -132,13 +132,13 @@ $$
 1. 固定基向量，优化编码：
 
 $$
-\min \_{z^{(n)} }\left\|\boldsymbol{x}^{(n)}-\boldsymbol{A} \boldsymbol{z}^{(n)}\right\|^{2}+\eta \rho\left(\boldsymbol{z}^{(n)}\right), \forall n \in[1, N]
+\min \_{z^{(n)}}\left\|\boldsymbol{x}^{(n)}-\boldsymbol{A} \boldsymbol{z}^{(n)}\right\|^{2}+\eta \rho\left(\boldsymbol{z}^{(n)}\right), \forall n \in[1, N]
 $$
 
 2. 固定编码，优化基向量：
 
 $$
-\min \_{\boldsymbol{A} } \sum\_{n=1}^{N}\left(\left\|\boldsymbol{x}^{(n)}-\boldsymbol{A} \boldsymbol{z}^{(n)}\right\|^{2}\right)+\lambda \frac{1}{2}\|\boldsymbol{A}\|^{2}
+\min \_{\boldsymbol{A}} \sum\_{n=1}^{N}\left(\left\|\boldsymbol{x}^{(n)}-\boldsymbol{A} \boldsymbol{z}^{(n)}\right\|^{2}\right)+\lambda \frac{1}{2}\|\boldsymbol{A}\|^{2}
 $$
 
 **稀疏编码优点（相比稠密向量的分布式表示）**
@@ -183,7 +183,7 @@ $$
 \boldsymbol{x}^{\prime}=f\left(\boldsymbol{W}^{(2)} \boldsymbol{z}+\boldsymbol{b}^{(2)}\right)
 $$
 
-捆绑权重（Tied Weight）：令 $\boldsymbol{W}^{(2)}=\boldsymbol{W}^{(1)^{\top} }$ ，参数更少，更容易学习，同时有一定正则化作用。
+捆绑权重（Tied Weight）：令 $\boldsymbol{W}^{(2)}=\boldsymbol{W}^{(1)^{\top}}$ ，参数更少，更容易学习，同时有一定正则化作用。
 
 重构错误：
 
@@ -209,7 +209,7 @@ $$
 
 我们希望稀疏度接近实现给定的值 $\rho^*$，如0.05，用 KL 距离衡量：
 $$
-\mathrm{KL}\left(\rho^{*} \| \hat{\rho}\_{j}\right)=\rho^{*} \log \frac{\rho^{*} }{\hat{\rho}\_{j} }+\left(1-\rho^{*}\right) \log \frac{1-\rho^{*} }{1-\hat{\rho}\_{j} }
+\mathrm{KL}\left(\rho^{*} \| \hat{\rho}\_{j}\right)=\rho^{*} \log \frac{\rho^{*}}{\hat{\rho}\_{j}}+\left(1-\rho^{*}\right) \log \frac{1-\rho^{*}}{1-\hat{\rho}\_{j}}
 $$
 
 稀疏性度量函数定义为：
@@ -254,7 +254,7 @@ $$
 求导数为0得：
 
 $$
-\mu\_{k}^{M L}=\frac{m\_{k} }{N}, \quad 1 \leq k \leq K
+\mu\_{k}^{M L}=\frac{m\_{k}}{N}, \quad 1 \leq k \leq K
 $$
 
 参数密度估计的问题：
@@ -268,7 +268,7 @@ $$
 高维空间中随机向量 x，假设其服从未知分布 p(x)，则 x 落入小区域 R 的概率为：
 
 $$
-P=\int\_{\mathcal{R} } p(\boldsymbol{x}) d \boldsymbol{x} .
+P=\int\_{\mathcal{R}} p(\boldsymbol{x}) d \boldsymbol{x} .
 $$
 
 N 个样本中落入 R 的数量 K 服从二项分布：
@@ -313,31 +313,31 @@ $$
 
 定义超立方体核函数：
 $$
-\phi\left(\frac{\boldsymbol{z}-\boldsymbol{x} }{H}\right)= \begin{cases}1 & \text { if }\left|z\_{i}-x\_{i}\right|<\frac{H}{2}, 1 \leq i \leq D \\\\ 0 & \text { else }\end{cases}
+\phi\left(\frac{\boldsymbol{z}-\boldsymbol{x}}{H}\right)= \begin{cases}1 & \text { if }\left|z\_{i}-x\_{i}\right|<\frac{H}{2}, 1 \leq i \leq D \\\\ 0 & \text { else }\end{cases}
 $$
 
 求和得到落入 R 区域的样本数量：
 
 $$
-K=\sum\_{n=1}^{N} \phi\left(\frac{\boldsymbol{x}^{(n)}-\boldsymbol{x} }{H}\right)
+K=\sum\_{n=1}^{N} \phi\left(\frac{\boldsymbol{x}^{(n)}-\boldsymbol{x}}{H}\right)
 $$
 
 x 点概率密度估计：
 
 $$
-p(\boldsymbol{x})=\frac{K}{N H^{D} }=\frac{1}{N H^{D} } \sum\_{n=1}^{N} \phi\left(\frac{\boldsymbol{x}^{(n)}-\boldsymbol{x} }{H}\right)
+p(\boldsymbol{x})=\frac{K}{N H^{D}}=\frac{1}{N H^{D}} \sum\_{n=1}^{N} \phi\left(\frac{\boldsymbol{x}^{(n)}-\boldsymbol{x}}{H}\right)
 $$
 
 也可以采用更加平滑的高斯核函数：
 
 $$
-\phi\left(\frac{z-x}{H}\right)=\frac{1}{(2 \pi)^{1 / 2} H} \exp \left(-\frac{\|z-x\|^{2} }{2 H^{2} }\right)
+\phi\left(\frac{z-x}{H}\right)=\frac{1}{(2 \pi)^{1 / 2} H} \exp \left(-\frac{\|z-x\|^{2}}{2 H^{2}}\right)
 $$
 
 则 x 点概率密度估计：
 
 $$
-p(\boldsymbol{x})=\frac{1}{N} \sum\_{n=1}^{N} \frac{1}{(2 \pi)^{1 / 2} H} \exp \left(-\frac{\|\boldsymbol{z}-\boldsymbol{x}\|^{2} }{2 H^{2} }\right)
+p(\boldsymbol{x})=\frac{1}{N} \sum\_{n=1}^{N} \frac{1}{(2 \pi)^{1 / 2} H} \exp \left(-\frac{\|\boldsymbol{z}-\boldsymbol{x}\|^{2}}{2 H^{2}}\right)
 $$
 
 **K 近邻方法（K-Nearest Neighbor Method）**
@@ -410,7 +410,7 @@ $$
 我们只计算这部分的积分：
 
 $$
-\int\_{-\infty}^{X\_{1} } \frac{K}{N\left(X\_{k}-x\right)} \mathrm{d} x=\left[\frac{K}{N} \ln \left|X\_{k}-x\right|\right]\_{-\infty}^{X\_{1} }=\infty
+\int\_{-\infty}^{X\_{1}} \frac{K}{N\left(X\_{k}-x\right)} \mathrm{d} x=\left[\frac{K}{N} \ln \left|X\_{k}-x\right|\right]\_{-\infty}^{X\_{1}}=\infty
 $$
 
 由于密度为正，所以在 $(-\infty, \infty)$ 上的积分也发散，从而说明了 KNN 密度估计并不严格。

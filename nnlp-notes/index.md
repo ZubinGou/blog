@@ -34,7 +34,7 @@
 	- thus, right multiplied by mat: $(\mathbf{x} \mathbf{W}+\mathbf{b})$
 - series of mat/vec: superscript indices $\left(\mathbf{W}^{1}, \mathbf{W}^{2}\right)$
 - exponentiated: with brackets $(\mathbf{W})^{2},\left(\mathbf{W}^{3}\right)^{2}$
-- vector concatenation: $\left[\mathbf{v}\_{\mathbf{1} } ; \mathbf{v}\_{\mathbf{2} }\right]$
+- vector concatenation: $\left[\mathbf{v}\_{\mathbf{1}} ; \mathbf{v}\_{\mathbf{2}}\right]$
 
 
 ## 2. Neural Netword Architectures
@@ -93,7 +93,7 @@
 - continuous bag of words (CBOW) : represent an unbounded number of features using a fixed size vector
 $$\operatorname{CBOW}\left(f\_{1}, \ldots, f\_{k}\right)=\frac{1}{k} \sum\_{i=1}^{k} v\left(f\_{i}\right)$$
 - weighted CBOW:
-$$\operatorname{WCBOW}\left(f\_{1}, \ldots, f\_{k}\right)=\frac{1}{\sum\_{i=1}^{k} a\_{i} } \sum\_{i=1}^{k} a\_{i} v\left(f\_{i}\right)$$
+$$\operatorname{WCBOW}\left(f\_{1}, \ldots, f\_{k}\right)=\frac{1}{\sum\_{i=1}^{k} a\_{i}} \sum\_{i=1}^{k} a\_{i} v\left(f\_{i}\right)$$
 - eg. document classification: $f_i$ may correspond to a word, associated weight $a_i$ counld be the word's TF-IDF score.
 - if $v(f_i)$ were one-hot, CBOW and WCBOW become traditional(weighted) bag-of-words.
 
@@ -137,20 +137,20 @@ $$\operatorname{WCBOW}\left(f\_{1}, \ldots, f\_{k}\right)=\frac{1}{\sum\_{i=1}^{
 - sigmoid shape: non-linear function
 - fully-connected layer / affine layer: each neuron is connected to all neurons in the next layer
 - each row -> a vector
-- $\mathbf{y}=\left(g\left(\mathbf{x} \mathbf{W}^{\mathbf{1} }\right)\right) \mathbf{W}^{\mathbf{2} }$
+- $\mathbf{y}=\left(g\left(\mathbf{x} \mathbf{W}^{\mathbf{1}}\right)\right) \mathbf{W}^{\mathbf{2}}$
 
 ### 4.2 In Mathematical Notation
 - perceptron: linear function of input
 
-	$$\text { NN }\_{\text {Perceptron } }(\mathbf{x})=\mathbf{x} \mathbf{W}+\mathbf{b} $$
+	$$\text { NN }\_{\text {Perceptron }}(\mathbf{x})=\mathbf{x} \mathbf{W}+\mathbf{b} $$
 
-	$$ \mathbf{x} \in \mathbb{R}^{d\_{\text {in } }}, \mathbf{W} \in \mathbb{R}^{d\_{\text {in } } \times d\_{\text {out } }}, \quad \mathbf{b} \in \mathbb{R}^{d\_{\text {out } }}$$
+	$$ \mathbf{x} \in \mathbb{R}^{d\_{\text {in }}}, \mathbf{W} \in \mathbb{R}^{d\_{\text {in }} \times d\_{\text {out }}}, \quad \mathbf{b} \in \mathbb{R}^{d\_{\text {out }}}$$
 
 - Multi Layer Perceptron with one hidden-layer (MLP1)
 
 	$$\mathrm{NN}\_{\mathrm{MLP} 1}(\mathrm{x})=g\left(\mathrm{x} \mathbf{W}^{1}+\mathrm{b}^{1}\right) \mathbf{W}^{2}+\mathbf{b}^{2}$$
 	
-	$$\mathbf{x} \in \mathbb{R}^{d\_{\text {in } }}, \quad \mathbf{W}^{1} \in \mathbb{R}^{d\_{\text {in } } \times d\_{1} }, \quad \mathbf{b}^{\mathbf{1} } \in \mathbb{R}^{d\_{1} }, \quad \mathbf{W}^{2} \in \mathbb{R}^{d\_{1} \times d\_{2} }, \quad \mathbf{b}^{2} \in \mathbb{R}^{d\_{2} }$$
+	$$\mathbf{x} \in \mathbb{R}^{d\_{\text {in }}}, \quad \mathbf{W}^{1} \in \mathbb{R}^{d\_{\text {in }} \times d\_{1}}, \quad \mathbf{b}^{\mathbf{1}} \in \mathbb{R}^{d\_{1}}, \quad \mathbf{W}^{2} \in \mathbb{R}^{d\_{1} \times d\_{2}}, \quad \mathbf{b}^{2} \in \mathbb{R}^{d\_{2}}$$
 
 	- $g$: non-linearity / activation function, applied element-wise
 - MLP with two hidden-layers
@@ -220,7 +220,7 @@ softmax:
 $$
 \begin{aligned}
 \mathbf{x} &=x\_{1}, \ldots, x\_{k} \\\\
-\operatorname{softmax}\left(x\_{i}\right) &=\frac{e^{x\_{i} }}{\sum\_{j=1}^{k} e^{x\_{j} }}
+\operatorname{softmax}\left(x\_{i}\right) &=\frac{e^{x\_{i}}}{\sum\_{j=1}^{k} e^{x\_{j}}}
 \end{aligned}
 $$
 
@@ -250,10 +250,10 @@ $$
 $$
 - embedding layer / lookup layer: $c$
 $$
-v\left(f\_{i}\right)=\mathbf{f}\_{\mathbf{i} } \mathbf{E}
+v\left(f\_{i}\right)=\mathbf{f}\_{\mathbf{i}} \mathbf{E}
 $$
 $$
-\operatorname{CBOW}\left(f\_{1}, \ldots, f\_{k}\right)=\sum\_{i=1}^{k}\left(\mathbf{f}\_{\mathbf{i} } \mathbf{E}\right)=\left(\sum\_{i=1}^{k} \mathbf{f}\_{\mathbf{i} }\right) \mathbf{E}
+\operatorname{CBOW}\left(f\_{1}, \ldots, f\_{k}\right)=\sum\_{i=1}^{k}\left(\mathbf{f}\_{\mathbf{i}} \mathbf{E}\right)=\left(\sum\_{i=1}^{k} \mathbf{f}\_{\mathbf{i}}\right) \mathbf{E}
 $$
 
 #### 4.6.1 A Note on Notation
@@ -268,12 +268,12 @@ $$
 #### 4.6.2 A Note on Sparse vs. Dense Features
 “traditional” sparse representation for its input vectors, input:
 $$
-\mathbf{x}=\sum\_{i=1}^{k} \mathbf{f}\_{\mathbf{i} } \quad \mathbf{x} \in \mathbb{N}\_{+}^{|V|}
+\mathbf{x}=\sum\_{i=1}^{k} \mathbf{f}\_{\mathbf{i}} \quad \mathbf{x} \in \mathbb{N}\_{+}^{|V|}
 $$
 first layers:
 $$
 \begin{array}{l}
-\mathrm{xW}+\mathrm{b}=\left(\sum\_{i=1}^{k} \mathrm{f}\_{\mathrm{i} }\right) \mathbf{W} \\\\
+\mathrm{xW}+\mathrm{b}=\left(\sum\_{i=1}^{k} \mathrm{f}\_{\mathrm{i}}\right) \mathbf{W} \\\\
 \mathbf{W} \in \mathbb{R}^{|V| \times d}, \quad \mathbf{b} \in \mathbb{R}^{d}
 \end{array}
 $$
@@ -291,7 +291,7 @@ $$
 合页损失（长得像合页）
 ![f5e592059171a3b8b1a92c17927b6334.png](../_resources/2683ce413d6942d08b3b3e02aab07311.png)
 $$
-L\_{\text {hinge(binary) } }(\hat{y}, y)=\max (0,1-y \cdot \hat{y})
+L\_{\text {hinge(binary) }}(\hat{y}, y)=\max (0,1-y \cdot \hat{y})
 $$
 
 #### 4.7.2 Hinge (multiclass)
@@ -300,7 +300,7 @@ $$
 $$
 $t=\arg \max \_{i} y\_{i}$ the correct class, $k=\arg \max \_{i \neq t} \hat{y}\_{i}$ the highest scoring class such that $k \neq t$, multiclass hinge loss:
 $$
-L\_{\text {hinge(multiclass) } }(\hat{\mathbf{y} }, \mathbf{y})=\max \left(0,1-\left(\hat{y}\_{t}-\hat{y}\_{k}\right)\right)
+L\_{\text {hinge(multiclass) }}(\hat{\mathbf{y}}, \mathbf{y})=\max \left(0,1-\left(\hat{y}\_{t}-\hat{y}\_{k}\right)\right)
 $$
 
 - Both the binary and multiclass hinge losses are intended to be used with a linear output layer
@@ -309,7 +309,7 @@ $$
 #### 4.7.3 Log Loss
 “soft” version of the hinge loss with an infinite margin
 $$
-L\_{l o g}(\hat{\mathbf{y} }, \mathbf{y})=\log \left(1+\exp \left(-\left(\hat{y}\_{t}-\hat{y}\_{k}\right)\right)\right.
+L\_{l o g}(\hat{\mathbf{y}}, \mathbf{y})=\log \left(1+\exp \left(-\left(\hat{y}\_{t}-\hat{y}\_{k}\right)\right)\right.
 $$
 
 #### 4.7.4 Categorical Cross-Entropy Loss
@@ -319,11 +319,11 @@ $$
 \hat{y}\_{i}=P(y=i \mid \mathbf{x})
 $$
 $$
-L\_{\text {cross-entropy } }(\hat{\mathbf{y} }, \mathbf{y})=-\sum\_{i} y\_{i} \log \left(\hat{y}\_{i}\right)
+L\_{\text {cross-entropy }}(\hat{\mathbf{y}}, \mathbf{y})=-\sum\_{i} y\_{i} \log \left(\hat{y}\_{i}\right)
 $$
 - hard classification problems: each training example has a single correct class assignment, $\mathbf{y}$ is one-hot:
 $$
-L\_{\text {cross-entropy }(\text { hard classification })}(\hat{\mathbf{y} }, \mathbf{y})=-\log \left(\hat{y}\_{t}\right)
+L\_{\text {cross-entropy }(\text { hard classification })}(\hat{\mathbf{y}}, \mathbf{y})=-\log \left(\hat{y}\_{t}\right)
 $$
 - When using the cross-entropy loss, it is assumed that the network’s output is transformed using the softmax transformation
 
@@ -345,7 +345,7 @@ embeddings: representing each feature as a vector in a low dimensional space
 ### 5.1 Random Initialization
 - Random Initialization
 	- [Mikolov et al., 2013]: $\left[-\frac{1}{2 d}, \frac{1}{2 d}\right]$ 
-	- xavier initialization (Section 6.3.1): $\left[-\frac{\sqrt{6} }{\sqrt{d} }, \frac{\sqrt{6} }{\sqrt{d} }\right]$
+	- xavier initialization (Section 6.3.1): $\left[-\frac{\sqrt{6}}{\sqrt{d}}, \frac{\sqrt{6}}{\sqrt{d}}\right]$
 - in practice
 	- random initialization: for commonly occurring features, eg. part-of-speech tags or individual letters
 	- supervised or unsupervised pre-training: for potentially rare features, eg. features for individual words
@@ -469,7 +469,7 @@ further: Bengio et al. (2015, ch. 8)
 
 xavier initialization: 
 $$
-\mathbf{W} \sim U\left[-\frac{\sqrt{6} }{\sqrt{d\_{\mathrm{in} }+d\_{\mathrm{out} }} },+\frac{\sqrt{6} }{\sqrt{d\_{\mathrm{in} }+d\_{\mathrm{out} }} }\right]
+\mathbf{W} \sim U\left[-\frac{\sqrt{6}}{\sqrt{d\_{\mathrm{in}}+d\_{\mathrm{out}}}},+\frac{\sqrt{6}}{\sqrt{d\_{\mathrm{in}}+d\_{\mathrm{out}}}}\right]
 $$
 
 - too large or too small cause saturated
@@ -477,7 +477,7 @@ $$
 ![a65f913f43bf78fc110dd150f60970b6.png](../_resources/e09a8c859f3c4fed8ee747c455d6f12d.png)
 [<font size=2>*image source*</font>](https://medium.com/@shiyan/xavier-initialization-and-batch-normalization-my-understanding-b5b91268c25c)
 
-He et al. (2015): ReLU initialized by sampling from a zero-mean Gaussian distribution whose standard deviation is $\sqrt{\frac{2}{d\_{\text {in } }} }$, works better than xavier in image classification
+He et al. (2015): ReLU initialized by sampling from a zero-mean Gaussian distribution whose standard deviation is $\sqrt{\frac{2}{d\_{\text {in }}}}$, works better than xavier in image classification
 
 #### 6.3.2 Vanishing and Exploding Gradients
 especially in deeper networks, recursive and recurrent networks
@@ -590,12 +590,12 @@ $$
 
 eg. one-hidden-layer MLP:
 $$
-\operatorname{score}(x, y)=\sum\_{p \in y} \mathrm{NN}\_{\mathrm{MLP1} }(c(p))=\sum\_{p \in y}\left(g\left(c(p) \mathbf{W}^{1}+\mathbf{b}^{1}\right)\right) \mathbf{w}
+\operatorname{score}(x, y)=\sum\_{p \in y} \mathrm{NN}\_{\mathrm{MLP1}}(c(p))=\sum\_{p \in y}\left(g\left(c(p) \mathbf{W}^{1}+\mathbf{b}^{1}\right)\right) \mathbf{w}
 $$
 
 find the best scoring structure $y'$, generalized perceptron loss:
 $$
-\max \_{y^{\prime} } \operatorname{score}\left(x, y^{\prime}\right)-\operatorname{score}(x, y)
+\max \_{y^{\prime}} \operatorname{score}\left(x, y^{\prime}\right)-\operatorname{score}(x, y)
 $$
 
 LeCun et al. (2006, Section 5), margin-based hinge loss:
@@ -607,14 +607,14 @@ $$
 conditional random fields, “CRF”: treat each parts scores as a *clique potential* and define score:
 $$
 \begin{aligned}
-\operatorname{score}\_{\mathrm{CRF} }(x, y)=P(y \mid x) &=\frac{\exp \left(\sum\_{p \in y} \operatorname{score}(p)\right)}{\sum\_{y^{\prime} \in \mathcal{Y}(x)} \exp \left(\sum\_{p \in y^{\prime} } \operatorname{score}(p)\right)} \\\\
-&=\frac{\exp \left(\sum\_{p \in y} \operatorname{NN}(\phi(p))\right)}{\sum\_{y^{\prime} \in \mathcal{Y}(x)} \exp \left(\sum\_{p \in y^{\prime} } \operatorname{NN}(\phi(p))\right)}
+\operatorname{score}\_{\mathrm{CRF}}(x, y)=P(y \mid x) &=\frac{\exp \left(\sum\_{p \in y} \operatorname{score}(p)\right)}{\sum\_{y^{\prime} \in \mathcal{Y}(x)} \exp \left(\sum\_{p \in y^{\prime}} \operatorname{score}(p)\right)} \\\\
+&=\frac{\exp \left(\sum\_{p \in y} \operatorname{NN}(\phi(p))\right)}{\sum\_{y^{\prime} \in \mathcal{Y}(x)} \exp \left(\sum\_{p \in y^{\prime}} \operatorname{NN}(\phi(p))\right)}
 \end{aligned}
 $$
 
 loss for training example (x,y): 
 $$
--\log \operatorname{score}\_{\mathrm{CRF} }(x, y)
+-\log \operatorname{score}\_{\mathrm{CRF}}(x, y)
 $$
 
 - 分母需要计算所有指数多的可能结构，可以用DP, e.g.
@@ -655,15 +655,15 @@ pooling: all d-dimensional vector -> single d-dimensional vector (max or average
 
 ![f2204506fa439d1131927109154ef78b.png](../_resources/003198d8cf4b49dba20481a578e886b0.png)
 convolution layer:
-- m vectors p1, . . . , pm, $\mathbf{p}\_{\mathbf{i} } \in \mathbb{R}^{d\_{\text {conv } }}$
+- m vectors p1, . . . , pm, $\mathbf{p}\_{\mathbf{i}} \in \mathbb{R}^{d\_{\text {conv }}}$
 $$
-\mathbf{p}\_{\mathbf{i} }=g\left(\mathbf{w}\_{\mathbf{i} } \mathbf{W}+\mathbf{b}\right)
+\mathbf{p}\_{\mathbf{i}}=g\left(\mathbf{w}\_{\mathbf{i}} \mathbf{W}+\mathbf{b}\right)
 $$
-- 其中 $\mathbf{W} \in \mathbb{R}^{k \cdot d\_{\mathrm{emb} } \times d\_{\mathrm{conv} }}$
+- 其中 $\mathbf{W} \in \mathbb{R}^{k \cdot d\_{\mathrm{emb}} \times d\_{\mathrm{conv}}}$
 
 max-pooling:
 $$
-c\_{j}=\max \_{1<i \leq m} \mathbf{p}\_{\mathbf{i} }[j]
+c\_{j}=\max \_{1<i \leq m} \mathbf{p}\_{\mathbf{i}}[j]
 $$
 
 ### 9.2 Dynamic, Hierarchical and k-max Pooling
@@ -720,26 +720,26 @@ Le and Zuidema (2015) perform max pooling over vectors representing the differen
 
 ### 10.1 The RNN Abstraction
 input:
-- sequence of vectors $\mathbf{x}\_{\mathbf{i} }, \ldots, \mathbf{x}\_{\mathbf{j} }$
+- sequence of vectors $\mathbf{x}\_{\mathbf{i}}, \ldots, \mathbf{x}\_{\mathbf{j}}$
 - initial state vector $\mathbf{s_o}$
 
 output:
-- state vectors: $\mathbf{s}\_{1}, \ldots, \mathbf{s}\_{\mathbf{n} }$
-- output vectors: $\mathbf{y}\_{1}, \ldots, \mathbf{y}\_{\mathbf{n} }$
+- state vectors: $\mathbf{s}\_{1}, \ldots, \mathbf{s}\_{\mathbf{n}}$
+- output vectors: $\mathbf{y}\_{1}, \ldots, \mathbf{y}\_{\mathbf{n}}$
 
 $\mathbf{y_i}$ for further prediction:
 $$
-p\left(e=j \mid \mathbf{x}\_{\mathbf{1}: \mathbf{i} }\right)=\operatorname{softmax}\left(\mathbf{y}\_{\mathbf{i} } \mathbf{W}+\mathbf{b}\right)[j]
+p\left(e=j \mid \mathbf{x}\_{\mathbf{1}: \mathbf{i}}\right)=\operatorname{softmax}\left(\mathbf{y}\_{\mathbf{i}} \mathbf{W}+\mathbf{b}\right)[j]
 $$
 
 RNN don't need Markov assumption, and works better than n-gram.
 
 $$
 \begin{array}{c}
-\mathrm{RNN}\left(\mathrm{s}\_{0}, \mathrm{x}\_{1: \mathrm{n} }\right)=\mathrm{s}\_{1: \mathrm{n} }, \mathrm{y}\_{1: \mathrm{n} } \\\\
-\mathrm{s}\_{\mathrm{i} }=R\left(\mathrm{~s}\_{\mathrm{i}-1}, \mathrm{x}\_{\mathrm{i} }\right) \\\\
-\mathrm{y}\_{\mathrm{i} }=O\left(\mathrm{~s}\_{\mathrm{i} }\right) \\\\
-\mathrm{x}\_{\mathrm{i} } \in \mathbb{R}^{d\_{i n} }, \quad \mathbf{y}\_{\mathrm{i} } \in \mathbb{R}^{d\_{\text {out } }}, \quad \mathrm{s}\_{\mathrm{i} } \in \mathbb{R}^{f\left(d\_{\text {out } }\right)}
+\mathrm{RNN}\left(\mathrm{s}\_{0}, \mathrm{x}\_{1: \mathrm{n}}\right)=\mathrm{s}\_{1: \mathrm{n}}, \mathrm{y}\_{1: \mathrm{n}} \\\\
+\mathrm{s}\_{\mathrm{i}}=R\left(\mathrm{~s}\_{\mathrm{i}-1}, \mathrm{x}\_{\mathrm{i}}\right) \\\\
+\mathrm{y}\_{\mathrm{i}}=O\left(\mathrm{~s}\_{\mathrm{i}}\right) \\\\
+\mathrm{x}\_{\mathrm{i}} \in \mathbb{R}^{d\_{i n}}, \quad \mathbf{y}\_{\mathrm{i}} \in \mathbb{R}^{d\_{\text {out }}}, \quad \mathrm{s}\_{\mathrm{i}} \in \mathbb{R}^{f\left(d\_{\text {out }}\right)}
 \end{array}
 $$
 ![a062e071fc7e16a657ebea8d1f3e5fba.png](../_resources/5fb0641348744180b6eb7b332ad93ae8.png)
@@ -756,7 +756,7 @@ backpropagation through time (BPTT): with unrolled computation graph.
 	- forward entire, backward k
 
 #### 10.2.1 Acceptor 接收器
-接收整个句子，从final output决策，loss根据$\mathbf{y}\_{\mathbf{n} }=O\left(\mathbf{s}\_{\mathbf{n} }\right)$定义，再BP回序列其他部分
+接收整个句子，从final output决策，loss根据$\mathbf{y}\_{\mathbf{n}}=O\left(\mathbf{s}\_{\mathbf{n}}\right)$定义，再BP回序列其他部分
 - eg. part-of-speech, sentiment analysis, non-phrase classfication
 ![7624bc0a7d2dedfb41517b4c3b445cb1.png](../_resources/b45a05c972a84f25a3dd2655cb084254.png)
 - 序列过长时，由于梯度消失，很难训练
@@ -773,7 +773,7 @@ e.g.
 
 loss (or average / weighted average):
 $$
-L\left(\mathbf{y} \hat{\mathbf{1}: \mathbf{n} }, \mathbf{y}\_{\mathbf{1}: \mathbf{n} }\right)=\sum\_{i=1}^{n} L\_{\text {local } }\left(\hat{\mathbf{y} }\_{\mathbf{i} }, \mathbf{y}\_{\mathbf{i} }\right)
+L\left(\mathbf{y} \hat{\mathbf{1}: \mathbf{n}}, \mathbf{y}\_{\mathbf{1}: \mathbf{n}}\right)=\sum\_{i=1}^{n} L\_{\text {local }}\left(\hat{\mathbf{y}}\_{\mathbf{i}}, \mathbf{y}\_{\mathbf{i}}\right)
 $$
 ![ef1300f8afe316783212b53d0df88f0d.png](../_resources/4fad65096efd49e787795dfb35bdbe94.png)
 
@@ -804,12 +804,12 @@ deep RNNs works better than shallower ones on some tasks:
 biRNN relaxes the fixed window size assumption, allowing to look arbitrarily far at both the past and the future
 
 two **independent** RNN:
-- $\mathrm{RNN}\left(R^{f}, O^{f}\right)$ input $\mathbf{X}\_{\mathbf{1}: \mathbf{n} }$
-- $\mathrm{RNN}\left(R^{b}, O^{b}\right)$ input $\mathbf{X}\_{\mathbf{n}: \mathbf{1} }$
+- $\mathrm{RNN}\left(R^{f}, O^{f}\right)$ input $\mathbf{X}\_{\mathbf{1}: \mathbf{n}}$
+- $\mathrm{RNN}\left(R^{b}, O^{b}\right)$ input $\mathbf{X}\_{\mathbf{n}: \mathbf{1}}$
 
 output:
 $$
-\mathbf{y}\_{\mathbf{i} }=\left[\mathbf{y}\_{\mathbf{i} }^{\mathbf{f} } ; \mathbf{y}\_{\mathbf{i} }^{\mathbf{b} }\right]=\left[O^{f}\left(\mathbf{s}\_{\mathbf{i} }^{\mathbf{f} }\right) ; O^{b}\left(\mathbf{s}\_{\mathbf{i} }^{\mathbf{b} }\right)\right]
+\mathbf{y}\_{\mathbf{i}}=\left[\mathbf{y}\_{\mathbf{i}}^{\mathbf{f}} ; \mathbf{y}\_{\mathbf{i}}^{\mathbf{b}}\right]=\left[O^{f}\left(\mathbf{s}\_{\mathbf{i}}^{\mathbf{f}}\right) ; O^{b}\left(\mathbf{s}\_{\mathbf{i}}^{\mathbf{b}}\right)\right]
 $$
 
 biRNNs for sequence tagging (Irsoy and Cardie, 2014)
@@ -817,7 +817,7 @@ biRNNs for sequence tagging (Irsoy and Cardie, 2014)
 ### 10.5 RNNs for Representing Stacks
 main intuition: Encode the stack sequence
 
-- push: $\mathrm{s}\_{\mathrm{i+1} }=R(\mathrm{s}\_{\mathrm{i} }, \mathrm{x\_{i+1} })$
+- push: $\mathrm{s}\_{\mathrm{i+1}}=R(\mathrm{s}\_{\mathrm{i}}, \mathrm{x\_{i+1}})$
 - pop: persistent-stack (immutable) data-structure
 
 ![8217eb9a9ae0718871d6c7cccc5f9caa.png](../_resources/0e07f74170304c6db0e4f7987cc4ea5b.png)
@@ -833,9 +833,9 @@ also: Elman Network (Elman, 1990)
 
 $$
 \begin{array}{c}
-\mathbf{S}\_{\mathbf{i} }=R\_{\mathrm{SRNN} }\left(\mathbf{s}\_{\mathbf{i}-\mathbf{1} }, \mathbf{x}\_{\mathbf{i} }\right)=g\left(\mathbf{x}\_{\mathbf{i} } \mathbf{W}^{\mathbf{x} }+\mathbf{s}\_{\mathbf{i}-\mathbf{1} } \mathbf{W}^{\mathbf{s} }+\mathbf{b}\right) \\\\
-\mathbf{y}\_{\mathbf{i} }=O\_{\mathrm{SRNN} }\left(\mathbf{s}\_{\mathbf{i} }\right)=\mathbf{s}\_{\mathbf{i} } \\\\
-\mathbf{s}\_{\mathbf{i} }, \mathbf{y}\_{\mathbf{i} } \in \mathbb{R}^{d\_{s} }, \mathbf{x}\_{\mathbf{i} } \in \mathbb{R}^{d\_{x} }, \mathbf{W}^{\mathbf{x} } \in \mathbb{R}^{d\_{x} \times d\_{s} }, \mathbf{W}^{\mathbf{s} } \in \mathbb{R}^{d\_{s} \times d\_{s} }, \mathbf{b} \in \mathbb{R}^{d\_{s} }
+\mathbf{S}\_{\mathbf{i}}=R\_{\mathrm{SRNN}}\left(\mathbf{s}\_{\mathbf{i}-\mathbf{1}}, \mathbf{x}\_{\mathbf{i}}\right)=g\left(\mathbf{x}\_{\mathbf{i}} \mathbf{W}^{\mathbf{x}}+\mathbf{s}\_{\mathbf{i}-\mathbf{1}} \mathbf{W}^{\mathbf{s}}+\mathbf{b}\right) \\\\
+\mathbf{y}\_{\mathbf{i}}=O\_{\mathrm{SRNN}}\left(\mathbf{s}\_{\mathbf{i}}\right)=\mathbf{s}\_{\mathbf{i}} \\\\
+\mathbf{s}\_{\mathbf{i}}, \mathbf{y}\_{\mathbf{i}} \in \mathbb{R}^{d\_{s}}, \mathbf{x}\_{\mathbf{i}} \in \mathbb{R}^{d\_{x}}, \mathbf{W}^{\mathbf{x}} \in \mathbb{R}^{d\_{x} \times d\_{s}}, \mathbf{W}^{\mathbf{s}} \in \mathbb{R}^{d\_{s} \times d\_{s}}, \mathbf{b} \in \mathbb{R}^{d\_{s}}
 \end{array}
 $$
 
@@ -853,10 +853,10 @@ S-RNN hard to capture long-range dependencies, LSTM can solve this vanishing gra
 - gating components: smooth mathematical functions that simulate logical gates, control access to the memory cells
 - gete: (after sigmoid) vector $\mathrm{g} \in[0,1]^{n}$
 
-$$\begin{aligned} \mathbf{s}\_{\mathbf{j} }=R\_{\mathrm{LSTM} }\left(\mathbf{s}\_{\mathbf{j}-\mathbf{1} }, \mathbf{x}\_{\mathbf{j} }\right) &=\left[\mathbf{c}\_{\mathbf{j} } ; \mathbf{h}\_{\mathbf{j} }\right] \\\\ \mathbf{c}\_{\mathbf{j} } &=\mathbf{c}\_{\mathbf{j}-\mathbf{1} } \odot \mathbf{f}+\mathbf{g} \odot \mathbf{i} \\\\ \mathbf{h}\_{\mathbf{j} } &=\tanh \left(\mathbf{c}\_{\mathbf{j} }\right) \odot \mathbf{o} \\\\ \mathbf{i} &=\sigma\left(\mathbf{x}\_{\mathbf{j} } \mathbf{W}^{\mathbf{x} \mathbf{i} }+\mathbf{h}\_{\mathbf{j}-\mathbf{1} } \mathbf{W}^{\mathbf{h i} }\right) \\\\ \mathbf{f} &=\sigma\left(\mathbf{x}\_{\mathbf{j} } \mathbf{W}^{\mathbf{x f} }+\mathbf{h}\_{\mathbf{j}-\mathbf{1} } \mathbf{W}^{\mathbf{h f} }\right) \\\\ \mathbf{o} &=\sigma\left(\mathbf{x}\_{\mathbf{j} } \mathbf{W}^{\mathbf{x} \mathbf{o} }+\mathbf{h}\_{\mathbf{j}-\mathbf{1} } \mathbf{W}^{\mathbf{h o} }\right) \\\\ \mathbf{g} &=\tanh \left(\mathbf{x}\_{\mathbf{j} } \mathbf{W}^{\mathbf{x g} }+\mathbf{h}\_{\mathbf{j}-\mathbf{1} } \mathbf{W}^{\mathbf{h g} }\right) \\\\ \mathbf{y}\_{\mathbf{j} }=O\_{\mathrm{LSTM} }\left(\mathbf{s}\_{\mathbf{j} }\right) &=\mathbf{h}\_{\mathbf{j} } \end{aligned}$$
+$$\begin{aligned} \mathbf{s}\_{\mathbf{j}}=R\_{\mathrm{LSTM}}\left(\mathbf{s}\_{\mathbf{j}-\mathbf{1}}, \mathbf{x}\_{\mathbf{j}}\right) &=\left[\mathbf{c}\_{\mathbf{j}} ; \mathbf{h}\_{\mathbf{j}}\right] \\\\ \mathbf{c}\_{\mathbf{j}} &=\mathbf{c}\_{\mathbf{j}-\mathbf{1}} \odot \mathbf{f}+\mathbf{g} \odot \mathbf{i} \\\\ \mathbf{h}\_{\mathbf{j}} &=\tanh \left(\mathbf{c}\_{\mathbf{j}}\right) \odot \mathbf{o} \\\\ \mathbf{i} &=\sigma\left(\mathbf{x}\_{\mathbf{j}} \mathbf{W}^{\mathbf{x} \mathbf{i}}+\mathbf{h}\_{\mathbf{j}-\mathbf{1}} \mathbf{W}^{\mathbf{h i}}\right) \\\\ \mathbf{f} &=\sigma\left(\mathbf{x}\_{\mathbf{j}} \mathbf{W}^{\mathbf{x f}}+\mathbf{h}\_{\mathbf{j}-\mathbf{1}} \mathbf{W}^{\mathbf{h f}}\right) \\\\ \mathbf{o} &=\sigma\left(\mathbf{x}\_{\mathbf{j}} \mathbf{W}^{\mathbf{x} \mathbf{o}}+\mathbf{h}\_{\mathbf{j}-\mathbf{1}} \mathbf{W}^{\mathbf{h o}}\right) \\\\ \mathbf{g} &=\tanh \left(\mathbf{x}\_{\mathbf{j}} \mathbf{W}^{\mathbf{x g}}+\mathbf{h}\_{\mathbf{j}-\mathbf{1}} \mathbf{W}^{\mathbf{h g}}\right) \\\\ \mathbf{y}\_{\mathbf{j}}=O\_{\mathrm{LSTM}}\left(\mathbf{s}\_{\mathbf{j}}\right) &=\mathbf{h}\_{\mathbf{j}} \end{aligned}$$
 
 
-$$\mathbf{j} \in \mathbb{R}^{2 \cdot d\_{h} }, \mathbf{x}\_{\mathbf{i} } \in \mathbb{R}^{d\_{x} }, \mathbf{c}\_{\mathbf{j} }, \mathbf{h}\_{\mathbf{j} }, \mathbf{i}, \mathbf{f}, \mathbf{o}, \mathbf{g} \in \mathbb{R}^{d\_{h} }, \mathbf{W}^{\mathbf{x} \circ} \in \mathbb{R}^{d\_{x} \times d\_{h} }, \mathbf{W}^{\mathbf{h} \circ} \in \mathbb{R}^{d\_{h} \times d\_{h} }$$
+$$\mathbf{j} \in \mathbb{R}^{2 \cdot d\_{h}}, \mathbf{x}\_{\mathbf{i}} \in \mathbb{R}^{d\_{x}}, \mathbf{c}\_{\mathbf{j}}, \mathbf{h}\_{\mathbf{j}}, \mathbf{i}, \mathbf{f}, \mathbf{o}, \mathbf{g} \in \mathbb{R}^{d\_{h}}, \mathbf{W}^{\mathbf{x} \circ} \in \mathbb{R}^{d\_{x} \times d\_{h}}, \mathbf{W}^{\mathbf{h} \circ} \in \mathbb{R}^{d\_{h} \times d\_{h}}$$
 
 结构详解：https://colah.github.io/posts/2015-08-Understanding-LSTMs/
 - f：遗忘门
@@ -880,9 +880,9 @@ Practical Considerations:
 ### 11.3 Gated Recurrent Unit (GRU)
 a simpler alternative to the LSTM, also based on a gating mechanism
 
-$$\begin{aligned} \mathbf{s}\_{\mathbf{j} }=R\_{\mathrm{GRU} }\left(\mathbf{s}\_{\mathbf{j}-\mathbf{1} }, \mathbf{x}\_{\mathbf{j} }\right) &=(\mathbf{1}-\mathbf{z}) \odot \mathbf{s}\_{\mathbf{j}-\mathbf{1} }+\mathbf{z} \odot \tilde{\mathbf{s}\_{\mathbf{j} }} \\\\ \mathbf{z} &=\sigma\left(\mathbf{x}\_{\mathbf{j} } \mathbf{W}^{\mathbf{x} \mathbf{z} }+\mathbf{s}\_{\mathbf{j}-\mathbf{1} } \mathbf{W}^{\mathbf{s z} }\right) \\\\ \mathbf{r} &=\sigma\left(\mathbf{x}\_{\mathbf{j} } \mathbf{W}^{\mathbf{x r} }+\mathbf{s}\_{\mathbf{j}-\mathbf{1} } \mathbf{W}^{\mathbf{s r} }\right) \\\\ \tilde{\mathbf{s} }\_{\mathbf{j} } &=\tanh \left(\mathbf{x}\_{\mathbf{j} } \mathbf{W}^{\mathbf{x s} }+\left(\mathbf{s}\_{\mathbf{j}-\mathbf{1} } \odot \mathbf{r}\right) \mathbf{W}^{\mathrm{sg} }\right) \\\\ \mathbf{y}\_{\mathbf{j} }=O\_{\mathrm{GRU} }\left(\mathbf{s}\_{\mathbf{j} }\right) &=\mathbf{s}\_{\mathbf{j} } \end{aligned}$$
+$$\begin{aligned} \mathbf{s}\_{\mathbf{j}}=R\_{\mathrm{GRU}}\left(\mathbf{s}\_{\mathbf{j}-\mathbf{1}}, \mathbf{x}\_{\mathbf{j}}\right) &=(\mathbf{1}-\mathbf{z}) \odot \mathbf{s}\_{\mathbf{j}-\mathbf{1}}+\mathbf{z} \odot \tilde{\mathbf{s}\_{\mathbf{j}}} \\\\ \mathbf{z} &=\sigma\left(\mathbf{x}\_{\mathbf{j}} \mathbf{W}^{\mathbf{x} \mathbf{z}}+\mathbf{s}\_{\mathbf{j}-\mathbf{1}} \mathbf{W}^{\mathbf{s z}}\right) \\\\ \mathbf{r} &=\sigma\left(\mathbf{x}\_{\mathbf{j}} \mathbf{W}^{\mathbf{x r}}+\mathbf{s}\_{\mathbf{j}-\mathbf{1}} \mathbf{W}^{\mathbf{s r}}\right) \\\\ \tilde{\mathbf{s}}\_{\mathbf{j}} &=\tanh \left(\mathbf{x}\_{\mathbf{j}} \mathbf{W}^{\mathbf{x s}}+\left(\mathbf{s}\_{\mathbf{j}-\mathbf{1}} \odot \mathbf{r}\right) \mathbf{W}^{\mathrm{sg}}\right) \\\\ \mathbf{y}\_{\mathbf{j}}=O\_{\mathrm{GRU}}\left(\mathbf{s}\_{\mathbf{j}}\right) &=\mathbf{s}\_{\mathbf{j}} \end{aligned}$$
 
-$$\mathbf{s}\_{\mathbf{j} }, \tilde{\mathbf{s} }\_{\mathbf{j} } \in \mathbb{R}^{d\_{s} }, \mathbf{x}\_{\mathbf{i} } \in \mathbb{R}^{d\_{x} }, \mathbf{z}, \mathbf{r} \in \mathbb{R}^{d\_{s} }, \mathbf{W}^{\mathbf{x} \circ} \in \mathbb{R}^{d\_{x} \times d\_{s} }, \mathbf{W}^{\mathbf{s} \circ} \in \mathbb{R}^{d\_{s} \times d\_{s} }$$
+$$\mathbf{s}\_{\mathbf{j}}, \tilde{\mathbf{s}}\_{\mathbf{j}} \in \mathbb{R}^{d\_{s}}, \mathbf{x}\_{\mathbf{i}} \in \mathbb{R}^{d\_{x}}, \mathbf{z}, \mathbf{r} \in \mathbb{R}^{d\_{s}}, \mathbf{W}^{\mathbf{x} \circ} \in \mathbb{R}^{d\_{x} \times d\_{s}}, \mathbf{W}^{\mathbf{s} \circ} \in \mathbb{R}^{d\_{s} \times d\_{s}}$$
 
 effective in language modeling and machine translation
 
@@ -910,25 +910,25 @@ $$
 
 $$
 \begin{aligned}
-\operatorname{RecNN}\left(x\_{1}, \ldots, x\_{n}, \mathcal{T}\right) &=\left\{\mathbf{s}\_{\mathbf{i}: \mathbf{j} }^{\mathbf{A} } \in \mathbb{R}^{d} \mid q\_{i: j}^{A} \in \mathcal{T}\right\} \\\\
-\mathbf{s}\_{\mathbf{i}: \mathbf{i} }^{\mathbf{A} } &=v\left(x\_{i}\right) \\\\
-\mathbf{s}\_{\mathbf{i}: \mathbf{j} }^{\mathbf{A} } &=R\left(A, B, C, \mathbf{s}\_{\mathbf{i}: \mathbf{k} }^{\mathbf{B} }, \mathbf{s}\_{\mathbf{k}+\mathbf{1} :\mathbf{j} }^{\mathbf{C} }\right) \quad q\_{i: k}^{B} \in \mathcal{T}, \quad q\_{k+1: j}^{C} \in \mathcal{T}
+\operatorname{RecNN}\left(x\_{1}, \ldots, x\_{n}, \mathcal{T}\right) &=\left\{\mathbf{s}\_{\mathbf{i}: \mathbf{j}}^{\mathbf{A}} \in \mathbb{R}^{d} \mid q\_{i: j}^{A} \in \mathcal{T}\right\} \\\\
+\mathbf{s}\_{\mathbf{i}: \mathbf{i}}^{\mathbf{A}} &=v\left(x\_{i}\right) \\\\
+\mathbf{s}\_{\mathbf{i}: \mathbf{j}}^{\mathbf{A}} &=R\left(A, B, C, \mathbf{s}\_{\mathbf{i}: \mathbf{k}}^{\mathbf{B}}, \mathbf{s}\_{\mathbf{k}+\mathbf{1} :\mathbf{j}}^{\mathbf{C}}\right) \quad q\_{i: k}^{B} \in \mathcal{T}, \quad q\_{k+1: j}^{C} \in \mathcal{T}
 \end{aligned}
 $$
 
 组合函数$R$:
 $$
-R\left(A, B, C, \mathbf{s}\_{\mathbf{i}: \mathbf{k} }^{\mathbf{B} }, \mathbf{s}\_{\mathbf{k}+\mathbf{1}:\mathbf{j} }^{\mathbf{C} }\right)=g\left(\left[\mathbf{s}\_{\mathbf{i}: \mathbf{k} }^{\mathbf{B} } ; \mathbf{s}\_{\mathbf{k}+\mathbf{1}: \mathbf{j} }^{\mathbf{C} }\right] \mathbf{W}\right)
+R\left(A, B, C, \mathbf{s}\_{\mathbf{i}: \mathbf{k}}^{\mathbf{B}}, \mathbf{s}\_{\mathbf{k}+\mathbf{1}:\mathbf{j}}^{\mathbf{C}}\right)=g\left(\left[\mathbf{s}\_{\mathbf{i}: \mathbf{k}}^{\mathbf{B}} ; \mathbf{s}\_{\mathbf{k}+\mathbf{1}: \mathbf{j}}^{\mathbf{C}}\right] \mathbf{W}\right)
 $$
 
 带有标签（label embeddings）的组合函数$R$:
 $$
-R\left(A, B, C, \mathbf{s}\_{\mathbf{i}: \mathbf{k} }^{\mathbf{B} }, \mathbf{s}\_{\mathbf{k}+\mathbf{1} : \mathbf{j} } \mathbf{C}\right)=g\left(\left[\mathbf{s}\_{\mathbf{i}: \mathbf{k} }^{\mathbf{B} } ; \mathbf{s}\_{\mathbf{k}+\mathbf{1} : \mathbf{j} }^{\mathbf{C} } ; v(A) ; v(B)\right] \mathbf{W}\right)
+R\left(A, B, C, \mathbf{s}\_{\mathbf{i}: \mathbf{k}}^{\mathbf{B}}, \mathbf{s}\_{\mathbf{k}+\mathbf{1} : \mathbf{j}} \mathbf{C}\right)=g\left(\left[\mathbf{s}\_{\mathbf{i}: \mathbf{k}}^{\mathbf{B}} ; \mathbf{s}\_{\mathbf{k}+\mathbf{1} : \mathbf{j}}^{\mathbf{C}} ; v(A) ; v(B)\right] \mathbf{W}\right)
 $$
 
 也可以对每一对B、C采用不同的W:
 $$
-R\left(A, B, C, \mathbf{s}\_{\mathbf{i}: \mathbf{k} }^{\mathbf{B} }, \mathbf{s}\_{\mathbf{k}+\mathbf{1}: \mathbf{j} }^{\mathbf{C} }\right)=g\left(\left[\mathbf{s}\_{\mathbf{i}: \mathbf{k} }^{\mathbf{B} } ; \mathbf{s}\_{\mathbf{k}+\mathbf{1} : \mathbf{j} }^{\mathbf{C} }\right] \mathbf{W}^{\mathbf{B C} }\right)
+R\left(A, B, C, \mathbf{s}\_{\mathbf{i}: \mathbf{k}}^{\mathbf{B}}, \mathbf{s}\_{\mathbf{k}+\mathbf{1}: \mathbf{j}}^{\mathbf{C}}\right)=g\left(\left[\mathbf{s}\_{\mathbf{i}: \mathbf{k}}^{\mathbf{B}} ; \mathbf{s}\_{\mathbf{k}+\mathbf{1} : \mathbf{j}}^{\mathbf{C}}\right] \mathbf{W}^{\mathbf{B C}}\right)
 $$
 
 ### 12.2 Extensions and Variations

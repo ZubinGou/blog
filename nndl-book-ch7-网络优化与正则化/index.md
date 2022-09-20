@@ -57,7 +57,7 @@ DNN 主要通过梯度下降法寻找最小化结构风险的参数，分为：
 第 t 次迭代偏导数：
 
 $$
-\mathfrak{g}_{t}(\theta)=\frac{1}{K} \sum\_{(\boldsymbol{x}, \boldsymbol{y}) \in \mathcal{S}\_{t} } \frac{\partial \mathcal{L}(\boldsymbol{y}, f(\boldsymbol{x} ; \theta))}{\partial \theta}
+\mathfrak{g}_{t}(\theta)=\frac{1}{K} \sum\_{(\boldsymbol{x}, \boldsymbol{y}) \in \mathcal{S}\_{t}} \frac{\partial \mathcal{L}(\boldsymbol{y}, f(\boldsymbol{x} ; \theta))}{\partial \theta}
 $$
 
 参数更新
@@ -118,7 +118,7 @@ $$
 常用：逐渐预热（Gradual Warmup）[Goyal et al., 2017]
 
 $$
-\alpha\_{t}^{\prime}=\frac{t}{T^{\prime} } \alpha\_{0}, \quad 1 \leq t \leq T^{\prime}
+\alpha\_{t}^{\prime}=\frac{t}{T^{\prime}} \alpha\_{0}, \quad 1 \leq t \leq T^{\prime}
 $$
 
 #### 周期性学习率调整
@@ -141,7 +141,7 @@ $$
 参数更新差值：
 
 $$
-\Delta \theta\_{t}=-\frac{\alpha}{\sqrt{G\_{t}+\epsilon} } \odot \mathbf{g}\_{t}
+\Delta \theta\_{t}=-\frac{\alpha}{\sqrt{G\_{t}+\epsilon}} \odot \mathbf{g}\_{t}
 $$
 
 Hung-yi Lee:
@@ -168,7 +168,7 @@ $$
 参数更新差值：
 
 $$
-\Delta \theta\_{t}=-\frac{\alpha}{\sqrt{G\_{t}+\epsilon} } \odot \mathbf{g}\_{t}
+\Delta \theta\_{t}=-\frac{\alpha}{\sqrt{G\_{t}+\epsilon}} \odot \mathbf{g}\_{t}
 $$
 
 #### AdaDelta 算法
@@ -181,7 +181,7 @@ $$
 参数更新差值：
 
 $$
-\Delta \theta\_{t}=-\frac{\sqrt{\Delta X\_{t-1}^{2}+\epsilon} }{\sqrt{G\_{t}+\epsilon} } \mathrm{g}\_{t}
+\Delta \theta\_{t}=-\frac{\sqrt{\Delta X\_{t-1}^{2}+\epsilon}}{\sqrt{G\_{t}+\epsilon}} \mathrm{g}\_{t}
 $$
 
 
@@ -223,14 +223,14 @@ $$
 需要进行偏差修正：
 $$
 \begin{aligned}
-\hat{M}\_{t} &=\frac{M\_{t} }{1-\beta\_{1}^{t} } \\\\
-\hat{G}\_{t} &=\frac{G\_{t} }{1-\beta\_{2}^{t} }
+\hat{M}\_{t} &=\frac{M\_{t}}{1-\beta\_{1}^{t}} \\\\
+\hat{G}\_{t} &=\frac{G\_{t}}{1-\beta\_{2}^{t}}
 \end{aligned}
 $$
 
 更新差值：
 $$
-\Delta \theta\_{t}=-\frac{\alpha}{\sqrt{\hat{G}\_{t}+\epsilon} } \hat{M}\_{t}
+\Delta \theta\_{t}=-\frac{\alpha}{\sqrt{\hat{G}\_{t}+\epsilon}} \hat{M}\_{t}
 $$
 
 Nadam算法：用 Nesterov 加速梯度改进Adam
@@ -257,7 +257,7 @@ $$
 
 $$
 \begin{aligned}
-\Delta \theta\_{t} &=-\frac{\alpha\_{t} }{\sqrt{G\_{t}+\epsilon} } M\_{t} \\\\
+\Delta \theta\_{t} &=-\frac{\alpha\_{t}}{\sqrt{G\_{t}+\epsilon}} M\_{t} \\\\
 G\_{t} &=\psi\left(\mathbf{g}\_{1}, \cdots, \boldsymbol{g}\_{t}\right) \\\\
 M\_{t} &=\phi\left(\mathbf{g}\_{1}, \cdots, \mathbf{g}\_{t}\right)
 \end{aligned}
@@ -296,12 +296,12 @@ $$
 
 均匀分布方差：
 $$
-\operatorname{var}(x)=\frac{(b-a)^{2} }{12}
+\operatorname{var}(x)=\frac{(b-a)^{2}}{12}
 $$
 
 区间为 $[-r, r]$ 则：
 $$
-r=\sqrt{3 \sigma^{2} }
+r=\sqrt{3 \sigma^{2}}
 $$
 
 关键是设置方差 $\sigma^2$ ：
@@ -319,52 +319,52 @@ Xavier 初始化：根据每层神经元数量自动计算初始化参数方差�
 
 l 层神经单元输出：
 $$
-a^{(l)}=f\left(\sum\_{i=1}^{M\_{l-1} } w\_{i}^{(l)} a\_{i}^{(l-1)}\right)
+a^{(l)}=f\left(\sum\_{i=1}^{M\_{l-1}} w\_{i}^{(l)} a\_{i}^{(l-1)}\right)
 $$
 
 假设激活函数为线性恒等函数，则均值：
 $$
-\mathbb{E}\left[a^{(l)}\right]=\mathbb{E}\left[\sum\_{i=1}^{M\_{l-1} } w\_{i}^{(l)} a\_{i}^{(l-1)}\right]=\sum\_{i=1}^{M\_{l-1} } \mathbb{E}\left[w\_{i}^{(l)}\right] \mathbb{E}\left[a\_{i}^{(l-1)}\right]=0
+\mathbb{E}\left[a^{(l)}\right]=\mathbb{E}\left[\sum\_{i=1}^{M\_{l-1}} w\_{i}^{(l)} a\_{i}^{(l-1)}\right]=\sum\_{i=1}^{M\_{l-1}} \mathbb{E}\left[w\_{i}^{(l)}\right] \mathbb{E}\left[a\_{i}^{(l-1)}\right]=0
 $$
 
 方差：
 $$
 \begin{aligned}
-\operatorname{var}\left(a^{(l)}\right) &=\operatorname{var}\left(\sum\_{i=1}^{M\_{l-1} } w\_{i}^{(l)} a\_{i}^{(l-1)}\right) \\\\
-&=\sum\_{i=1}^{M\_{l-1} } \operatorname{var}\left(w\_{i}^{(l)}\right) \operatorname{var}\left(a\_{i}^{(l-1)}\right) \\\\
+\operatorname{var}\left(a^{(l)}\right) &=\operatorname{var}\left(\sum\_{i=1}^{M\_{l-1}} w\_{i}^{(l)} a\_{i}^{(l-1)}\right) \\\\
+&=\sum\_{i=1}^{M\_{l-1}} \operatorname{var}\left(w\_{i}^{(l)}\right) \operatorname{var}\left(a\_{i}^{(l-1)}\right) \\\\
 &=M\_{l-1} \operatorname{var}\left(w\_{i}^{(l)}\right) \operatorname{var}\left(a\_{i}^{(l-1)}\right) .
 \end{aligned}
 $$
 
 所以应设置：
 $$
-\operatorname{var}\left(w\_{i}^{(l)}\right)=\frac{1}{M\_{l-1} }
+\operatorname{var}\left(w\_{i}^{(l)}\right)=\frac{1}{M\_{l-1}}
 $$
 
 同理，反向传播应设置：
 $$
-\operatorname{var}\left(w\_{i}^{(l)}\right)=\frac{1}{M\_{l} }
+\operatorname{var}\left(w\_{i}^{(l)}\right)=\frac{1}{M\_{l}}
 $$
 
 折中设置：
 $$
-\operatorname{var}\left(w\_{i}^{(l)}\right)=\frac{2}{M\_{l-1}+M\_{l} }
+\operatorname{var}\left(w\_{i}^{(l)}\right)=\frac{2}{M\_{l-1}+M\_{l}}
 $$
 
 对 $[-r, r]$ 均匀分布初始化则：
 
 $$
-r=\sqrt{\frac{6}{M\_{l-1}+M\_{l} }}
+r=\sqrt{\frac{6}{M\_{l-1}+M\_{l}}}
 $$
 
-Xavier 初始化适用于 Logistic 和 Tanh 激活函数，因为输入往往处在激活函数线性区间。其中 Logistic 函数线性区间斜率约为 0.25，所以初始化方差为 $16 \times \frac{2}{M\_{l-1}+M\_{l} }$
+Xavier 初始化适用于 Logistic 和 Tanh 激活函数，因为输入往往处在激活函数线性区间。其中 Logistic 函数线性区间斜率约为 0.25，所以初始化方差为 $16 \times \frac{2}{M\_{l-1}+M\_{l}}$
 
 #### He 初始化
 对 ReLU 激活函数，通常一半神经元输出为 0， 因此输出方差也近似为恒等函数的一半
 
 考虑前向传播，假设神经元输出：
 $$
-z\_i^{(l)}=\sum\_{i=1}^{M\_{l-1} } w\_{i}^{(l)} a\_{i}^{(l-1)}
+z\_i^{(l)}=\sum\_{i=1}^{M\_{l-1}} w\_{i}^{(l)} a\_{i}^{(l-1)}
 $$
 
 $$
@@ -394,8 +394,8 @@ $$
 则 ReLU 输出方差：
 $$
 \begin{aligned}
-\operatorname{var}\left(z^{(l)}\right) &=\operatorname{var}\left(\sum\_{i=1}^{M\_{l-1} } w\_{i}^{(l)} a\_{i}^{(l-1)}\right) \\\\
-&=\sum\_{i=1}^{M\_{l-1} } \operatorname{var}\left(w\_{i}^{(l)} a\_{i}^{(l-1)}\right) \\\\
+\operatorname{var}\left(z^{(l)}\right) &=\operatorname{var}\left(\sum\_{i=1}^{M\_{l-1}} w\_{i}^{(l)} a\_{i}^{(l-1)}\right) \\\\
+&=\sum\_{i=1}^{M\_{l-1}} \operatorname{var}\left(w\_{i}^{(l)} a\_{i}^{(l-1)}\right) \\\\
 &=M\_{l-1} (\operatorname{var}(w\_{i}^{(l)}) \operatorname{var}(a\_{i}^{(l-1)})+E(w\_{i}^{(l)})^{2} \operatorname{var}(a\_{i}^{(l-1)})+\operatorname{var}(w\_{i}^{(l)}) E(a\_{i}^{(l-1)})^{2}) \\\\
 &=M\_{l-1} (\operatorname{var}(w\_{i}^{(l)}) \operatorname{var}(a\_{i}^{(l-1)})+\operatorname{var}(w\_{i}^{(l)}) E(a\_{i}^{(l-1)})^{2}) \\\\
 &=M\_{l-1} \operatorname{var}\left(w\_{i}^{(l)}\right) E((a\_{i}^{(l-1)})^2) \\\\
@@ -405,7 +405,7 @@ $$
 
 所以：
 $$
-\operatorname{var}\left(w\_{i}^{(l)}\right)=\frac{2}{M\_{l-1} }
+\operatorname{var}\left(w\_{i}^{(l)}\right)=\frac{2}{M\_{l-1}}
 $$
 
 ![7fbb7a78dbe31bfbc29495c9da23136a.png](../../_resources/fc76e7fdd8eb43fe873c92114fec086a.png)
@@ -494,7 +494,7 @@ $$
 批量归一化（Batch Normalization，BN）：在仿射变换之后、激活函数之前，将输入$\boldsymbol{z}^{(l)}$ 每一维都归一到标准正态分布：
 
 $$
-\hat{z}^{(l)}=\frac{z^{(l)}-\mathbb{E}\left[z^{(l)}\right]}{\sqrt{\operatorname{var}\left(z^{(l)}\right)+\epsilon} }
+\hat{z}^{(l)}=\frac{z^{(l)}-\mathbb{E}\left[z^{(l)}\right]}{\sqrt{\operatorname{var}\left(z^{(l)}\right)+\epsilon}}
 $$
 
 这里的期望和方差一般使用小批量样本集的均值和方差进行估计。
@@ -503,16 +503,16 @@ $$
 
 $$
 \begin{aligned}
-\hat{\boldsymbol{z} }^{(l)} &=\frac{\boldsymbol{z}^{(l)}-\mu\_{\mathcal{B} }}{\sqrt{\sigma\_{\mathcal{B} }^{2}+\epsilon} } \odot \boldsymbol{\gamma}+\boldsymbol{\beta} \\\\
-& \triangleq \mathrm{B} \mathrm{N}\_{\gamma, \boldsymbol{\beta} }\left(\boldsymbol{z}^{(l)}\right)
+\hat{\boldsymbol{z}}^{(l)} &=\frac{\boldsymbol{z}^{(l)}-\mu\_{\mathcal{B}}}{\sqrt{\sigma\_{\mathcal{B}}^{2}+\epsilon}} \odot \boldsymbol{\gamma}+\boldsymbol{\beta} \\\\
+& \triangleq \mathrm{B} \mathrm{N}\_{\gamma, \boldsymbol{\beta}}\left(\boldsymbol{z}^{(l)}\right)
 \end{aligned}
 $$
 
 其中：
 $$
 \begin{aligned}
-\mu\_{\mathcal{B} } &=\frac{1}{K} \sum\_{k=1}^{K} z^{(k, l)}, \\\\
-\sigma\_{\mathcal{B} }^{2} &=\frac{1}{K} \sum\_{k=1}^{K}\left(\boldsymbol{z}^{(k, l)}-\mu\_{\mathcal{B} }\right) \odot\left(\boldsymbol{z}^{(k, l)}-\mu\_{\mathcal{B} }\right)
+\mu\_{\mathcal{B}} &=\frac{1}{K} \sum\_{k=1}^{K} z^{(k, l)}, \\\\
+\sigma\_{\mathcal{B}}^{2} &=\frac{1}{K} \sum\_{k=1}^{K}\left(\boldsymbol{z}^{(k, l)}-\mu\_{\mathcal{B}}\right) \odot\left(\boldsymbol{z}^{(k, l)}-\mu\_{\mathcal{B}}\right)
 \end{aligned}
 $$
 
@@ -531,7 +531,7 @@ RNN 等的神经元输入分布是动态变化的，无法应用 BN
 
 $$
 \begin{aligned}
-\hat{z}^{(l)} &=\frac{z^{(l)}-\mu^{(l)} }{\sqrt{\sigma^{(l)^{2}+\epsilon} } \odot \gamma+\beta} \\\\
+\hat{z}^{(l)} &=\frac{z^{(l)}-\mu^{(l)}}{\sqrt{\sigma^{(l)^{2}+\epsilon}} \odot \gamma+\beta} \\\\
 & \triangleq \mathrm{LN}\_{\gamma, \beta}\left(z^{(l)}\right)
 \end{aligned}
 $$
@@ -539,8 +539,8 @@ $$
 其中：
 $$
 \begin{aligned}
-\mu\_{\mathcal{B} } &=\frac{1}{K} \sum\_{k=1}^{K} z^{(k, l)}, \\\\
-\sigma\_{\mathcal{B} }^{2} &=\frac{1}{K} \sum\_{k=1}^{K}\left(\boldsymbol{z}^{(k, l)}-\mu\_{\mathcal{B} }\right) \odot\left(\boldsymbol{z}^{(k, l)}-\mu\_{\mathcal{B} }\right)
+\mu\_{\mathcal{B}} &=\frac{1}{K} \sum\_{k=1}^{K} z^{(k, l)}, \\\\
+\sigma\_{\mathcal{B}}^{2} &=\frac{1}{K} \sum\_{k=1}^{K}\left(\boldsymbol{z}^{(k, l)}-\mu\_{\mathcal{B}}\right) \odot\left(\boldsymbol{z}^{(k, l)}-\mu\_{\mathcal{B}}\right)
 \end{aligned}
 $$
 
@@ -569,7 +569,7 @@ $$
 则再参数化 $\boldsymbol{W}$：
 
 $$
-\boldsymbol{W}\_{i,:}=\frac{g\_{i} }{\left\|\boldsymbol{v}\_{i}\right\|} \boldsymbol{v}\_{i}, \quad 1 \leq i \leq M\_{l}
+\boldsymbol{W}\_{i,:}=\frac{g\_{i}}{\left\|\boldsymbol{v}\_{i}\right\|} \boldsymbol{v}\_{i}, \quad 1 \leq i \leq M\_{l}
 $$
 
 ### 7.5.4 局部响应归一化
@@ -577,7 +577,7 @@ $$
 
 $$
 \begin{aligned}
-\hat{\boldsymbol{Y} }^{p} &=\boldsymbol{Y}^{p} /\left(k+\alpha \sum\_{j=\max \left(1, p-\frac{n}{2}\right)}^{\min \left(P, p+\frac{n}{2}\right)}\left(\boldsymbol{Y}^{j}\right)^{2}\right)^{\beta} \\\\
+\hat{\boldsymbol{Y}}^{p} &=\boldsymbol{Y}^{p} /\left(k+\alpha \sum\_{j=\max \left(1, p-\frac{n}{2}\right)}^{\min \left(P, p+\frac{n}{2}\right)}\left(\boldsymbol{Y}^{j}\right)^{2}\right)^{\beta} \\\\
 & \triangleq \mathrm{LRN}\_{n, k, \alpha, \beta}\left(\boldsymbol{Y}^{p}\right)
 \end{aligned}
 $$
@@ -719,7 +719,7 @@ Motivation：
 
 平滑后为软目标（Soft Target）：
 $$
-\tilde{\boldsymbol{y} }=\left[\frac{\epsilon}{K-1}, \cdots, \frac{\epsilon}{K-1}, 1-\epsilon, \frac{\epsilon}{K-1}, \cdots, \frac{\epsilon}{K-1}\right]^{\top}
+\tilde{\boldsymbol{y}}=\left[\frac{\epsilon}{K-1}, \cdots, \frac{\epsilon}{K-1}, 1-\epsilon, \frac{\epsilon}{K-1}, \cdots, \frac{\epsilon}{K-1}\right]^{\top}
 $$
 
 这种标签平滑没有考虑标签之间的相关性，更好的办法是按照类别相关性赋予其他标签不同概率，如教师网络（Teacher Network）的输出作为软目标训练学生网络（Student Network），即知识蒸馏（Knowledge Distillation）

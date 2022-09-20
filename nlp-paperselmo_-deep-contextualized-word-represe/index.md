@@ -61,7 +61,7 @@ $$
 a L-layer biLM computes a set of $2L+1$ representations:
 $$
 \begin{aligned}
-R\_{k} &=\{\mathbf{x}\_{k}^{L M}, \overrightarrow{\mathbf{h} }\_{k, j}^{L M}, \overleftarrow{\mathbf{h} }\_{k, j}^{L M} \mid j=1, \ldots, L\} \\\\
+R\_{k} &=\{\mathbf{x}\_{k}^{L M}, \overrightarrow{\mathbf{h}}\_{k, j}^{L M}, \overleftarrow{\mathbf{h}}\_{k, j}^{L M} \mid j=1, \ldots, L\} \\\\
 &=\{\mathbf{h}\_{k, j}^{L M} \mid j=0, \ldots, L\}
 \end{aligned}
 $$
@@ -79,15 +79,15 @@ $$
 \mathbf{E L M o}\_{k}^{t a s k}=E(R\_{k} ; \Theta^{t a s k})=\gamma^{t a s k} \sum\_{j=0}^{L} s\_{j}^{t a s k} \mathbf{h}\_{k, j}^{L M}
 $$
 
-$\mathbf{s}^{\text {task } }$ are softmax-normalized weights and scalar parameter $\gamma^{\text {task } }$ allows the task model to scale the entire ELMo vector.
+$\mathbf{s}^{\text {task }}$ are softmax-normalized weights and scalar parameter $\gamma^{\text {task }}$ allows the task model to scale the entire ELMo vector.
 
 ### 3.3 Using biLMs for supervised NLP tasks
 1. run biLM to get layer representations for each word
 2. let the end task learn a linear combination of these representations.
 
-freeze weights of biLM and pass the ELMo enhanced representation $[\mathbf{x}\_{k} ; \mathbf{E L M o}\_{k}^{\text {task } }]$ into the task RNN.
+freeze weights of biLM and pass the ELMo enhanced representation $[\mathbf{x}\_{k} ; \mathbf{E L M o}\_{k}^{\text {task }}]$ into the task RNN.
 
-observe further improvements by also including ELMo at the output of the task RNN by introducing another set of output specific linear weights and replacing $\mathbf{h}_k$ with $[\mathbf{h}\_{k} ; \mathbf{E L M o}\_{k}^{\text {task } }]$
+observe further improvements by also including ELMo at the output of the task RNN by introducing another set of output specific linear weights and replacing $\mathbf{h}_k$ with $[\mathbf{h}\_{k} ; \mathbf{E L M o}\_{k}^{\text {task }}]$
 
 prevent overfit:
 - moderate amount of dropout

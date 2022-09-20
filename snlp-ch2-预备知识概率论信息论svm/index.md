@@ -12,7 +12,7 @@
 - 随机变量X的分布函数：$P(X \leqslant x)=F(x), \quad-\infty<x<\infty$
 - 二项式分布$\mathrm{X} \sim \mathrm{B}(\mathrm{n}, \mathrm{p})$：$p\_{i}=\left(\begin{array}{c}n \\\\ i\end{array}\right) p^{i}(1-p)^{n-i}, \quad i=0,1, \cdots, n$
 - $(X_1, X_2)$ 的联合分布：$p\_{ij}=P\left(X\_{1}=a\_{i}, X\_{2}=b\_{j}\right), \quad i=1,2, \ldots ; j=1,2, \ldots$
-- 条件概率分布：$P\left(X\_{1}=a\_{i} \mid X\_{2}=b\_{j}\right)=\frac{p\_{i j} }{\sum\_{k} p\_{k j} }, \quad i=1,2, \cdots$
+- 条件概率分布：$P\left(X\_{1}=a\_{i} \mid X\_{2}=b\_{j}\right)=\frac{p\_{i j}}{\sum\_{k} p\_{k j}}, \quad i=1,2, \cdots$
 - 贝叶斯决策理论：
 	- $P\left(w\_{i} \mid x\right)=\frac{p\left(x \mid w\_{i}\right) P\left(w\_{i}\right)}{\sum\_{j=1}^{c} p\left(x \mid w\_{j}\right) P\left(w\_{j}\right)}$
 	- $p\left(x \mid w\_{i}\right) P\left(w\_{i}\right)=\max \_{j=1,2, \cdots, c} p\left(x \mid w\_{j}\right) P\left(w\_{j}\right),$ 则 $x \in w\_{i}$
@@ -21,11 +21,11 @@
 
 ### 2.2 信息论
 #### 熵
-- 离散型随机变量$X$的熵：$H(X)=-\sum\_{x \in \mathbf{R} } p(x) \log \_{2} p(x)$
+- 离散型随机变量$X$的熵：$H(X)=-\sum\_{x \in \mathbf{R}} p(x) \log \_{2} p(x)$
 	- 又称自信息（Self-information）
 	- 描述不确定性
 - 最大熵：在已知部分知识的前提下，关于未知分布最合理的推断应该是符合已知知识最不确定或最大随机的推断。
-	- 用熵最大的模型推断某种语言现象的可能性（？）：$\hat{p}=\underset{p \in C}{\operatorname{argmax} } H(p)$
+	- 用熵最大的模型推断某种语言现象的可能性（？）：$\hat{p}=\underset{p \in C}{\operatorname{argmax}} H(p)$
 
 #### 联合熵与条件熵
 - 联合熵：$H(X, Y)=-\sum\_{x \in X} \sum\_{y \in Y} p(x, y) \log p(x, y)$
@@ -34,8 +34,8 @@
 - 熵的连锁规则：
 	- $\begin{aligned} H(X, Y) &=-\sum\_{x \in X} \sum\_{y \in Y} p(x, y) \log [p(x) p(y \mid x)] \\\\ &=-\sum\_{x \in X} \sum\_{y \in Y} p(x, y)[\log p(x)+\log p(y \mid x)] \\\\ &=-\sum\_{x \in X} \sum\_{y \in Y} p(x, y) \log p(x)-\sum\_{x \in X} \sum\_{y \in Y} p(x, y) \log p(y \mid x) \\\\ &=-\sum\_{x \in X} p(x) \log p(x)-\sum\_{x \in X} \sum\_{y \in Y} p(x, y) \log p(y \mid x) \\\\ &=H(X)+H(Y \mid X) \end{aligned}$
 	- 一般情况：$H\left(X\_{1}, X\_{2}, \ldots, X\_{n}\right)=H\left(X\_{1}\right)+H\left(X\_{2} \mid X\_{1}\right)+H\left(X\_{3} \mid X\_{2}, X\_{2}\right)+\ldots+H\left(X\_{n} \mid X\_{n-1}, X\_{n-2}, \ldots, X\_{1}\right)$
-- 字符串的熵率：$H\_{\mathrm{rate} }=\frac{1}{n} H\left(X\_{1 n}\right)=-\frac{1}{n} \sum\_{x\_{1 y} } p\left(x\_{1 n}\right) \log p\left(x\_{1 n}\right)$
-- 某语言为随机过程$L=\left(X\_{i}\right)$，其熵率：$H\_{\text {rate } }(L)=\lim \_{n \rightarrow \infty} \frac{1}{n} H\left(X\_{1}, X\_{2}, \cdots, X\_{n}\right)$
+- 字符串的熵率：$H\_{\mathrm{rate}}=\frac{1}{n} H\left(X\_{1 n}\right)=-\frac{1}{n} \sum\_{x\_{1 y}} p\left(x\_{1 n}\right) \log p\left(x\_{1 n}\right)$
+- 某语言为随机过程$L=\left(X\_{i}\right)$，其熵率：$H\_{\text {rate }}(L)=\lim \_{n \rightarrow \infty} \frac{1}{n} H\left(X\_{1}, X\_{2}, \cdots, X\_{n}\right)$
 
 #### 互信息（mutual information, MI）
 - $H(X)-H(X \mid Y)=H(Y)-H(Y \mid X)$
@@ -62,13 +62,13 @@
 - 随机变量X和模型q的交叉熵：
 	- $\begin{aligned} H(X, q) &=H(X)+D(p \| q) \\\\ &=-\sum\_{x} p(x) \log q(x) \\\\ &=E\_{p}\left(\log \frac{1}{q(x)}\right) \end{aligned}$
 - 语言$L＝(X_i)～p(x)$与其模型q的交叉熵：
-	- $H(L, q)=-\lim \_{n \rightarrow \infty} \frac{1}{n} \sum\_{x\_{1}^{n} } p\left(x\_{1}^{n}\right) \log q\left(x\_{1}^{n}\right)$
+	- $H(L, q)=-\lim \_{n \rightarrow \infty} \frac{1}{n} \sum\_{x\_{1}^{n}} p\left(x\_{1}^{n}\right) \log q\left(x\_{1}^{n}\right)$
 	- 假定语言L是稳态（stationary）遍历的（ergodic）随机过程，则：
 		- $H(L, q)=-\lim \_{n \rightarrow \infty} \frac{1}{n} \log q\left(x\_{1}^{n}\right)$
 	- n足够大时，近似为$-\frac{1}{N} \log \left(q\left(x\_{1}^{N}\right)\right)$，交叉熵越小表示模型越接近真实语言模型
 
 #### 困惑度（perplexity）
-- $\mathrm{PP}\_{q}=2^{H(L, q)} \approx 2^{-\frac{1}{n} \log q\left(i\_{1}^{n}\right)}=\left[q\left(l\_{1}^{n}\right)\right]^{-\frac{1}{n} }$
+- $\mathrm{PP}\_{q}=2^{H(L, q)} \approx 2^{-\frac{1}{n} \log q\left(i\_{1}^{n}\right)}=\left[q\left(l\_{1}^{n}\right)\right]^{-\frac{1}{n}}$
 - 等价地，语言模型设计的任务就是寻找（对于测试数据）困惑度最小的模型
 
 #### 噪声信道模型（noisy channel model）
@@ -80,7 +80,7 @@
 	- 即平均互信息量的最大值
 - NLP不需要编码，句子可视为已经编码的符号序列：![6a6c3a286f40601755ea61120285b1a6.png](../../_resources/ce281f6e4099463eac2f6c8f3727ea5b.png)
 - 给定输出求最可能输入：
-	- 贝叶斯公式：$\begin{aligned} \hat{I} &=\underset{I}{\operatorname{argmax} } p(I \mid O)=\underset{I}{\operatorname{argmax} } \frac{p(I) p(O \mid I)}{p(O)} \\\\ &=\underset{I}{\operatorname{argmax} } p(I) p(O \mid I) \end{aligned}$
+	- 贝叶斯公式：$\begin{aligned} \hat{I} &=\underset{I}{\operatorname{argmax}} p(I \mid O)=\underset{I}{\operatorname{argmax}} \frac{p(I) p(O \mid I)}{p(O)} \\\\ &=\underset{I}{\operatorname{argmax}} p(I) p(O \mid I) \end{aligned}$
 	- $p(I)$为语言模型（language model），是指在输入语言中“词”序列的概率分布
 	- $p(O \mid I)$为信道概率（channel probability）
 
@@ -93,7 +93,7 @@
 	- ![f1abf1db54e9e34d45bb40bc65ee0ed7.png](../../_resources/6c9ed09b16624e20a1a203811f4198c8.png)
 - 多分类问题：
 	- 每类一个超平面
-	- 决策函数：$c(x)=\underset{1 \leqslant i \leqslant m}{\operatorname{argmax} }\left(\left\langle w\_{i} \cdot x\right\rangle+b\_{i}\right)$
+	- 决策函数：$c(x)=\underset{1 \leqslant i \leqslant m}{\operatorname{argmax}}\left(\left\langle w\_{i} \cdot x\right\rangle+b\_{i}\right)$
 
 #### 线性不可分
 - 非线性问题：映射样本x到高维特征空间，再使用线性分类器

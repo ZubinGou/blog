@@ -18,12 +18,12 @@
 	1. 随机初始参数：过于缺乏限制
 	2. 利用词典信息约束模型参数（Jelinek方法）
 		- “词汇-词汇标记”对没有在词典中，令该词生成概率为0，否则为可能被标记的词性个数的倒数
-		- $b\_{j . l}=\frac{b\_{j . l}^{*} C\left(w^{l}\right)}{\sum\_{w^{m} } b\_{j . m}^{*} C\left(w^{m}\right)}$
+		- $b\_{j . l}=\frac{b\_{j . l}^{*} C\left(w^{l}\right)}{\sum\_{w^{m}} b\_{j . m}^{*} C\left(w^{m}\right)}$
 		- $b\_{j . i}^{*}=\left\{\begin{array}{ll}0, & \text { 如果 } t^{j} \text { 不是词 } w^{l} \text { 所允许的词性 } \\\\ \frac{1}{T\left(w^{**strong text**l}\right)}, & \text { 其他情况 }\end{array}\right.$
 		- 等价于用最大似然估计来估算概率$P(w^k \mid t^i)$以初始化HMM，并假设每个词与其每个可能的词性标记出现的概率相等
 	3. 词汇划分等价类，以类为单位进行参数估计，大大减少了参数个数
 		- 元词（metawords）$u_L$：所有具有相同可能词性的词汇划分为一组
-		- 类似Jelinek方法处理元词：$b\_{j . l}=\frac{b\_{j . L}^{*} C\left(u\_{L}\right)}{\sum\_{u\_{L}^{\prime} } b\_{j . L^{\prime} }^{*} C\left(u\_{L^{\prime} }\right)}$
+		- 类似Jelinek方法处理元词：$b\_{j . l}=\frac{b\_{j . L}^{*} C\left(u\_{L}\right)}{\sum\_{u\_{L}^{\prime}} b\_{j . L^{\prime}}^{*} C\left(u\_{L^{\prime}}\right)}$
 		- $b\_{j . L}^{*}=\left\{\begin{array}{ll}0, & j \notin L \\\\ \frac{1}{L}, & \text { 否则 }\end{array}\right.$
 - HMM训练：前向后向算法
 - 模型参数对训练语料的适应性问题
@@ -50,11 +50,11 @@
 	- [周强，1995]的方法规则作用于是非受限的，而且没有考虑统计的可信度，使规则与统计的作用域不明确
 	- 引入置信区间，构造基于置信区间的评价函数，实现统计与规则并举
 	- HMM，前向后向算法计算状态i的词w出现次数
-		$F\left(t\_{i-1}, t\_{i}\right)=\sum\_{t\_{i-2} }\left[F\left(t\_{i-2}, t\_{i-1}\right) \times P\left(t\_{i} \mid t\_{i-1}, t\_{i-2}\right) \times P\left(w\_{i-1} \mid t\_{i-1}\right)\right]$
-$B\left(t\_{i-1}, t\_{i}\right)=\sum\_{t\_{i+1} }\left[B\left(t\_{i}, t\_{i-1}\right) \times P\left(t\_{i-1} \mid t\_{i}, t\_{i-1}\right) \times P\left(w\_{i-1} \mid t\_{i-1}\right)\right]$
-$\phi(w)\_{i}=\underset{t}{\operatorname{argmax} } \sum\_{t\_{i-1} }\left[F\left(t\_{i-1}, t\_{i}\right) \times B\left(t\_{i-1}, t\_{i}\right) \times P\left(w\_{i} \mid t\_{i}\right)\right]$
+		$F\left(t\_{i-1}, t\_{i}\right)=\sum\_{t\_{i-2}}\left[F\left(t\_{i-2}, t\_{i-1}\right) \times P\left(t\_{i} \mid t\_{i-1}, t\_{i-2}\right) \times P\left(w\_{i-1} \mid t\_{i-1}\right)\right]$
+$B\left(t\_{i-1}, t\_{i}\right)=\sum\_{t\_{i+1}}\left[B\left(t\_{i}, t\_{i-1}\right) \times P\left(t\_{i-1} \mid t\_{i}, t\_{i-1}\right) \times P\left(w\_{i-1} \mid t\_{i-1}\right)\right]$
+$\phi(w)\_{i}=\underset{t}{\operatorname{argmax}} \sum\_{t\_{i-1}}\left[F\left(t\_{i-1}, t\_{i}\right) \times B\left(t\_{i-1}, t\_{i}\right) \times P\left(w\_{i} \mid t\_{i}\right)\right]$
 	- 假设兼类词w的候选词性为T1，T2，T3，其对应概率的真实值分别为p1，p2，p3，词w的词性为Ti（i＝1,2,3）时的出现次数为$\phi(w)\_{T_i}$
-	- $\hat{p}\_{i}=\frac{\phi(w)\_{T\_{i} }}{\sum\_{j=1}^{3} \phi(w)\_{T\_{j} }}$
+	- $\hat{p}\_{i}=\frac{\phi(w)\_{T\_{i}}}{\sum\_{j=1}^{3} \phi(w)\_{T\_{j}}}$
 	- i=1，2，3时，记$\phi(w)\_{T_i}$为n1,n2,n3（令n1>n2>n3）
 	- p1与p2相差小时，错误可能性较大
 	- 阈值法：$p_1/p_2$是否大于阈值作为是否选择$T_1$也无法区别n1=300,n2=100与n1=3,n2=1的情况（前者显然更加可靠）
@@ -63,9 +63,9 @@ $\phi(w)\_{i}=\underset{t}{\operatorname{argmax} } \sum\_{t\_{i-1} }\left[F\left
 	- 由于ln（p1/p2）比p1/p2更快地逼近正态分布［Dagan and Itai,1994］，因此，可应用单边区间估计方法计算ln（p1/p2）的置信区间。
 	- 假设希望的错误率（desired error probability）（显著性水平）为α（0＜α＜1），则可信度为1-α，服从正态分布的随机变量X的置信区间为$Z\_{1-\alpha} \sqrt{\operatorname{vax} X}$
 		- 置信系数$Z\_{1-\alpha}$
-		- 标准差$\operatorname{vax} X=\operatorname{vax}\left[\ln \frac{\hat{p}\_{1} }{\hat{p}\_{2} }\right] \approx \frac{1}{n\_{1} }+\frac{1}{n\_{2} }$
+		- 标准差$\operatorname{vax} X=\operatorname{vax}\left[\ln \frac{\hat{p}\_{1}}{\hat{p}\_{2}}\right] \approx \frac{1}{n\_{1}}+\frac{1}{n\_{2}}$
 		- 最终评价函数
-		$\ln \frac{n\_{1} }{n\_{2} } \geqslant \theta+Z\_{1-\alpha} \quad \sqrt{\frac{1}{n\_{1} }+\frac{1}{n\_{2} }}$
+		$\ln \frac{n\_{1}}{n\_{2}} \geqslant \theta+Z\_{1-\alpha} \quad \sqrt{\frac{1}{n\_{1}}+\frac{1}{n\_{2}}}$
 - 对统计标注结果的筛选，只对那些被认为可疑的标注结果，才采用规则方法进行歧义消解，而不是对所有的情况都既使用统计方法又使用规则方法
 
 
@@ -74,12 +74,12 @@ $\phi(w)\_{i}=\underset{t}{\operatorname{argmax} } \sum\_{t\_{i-1} }\left[F\left
 2. 统计：通过合理处理词汇的发射频率解决
 
 - 假设一个词汇序列W＝w1w2…wN对应的词性序列为T＝t1t2…tN，那么，词性标注问题就是求解使条件概率P（T|W）最大的T，即
-	$\hat{T}=\underset{T}{\arg \max } P(T \mid W)=\underset{T}{\operatorname{argmax} } P(T) \times P(W \mid T)$
+	$\hat{T}=\underset{T}{\arg \max } P(T \mid W)=\underset{T}{\operatorname{argmax}} P(T) \times P(W \mid T)$
 - 对于一阶马尔科夫过程；
-	$\hat{T}=\underset{t\_{1} \cdot t\_{2}, \cdots, t\_{\mathrm{N} }}{\operatorname{argmax} } P\left(t\_{1}\right) P\left(w\_{1} \mid t\_{1}\right) \prod\_{i=2}^{N} P\left(t\_{i} \mid t\_{i-1}\right) P\left(w\_{i} \mid t\_{i}\right)$
+	$\hat{T}=\underset{t\_{1} \cdot t\_{2}, \cdots, t\_{\mathrm{N}}}{\operatorname{argmax}} P\left(t\_{1}\right) P\left(w\_{1} \mid t\_{1}\right) \prod\_{i=2}^{N} P\left(t\_{i} \mid t\_{i-1}\right) P\left(w\_{i} \mid t\_{i}\right)$
 	- $P(t_i \mid t\_{i-1})$为HMM中的状态转移概率，$P(W_i \mid t_i)$为词汇发射概率
 - 假设词汇序列W中有生词$x_j$，其词性标注为$t_j$
-	$\begin{aligned} \hat{T}=& \underset{t\_{1}, t\_{2}, \cdots, t\_{N} }{\operatorname{argmax} } P\left(t\_{1}\right) P\left(w\_{1} \mid t\_{1}\right) \\\\ & \cdots P\left(t\_{j} \mid t\_{j-1}\right) P\left(x\_{j} \mid t\_{j}\right) \prod\_{i=j-1}^{N} P\left(t\_{i} \mid t\_{i-1}\right) P\left(w\_{i} \mid t\_{i}\right) \end{aligned}$
+	$\begin{aligned} \hat{T}=& \underset{t\_{1}, t\_{2}, \cdots, t\_{N}}{\operatorname{argmax}} P\left(t\_{1}\right) P\left(w\_{1} \mid t\_{1}\right) \\\\ & \cdots P\left(t\_{j} \mid t\_{j-1}\right) P\left(x\_{j} \mid t\_{j}\right) \prod\_{i=j-1}^{N} P\left(t\_{i} \mid t\_{i-1}\right) P\left(w\_{i} \mid t\_{i}\right) \end{aligned}$
 - [赵铁军等，2001]将生词词汇发射概率赋值为1
 	- 简单高效，但缺乏统计先验知识，正确率受到影响
 - [张孝非等，2003]将词汇序列W加入训练集

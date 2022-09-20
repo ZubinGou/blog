@@ -25,7 +25,7 @@ $$
 
 有外部输入的非线性自回归模型（Nonlinear AutoRegressive with Exogenous Inputs Model，NARX）： 每个时候都有输入输出，通过延时器记录最近$K_x$次输入和$K_y$次输出，则t时刻输出$y_t$为
 $$
-\boldsymbol{y}\_{t}=f\left(\boldsymbol{x}\_{t}, \boldsymbol{x}\_{t-1}, \cdots, \boldsymbol{x}\_{t-K\_{x} }, \boldsymbol{y}\_{t-1}, \boldsymbol{y}\_{t-2}, \cdots, \boldsymbol{y}\_{t-K\_{y} }\right)
+\boldsymbol{y}\_{t}=f\left(\boldsymbol{x}\_{t}, \boldsymbol{x}\_{t-1}, \cdots, \boldsymbol{x}\_{t-K\_{x}}, \boldsymbol{y}\_{t-1}, \boldsymbol{y}\_{t-2}, \cdots, \boldsymbol{y}\_{t-K\_{y}}\right)
 $$
 
 ### 6.1.3 循环神经网络
@@ -88,7 +88,7 @@ $$
 $$
 \begin{aligned}
 \boldsymbol{h}\_{t} &=f\_{1}\left(\boldsymbol{h}\_{t-1}, \boldsymbol{x}\_{t}\right), & & \forall t \in[1, T] \\\\
-\boldsymbol{h}\_{T+t} &=f\_{2}\left(\boldsymbol{h}\_{T+t-1}, \hat{\boldsymbol{y} }\_{t-1}\right), & & \forall t \in[1, M] \\\\
+\boldsymbol{h}\_{T+t} &=f\_{2}\left(\boldsymbol{h}\_{T+t-1}, \hat{\boldsymbol{y}}\_{t-1}\right), & & \forall t \in[1, M] \\\\
 \hat{y}\_{t} &=g\left(\boldsymbol{h}\_{T+t}\right), & & \forall t \in[1, M]
 \end{aligned}
 $$
@@ -104,32 +104,32 @@ $$
 \mathcal{L}=\sum\_{t=1}^{T} \mathcal{L}\_{t}
 $$
 $$
-\frac{\partial \mathcal{L} }{\partial \boldsymbol{U} }=\sum\_{t=1}^{T} \frac{\partial \mathcal{L}\_{t} }{\partial \boldsymbol{U} }
+\frac{\partial \mathcal{L}}{\partial \boldsymbol{U}}=\sum\_{t=1}^{T} \frac{\partial \mathcal{L}\_{t}}{\partial \boldsymbol{U}}
 $$
 
 ### 6.4.1 随时间反向传播算法
 随时间反向传播（BackPropagation Through Time，BPTT）
 $$
-\frac{\partial \mathcal{L}\_{t} }{\partial u\_{i j} }=\sum\_{k=1}^{t} \frac{\partial^{+} z\_{k} }{\partial u\_{i j} } \frac{\partial \mathcal{L}\_{t} }{\partial z\_{k} }
+\frac{\partial \mathcal{L}\_{t}}{\partial u\_{i j}}=\sum\_{k=1}^{t} \frac{\partial^{+} z\_{k}}{\partial u\_{i j}} \frac{\partial \mathcal{L}\_{t}}{\partial z\_{k}}
 $$
 
 t时刻的损失对k时刻的隐藏层净输入的导数：
 $$
 \begin{aligned}
-\delta\_{t, k} &=\frac{\partial \mathcal{L}\_{t} }{\partial z\_{k} } \\\\
-&=\frac{\partial \boldsymbol{h}\_{k} }{\partial \boldsymbol{z}\_{k} } \frac{\partial \boldsymbol{z}\_{k+1} }{\partial \boldsymbol{h}\_{k} } \frac{\partial \mathcal{L}\_{t} }{\partial \boldsymbol{z}\_{k+1} } \\\\
+\delta\_{t, k} &=\frac{\partial \mathcal{L}\_{t}}{\partial z\_{k}} \\\\
+&=\frac{\partial \boldsymbol{h}\_{k}}{\partial \boldsymbol{z}\_{k}} \frac{\partial \boldsymbol{z}\_{k+1}}{\partial \boldsymbol{h}\_{k}} \frac{\partial \mathcal{L}\_{t}}{\partial \boldsymbol{z}\_{k+1}} \\\\
 &=\operatorname{diag}\left(f^{\prime}\left(\boldsymbol{z}\_{k}\right)\right) \boldsymbol{U}^{\top} \delta\_{t, k+1}
 \end{aligned}
 $$
 
 参数梯度：
 $$
-\frac{\partial \mathcal{L} }{\partial \boldsymbol{U} }=\sum\_{t=1}^{T} \sum\_{k=1}^{t} \delta\_{t, k} \boldsymbol{h}\_{k-1}^{\top}
+\frac{\partial \mathcal{L}}{\partial \boldsymbol{U}}=\sum\_{t=1}^{T} \sum\_{k=1}^{t} \delta\_{t, k} \boldsymbol{h}\_{k-1}^{\top}
 $$
 $$
 \begin{aligned}
-\frac{\partial \mathcal{L} }{\partial \boldsymbol{W} } &=\sum\_{t=1}^{T} \sum\_{k=1}^{t} \delta\_{t, k} \boldsymbol{x}\_{k}^{\top}, \\\\
-\frac{\partial \mathcal{L} }{\partial \boldsymbol{b} } &=\sum\_{t=1}^{T} \sum\_{k=1}^{t} \delta\_{t, k}
+\frac{\partial \mathcal{L}}{\partial \boldsymbol{W}} &=\sum\_{t=1}^{T} \sum\_{k=1}^{t} \delta\_{t, k} \boldsymbol{x}\_{k}^{\top}, \\\\
+\frac{\partial \mathcal{L}}{\partial \boldsymbol{b}} &=\sum\_{t=1}^{T} \sum\_{k=1}^{t} \delta\_{t, k}
 \end{aligned}
 $$
 ![c53fb3c1cd1aa036ad02bd8a9dc38abc.png](../../_resources/7b3142af8f174aef8a8237f9882db903.png)
@@ -137,7 +137,7 @@ $$
 ### 6.4.2 实时循环学习算法
 实时循环学习（Real-Time Recurrent Learning，RTRL）：前向传播计算梯度
 $$
-\frac{\partial \mathcal{L}\_{t} }{\partial u\_{i j} }=\frac{\partial \boldsymbol{h}\_{t} }{\partial u\_{i j} } \frac{\partial \mathcal{L}\_{t} }{\partial \boldsymbol{h}\_{t} }
+\frac{\partial \mathcal{L}\_{t}}{\partial u\_{i j}}=\frac{\partial \boldsymbol{h}\_{t}}{\partial u\_{i j}} \frac{\partial \mathcal{L}\_{t}}{\partial \boldsymbol{h}\_{t}}
 $$
 
 两种算法比较：
@@ -165,7 +165,7 @@ $$
 
 $$
 \begin{aligned}
-\boldsymbol{c}\_{t} &=\boldsymbol{f}\_{t} \odot \boldsymbol{c}\_{t-1}+\boldsymbol{i}\_{t} \odot \tilde{\boldsymbol{c} }\_{t} \\\\
+\boldsymbol{c}\_{t} &=\boldsymbol{f}\_{t} \odot \boldsymbol{c}\_{t-1}+\boldsymbol{i}\_{t} \odot \tilde{\boldsymbol{c}}\_{t} \\\\
 \boldsymbol{h}\_{t} &=\boldsymbol{o}\_{t} \odot \tanh \left(\boldsymbol{c}\_{t}\right)
 \end{aligned}
 $$
@@ -173,7 +173,7 @@ $$
 候选状态：
 
 $$
-\tilde{\boldsymbol{c} }\_{t}=\tanh \left(\boldsymbol{W}\_{c} \boldsymbol{x}\_{t}+\boldsymbol{U}\_{c} \boldsymbol{h}\_{t-1}+\boldsymbol{b}\_{c}\right)
+\tilde{\boldsymbol{c}}\_{t}=\tanh \left(\boldsymbol{W}\_{c} \boldsymbol{x}\_{t}+\boldsymbol{U}\_{c} \boldsymbol{h}\_{t-1}+\boldsymbol{b}\_{c}\right)
 $$
 
 门控机制：
@@ -190,7 +190,7 @@ $$
 $$
 \begin{aligned}
 \left[\begin{array}{c}
-\tilde{\boldsymbol{c} }\_{t} \\\\
+\tilde{\boldsymbol{c}}\_{t} \\\\
 \boldsymbol{o}\_{t} \\\\
 \boldsymbol{i}\_{t} \\\\
 \boldsymbol{f}\_{t}
@@ -203,7 +203,7 @@ $$
 \boldsymbol{x}\_{t} \\\\
 \boldsymbol{h}\_{t-1}
 \end{array}\right]+\boldsymbol{b}\right), \\\\
-\boldsymbol{c}\_{t} &=\boldsymbol{f}\_{t} \odot \boldsymbol{c}\_{t-1}+\boldsymbol{i}\_{t} \odot \tilde{\boldsymbol{c} }\_{t} \\\\
+\boldsymbol{c}\_{t} &=\boldsymbol{f}\_{t} \odot \boldsymbol{c}\_{t-1}+\boldsymbol{i}\_{t} \odot \tilde{\boldsymbol{c}}\_{t} \\\\
 \boldsymbol{h}\_{t} &=\boldsymbol{o}\_{t} \odot \tanh \left(\boldsymbol{c}\_{t}\right)
 \end{aligned}
 $$
@@ -220,7 +220,7 @@ $$
 改进门控机制：
 1. 无遗忘门的 LSTM 网络（[Hochreiter et al., 1997] 最早提出的 LSTM 网络）：
 $$
-\boldsymbol{c}\_{t}=\boldsymbol{c}\_{t-1}+\boldsymbol{i}\_{t} \odot \tilde{\boldsymbol{c} }\_{t}
+\boldsymbol{c}\_{t}=\boldsymbol{c}\_{t-1}+\boldsymbol{i}\_{t} \odot \tilde{\boldsymbol{c}}\_{t}
 $$
 
 2. peephole连接：也依赖与上一时刻记忆单元：
@@ -234,7 +234,7 @@ $$
 
 3. 耦合输入门和遗忘门（$\boldsymbol{f}\_{t}=1-\boldsymbol{i}\_{t}$）：
 $$
-\boldsymbol{c}\_{t}=\left(1-\boldsymbol{i}\_{t}\right) \odot \boldsymbol{c}\_{t-1}+\boldsymbol{i}\_{t} \odot \tilde{\boldsymbol{c} }\_{t}
+\boldsymbol{c}\_{t}=\left(1-\boldsymbol{i}\_{t}\right) \odot \boldsymbol{c}\_{t-1}+\boldsymbol{i}\_{t} \odot \tilde{\boldsymbol{c}}\_{t}
 $$
 
 ### 门控循环单元网络
@@ -249,10 +249,10 @@ $$
 \boldsymbol{r}\_{t}=\sigma\left(\boldsymbol{W}\_{r} \boldsymbol{x}\_{t}+\boldsymbol{U}\_{r} \boldsymbol{h}\_{t-1}+\boldsymbol{b}\_{r}\right)
 $$
 $$
-\tilde{\boldsymbol{h} }\_{t}=\tanh \left(\boldsymbol{W}\_{h} \boldsymbol{x}\_{t}+\boldsymbol{U}\_{h}\left(\boldsymbol{r}\_{t} \odot \boldsymbol{h}\_{t-1}\right)+\boldsymbol{b}\_{h}\right)
+\tilde{\boldsymbol{h}}\_{t}=\tanh \left(\boldsymbol{W}\_{h} \boldsymbol{x}\_{t}+\boldsymbol{U}\_{h}\left(\boldsymbol{r}\_{t} \odot \boldsymbol{h}\_{t-1}\right)+\boldsymbol{b}\_{h}\right)
 $$
 $$
-\boldsymbol{h}\_{t}=\boldsymbol{z}\_{t} \odot \boldsymbol{h}\_{t-1}+\left(1-\boldsymbol{z}\_{t}\right) \odot \tilde{\boldsymbol{h} }\_{t}
+\boldsymbol{h}\_{t}=\boldsymbol{z}\_{t} \odot \boldsymbol{h}\_{t-1}+\left(1-\boldsymbol{z}\_{t}\right) \odot \tilde{\boldsymbol{h}}\_{t}
 $$
 
 ![c4496410ffccdb84a1f142483d6295a2.png](../../_resources/cba3271bf4a145739bb6734065d163a3.png) 
@@ -338,16 +338,16 @@ $$
 
 <!-- $$
 \begin{aligned}
-\delta_{t, k} &=\frac{\partial \mathcal{L}_{t} }{\partial \boldsymbol{z}_{k} } \\
-&=\frac{\partial \boldsymbol{h}_{k} }{\partial \boldsymbol{z}_{k} } \frac{\partial \boldsymbol{z}_{k+1} }{\partial \boldsymbol{h}_{k} } \frac{\partial \mathcal{L}_{t} }{\partial \boldsymbol{z}_{k+1} } \\
+\delta_{t, k} &=\frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k}} \\
+&=\frac{\partial \boldsymbol{h}_{k}}{\partial \boldsymbol{z}_{k}} \frac{\partial \boldsymbol{z}_{k+1}}{\partial \boldsymbol{h}_{k}} \frac{\partial \mathcal{L}_{t}}{\partial \boldsymbol{z}_{k+1}} \\
 &=\operatorname{diag}\left(f^{\prime}\left(\boldsymbol{z}_{k}\right)\right) \boldsymbol{U}^{\top} \delta_{t, k+1}
 \end{aligned}
 $$ -->
 
 $$
 \begin{aligned}
-\delta\_{t, k} &=\frac{\partial \mathcal{L}\_{t} }{\partial \boldsymbol{z}\_{k} } \\\\
-&=\frac{\partial \boldsymbol{h}\_{k} }{\partial \boldsymbol{z}\_{k} } \frac{\partial \boldsymbol{z}\_{k+1} }{\partial \boldsymbol{h}\_{k} } \frac{\partial \mathcal{L}\_{t} }{\partial \boldsymbol{z}\_{k+1} } \\\\
+\delta\_{t, k} &=\frac{\partial \mathcal{L}\_{t}}{\partial \boldsymbol{z}\_{k}} \\\\
+&=\frac{\partial \boldsymbol{h}\_{k}}{\partial \boldsymbol{z}\_{k}} \frac{\partial \boldsymbol{z}\_{k+1}}{\partial \boldsymbol{h}\_{k}} \frac{\partial \mathcal{L}\_{t}}{\partial \boldsymbol{z}\_{k+1}} \\\\
 &=\operatorname{diag}\left(f^{\prime}\left(\boldsymbol{z}\_{k}\right)\right) \boldsymbol{U}^{\top} \delta\_{t, k+1}
 \end{aligned}
 $$

@@ -5,9 +5,9 @@
 
 ## 13.1 文本分类概述
 - [Sebastiani, 2002]数学模型描述文本分类：
-	- 获得函数（分类器）：$\Phi: {D} \times {C} \rightarrow\{ {T}, \quad {F}\}$
+	- 获得函数（分类器）：$\Phi: {D} \times {C} \rightarrow\{{T}, \quad {F}\}$
 	- 文档：$D=\{d_1, d_2, ...,d\_{|D|}\}$
-	- 类别：${C}=\left\{ {c}\_{1}, {c}\_{2}, \ldots, {c}\_{|C|}\right\}$
+	- 类别：${C}=\left\{{c}\_{1}, {c}\_{2}, \ldots, {c}\_{|C|}\right\}$
 - 关键问题
 	- 文本表示
 	- 分类器设计
@@ -48,7 +48,7 @@
 		![d038a8bfa260c4b1cd7da04def10bc06.png](../../_resources/82468445660f4c8d8cf5603fae23deec.png)
 - 向量的相似性度量（similarity）：任意两个文档D1和D2之间的相似系数Sim（D1，D2）指两个文档内容的相关程度（degree of relevance）
 	- 向量内积：$\operatorname{Sim}\left(D\_{1}, D\_{2}\right)=\sum\_{k=1}^{n} w\_{1 k} \times w\_{2 k}$
-	- 考虑归一化，向量余弦：$\operatorname{Sim}\left(D\_{1}, D\_{2}\right)=\cos \theta=\frac{\sum\_{k=1}^{n} w\_{1 k} \times w\_{2 k} }{\sum\_{k=1}^{n} w\_{1 k}^{2} \sum\_{k=1}^{n} w\_{2 k}^{2} }$
+	- 考虑归一化，向量余弦：$\operatorname{Sim}\left(D\_{1}, D\_{2}\right)=\cos \theta=\frac{\sum\_{k=1}^{n} w\_{1 k} \times w\_{2 k}}{\sum\_{k=1}^{n} w\_{1 k}^{2} \sum\_{k=1}^{n} w\_{2 k}^{2}}$
 - 除了VSM以外表示方法：
 	- 词组表示法：
 		- 提高不显著
@@ -75,7 +75,7 @@
 ### 13.3.2 信息增益（IG）法
 - 信息增益法：根据某特征项$t_i$使得期望信息或者信息熵的有效减少量（信息增益）来判断其重要程度以取舍
 - 信息增益 = 不考虑任何特征时文档的熵 - 考虑该特征后文档的熵
-$\begin{aligned} \operatorname{Gain}\left(t\_{i}\right)=& \text { Entropy }(S)-\text { Expected Entropy }\left(S\_{t\_{i} }\right) \\\\=&\left\{-\sum\_{j=1}^{M} P\left(C\_{j}\right) \times \log P\left(C\_{j}\right)\right\}-\left\{P\left(t\_{i}\right) \times\left[-\sum\_{j=1}^{M} P\left(C\_{j} \mid t\_{i}\right) \times \log P\left(C\_{j} \mid t\_{i}\right)\right]\right.\\ &\left.+P\left(\bar{t}\_{i}\right) \times\left[-\sum\_{i=1}^{M} P\left(C\_{j} \mid \bar{t}\_{i}\right) \times \log P\left(C\_{j} \mid \bar{t}\_{i}\right)\right]\right\} \end{aligned}$
+$\begin{aligned} \operatorname{Gain}\left(t\_{i}\right)=& \text { Entropy }(S)-\text { Expected Entropy }\left(S\_{t\_{i}}\right) \\\\=&\left\{-\sum\_{j=1}^{M} P\left(C\_{j}\right) \times \log P\left(C\_{j}\right)\right\}-\left\{P\left(t\_{i}\right) \times\left[-\sum\_{j=1}^{M} P\left(C\_{j} \mid t\_{i}\right) \times \log P\left(C\_{j} \mid t\_{i}\right)\right]\right.\\ &\left.+P\left(\bar{t}\_{i}\right) \times\left[-\sum\_{i=1}^{M} P\left(C\_{j} \mid \bar{t}\_{i}\right) \times \log P\left(C\_{j} \mid \bar{t}\_{i}\right)\right]\right\} \end{aligned}$
 - 信息增益法是理论上最好的特征选取方法，但实际上许多高信息增益的特征出现频率较低，选取特征数目少时往往存在数据稀疏问题，分类效果差
 
 
@@ -83,12 +83,12 @@ $\begin{aligned} \operatorname{Gain}\left(t\_{i}\right)=& \text { Entropy }(S)-\
 - $\chi^2$统计量（CHI）衡量的是特征项ti和类别Cj之间的相关联程度，并假设ti和Cj之间符合具有一阶自由度的$\chi^2$分布
 
 - ![9f02bc61446d7b37570ceca72d35a6e2.png](../../_resources/5c695beda9de4e259c1f532b0abef568.png)
-$\chi^{2}\left(t\_{i}, C\_{j}\right)=\frac{N \times(A \times D-C \times B)^{2} }{(A+C) \times(B+D) \times(A+B) \times(C+D)}$
+$\chi^{2}\left(t\_{i}, C\_{j}\right)=\frac{N \times(A \times D-C \times B)^{2}}{(A+C) \times(B+D) \times(A+B) \times(C+D)}$
 - 两种实现方法
 	1. 最大值法：分别计算$t_i$对于每个类别的CHI值，然后在整个训练语料上：
-	$\chi\_{\mathrm{MAX} }^{2}\left(t\_{i}\right)=\max \_{j=1}^{M} x\left\{\chi^{2}\left(t\_{i}, C\_{j}\right)\right\}$
+	$\chi\_{\mathrm{MAX}}^{2}\left(t\_{i}\right)=\max \_{j=1}^{M} x\left\{\chi^{2}\left(t\_{i}, C\_{j}\right)\right\}$
 	2. 平均值法：计算各特征对于各类别的平均值
-$\chi\_{\mathrm{AVG} }^{2}\left(t\_{i}\right)=\sum\_{j=1}^{M} P\left(C\_{j}\right) \chi^{2}\left(t\_{i}, C\_{j}\right)$
+$\chi\_{\mathrm{AVG}}^{2}\left(t\_{i}\right)=\sum\_{j=1}^{M} P\left(C\_{j}\right) \chi^{2}\left(t\_{i}, C\_{j}\right)$
 	- 保留统计量高于给定阈值的特征
 - 开方检验的缺点：忽略了词频，夸大了低频词的作用（低频词缺陷）。
 
@@ -98,8 +98,8 @@ $\chi\_{\mathrm{AVG} }^{2}\left(t\_{i}\right)=\sum\_{j=1}^{M} P\left(C\_{j}\righ
 - 若特征ti和类别Cj无关，则P（ti，Cj）＝P（ti）×P（Cj），那么，
 I（ti，Cj）＝0
 - 两种处理方法
-	1. 最大值法：$I\_{\mathrm{MAX} }\left(t\_{i}\right)=\max \_{j=1}^{M} \mathrm{x}\left[P\left(C\_{j}\right) \times I\left(t\_{i}, C\_{j}\right)\right]$
-	2. 平均值法：$I\_{\mathrm{AVG} }\left(t\_{i}\right)=\sum\_{j=1}^{M} P\left(C\_{j}\right) I\left(t\_{i}, C\_{j}\right)$
+	1. 最大值法：$I\_{\mathrm{MAX}}\left(t\_{i}\right)=\max \_{j=1}^{M} \mathrm{x}\left[P\left(C\_{j}\right) \times I\left(t\_{i}, C\_{j}\right)\right]$
+	2. 平均值法：$I\_{\mathrm{AVG}}\left(t\_{i}\right)=\sum\_{j=1}^{M} P\left(C\_{j}\right) I\left(t\_{i}, C\_{j}\right)$
 
 ### 其他方法
 - DTP（distance to transition point）方法［Moyotl-Hernández and Jiménez-Salazar, 2005］
@@ -132,35 +132,35 @@ I（ti，Cj）＝0
 
 基本思想：利用特征项和类别的联合概率来估计给定文档的类别概率。假设文本是基于词的一元模型。
 
-假设现有的类别$C=(c_1,c_2...c_m)$，则文档最可能属于$\hat{c}=\underset{c \in C}{\operatorname{argmax} } P(c \mid d)$类，使用贝叶斯公式转换为如下形式：
+假设现有的类别$C=(c_1,c_2...c_m)$，则文档最可能属于$\hat{c}=\underset{c \in C}{\operatorname{argmax}} P(c \mid d)$类，使用贝叶斯公式转换为如下形式：
 $$
-\hat{c}=\underset{c \in C}{\operatorname{argmax} } P(c \mid d)=\underset{c \in C}{\operatorname{argmax} } \frac{P(d \mid c) P(c)}{P(d)}
+\hat{c}=\underset{c \in C}{\operatorname{argmax}} P(c \mid d)=\underset{c \in C}{\operatorname{argmax}} \frac{P(d \mid c) P(c)}{P(d)}
 $$
 分母相同可以忽略，得到：
 $$
-\hat{c}=\underset{c \in C}{\operatorname{argmax} } P(c \mid d)=\underset{c \in C}{\operatorname{argmax} } P(d \mid c) P(c)
+\hat{c}=\underset{c \in C}{\operatorname{argmax}} P(c \mid d)=\underset{c \in C}{\operatorname{argmax}} P(d \mid c) P(c)
 $$
 这个公式由两部分组成，前面那部分$P(d|c)$ 称为似然函数，后面那部分$P(c)$ 称为先验概率。使用词袋模型来表示文档$d$，文档$d$的每个特征表示为：$d={f_1,f_2,f_3……f_n}$，那么这里的特征$f_i$ 其实就是单词$w_i$ 出现的频率（次数），公式转化为：
 $$
-\hat{c}=\underset{c \in C}{\operatorname{argmax} } \overbrace{P\left(f\_{1}, f\_{2}, \ldots, f\_{n} \mid c\right)}^{\text {likelihood } } \overbrace{P(c)}^{\text {prior } }
+\hat{c}=\underset{c \in C}{\operatorname{argmax}} \overbrace{P\left(f\_{1}, f\_{2}, \ldots, f\_{n} \mid c\right)}^{\text {likelihood }} \overbrace{P(c)}^{\text {prior }}
 $$
 朴素贝叶斯的“朴素”表现在假设各个特征之间相互独立（条件独立性假设），则$P\left(f\_{1}, f\_{2} \ldots \ldots\_{n} \mid c\right)=P\left(f\_{1} \mid c\right){\times} P\left(f\_{2} \mid c\right){\times} \ldots \ldots{\times} P\left(f\_{n} \mid c\right)$，故而公式变为
 $$
-c\_{N B}=\underset{c \in C}{\operatorname{argmax} } P(c) \prod\_{f \in F} P(f \mid c)
+c\_{N B}=\underset{c \in C}{\operatorname{argmax}} P(c) \prod\_{f \in F} P(f \mid c)
 $$
 因为每个概率的值很小，多个相乘则可能出现下溢（underflower）， 引入对数函数$log$，在$log\ space$中进行计算：
 $$
-c\_{N B}=\underset{c \in C}{\operatorname{argmax} } \log P(c)+\sum\_{i \in \text {positions} } \log P\left(w\_{i} \mid c\right)
+c\_{N B}=\underset{c \in C}{\operatorname{argmax}} \log P(c)+\sum\_{i \in \text {positions}} \log P\left(w\_{i} \mid c\right)
 $$
 
 1. 文档采用DF向量表示法：
 	$P\left(\right.$ Doc $\left.\mid C\_{i}\right)=\prod\_{t\_{j} \in V} P\left(\operatorname{Doc}\left(t\_{j}\right) \mid C\_{i}\right)$
 $P($ Doc $)=\sum\_{i}\left[P\left(C\_{i}\right) \prod\_{t\_{i} \in V} P\left(\operatorname{Doc}\left(t\_{i}\right) \mid C\_{i}\right)\right]$
 $P\left(C\_{i} \mid\right.$ Doc $)=\frac{P\left(C\_{i}\right) \prod\_{t\_{j} \in V} P\left(\operatorname{Doc}\left(t\_{j}\right) \mid C\_{i}\right)}{\sum\_{i}\left[P\left(C\_{i}\right) \prod\_{t\_{j} \in V} P\left(\operatorname{Doc}\left(t\_{j}\right) \mid C\_{i}\right)\right]}$
-	- 拉普拉斯估计：$P\left(\operatorname{Doc}\left(t\_{j}\right) \mid C\_{i}\right)=\frac{1+N\left(\operatorname{Doc}\left(t\_{j}\right) \mid C\_{i}\right)}{2+\left|D\_{c\_{i} }\right|}$
+	- 拉普拉斯估计：$P\left(\operatorname{Doc}\left(t\_{j}\right) \mid C\_{i}\right)=\frac{1+N\left(\operatorname{Doc}\left(t\_{j}\right) \mid C\_{i}\right)}{2+\left|D\_{c\_{i}}\right|}$
 	- 分子加1和分母加2背后的基本原理是这样的：在执行实际的试验之前，我们假设已经有两次试验，一次成功和一次失败
 2. 文档采用TF向量表示法：
-	$P\left(C\_{i} \mid\right.$ Doc $)=\frac{P\left(C\_{i}\right) \prod\_{t\_{i} \in V} P\left(t\_{j} \mid C\_{i}\right)^{\mathrm{TF}\left(t\_{i}, \text { Doc }\right)} }{\sum\_{j}\left[P\left(C\_{j}\right) \prod\_{t\_{i} \in V} P\left(t\_{i} \mid C\_{j}\right)^{\mathrm{TF}\left(t\_{i}, \mathrm{D}\_{0}\right)}\right]}$
+	$P\left(C\_{i} \mid\right.$ Doc $)=\frac{P\left(C\_{i}\right) \prod\_{t\_{i} \in V} P\left(t\_{j} \mid C\_{i}\right)^{\mathrm{TF}\left(t\_{i}, \text { Doc }\right)}}{\sum\_{j}\left[P\left(C\_{j}\right) \prod\_{t\_{i} \in V} P\left(t\_{i} \mid C\_{j}\right)^{\mathrm{TF}\left(t\_{i}, \mathrm{D}\_{0}\right)}\right]}$
 	- 拉普拉斯估计：$P\left(t\_{i} \mid C\_{i}\right)=\frac{1+\operatorname{TF}\left(t\_{i}, C\_{i}\right)}{|V|+\sum\_{j} \operatorname{TF}\left(t\_{j}, C\_{i}\right)}$
 	- 加一平滑，对每个类别下所有划分的计数加1
 
@@ -170,7 +170,7 @@ $P\left(C\_{i} \mid\right.$ Doc $)=\frac{P\left(C\_{i}\right) \prod\_{t\_{j} \in
 
 ### 13.5.3 k-最邻近法（kNN）
 - 在训练集中找邻近的k个文档，对其中每类的每个文档进行权重（余弦相似度）求和，作为该类和测试文档的相似度，决策规则：
-	$y\left(x, C\_{j}\right)=\sum\_{d\_{i} \in k \mathrm{NN} } \operatorname{sim}\left(x, d\_{i}\right) y\left(d\_{i}, C\_{j}\right)-b\_{j}$
+	$y\left(x, C\_{j}\right)=\sum\_{d\_{i} \in k \mathrm{NN}} \operatorname{sim}\left(x, d\_{i}\right) y\left(d\_{i}, C\_{j}\right)-b\_{j}$
 	- $y(d_i，C_j)$为1表示di属于分类Cj，0表不属于。
 	- $b_j$为二元决策的阈值
 
@@ -179,7 +179,7 @@ $P\left(C\_{i} \mid\right.$ Doc $)=\frac{P\left(C\_{i}\right) \prod\_{t\_{j} \in
 
 ### 13.5.5 线性最小平方拟合法（linear least-squares fit, LLSF）
 - 从训练集和分类文档中学习得到多元回归模型（multivariate regression model）
-- $\boldsymbol{F}\_{\mathrm{LS} }=\arg \min \_{F}\|\boldsymbol{F} \times \boldsymbol{A}-\boldsymbol{B}\|^{2}$
+- $\boldsymbol{F}\_{\mathrm{LS}}=\arg \min \_{F}\|\boldsymbol{F} \times \boldsymbol{A}-\boldsymbol{B}\|^{2}$
 - 矩阵A和矩阵B描述的是训练数据（对应栏分别是输入和输出向量）；FLS为结果矩阵，定义了从任意文档到加权分类向量的映射。对这些分类的权重映射值排序，同时结合阈值算法，就可以来判别输入文档所属的类别。阈值是从训练中学习获取的
 
 ### 13.5.6 决策树分类器
@@ -201,7 +201,7 @@ $P\left(C\_{i} \mid\right.$ Doc $)=\frac{P\left(C\_{i}\right) \prod\_{t\_{j} \in
 	3. 对待分类文本，距离最近的类就是所属类别
 - 距离：向量点积、余弦相似度等
 - 如果C类文本的原型向量为w1，已知一组训练文本，可以预测w1改进的第j个元素值为
-	$w\_{1 j}^{\prime}=\alpha w\_{1 j}+\beta \frac{\sum\_{i \in C} x\_{i j} }{n\_{C} }-\gamma \frac{\sum\_{i \in C} x\_{i j} }{n-n\_{C} }$
+	$w\_{1 j}^{\prime}=\alpha w\_{1 j}+\beta \frac{\sum\_{i \in C} x\_{i j}}{n\_{C}}-\gamma \frac{\sum\_{i \in C} x\_{i j}}{n-n\_{C}}$
 	- nC是训练样本中正例个数，即属于类别C的文本数；xij是第i个文本特征向量的第j个元素值；α、β、γ为控制参数。α控制了上一次计算所得的w对本次计算所产生的影响，β和γ分别控制正例训练集和反例训练集对结果的影响。
 
 ### 13.5.9 基于投票的分类方法
@@ -226,8 +226,8 @@ $P\left(C\_{i} \mid\right.$ Doc $)=\frac{P\left(C\_{i}\right) \prod\_{t\_{j} \in
 ![93d2643f71b5b3245deb26921e5fe355.png](../../_resources/cb2c4045c6b94c84b38f4a6f01af5450.png)
 - 正确率（Precision）：$P=\frac{T P}{T P+F P}$
 - 召回率（Recall）：$R=\frac{T P}{T P+F N}$
-- $F\_{\beta}$值（P与R加权调和平均）：$F\_{\beta}=\frac{\beta^{2}+1}{\frac{\beta^{2} }{r}+\frac{1}{p} }=\frac{\left(\beta^{2}+1\right) \times p \times r}{\beta^{2} \times p+r}$
-- $F_1$值（P与R调和平均值）：$F\_{1}=\frac{1}{\frac{1}{2} \frac{1}{P}+\frac{1}{2} \frac{1}{R} }=\frac{2 P R}{P+R}$
+- $F\_{\beta}$值（P与R加权调和平均）：$F\_{\beta}=\frac{\beta^{2}+1}{\frac{\beta^{2}}{r}+\frac{1}{p}}=\frac{\left(\beta^{2}+1\right) \times p \times r}{\beta^{2} \times p+r}$
+- $F_1$值（P与R调和平均值）：$F\_{1}=\frac{1}{\frac{1}{2} \frac{1}{P}+\frac{1}{2} \frac{1}{R}}=\frac{2 P R}{P+R}$
 - 宏平均（Macro-averaging）：先对每一个类统计指标值，然后在对所有类求算术平均值。
 - 微平均（Micro-averaging）：对数据集中的每一个实例不分类别进行统计建立全局混淆矩阵，然后计算相应指标。
 	- 微平均更多地受分类器对一些常见类（这些类的语料通常比较多）分类效果的影响，而宏平均则可以更多地反映对一些特殊类的分类效果。在对多种算法进行对比时，通常采用微平均算法。

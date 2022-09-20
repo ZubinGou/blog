@@ -42,7 +42,7 @@
     <pubDate>Thu, 21 Jan 2021 17:56:11 &#43;0800</pubDate>
     <author>ZubinGou</author>
     <guid>https://zubingou.github.io/blog/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/</guid>
-    <description><![CDATA[2 机器学习概述 2.1 基本概念 2.2 机器学习三要素 模型 线性 非线性 学习准则 损失函数 经验风险最小化（Empirical Risk Minimization, ERM） $\mathcal{R}_{\mathcal{D} }^{e m p}(\theta)=\frac{1}{N} \sum_{n=1}^{N} \mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ; \theta\right)\right)$ $\theta^{*}=\underset{\theta}{\arg \min }]]></description>
+    <description><![CDATA[2 机器学习概述 2.1 基本概念 2.2 机器学习三要素 模型 线性 非线性 学习准则 损失函数 经验风险最小化（Empirical Risk Minimization, ERM） $\mathcal{R}_{\mathcal{D}}^{e m p}(\theta)=\frac{1}{N} \sum_{n=1}^{N} \mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ; \theta\right)\right)$ $\theta^{*}=\underset{\theta}{\arg \min } \mathcal{R}_{\mathcal{D}}^{e]]></description>
 </item>
 </channel>
 </rss>
