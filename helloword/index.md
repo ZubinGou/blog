@@ -11,11 +11,11 @@
 
 1.  在GitHub新建一个Repository命名为\[你的GitHub账户名\].github.io，其他可以不用填写，直接创建即可。
     
-    ![](../../_resources/59a23947be34486da5708e51b094e0fc.png)
+    ![](/_resources/59a23947be34486da5708e51b094e0fc.png)
     
 2.  进入刚创建的Repository，点击右边的Settings，下滑找到GitHub Pages，点击`Choose a theme`，随意选择一个theme（因为不会用到），点击`commit changes`就创建完成了。
     
-    ![](../../_resources/c7799b39ec714fc286c5da2901cbb66d.png)
+    ![](/_resources/c7799b39ec714fc286c5da2901cbb66d.png)
     
 
 ## 安装Hugo和Git

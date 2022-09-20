@@ -6,7 +6,7 @@
 	- 结点：变量
 	- 边：变量概率关系
 - 边是否有向：有向概率图模型、无向概率图模型
-![116a254a554df802f35b1702b972029a.png](../../_resources/13327b7bba164e918909ac929cb4ca87.png)
+![116a254a554df802f35b1702b972029a.png](/_resources/13327b7bba164e918909ac929cb4ca87.png)
 - 应用：
 	- DBN：动态系统的推断和预测
 		- HMM：语音识别、汉语自动分词、词性标注、统计机器翻译
@@ -15,7 +15,7 @@
 		- CRF：序列标注、特征选择、机器翻译
 		- Boltzman machine：依存句法分析、语义角色标注
 - 概率图模型演变
-![c4a62b2ab674e36b6d56725b4118aa9b.png](../../_resources/4208836588794580a6fa285504afab7c.png)
+![c4a62b2ab674e36b6d56725b4118aa9b.png](/_resources/4208836588794580a6fa285504afab7c.png)
 - 生成式/产生式模型 vs. 区分式/判别式模型
 	- 本质区别：观测序列x与状态序列y的决定关系
 - 生成式模型
@@ -39,7 +39,7 @@
 - 形式：DAG
 	- 结点：随机变量（可观测量、隐含变量、未知参量或假设等）
 	- 有向边：条件依存关系
-	- ![af63428950c8168ebb864431474ceb43.png](../../_resources/f7a3265f853c4838aac3d8c0a10ef295.png)
+	- ![af63428950c8168ebb864431474ceb43.png](/_resources/f7a3265f853c4838aac3d8c0a10ef295.png)
 		- 如图，联合概率函数为：$P(H, S, N)=P(H \mid S, N) \times P(S \mid N) \times P(N)$
 - 构造贝叶斯网络
 	1. 表示：在某一随机变量的集合$x＝{X_1，L，X_n}$上给出其联合概率分布P。
@@ -76,14 +76,14 @@
 	- 满足：$a\_{i j} \geqslant 0$，$\sum\_{i=1}^{N} a\_{i j}=1$
 - 有$N$个状态的一阶马尔可夫过程有$N^2$次状态转移，可表示成状态转移矩阵
 	- eg. 一段文字中s1：名词，s2：动词，s3：形容词，转移矩阵：
-		- ![f49755c3d01a2b270bef8fdfcd3b6c32.png](../../_resources/e21f56eec04a4ed3a4864ae3859908c8.png)
+		- ![f49755c3d01a2b270bef8fdfcd3b6c32.png](/_resources/e21f56eec04a4ed3a4864ae3859908c8.png)
 		- 假设名词开头，则O=“名动形名”概率为：
 		$\begin{aligned} P(O \mid M) &=P(s\_{1}, s\_{2}, s\_{3}, s\_{1} \mid M) \\\\ &=P(s\_{1}) \cdot P(s\_{2} \mid s\_{1}) \cdot P(s\_{3} \mid s\_{2}) \cdot P(s\_{1} \mid s\_{3}) \\\\ &=1 \times a\_{12} \times a\_{23} \times a\_{31} \\\\ &=0.5 \times 0.2 \times 0.4 \\\\ &=0.04 \end{aligned}$
 - 马尔科夫模型可视为随机的非确定有限状态机
-  	- ![063763cfce271c3250b140c5dad97d8a.png](../../_resources/5022f43cb17a495eaf00dbc9b2696c17.png)
+  	- ![063763cfce271c3250b140c5dad97d8a.png](/_resources/5022f43cb17a495eaf00dbc9b2696c17.png)
 	- 序列概率为转移弧概率乘积：
 
-	![0226f9548c08a087a5d7d3fade52d3d3.png](../../_resources/6bff78fa7fe240b6a97a14bdcd260b2a.png)
+	![0226f9548c08a087a5d7d3fade52d3d3.png](/_resources/6bff78fa7fe240b6a97a14bdcd260b2a.png)
 - n-gram与马尔科夫模型
 	- 2-gram就是一阶马尔科夫模型
 	- 对于$n\ge 3$的n-gram确定数量的历史，可以通过将状态空间描述成多重前面状态的交叉乘积的方式，转化为马尔科夫模型，可以称之为m阶马尔科夫模型，m为历史数。
@@ -93,7 +93,7 @@
 ## 6.4 隐马尔科夫模型
 - VMM每个状态代表可观察的事件，限制了模型适应性，提出HMM
 - HMM：观察到的事件是隐蔽的状态转换过程的随机函数，模型为双重随机过程
-	- ![90edc401c7ca942ce9ec908aafa77c4c.png](../../_resources/9b6c48c230ae420c8c1777ddb67d0601.png)
+	- ![90edc401c7ca942ce9ec908aafa77c4c.png](/_resources/9b6c48c230ae420c8c1777ddb67d0601.png)
 	- 类比：口袋取球，室外人只看到球
 - HMM记为五元祖$\mu=(\mathrm{S}, \mathrm{K}, \mathrm{A}, \mathrm{B}, \pi)$
 	- S：状态结合
@@ -122,7 +122,7 @@ $$\begin{aligned} P(O \mid \mu) &=\sum\_{Q} P(O, Q \mid \mu) \\\\ &=\sum\_{Q} P(
 	- 问题：在N状态、T时间长度时，上述推导需要穷尽$N^T$个所有可能的状态序列，指数爆炸
 	- 改进：基于DP的前向算法/前向计算过程（forward procedure），$O(N^2T)$
 	- 描述：HMM的DP问题一般用格架（trellis/lattice）的组织形式描述
-	![62f4966a8ae3fdbb2eac71ff6ca1fcfc.png](../../_resources/01b2e3f7dd37418c8ef4ec724320e793.png)
+	![62f4966a8ae3fdbb2eac71ff6ca1fcfc.png](/_resources/01b2e3f7dd37418c8ef4ec724320e793.png)
 
 #### 前向算法
 - 前向变量：$\alpha\_{t}(i)=P(O\_{1} O\_{2} \cdots O\_{t}, q\_{t}=s\_{i} \mid \mu)$
@@ -131,7 +131,7 @@ $$\begin{aligned} P(O \mid \mu) &=\sum\_{Q} P(O, Q \mid \mu) \\\\ &=\sum\_{Q} P(
 	- $P(O \mid \mu)=\sum\_{s\_{i}} P(O\_{1} O\_{2} \cdots O\_{\tau}, q\_{T}=s\_{i} \mid \mu)=\sum\_{i=1}^{N} \alpha\_{T}(i)$
 - DP思想：t+1的前向变量可以由t时刻所有前向变量归纳计算
 	- $\alpha\_{t-1}(j)=(\sum\_{i=1}^{N} \alpha\_{t}(i) a\_{i j}) b\_{j}(O\_{t+1})$
-	![43f618a51e5244613909496464f36e89.png](../../_resources/c979184de4024acb9b3d387104500ac9.png)
+	![43f618a51e5244613909496464f36e89.png](/_resources/c979184de4024acb9b3d387104500ac9.png)
 - 前向算法描述（forward procedure）
 	1. 初始化：$\alpha\_{1}(\mathrm{i})=\pi b\_{i}(O\_{1}), 1 \leq i \leq N$
 	2. 归纳计算：$\alpha\_{i+1}(j)=(\sum\_{i=1}^{N} \alpha\_{t}(i) a\_{i j}) b\_{j}(O\_{t+1}), \quad 1 \leqslant t \leqslant T-1$
@@ -143,7 +143,7 @@ $$\begin{aligned} P(O \mid \mu) &=\sum\_{Q} P(O, Q \mid \mu) \\\\ &=\sum\_{Q} P(
 - 后向变量：$\beta\_{t}(i)=P(O\_{t-1} O\_{t-2} \cdots O\_{T} \mid q\_{t}=s\_{i}, \mu)$
 - DP思想：
 	- $\beta\_{t}(i)=\sum\_{j=1}^{N} a\_{i j} b\_{j}(O\_{t+1}) \beta\_{t-1}(j)$
-	![b7de6f1ccf50dd3dc3964dd9c2f79bef.png](../../_resources/b23ab601b50945dda996bd7471712fba.png)
+	![b7de6f1ccf50dd3dc3964dd9c2f79bef.png](/_resources/b23ab601b50945dda996bd7471712fba.png)
 - 后向算法描述（backward precedure）
 	1. 初始化：$\beta\_{\mathrm{T}}(\mathrm{i})=1, \quad 1 \leq \mathrm{i} \leq \mathrm{N}$
 	2. 归纳计算：$\beta\_{i}(i)=\sum\_{j=1}^{N} a\_{i j} b\_{j}(O\_{t+1}) \beta\_{i+1}(j), \quad T-1 \geqslant t \geqslant 1 ; 1 \leqslant i \leqslant N$
@@ -208,7 +208,7 @@ $$P(O \mid \mu)=\sum\_{i=1}^{N} \alpha\_{t}(i) \times \beta\_{t}(i), \quad 1 \le
 	- 思路：
 		- 期望：
 			- $\begin{aligned} \hat{\xi}\_{t}(i, j) &=P(q_t=s_i, q\_{t+1}=s_j\mid O, \mu) \\\\&=\frac{P(q\_{t}=s\_{i}, q\_{t-1}=s\_{j}, O \mid \mu)}{P(O \mid \mu)} \\\\ &=\frac{\alpha\_{t}(i) a\_{i j} b\_{j}(O\_{t-1}) \beta\_{t+1}(j)}{P(O \mid \mu)} \\\\ &=\frac{\alpha\_{t}(i) a\_{i j} b\_{j}(O\_{t-1}) \beta\_{t-1}(j)}{\sum\_{i=1}^{N} \sum\_{j=1}^{N} \alpha\_{t}(i) a\_{i j} b\_{j}(O\_{t+1}) \beta\_{t-1}(j)} \end{aligned}$
-		![bc623ed5f8d73054090757b08172b47c.png](../../_resources/986738539a16439ea2384bb7bab5009f.png)
+		![bc623ed5f8d73054090757b08172b47c.png](/_resources/986738539a16439ea2384bb7bab5009f.png)
 			- $\gamma\_{t}(i)=\sum\_{j=1}^{N} \hat{\xi}\_{t}(i, j)$
 		- 估计：
 			- $\bar{\pi}\_{i}=P(q\_{1}=s\_{i} \mid O, \mu)=\gamma\_{1}(i)$
@@ -234,7 +234,7 @@ $$P(O \mid \mu)=\sum\_{i=1}^{N} \alpha\_{t}(i) \times \beta\_{t}(i), \quad 1 \le
 ## 6.5 层次化的隐马尔科夫模型hierarchical hidden Markov models, HHMM）
 - 提出原因：NLP应用中，因处理序列具有递归特性，尤其长度较大是，HMM复杂度剧增
 - HHMM结构：多层随机过程构成。在HHMM中每个状态本身就是一个独立的HHMM，因此一个HHMM的状态产生一个观察序列，而不是一个观察符号。
-![61373158789bd743f1b70e89378a7f4c.png](../../_resources/b52baf5682d844b49f97875444d9bd5f.png)
+![61373158789bd743f1b70e89378a7f4c.png](/_resources/b52baf5682d844b49f97875444d9bd5f.png)
 - 状态：
 	- 终止状态：双圈，用于控制转移过程返回上层状态
 	- 生产状态（production state）：只有生产状态才能通过常规HMM机制，即根据输出符号的概率分布产生可观察的输出符号（图中未标出）
@@ -253,7 +253,7 @@ $$P(O \mid \mu)=\sum\_{i=1}^{N} \alpha\_{t}(i) \times \beta\_{t}(i), \quad 1 \le
 
 
 ## 6.6 马尔科夫网络
-![8e7c685f2783e9b1d5ba434dfcba26bd.png](../../_resources/f6906badf2044446ab933fb5ad107596.png)
+![8e7c685f2783e9b1d5ba434dfcba26bd.png](/_resources/f6906badf2044446ab933fb5ad107596.png)
 - 马尔科夫网络
 	- 无向图模型，可以表示贝叶斯网络无法表示的一些依赖关系，如循环依赖；另一方面，不能表示贝叶斯网络能够表示的某些关系，如推导关系
 	- 一组有关马尔科夫性质的随机变量的联合概率分布模型
@@ -301,7 +301,7 @@ $
 	2. 很多NLP任务中，问题是已知观察序列求解状态序列，HMM采用生成式的联合概率模型（状态序列与观察序列的联合概率$P(S_T, O_T)$）求解这种条件概率问题$P(S_T\mid O_T)$，不适合处理很多特征描述观察序列的情况
 - MEMM直接采用条件概率模型$P(S_T\mid O_T)$，使得观察输出可以用特征表示，借助最大熵框架进行特征选取
 - HMM与MEMM区别：
-	- ![43fde9cbfeb1c8790866c3b967eba975.png](../../_resources/83baebd1d5194f1bb102a79f9fe5cab9.png)
+	- ![43fde9cbfeb1c8790866c3b967eba975.png](/_resources/83baebd1d5194f1bb102a79f9fe5cab9.png)
 	- HMM中$\mu$解码求解的是：$\underset{S\_{T}}{\operatorname{argmax}} P(O\_{T} \mid S\_{T}, \mu)$
 	- MEMM中M解码器求解的是：$\underset{S\_{T}}{\operatorname{argmax}} P(S\_{T} \mid O\_{T}, \mu)$
 	- HMM当前观察输出只取决于当前状态，MEMM当前观察输出还可能取决于前一时刻的状态
@@ -330,7 +330,7 @@ $
 - CRF定义：无向图每个结点对应随机变量$Y_v$，其取值范围为可能的标记集合$\{y\}$。如果以观察序列X为条件，每一个随机变量$Y_v$都满足以下马尔科夫特性：
 	$p(Y\_{v} \mid X, Y\_{w}, w \neq v)=p(Y\_{v} \mid X, Y\_{w}, w \sim v)$
 	其中$w\sim v$表示两结点邻近。那么，$(X, Y)$为一个条件随机场
-- ![6b4bd8dddc672d85134a00357908cde7.png](../../_resources/03c04aa3b77b4539b0c769e77e673552.png)
+- ![6b4bd8dddc672d85134a00357908cde7.png](/_resources/03c04aa3b77b4539b0c769e77e673552.png)
 - CRF也需要解决三类基本问题：特征选取、参数训练和解码
 - CRF特点：
 	- 相比HMM，主要优点是条件随机性，只需要考虑已经出现的观测状态的特性，没有独立性的严格要求，对于整个序列内部的信息和外部观测信息均可有效利用，避免了MEMM和其他针对线性序列模型的条件马尔可夫模型会出现的标识偏置问题。

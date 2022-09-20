@@ -10,7 +10,7 @@ SkipGram NegativeSampling implemented in PyTorch.
 2. [Distributed Representations of Words and Phrases and their Compositionality](http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf) (negative sampling paper)
 
 ## Notes
-![skip-gram.png](../../../_resources/117fc4e48d744d729870aa5bca14d299.png)
+![skip-gram.png](..//_resources/117fc4e48d744d729870aa5bca14d299.png)
 
 Word2Vec是用无监督方式从文本中学习词向量来表征语义信息的模型，语义相近的词在嵌入空间中距离相近。类似于auto-encoder，Word2Vec训练的神经网络不用于处理新任务，真正需要的是模型参数，即隐层的权重矩阵。
 

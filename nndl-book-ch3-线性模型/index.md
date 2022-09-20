@@ -33,7 +33,7 @@ $$
 \gamma=\frac{f(\boldsymbol{x} ; \boldsymbol{w})}{\|\boldsymbol{w}\|}
 $$
 
-![3108e711ea94a00da916e6f1d13bcbd8.png](../../_resources/3820a4e403bc4102a1401762b3ea8701.png)
+![3108e711ea94a00da916e6f1d13bcbd8.png](/_resources/3820a4e403bc4102a1401762b3ea8701.png)
 
 线性模型学习目标是尽量满足：
 $$
@@ -62,7 +62,7 @@ y=\underset{c=1}{\arg \max } f_{c}\left(\boldsymbol{x} ; \boldsymbol{w}_{c}\righ
 $$
 
 “一对其余”和“一对一”存在难以确定区域：
-![dd80cae95bb2424e661898ac687c4679.png](../../_resources/788b87d745544b6ba1015d136ca42cdf.png)
+![dd80cae95bb2424e661898ac687c4679.png](/_resources/788b87d745544b6ba1015d136ca42cdf.png)
 
 多类线性可分：对训练集，每一类均存在判别函数使得该类下所有样本的当前类判别函数最大。
 
@@ -96,7 +96,7 @@ $$
 
 其中 $\frac{p(y=1 \mid \boldsymbol{x})}{p(y=0 \mid \boldsymbol{x})}$ 称为几率（Odds），几率的对数称为对数几率（Log Odds，或Logit）
 
-![17dced3f48881b98ed099d685b2b0405.png](../../_resources/49f4530a117b4dc09f8bbe4b4cdfacd1.png)
+![17dced3f48881b98ed099d685b2b0405.png](/_resources/49f4530a117b4dc09f8bbe4b4cdfacd1.png)
 
 **参数学习**
 损失函数：交叉熵
@@ -227,7 +227,7 @@ $$
 
 感知器参数学习过程：
 （黑色：当前权重向量，红色虚线：更新方向）
-![85a655694944a21c12cce1a384f4a2d2.png](../../_resources/db442afde21b44d3ac2276634e6114cb.png)
+![85a655694944a21c12cce1a384f4a2d2.png](/_resources/db442afde21b44d3ac2276634e6114cb.png)
 
 ### 3.4.2 感知器的收敛性
 
@@ -305,7 +305,7 @@ $$
 
 支持向量（Suport Vector）： 满足 $y^{(n)}\left(\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}+b\right)=1$ 的样本点。
 
-![a48c71f1fa2db1a93cb440d9a3f64377.png](../../_resources/5e42dd9a13b14ea681cb9cee1f719291.png)
+![a48c71f1fa2db1a93cb440d9a3f64377.png](/_resources/5e42dd9a13b14ea681cb9cee1f719291.png)
 
 ### 3.5.1 参数学习
 将目标函数写成凸优化问题，采用拉格朗日乘数法，并得到拉格朗日对偶函数，采用序列最小优化（Sequential Minimal Optimization, SMO）等高效算法进行优化。
@@ -375,12 +375,12 @@ $$
 f(\boldsymbol{x} ; \boldsymbol{w})=\boldsymbol{w}^{\top} \boldsymbol{x}+b
 $$
 
-![a67dbd71aaa5550b002c5b0d5c34f525.png](../../_resources/57baee45892347eab9241cc1b47b588c.png)
+![a67dbd71aaa5550b002c5b0d5c34f525.png](/_resources/57baee45892347eab9241cc1b47b588c.png)
 
 > 平方损失函数其实也可以用于分类问题的 loss 函数，但本质上等同于误差服从高斯分布假设下的极大似然估计，而分类问题大部分时候不服从高斯分布。
 > 直观上理解，标签之间的距离没有意义，预测值和标签之间的距离不能反应问题优化程度。
 
-![17ec69c0a09ff745f7396afef15ee28a.png](../../_resources/ec087fd86375437da75ff6320802cdfe.png)
+![17ec69c0a09ff745f7396afef15ee28a.png](/_resources/ec087fd86375437da75ff6320802cdfe.png)
 
 
 ## 习题

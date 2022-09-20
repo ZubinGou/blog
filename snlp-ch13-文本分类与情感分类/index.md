@@ -12,8 +12,8 @@
 	- 文本表示
 	- 分类器设计
 - 文本分类系统
-	![4cd185d07b05e0d8520cfee2419a9b68.png](../../_resources/9582ff377cf44784b6ea0bd41ae78f8d.png)
-	![57a31df7f3712c77169af2b6c03a9711.png](../../_resources/34779827acf5402ba07a979a2aee2e33.png)
+	![4cd185d07b05e0d8520cfee2419a9b68.png](/_resources/9582ff377cf44784b6ea0bd41ae78f8d.png)
+	![57a31df7f3712c77169af2b6c03a9711.png](/_resources/34779827acf5402ba07a979a2aee2e33.png)
 	1. 文本预处理：分词，取出停用词，过滤低频词，编码归一化等
 
 	2. 文本向量化：如使用向量空间模型VSM或者概率统计模型对文本进行表示，使计算机能够理解计算，用的方法基于集合论模型、基于代数轮模型、基于频率统计模型等
@@ -45,7 +45,7 @@
 		1. 各个特征项tk（1≤k≤n）互异（即没有重复）；
 		2. 各个特征项tk无先后顺序关系（即不考虑文档的内部结构）
 	- 特征项$t_k$看作n维坐标系，权重$w_k$作为坐标值，文本表示维n维向量
-		![d038a8bfa260c4b1cd7da04def10bc06.png](../../_resources/82468445660f4c8d8cf5603fae23deec.png)
+		![d038a8bfa260c4b1cd7da04def10bc06.png](/_resources/82468445660f4c8d8cf5603fae23deec.png)
 - 向量的相似性度量（similarity）：任意两个文档D1和D2之间的相似系数Sim（D1，D2）指两个文档内容的相关程度（degree of relevance）
 	- 向量内积：$\operatorname{Sim}\left(D\_{1}, D\_{2}\right)=\sum\_{k=1}^{n} w\_{1 k} \times w\_{2 k}$
 	- 考虑归一化，向量余弦：$\operatorname{Sim}\left(D\_{1}, D\_{2}\right)=\cos \theta=\frac{\sum\_{k=1}^{n} w\_{1 k} \times w\_{2 k}}{\sum\_{k=1}^{n} w\_{1 k}^{2} \sum\_{k=1}^{n} w\_{2 k}^{2}}$
@@ -82,7 +82,7 @@ $\begin{aligned} \operatorname{Gain}\left(t\_{i}\right)=& \text { Entropy }(S)-\
 ### 13.3.3 $\chi^2$统计量/开方检验
 - $\chi^2$统计量（CHI）衡量的是特征项ti和类别Cj之间的相关联程度，并假设ti和Cj之间符合具有一阶自由度的$\chi^2$分布
 
-- ![9f02bc61446d7b37570ceca72d35a6e2.png](../../_resources/5c695beda9de4e259c1f532b0abef568.png)
+- ![9f02bc61446d7b37570ceca72d35a6e2.png](/_resources/5c695beda9de4e259c1f532b0abef568.png)
 $\chi^{2}\left(t\_{i}, C\_{j}\right)=\frac{N \times(A \times D-C \times B)^{2}}{(A+C) \times(B+D) \times(A+B) \times(C+D)}$
 - 两种实现方法
 	1. 最大值法：分别计算$t_i$对于每个类别的CHI值，然后在整个训练语料上：
@@ -112,8 +112,8 @@ I（ti，Cj）＝0
 
 
 ## 13.4 特征权重计算方法
-![ca339b10ccf104b3cdd78aad29be5aac.png](../../_resources/c955db382e48427fa740024766ae6dec.png)
-![9619e4941924763c9588f4f0c1765527.png](../../_resources/925dc149b0c5448fbca7bfb1e80e6e27.png)
+![ca339b10ccf104b3cdd78aad29be5aac.png](/_resources/c955db382e48427fa740024766ae6dec.png)
+![9619e4941924763c9588f4f0c1765527.png](/_resources/925dc149b0c5448fbca7bfb1e80e6e27.png)
 
 
 ## 13.5 分类器设计
@@ -223,7 +223,7 @@ $P\left(C\_{i} \mid\right.$ Doc $)=\frac{P\left(C\_{i}\right) \prod\_{t\_{j} \in
 		- 不需要提前知道弱学习算法先验知识
 
 ## 13.6 文本分类性能测评
-![93d2643f71b5b3245deb26921e5fe355.png](../../_resources/cb2c4045c6b94c84b38f4a6f01af5450.png)
+![93d2643f71b5b3245deb26921e5fe355.png](/_resources/cb2c4045c6b94c84b38f4a6f01af5450.png)
 - 正确率（Precision）：$P=\frac{T P}{T P+F P}$
 - 召回率（Recall）：$R=\frac{T P}{T P+F N}$
 - $F\_{\beta}$值（P与R加权调和平均）：$F\_{\beta}=\frac{\beta^{2}+1}{\frac{\beta^{2}}{r}+\frac{1}{p}}=\frac{\left(\beta^{2}+1\right) \times p \times r}{\beta^{2} \times p+r}$

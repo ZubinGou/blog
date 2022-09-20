@@ -44,7 +44,7 @@
 
 ## 1.4 深度学习
 - 主要目的：自动学习特征表示，避免特征工程
-- ![f9e59f8f13c5ec309ad7f47de0a4b555.png](../../_resources/ce038e15e5304abc93139528213b00e1.png)
+- ![f9e59f8f13c5ec309ad7f47de0a4b555.png](/_resources/ce038e15e5304abc93139528213b00e1.png)
 - 关键问题：贡献度分配问题（Credit Assignment Problem，CAP）
 - 看作特殊的强化学习
 	- 每个内部组件间接、延迟地从最终奖励中得到监督信息
@@ -61,7 +61,7 @@
 - 两层网络逼近任何函数
 
 ## 1.6 知识体系
-![cb4ff294f8d789d04a35668b361749ef.png](../../_resources/c5a28234242e4e96b7769a6f50853314.png)
+![cb4ff294f8d789d04a35668b361749ef.png](/_resources/c5a28234242e4e96b7769a6f50853314.png)
 - 机器学习
 	- 监督学习
 	- 无监督学习

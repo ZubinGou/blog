@@ -12,7 +12,7 @@ GitHub地址:[https://github.com/ZubinGou/AI\_Poet\_Totoro](https://github.com/Z
 
 AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会元曲，可诗经，能模仿指定诗人，现代诗更是信手拈来，平仄押韵不在话下，更能情感识别、语义联想。 除却诗歌，满腹经纶的她一挥墨宝便是一曲媲美林夕的绝世歌词。 更加直观的了解她，可以参考[思维导图](https://github.com/ZubinGou/AI_Poet_Totoro/blob/master/xmind.png)。
 
-{{< image src="../../_resources/7bd2edf868a4407abc7971887dba6230.png" >}}
+{{< image src="/_resources/7bd2edf868a4407abc7971887dba6230.png" >}}
 
 ### 数据抓取
 
@@ -22,7 +22,7 @@ AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会�
 - 数据包括：网易云音乐所有华语歌手、乐队组合的共6945位歌手的全部总计大约23.4万首歌的歌词（也即网易云音乐几乎所有中文专辑的含有歌词的歌曲的歌词），并且分为男、女和乐队组合三类。
 - 数据大小：歌词234870首，爬取数据309MB
     
-    {{< image src="../../_resources/e435a0c1c97446738af87a731527bc84.png" >}}
+    {{< image src="/_resources/e435a0c1c97446738af87a731527bc84.png" >}}
     
 
 #### [中国诗歌网](http://www.zgshige.com/)
@@ -47,7 +47,7 @@ AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会�
 - 还自定义韵脚，方式为输入一串字符，程序将自动识别最后一个字的韵脚在十三辙中属于第几辙，生成押这个辙的古诗。
 - 接入了自然语言处理库snowNLP，用于情感倾向分析。Demo：
     
-    {{< image src="../../_resources/8d1cf56678e548d9ba044cb457f2af51.png" >}}
+    {{< image src="/_resources/8d1cf56678e548d9ba044cb457f2af51.png" >}}
     
 
 ### 机器学习写诗
@@ -78,62 +78,62 @@ AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会�
 
 - 现代诗词云：可见一开头的双字词最为现代诗人所喜爱，生命、落叶等表面现代诗的哲思性，以及思念、温暖、温柔展现了诗歌抒情的一面。
    
-    {{< image src="../../_resources/06ae4e18240d43cfba3fe8213606369b.png" >}}
+    {{< image src="/_resources/06ae4e18240d43cfba3fe8213606369b.png" >}}
     
 - 诗经词云：君子、四方、我心在意料之内，这个“上帝”出乎意料，查阅资料发现，诗经中绝大部分“上帝”都是指至高神。有几处“上帝”被汉儒解释为“君主”，也是借至高神上帝之地位、权势喻指君主。可以对古代的神学与宗教管窥蠡测一般。
     
-    {{< image src="../../_resources/d9155cc10fc4443bb2c63a87c0692092.png" >}}
+    {{< image src="/_resources/d9155cc10fc4443bb2c63a87c0692092.png" >}}
     
 - 部分歌词词云：主要是周杰伦的歌词，可以看到，Jay Chou最爱用“我们”、“没有”、“自己”、“知道”这类的字眼(未设置停用词的结果)。
     
-    {{< image src="../../_resources/7cb943de672e4f71b22eb0e65918a887.png" >}}
+    {{< image src="/_resources/7cb943de672e4f71b22eb0e65918a887.png" >}}
     
 - 唐诗词云
     
-    {{< image src="../../_resources/3e671388dd3f4be595e5b16e2658e20e.png" >}}
+    {{< image src="/_resources/3e671388dd3f4be595e5b16e2658e20e.png" >}}
     
 - 宋词词云
     
-    {{< image src="../../_resources/a6b7407cbfa740ecb58d3f48863098af.png" >}}
+    {{< image src="/_resources/a6b7407cbfa740ecb58d3f48863098af.png" >}}
     
 
 ### 云音乐数据处理与分析
 
 对网易云爬取的全部诗歌进行了清洗、繁简替换、去重并按照歌手类型整合、分词，接下来进行数据分析，由于生成的是html格式，并有动画效果和详尽标签，下面仅展示截图。
 
-{{< image src="../../_resources/95647fb95b4b43b882e517a7ff270adb.png" >}}
+{{< image src="/_resources/95647fb95b4b43b882e517a7ff270adb.png" >}}
 
-{{< image src="../../_resources/bcaeaf6c37e3491083c47c89bfd395e3.png" >}}
+{{< image src="/_resources/bcaeaf6c37e3491083c47c89bfd395e3.png" >}}
 
 华语女歌手字频
 
-{{< image src="../../_resources/fbdd7017012444e6ade160f84de49350.png" >}}
+{{< image src="/_resources/fbdd7017012444e6ade160f84de49350.png" >}}
 
 华语男歌手字频
 
-{{< image src="../../_resources/824abe2a02484a588705eae64b89164a.png" >}}
+{{< image src="/_resources/824abe2a02484a588705eae64b89164a.png" >}}
 
 乐队&组合字频
 
 我们可以看到不论男女歌手还是乐队，前5高频字大致相同，很有趣的是男女歌手使用“爱”字频率较高，然而乐队组合使用“爱”字频率却大幅下降，难道一群人就不好意思谈情说爱了吗？ 再来看词频分析：
 
-{{< image src="../../_resources/7b26760f34db453bbc66da8d0e36037d.png" >}}
+{{< image src="/_resources/7b26760f34db453bbc66da8d0e36037d.png" >}}
 
 女歌手词频
 
-{{< image src="../../_resources/691972ca1c3b4c13aa89f6d982a2a136.png" >}}
+{{< image src="/_resources/691972ca1c3b4c13aa89f6d982a2a136.png" >}}
 
 男歌手词频
 
-{{< image src="../../_resources/480dd3884e5c4763bc1a1b352cb5a4ea.png" >}}
+{{< image src="/_resources/480dd3884e5c4763bc1a1b352cb5a4ea.png" >}}
 
 乐队组合词频
 
-{{< image src="../../_resources/05a3271c970b4436a38450986faf59de.png" >}}
+{{< image src="/_resources/05a3271c970b4436a38450986faf59de.png" >}}
 
 女歌手词云
 
-{{< image src="../../_resources/0f513ed0d9494550a3950b6cf395c64d.png" >}}
+{{< image src="/_resources/0f513ed0d9494550a3950b6cf395c64d.png" >}}
 
 男歌手词云
 
@@ -152,15 +152,15 @@ AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会�
 
 #### 1\. 作家产量分析-谁是产量之王
 
-{{< image src="../../_resources/7d26151b90e94784934a4c2092a8218e.png" >}}
+{{< image src="/_resources/7d26151b90e94784934a4c2092a8218e.png" >}}
 
 唐诗高产作家
 
-{{< image src="../../_resources/accb89eb0f1946c89c4e8dd25afa581c.png" >}}
+{{< image src="/_resources/accb89eb0f1946c89c4e8dd25afa581c.png" >}}
 
 宋诗高产作家
 
-{{< image src="../../_resources/893525c79d224708a58438c9bd8d228d.png" >}}
+{{< image src="/_resources/893525c79d224708a58438c9bd8d228d.png" >}}
 
 宋词高产作家
 
@@ -170,15 +170,15 @@ AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会�
 
 #### 2\. 单字词字频分析-古代诗人最爱用的字眼
 
-{{< image src="../../_resources/9bcd240d5f1b4788b392f70b09911079.png" >}}
+{{< image src="/_resources/9bcd240d5f1b4788b392f70b09911079.png" >}}
 
 唐诗单字词字频
 
-{{< image src="../../_resources/c4f0d2e78ecf4dd4adbfd1f2c8522705.png" >}}
+{{< image src="/_resources/c4f0d2e78ecf4dd4adbfd1f2c8522705.png" >}}
 
 宋诗单字词字频
 
-{{< image src="../../_resources/561951728e804a828a92a48644797e89.png" >}}
+{{< image src="/_resources/561951728e804a828a92a48644797e89.png" >}}
 
 宋词单字词字频
 
@@ -186,15 +186,15 @@ AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会�
 
 #### 3\. 多字词字频分析-诗人最爱用的词
 
-{{< image src="../../_resources/31302331a68247ae9151715d8742ee99.png" >}}
+{{< image src="/_resources/31302331a68247ae9151715d8742ee99.png" >}}
 
 唐诗词频
 
-{{< image src="../../_resources/829f475cb7b549de98949e88b24d68ad.png" >}}
+{{< image src="/_resources/829f475cb7b549de98949e88b24d68ad.png" >}}
 
 宋诗词频
 
-{{< image src="../../_resources/ef238dbaba9c4d55b3b0d413f82e7fb7.png" >}}
+{{< image src="/_resources/ef238dbaba9c4d55b3b0d413f82e7fb7.png" >}}
 
 宋词词频
 
@@ -202,7 +202,7 @@ AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会�
 
 #### 4\. 宋词最受欢迎的词牌
 
-{{< image src="../../_resources/044dff60af68481090f56b31ab0f0d5a.png" >}}
+{{< image src="/_resources/044dff60af68481090f56b31ab0f0d5a.png" >}}
 
 宋词最受欢迎的词牌
 
@@ -210,15 +210,15 @@ AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会�
 
 #### 5\. 诗人最爱用的动词
 
-{{< image src="../../_resources/45f91fdb0e8045d3a067fef8ee669206.png" >}}
+{{< image src="/_resources/45f91fdb0e8045d3a067fef8ee669206.png" >}}
 
 唐诗动词排行
 
-{{< image src="../../_resources/abd0f1cdcb0b4d6e97369ff95d0574e4.png" >}}
+{{< image src="/_resources/abd0f1cdcb0b4d6e97369ff95d0574e4.png" >}}
 
 宋诗动词排行
 
-{{< image src="../../_resources/a6f78b39f3dd4195b0f571046e2836c8.png" >}}
+{{< image src="/_resources/a6f78b39f3dd4195b0f571046e2836c8.png" >}}
 
 宋词动词排行
 
@@ -229,11 +229,11 @@ AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会�
 
 #### 6\. 诗人最爱用的形容词
 
-{{< image src="../../_resources/ee8e08d375b34547979e97169150ee50.png" >}}
+{{< image src="/_resources/ee8e08d375b34547979e97169150ee50.png" >}}
 
 唐诗形容词排行
 
-{{< image src="../../_resources/6118bbcc523e440885cdc9ced8012413.png" >}}
+{{< image src="/_resources/6118bbcc523e440885cdc9ced8012413.png" >}}
 
 宋词形容词排行
 
@@ -242,17 +242,17 @@ AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会�
 
 #### 7\. 诗中最常见的地名
 
-{{< image src="../../_resources/e50c9dcbe85943f69b1ff0b8f8894c91.png" >}}
+{{< image src="/_resources/e50c9dcbe85943f69b1ff0b8f8894c91.png" >}}
 
 宋词人还是偏爱“江南”的，不禁让人想起小学的宋词：忆江南： 江南好，风景旧曾谙。日出江花红胜火，春来江水绿如蓝。能不忆江南？
 
 #### 8\. 诗中的四季
 
-{{< image src="../../_resources/13351a9ff7dd467296575005658ef386.png" >}}
+{{< image src="/_resources/13351a9ff7dd467296575005658ef386.png" >}}
 
-{{< image src="../../_resources/ebe08c461ded4ebc8905bb7310ad95d5.png" >}}
+{{< image src="/_resources/ebe08c461ded4ebc8905bb7310ad95d5.png" >}}
 
-{{< image src="../../_resources/a7dcc1c1536849f1838e8d4983e35aa5.png" >}}
+{{< image src="/_resources/a7dcc1c1536849f1838e8d4983e35aa5.png" >}}
 
 自古逢秋悲寂寥，我言秋日胜春朝。在古诗词里，伤春、惜春是常见的春诗题材，而萧瑟凄凉的秋日更是引起诗人“诗兴大发”的季节，它们占比如此之高也不足为奇，而对于炎热的夏天和寒冷的冬天，诗人似乎没有那么多情怀了，并且随着时代推移，“冬” 和“夏”的使用频率也越来越少，或许是诗人们更喜欢用“接天莲叶无穷碧，映日荷花别样红”这样的意象来描绘这两个季节吧！
 
@@ -264,29 +264,29 @@ AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会�
 
 词性对应下图。每个词性都是一类词的全体集合。
 
-{{< image src="../../_resources/3202341b21a847c186a2d34ce9568c5b.png" >}}
+{{< image src="/_resources/3202341b21a847c186a2d34ce9568c5b.png" >}}
 
 采用这种“万能的”写诗方法，还可以在内部内置词牌的格式，如下图。用户也可以自由输入模式，自动生成诗歌。
 
-{{< image src="../../_resources/7f0dc9f2a1b84147b27f7891faacf8eb.png" >}}
+{{< image src="/_resources/7f0dc9f2a1b84147b27f7891faacf8eb.png" >}}
 
 押韵部分采用了严格的“十三辙”分类要求，如下图所示。
 
-{{< image src="../../_resources/ad9b038491fa46c9a86c4ba4a2b58d40.png" >}}
+{{< image src="/_resources/ad9b038491fa46c9a86c4ba4a2b58d40.png" >}}
 
 押韵也分为首句押和首句不押，对应的平仄不同，严格遵守了音韵学的要求，但是受制于语料库只提取了1000词左右，有些韵脚可能会无法匹配，我设置了超过一定匹配次数，就停止匹配。 对于平仄部分，同样完美符合古诗词平仄的要求。算法也是采用了模式匹配的办法。
 
-{{< image src="../../_resources/027ec6e9709340448dd3dbf802f56666.png" >}}
+{{< image src="/_resources/027ec6e9709340448dd3dbf802f56666.png" >}}
 
 以从语料库中匹配到的词为单位，这样算法复杂度更低。利用如下函数判断：
 
-{{< image src="../../_resources/4c8331ebb4eb436daa4c296e513cb065.png" >}}
+{{< image src="/_resources/4c8331ebb4eb436daa4c296e513cb065.png" >}}
 
 输入为词和对应的平仄要求，依次判断每个字是否满足要求。 另外由于诗个平仄音韵的要求根据首句是否押韵也不同，程序也巧妙地实现了，代码有详尽注释，不再赘述。
 
 简要流程图如下：
 
-{{< image src="../../_resources/9582264d0a46489889c2e38fa090f1fb.png" >}}
+{{< image src="/_resources/9582264d0a46489889c2e38fa090f1fb.png" >}}
 
 ### 机器学习写诗
 
@@ -296,37 +296,37 @@ AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会�
 
 使用了LSTM神经网络，基于tensorflow的机器学习写诗模型。我利用它来做了“诗人模仿”功能。 首先利用一个简单的筛选判断，自动把需要模仿的诗人的数据提取出来：
 
-{{< image src="../../_resources/c334b80a79834ab58d8a8e6c59c6a414.png" >}}
+{{< image src="/_resources/c334b80a79834ab58d8a8e6c59c6a414.png" >}}
 
 只需修改poets列表内容，即可提取任何你想要的诗人数据。 使用的数据是我之前处理过的干净数据。 然后是训练模型，用\[\]标志诗位置，喂给搭建好的模型。
 
-{{< image src="../../_resources/11da33635f754eeba9e360f23f0b30cc.png" >}}
+{{< image src="/_resources/11da33635f754eeba9e360f23f0b30cc.png" >}}
 
 250个epoch即可基本拟合。
 
-{{< image src="../../_resources/cbf42fba860e4e64a1f324dc183bdafa.png" >}}
+{{< image src="/_resources/cbf42fba860e4e64a1f324dc183bdafa.png" >}}
 
 如上，按照字频来选择，这样概率大的输出概率也更加大。添加随机性的同时保证了诗歌质量。 自由写诗生成generateNum这么多首诗，每首诗以左中括号开始，以右中括号或空格结束，每次生成的prob用probsToWord方法转成字。
 
-{{< image src="../../_resources/bb8d19d131fc4ac2aaf0ab5116c4fbd4.png" >}}
+{{< image src="/_resources/bb8d19d131fc4ac2aaf0ab5116c4fbd4.png" >}}
 
 生成完整诗歌后使用output来使输出更美观：
 
-{{< image src="../../_resources/ba1f14b902774c16953b5268df814d4e.png" >}}
+{{< image src="/_resources/ba1f14b902774c16953b5268df814d4e.png" >}}
 
 藏头诗也很简单，根据标点符号指点诗歌开头为用户输入的字，在模型输出后面的字即可。 流程图如下：
 
-{{< image src="../../_resources/5ee32e6ef02441b2b11dcea724adc57b.png" >}}
+{{< image src="/_resources/5ee32e6ef02441b2b11dcea724adc57b.png" >}}
 
 #### 2\. lyrics_writer
 
 训练数据使用的是爬取并处理后的歌词和现代诗。 使用的了sequence-to-sequence模型以及RNN网络进行歌词语义的学习以及建模，和之前的模型相似。 参数设置：
 
-{{< image src="../../_resources/406f719d15a64448bc7087dd1275cd0b.png" >}}
+{{< image src="/_resources/406f719d15a64448bc7087dd1275cd0b.png" >}}
 
 关于生成诗歌模块：
 
-{{< image src="../../_resources/ccb0a2a9bf0b422798c1f3357653e18c.png" >}}
+{{< image src="/_resources/ccb0a2a9bf0b422798c1f3357653e18c.png" >}}
 
 引入随机长度，增加诗歌和歌词的随机性，然后采用了正态分布的概率来生成每个字。
 
@@ -336,52 +336,52 @@ AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会�
 
 #### 1．选择五言绝句、从头到尾每个字都符合平仄的唐诗：
 
-{{< image src="../../_resources/a0d680ed34ed4bd1968deb9ce3743f75.png" >}}
+{{< image src="/_resources/a0d680ed34ed4bd1968deb9ce3743f75.png" >}}
 
 #### 2．自定义韵脚、每个字都严格符合平仄要求的宋诗：
 
-{{< image src="../../_resources/54ed26ca591d4e5b8d0cc3bf5002336b.png" >}}
+{{< image src="/_resources/54ed26ca591d4e5b8d0cc3bf5002336b.png" >}}
 
 #### 3．指定词牌名作的宋词：
 
-{{< image src="../../_resources/be1e54928f3b45a68894c43d28759d16.png" >}}
+{{< image src="/_resources/be1e54928f3b45a68894c43d28759d16.png" >}}
 
-{{< image src="../../_resources/a8dd708342984376b3298a8104020d78.png" >}}
+{{< image src="/_resources/a8dd708342984376b3298a8104020d78.png" >}}
 
 #### 4．指定行数的诗经：
 
-{{< image src="../../_resources/ec5db59ff1a64b0986fbeadd22e6a7e7.png" >}}
+{{< image src="/_resources/ec5db59ff1a64b0986fbeadd22e6a7e7.png" >}}
 
 #### 5． 指定句数的现代诗 ：
 
-{{< image src="../../_resources/99c61b1ee7c74d71a9ca9f2a475664f1.png" >}}
+{{< image src="/_resources/99c61b1ee7c74d71a9ca9f2a475664f1.png" >}}
 
-{{< image src="../../_resources/f379ef8a914547839a6efcb331c80ce4.png" >}}
+{{< image src="/_resources/f379ef8a914547839a6efcb331c80ce4.png" >}}
 
 我最喜欢的是这首：
 
-{{< image src="../../_resources/bad05f06819949578341ca0e0c02bce2.png" >}}
+{{< image src="/_resources/bad05f06819949578341ca0e0c02bce2.png" >}}
 
 #### 6．自定义模式的唐诗、宋词、宋诗、诗经和现代诗：
 
 - 自定义格式藏头、藏尾、藏字诗：
     
-    {{< image src="../../_resources/85a424056a2347d98a3e43e2ebed6a18.png" >}}
+    {{< image src="/_resources/85a424056a2347d98a3e43e2ebed6a18.png" >}}
     
 
-{{< image src="../../_resources/4d1e8657ea434e86b9fa75d0aae5ddfb.png" >}}
+{{< image src="/_resources/4d1e8657ea434e86b9fa75d0aae5ddfb.png" >}}
 
 - 自定义格式的宋词：
     
-    {{< image src="../../_resources/8622a419112d4e07a43c079ff8065d7b.png" >}}
+    {{< image src="/_resources/8622a419112d4e07a43c079ff8065d7b.png" >}}
     
 - 自定义格式的诗经：
     
-    {{< image src="../../_resources/2dd6dcb63f9f4659aa6eaeae3b65a74a.png" >}}
+    {{< image src="/_resources/2dd6dcb63f9f4659aa6eaeae3b65a74a.png" >}}
     
 - 自定义格式的现代诗：
     
-    {{< image src="../../_resources/28cb2cbd26f748a7b0f1cf2f23b3e170.png" >}}
+    {{< image src="/_resources/28cb2cbd26f748a7b0f1cf2f23b3e170.png" >}}
     
 
 ### 机器学习写诗结果分析
@@ -390,15 +390,15 @@ AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会�
 
 模仿李白风格：
 
-{{< image src="../../_resources/71475e9a67234d62b57dbc8dffa4254b.png" >}}
+{{< image src="/_resources/71475e9a67234d62b57dbc8dffa4254b.png" >}}
 
 的确从遣词造句上有一股诗仙的侠气和酒气。 李白的藏头词：
 
-{{< image src="../../_resources/b2f3ce1497984d43bc8015875dc147f7.png" >}}
+{{< image src="/_resources/b2f3ce1497984d43bc8015875dc147f7.png" >}}
 
 再来学习杜甫：
 
-{{< image src="../../_resources/3af41c1c91884373864ebf246bdac6a4.png" >}}
+{{< image src="/_resources/3af41c1c91884373864ebf246bdac6a4.png" >}}
 
 能够明显读出忧国忧民、感时伤事的情怀。 程序默认诗人为李白，传入 -p 参数即可指定其他诗人。
 
@@ -406,11 +406,11 @@ AI诗人-Totoro，她才华横溢，学富五车，能唐诗，善宋词，会�
 
 Ta分类学习了网易云所有男歌手、女歌手和乐队组合的歌曲，也可以进行现代诗创作。 歌词风格华语男歌手：
 
-{{< image src="../../_resources/60c74f691a6047fbaf143c8e5374a173.png" >}}
+{{< image src="/_resources/60c74f691a6047fbaf143c8e5374a173.png" >}}
 
 女歌手：
 
-{{< image src="../../_resources/e51cd2ae7d29458d973624a1a4f5d41c.png" >}}
+{{< image src="/_resources/e51cd2ae7d29458d973624a1a4f5d41c.png" >}}
 
 0表示训练，1表示写歌词。cd参数传入语料库名称。 这个model训练次数比较少（主要因为数据量太大，训练巨慢），尚未拟合。 因为歌词里面关于爱情的字眼非常多，所以这个模型训练出来最喜欢“谈情说爱”，也就显得有那么一点“人工智障”的意味；生成歌词的长度也比较短。
 
@@ -418,19 +418,19 @@ Ta分类学习了网易云所有男歌手、女歌手和乐队组合的歌曲，
 
 机器学习创作自由诗、押韵诗、藏头诗、藏字诗。 \- 自由创作：
 
-{{< image src="../../_resources/0b2740046b72471f814325070a026110.png" >}}
+{{< image src="/_resources/0b2740046b72471f814325070a026110.png" >}}
 
 上面这首诗读起来颇有一番韵味，似乎在感叹嫦娥的身世浮沉。 \- 押韵诗：
 
-{{< image src="../../_resources/152c01095e6748ffa3b4de9c2526afff.png" >}}
+{{< image src="/_resources/152c01095e6748ffa3b4de9c2526afff.png" >}}
 
 \- 藏头押韵诗：
 
-{{< image src="../../_resources/ef57d5a2cc9d4cdbbd7a3d0e999a5293.png" >}}
+{{< image src="/_resources/ef57d5a2cc9d4cdbbd7a3d0e999a5293.png" >}}
 
 上面这首诗也颇有几分年老体病的诗人，在人生弥留之际，回忆往事纷扰，感慨人生飞逝、世殊时异的伤怀意味。 \- 藏字押韵诗：
 
-{{< image src="../../_resources/e272248c7ec04261ac75a6bce6e1b3a3.png" >}}
+{{< image src="/_resources/e272248c7ec04261ac75a6bce6e1b3a3.png" >}}
 
 可以看到，算法最大化的将输入的句子嵌入了诗中。 生成的诗歌不具有深刻语义、且上下文联系不紧密。
 

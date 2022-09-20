@@ -108,7 +108,7 @@ context insensitive type representation:
 
 
 ## 4 Evaluation
-![e857175ff8b1434e0ca07576a6ef8140.png](../../../_resources/519908af977a440bb92bcfaa123a96ed.png)
+![e857175ff8b1434e0ca07576a6ef8140.png](..//_resources/519908af977a440bb92bcfaa123a96ed.png)
 - Question answering
 - Textual entailment
 - Semantic role labeling
@@ -124,21 +124,21 @@ context insensitive type representation:
 - previous word on contextual representations: only used last layer, whether it be from biLM or MT encoder
 - ablation study:
 
-![52d200d883248a661a1e28760d123c77.png](../../../_resources/8e4ce8032cc841e2a96e39dd8e14c9b0.png)
+![52d200d883248a661a1e28760d123c77.png](..//_resources/8e4ce8032cc841e2a96e39dd8e14c9b0.png)
 
 ### 5.2 Where to include ELMo?
 - word emebedings only as input to the lowest layers
 - however, including ELMo at the output of biRNN improves for some tasks
 
 ### 5.3 What information is captured by the biLM's representations?
-![06099455f4f52e8635fb943f2b9ff91d.png](../../../_resources/448a8b55c99641acb533735a3340e67a.png)
+![06099455f4f52e8635fb943f2b9ff91d.png](..//_resources/448a8b55c99641acb533735a3340e67a.png)
 
 **Word sense disambiguation**
-![51dcd3d27b1373cb35b4b8ed9051cd2c.png](../../../_resources/7f6d5f47921c4db388824fbe0e1ad183.png)
+![51dcd3d27b1373cb35b4b8ed9051cd2c.png](..//_resources/7f6d5f47921c4db388824fbe0e1ad183.png)
 
 **POS tagging**
 - context representations as input to a linear classifier of POS
-![37620ab059acf7212952defddfed2955.png](../../../_resources/f0b8b1f0c65b4a8087012fdd5f81c2cd.png)
+![37620ab059acf7212952defddfed2955.png](..//_resources/f0b8b1f0c65b4a8087012fdd5f81c2cd.png)
 
 **Implications for supervised tasks**
 - including all biLM layers is important for downstream tasks
@@ -146,10 +146,10 @@ context insensitive type representation:
 ### 5.4 Sample efficiency
 1. using ELMo increases the sample efficiency.
 2. ELMo-enhanced models use smaller training sets more efficiently than those without.
-![c1ce4981b57b22252bc93a70c5cb365e.png](../../../_resources/38134ddcfb9949eda5147b969a382c73.png)
+![c1ce4981b57b22252bc93a70c5cb365e.png](..//_resources/38134ddcfb9949eda5147b969a382c73.png)
 
 ### 5.5 Visualizatino of learned weights
 visualize the ELMo learned weights across the tasks
-![24771a3b35ca56a32be3ca4ed7f70e0a.png](../../../_resources/260c5d9f72c8478c901fdc8294a37a62.png)
+![24771a3b35ca56a32be3ca4ed7f70e0a.png](..//_resources/260c5d9f72c8478c901fdc8294a37a62.png)
 
 
