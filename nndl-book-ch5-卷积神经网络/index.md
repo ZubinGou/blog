@@ -83,30 +83,30 @@ $$\operatorname{rot} 180(\boldsymbol{W}) \tilde{\otimes} \boldsymbol{X}=\operato
 假设 $\boldsymbol{Y}=\boldsymbol{W} \otimes \boldsymbol{X}$，其中 $\boldsymbol{X} \in \mathbb{R}^{M \times N}, \boldsymbol{W} \in \mathbb{R}^{U \times V}, \boldsymbol{Y} \in \mathbb{R}^{(M-U+1) \times(N-V+1)}$，函数  $f(\boldsymbol{Y}) \in \mathbb{R}$ 为一个标量函数, 则：
 $$
 \begin{aligned}
-\frac{\partial f(\boldsymbol{Y})}{\partial w\_{u v}} &=\sum\_{i=1}^{M-U+1 N-V+1} \frac{\partial y\_{i j}}{\partial w\_{u v}} \frac{\partial f(\boldsymbol{Y})}{\partial y\_{i j}} \\\\
-&=\sum\_{i=1}^{M-U+1} \sum\_{j=1}^{N-V+1} x\_{i+u-1, j+v-1} \frac{\partial f(\boldsymbol{Y})}{\partial y\_{i j}} \\\\
-&=\sum\_{i=1}^{M-U+1} \sum\_{j=1}^{N-V+1} \frac{\partial f(\boldsymbol{Y})}{\partial y\_{i j}} x\_{u+i-1, v+j-1}
+\frac{\partial f(\boldsymbol{Y})}{\partial w\_{u v} } &=\sum\_{i=1}^{M-U+1 N-V+1} \frac{\partial y\_{i j} }{\partial w\_{u v} } \frac{\partial f(\boldsymbol{Y})}{\partial y\_{i j} } \\\\
+&=\sum\_{i=1}^{M-U+1} \sum\_{j=1}^{N-V+1} x\_{i+u-1, j+v-1} \frac{\partial f(\boldsymbol{Y})}{\partial y\_{i j} } \\\\
+&=\sum\_{i=1}^{M-U+1} \sum\_{j=1}^{N-V+1} \frac{\partial f(\boldsymbol{Y})}{\partial y\_{i j} } x\_{u+i-1, v+j-1}
 \end{aligned}
 $$
 
-即$f(Y)$关于$W$的偏导数为$X$和$\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{Y}}$的卷积（互相关）：
+即$f(Y)$关于$W$的偏导数为$X$和$\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{Y} }$的卷积（互相关）：
 $$
-\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{W}}=\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{Y}} \otimes \boldsymbol{X}
+\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{W} }=\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{Y} } \otimes \boldsymbol{X}
 $$
 
 同理：
 $$
 \begin{aligned}
-\frac{\partial f(\boldsymbol{Y})}{\partial x\_{s t}} &=\sum\_{i=1}^{M-U+1} \sum\_{j=1}^{N-V+1} \frac{\partial y\_{i j}}{\partial x\_{s t}} \frac{\partial f(\boldsymbol{Y})}{\partial y\_{i j}} \\\\
-&=\sum\_{i=1}^{M-U+1 N-V+1} \sum\_{j=1}^{M} w\_{S-i+1, t-j+1} \frac{\partial f(\boldsymbol{Y})}{\partial y\_{i j}}
+\frac{\partial f(\boldsymbol{Y})}{\partial x\_{s t} } &=\sum\_{i=1}^{M-U+1} \sum\_{j=1}^{N-V+1} \frac{\partial y\_{i j} }{\partial x\_{s t} } \frac{\partial f(\boldsymbol{Y})}{\partial y\_{i j} } \\\\
+&=\sum\_{i=1}^{M-U+1 N-V+1} \sum\_{j=1}^{M} w\_{S-i+1, t-j+1} \frac{\partial f(\boldsymbol{Y})}{\partial y\_{i j} }
 \end{aligned}
 $$
 
-即$f(Y)$关于$X$的偏导数为$W$和$\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{Y}}$的宽卷积（互相关）：
+即$f(Y)$关于$X$的偏导数为$W$和$\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{Y} }$的宽卷积（互相关）：
 $$
 \begin{aligned}
-\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{X}} &=\operatorname{rot} 180\left(\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{Y}}\right) \tilde{\otimes} \boldsymbol{W} \\\\
-&=\operatorname{rot} 180(\boldsymbol{W}) \tilde{\otimes} \frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{Y}}
+\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{X} } &=\operatorname{rot} 180\left(\frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{Y} }\right) \tilde{\otimes} \boldsymbol{W} \\\\
+&=\operatorname{rot} 180(\boldsymbol{W}) \tilde{\otimes} \frac{\partial f(\boldsymbol{Y})}{\partial \boldsymbol{Y} }
 \end{aligned}
 $$
 
@@ -159,8 +159,8 @@ $$
 汇聚（Pooling）是指对每个区域进行下采样（Down Sampling）得到一个值，作为这个区域的概括
 
 常用汇聚函数：
-1. 最大汇聚（Maximum Pooling/ Max Pooling）：$y\_{m, n}^{d}=\max \_{i \in R\_{m, n}^{d}} x\_{i}$
-2. 平均汇聚（Mean Pooling）：$y\_{m, n}^{d}=\frac{1}{\left|R\_{m, n}^{d}\right|} \sum\_{i \in R\_{m, n}^{d}} x\_{i}$
+1. 最大汇聚（Maximum Pooling/ Max Pooling）：$y\_{m, n}^{d}=\max \_{i \in R\_{m, n}^{d} } x\_{i}$
+2. 平均汇聚（Mean Pooling）：$y\_{m, n}^{d}=\frac{1}{\left|R\_{m, n}^{d}\right|} \sum\_{i \in R\_{m, n}^{d} } x\_{i}$
 
 ![56d213933845758d9f138d631f4c58a2.png](../../_resources/0f26c6a440c44d15a4e7b6a4ec57de7d.png)
 
@@ -184,12 +184,12 @@ $$
 偏导：
 $$
 \begin{aligned}
-\frac{\partial \mathcal{L}}{\partial \boldsymbol{W}^{(l, p, d)}} &=\frac{\partial \mathcal{L}}{\partial \boldsymbol{Z}^{(l, p)}} \otimes \boldsymbol{X}^{(l-1, d)} \\\\
+\frac{\partial \mathcal{L} }{\partial \boldsymbol{W}^{(l, p, d)} } &=\frac{\partial \mathcal{L} }{\partial \boldsymbol{Z}^{(l, p)} } \otimes \boldsymbol{X}^{(l-1, d)} \\\\
 &=\delta^{(l, p)} \otimes \boldsymbol{X}^{(l-1, d)}
 \end{aligned}
 $$
 $$
-\frac{\partial \mathcal{L}}{\partial b^{(l, p)}}=\sum\_{i, j}\left[\delta^{(l, p)}\right]\_{i, j}
+\frac{\partial \mathcal{L} }{\partial b^{(l, p)} }=\sum\_{i, j}\left[\delta^{(l, p)}\right]\_{i, j}
 $$
 
 ### 5.3.1 卷积神经网络的反向传播算法
@@ -197,8 +197,8 @@ $$
 上采样与l层特征映射的激活值偏导数逐元素相乘：
 $$
 \begin{aligned}
-\delta^{(l, p)} & \triangleq \frac{\partial \mathcal{L}}{\partial Z^{(l, p)}} \\\\
-&=\frac{\partial X^{(l, p)}}{\partial Z^{(l, p)}} \frac{\partial Z^{(l+1, p)}}{\partial \boldsymbol{X}^{(l, p)}} \frac{\partial \mathcal{L}}{\partial \boldsymbol{Z}^{(l+1, p)}} \\\\
+\delta^{(l, p)} & \triangleq \frac{\partial \mathcal{L} }{\partial Z^{(l, p)} } \\\\
+&=\frac{\partial X^{(l, p)} }{\partial Z^{(l, p)} } \frac{\partial Z^{(l+1, p)} }{\partial \boldsymbol{X}^{(l, p)} } \frac{\partial \mathcal{L} }{\partial \boldsymbol{Z}^{(l+1, p)} } \\\\
 &=f\_{l}^{\prime}\left(\boldsymbol{Z}^{(l, p)}\right) \odot \operatorname{up}\left(\delta^{(l+1, p)}\right)
 \end{aligned}
 $$
@@ -206,8 +206,8 @@ $$
 #### 卷积层
 $$
 \begin{aligned}
-\delta^{(l, p)} & \triangleq \frac{\partial \mathcal{L}}{\partial Z^{(l, p)}} \\\\
-&=\frac{\partial X^{(l, p)}}{\partial Z^{(l, p)}} \frac{\partial Z^{(l+1, p)}}{\partial \boldsymbol{X}^{(l, p)}} \frac{\partial \mathcal{L}}{\partial \boldsymbol{Z}^{(l+1, p)}} \\\\
+\delta^{(l, p)} & \triangleq \frac{\partial \mathcal{L} }{\partial Z^{(l, p)} } \\\\
+&=\frac{\partial X^{(l, p)} }{\partial Z^{(l, p)} } \frac{\partial Z^{(l+1, p)} }{\partial \boldsymbol{X}^{(l, p)} } \frac{\partial \mathcal{L} }{\partial \boldsymbol{Z}^{(l+1, p)} } \\\\
 &=f\_{l}^{\prime}\left(\boldsymbol{Z}^{(l, p)}\right) \odot \operatorname{up}\left(\delta^{(l+1, p)}\right)
 \end{aligned}
 $$
@@ -241,7 +241,7 @@ Inception v3 网络：用多层的小卷积核来替换大的卷积核
 
 将目标函数拆分为两部分：恒等函数（Identity Function）和残差函数（Residue Function）：
 $$
-h(\boldsymbol{x})=\underbrace{\boldsymbol{x}}\_{\text {恒等函数 }}+\underbrace{(h(\boldsymbol{x})-\boldsymbol{x})}\_{\text {残差函数 }}
+h(\boldsymbol{x})=\underbrace{\boldsymbol{x} }\_{\text {恒等函数 } }+\underbrace{(h(\boldsymbol{x})-\boldsymbol{x})}\_{\text {残差函数 } }
 $$
 
 ![af4e41a34c3babe2823d011c9c969e9e.png](../../_resources/7355f8f513b34545882c87b384d1e8a4.png)
@@ -299,13 +299,13 @@ $$
 1. 由导数定义：$x'(t)=x(t)-x(t-1)$，进一步求二阶导数即可
 2. Laplace operator
 $$
-\nabla^{2} f=\frac{\partial^{2} f}{\partial x^{2}}+\frac{\partial^{2} f}{\partial y^{2}}
+\nabla^{2} f=\frac{\partial^{2} f}{\partial x^{2} }+\frac{\partial^{2} f}{\partial y^{2} }
 $$
 $$
-\frac{\partial^{2} f}{\partial x^{2}}=f(x+1, y)+f(x-1, y)-2 f(x, y)
+\frac{\partial^{2} f}{\partial x^{2} }=f(x+1, y)+f(x-1, y)-2 f(x, y)
 $$
 $$
-\frac{\partial^{2} f}{\partial y^{2}}=f(x, y+1)+f(x, y-1)-2 f(x, y)
+\frac{\partial^{2} f}{\partial y^{2} }=f(x, y+1)+f(x, y-1)-2 f(x, y)
 $$
 $$
 \nabla^{2} f(x, y)=f(x+1, y)+f(x-1, y)+f(x, y+1)+f(x, y-1)-4 f(x, y)

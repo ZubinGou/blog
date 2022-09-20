@@ -104,7 +104,7 @@ $$
 
 $$
 \begin{aligned}
-\mathcal{R}(\boldsymbol{w})=&-\frac{1}{N} \sum_{n=1}^{1 \mathrm{~N}}\left(p_{r}\left(y^{(n)}=1 \mid \boldsymbol{x}^{(n)}\right) \log \hat{y}^{(n)}+p_{r}\left(y^{(n)}=0 \mid \boldsymbol{x}^{(n)}\right) \log \left(1-\hat{y}^{(n)}\right)\right) \\\\
+\mathcal{R}(\boldsymbol{w})=&-\frac{1}{N} \sum_{n=1}^{1 \mathrm{~N} }\left(p_{r}\left(y^{(n)}=1 \mid \boldsymbol{x}^{(n)}\right) \log \hat{y}^{(n)}+p_{r}\left(y^{(n)}=0 \mid \boldsymbol{x}^{(n)}\right) \log \left(1-\hat{y}^{(n)}\right)\right) \\\\
 &=-\frac{1}{N} \sum_{n=1}^{N}\left(y^{(n)} \log \hat{y}^{(n)}+\left(1-y^{(n)}\right) \log \left(1-\hat{y}^{(n)}\right)\right) .
 \end{aligned}
 $$
@@ -113,7 +113,7 @@ $$
 
 $$
 \begin{aligned}
-\frac{\partial \mathcal{R}(\boldsymbol{w})}{\partial \boldsymbol{w}} &=-\frac{1}{N} \sum_{n=1}^{N}\left(y^{(n)} \frac{\hat{y}^{(n)}\left(1-\hat{y}^{(n)}\right)}{\hat{y}^{(n)}} \boldsymbol{x}^{(n)}-\left(1-y^{(n)}\right) \frac{\hat{y}^{(n)}\left(1-\hat{y}^{(n)}\right)}{1-\hat{y}^{(n)}} \boldsymbol{x}^{(n)}\right) \\\\
+\frac{\partial \mathcal{R}(\boldsymbol{w})}{\partial \boldsymbol{w} } &=-\frac{1}{N} \sum_{n=1}^{N}\left(y^{(n)} \frac{\hat{y}^{(n)}\left(1-\hat{y}^{(n)}\right)}{\hat{y}^{(n)} } \boldsymbol{x}^{(n)}-\left(1-y^{(n)}\right) \frac{\hat{y}^{(n)}\left(1-\hat{y}^{(n)}\right)}{1-\hat{y}^{(n)} } \boldsymbol{x}^{(n)}\right) \\\\
 &=-\frac{1}{N} \sum_{n=1}^{N}\left(y^{(n)}\left(1-\hat{y}^{(n)}\right) \boldsymbol{x}^{(n)}-\left(1-y^{(n)}\right) \hat{y}^{(n)} \boldsymbol{x}^{(n)}\right) \\\\
 &=-\frac{1}{N} \sum_{n=1}^{N} \boldsymbol{x}^{(n)}\left(y^{(n)}-\hat{y}^{(n)}\right)
 \end{aligned}
@@ -121,7 +121,7 @@ $$
 
 梯度下降法参数更新：
 $$
-\boldsymbol{w}_{t+1} \leftarrow \boldsymbol{w}_{t}+\alpha \frac{1}{N} \sum_{n=1}^{N} \boldsymbol{x}^{(n)}\left(y^{(n)}-\hat{y}_{\boldsymbol{w}_{t}}^{(n)}\right)
+\boldsymbol{w}_{t+1} \leftarrow \boldsymbol{w}_{t}+\alpha \frac{1}{N} \sum_{n=1}^{N} \boldsymbol{x}^{(n)}\left(y^{(n)}-\hat{y}_{\boldsymbol{w}_{t} }^{(n)}\right)
 $$
 
 因为风险函数 $\mathcal{R}(\boldsymbol{w})$ 是关于参数的连续可导凸函数，所以还可以用更高阶的优化方法（如牛顿法）来优化。
@@ -135,15 +135,15 @@ Sotfmax回归（Softmax Regression）：即多项或多类的 Logistic 回归。
 $$
 \begin{aligned}
 p(y=c \mid \boldsymbol{x}) &=\operatorname{softmax} (\boldsymbol{w}_{c}^{\top} \boldsymbol{x}) \\\\
-&=\frac{\exp \left(\boldsymbol{w}\_{c}^{\top} \boldsymbol{x}\right)}{\sum\_{c^{\prime}=1}^{C} \exp \left(\boldsymbol{w}\_{c^{\prime}}^{\top} \boldsymbol{x}\right)}
+&=\frac{\exp \left(\boldsymbol{w}\_{c}^{\top} \boldsymbol{x}\right)}{\sum\_{c^{\prime}=1}^{C} \exp \left(\boldsymbol{w}\_{c^{\prime} }^{\top} \boldsymbol{x}\right)}
 \end{aligned}
 $$
 
 向量化表示：
 $$
 \begin{aligned}
-\hat{\boldsymbol{y}} &=\operatorname{softmax}\left(\boldsymbol{W}^{\top} \boldsymbol{x}\right) \\\\
-&=\frac{\exp \left(\boldsymbol{W}^{\top} \boldsymbol{x}\right)}{\mathbf{1}_{C}^{\mathrm{T}} \exp \left(\boldsymbol{W}^{\top} \boldsymbol{x}\right)}
+\hat{\boldsymbol{y} } &=\operatorname{softmax}\left(\boldsymbol{W}^{\top} \boldsymbol{x}\right) \\\\
+&=\frac{\exp \left(\boldsymbol{W}^{\top} \boldsymbol{x}\right)}{\mathbf{1}_{C}^{\mathrm{T} } \exp \left(\boldsymbol{W}^{\top} \boldsymbol{x}\right)}
 \end{aligned}
 $$
 
@@ -158,8 +158,8 @@ $$
 风险函数：
 $$
 \begin{aligned}
-\mathcal{R}(\boldsymbol{W}) &=-\frac{1}{N} \sum_{n=1}^{N} \sum_{c=1}^{C} \boldsymbol{y}_{c}^{(n)} \log \hat{\boldsymbol{y}}_{c}^{(n)} \\\\
-&=-\frac{1}{N} \sum_{n=1}^{N}\left(\boldsymbol{y}^{(n)}\right)^{\mathrm{T}} \log \hat{\boldsymbol{y}}^{(n)}
+\mathcal{R}(\boldsymbol{W}) &=-\frac{1}{N} \sum_{n=1}^{N} \sum_{c=1}^{C} \boldsymbol{y}_{c}^{(n)} \log \hat{\boldsymbol{y} }_{c}^{(n)} \\\\
+&=-\frac{1}{N} \sum_{n=1}^{N}\left(\boldsymbol{y}^{(n)}\right)^{\mathrm{T} } \log \hat{\boldsymbol{y} }^{(n)}
 \end{aligned}
 $$
 
@@ -167,12 +167,12 @@ Softmax 函数求导：
 
 $$
 \begin{aligned}
-&\frac{\partial \operatorname{softmax}(\boldsymbol{x})}{\partial \boldsymbol{x}}=\frac{\partial\left(\frac{\exp (x)}{1_{K}^{\top} \exp (x)}\right)}{\partial \boldsymbol{x}} \\\\
-&=\frac{1}{\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})} \frac{\partial \exp (\boldsymbol{x})}{\partial \boldsymbol{x}}+\frac{\partial\left(\frac{1}{1_{K}^{\mathrm{T} \exp (x)}}\right)}{\partial \boldsymbol{x}}(\exp (\boldsymbol{x}))^{\top} \\\\
-&=\frac{\operatorname{diag}(\exp (\boldsymbol{x}))}{\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})}-\left(\frac{1}{\left(\mathbf{1}_{K}^{\mathrm{T}} \exp (\boldsymbol{x})\right)^{2}}\right) \frac{\partial\left(\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})\right)}{\partial \boldsymbol{x}}(\exp (\boldsymbol{x}))^{\top} \\\\
-&=\frac{\operatorname{diag}(\exp (\boldsymbol{x}))}{\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})}-\left(\frac{1}{\left(\mathbf{1}_{K}^{\mathrm{T}} \exp (\boldsymbol{x})\right)^{2}}\right) \operatorname{diag}(\exp (\boldsymbol{x})) \mathbf{1}_{K}(\exp (\boldsymbol{x}))^{\top} \\\\
-&=\frac{\operatorname{diag}(\exp (\boldsymbol{x}))}{\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})}-\left(\frac{1}{\left(\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})\right)^{2}}\right) \exp (\boldsymbol{x})(\exp (\boldsymbol{x}))^{\top} \\\\
-&=\operatorname{diag}\left(\frac{\exp (\boldsymbol{x})}{\mathbf{1}_{K}^{\mathrm{T}} \exp (\boldsymbol{x})}\right)-\frac{\exp (\boldsymbol{x})}{\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})} \frac{(\exp (\boldsymbol{x}))^{\mathrm{T}}}{\mathbf{1}_{K}^{\mathrm{T}} \exp (\boldsymbol{x})} \\\\
+&\frac{\partial \operatorname{softmax}(\boldsymbol{x})}{\partial \boldsymbol{x} }=\frac{\partial\left(\frac{\exp (x)}{1_{K}^{\top} \exp (x)}\right)}{\partial \boldsymbol{x} } \\\\
+&=\frac{1}{\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})} \frac{\partial \exp (\boldsymbol{x})}{\partial \boldsymbol{x} }+\frac{\partial\left(\frac{1}{1_{K}^{\mathrm{T} \exp (x)} }\right)}{\partial \boldsymbol{x} }(\exp (\boldsymbol{x}))^{\top} \\\\
+&=\frac{\operatorname{diag}(\exp (\boldsymbol{x}))}{\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})}-\left(\frac{1}{\left(\mathbf{1}_{K}^{\mathrm{T} } \exp (\boldsymbol{x})\right)^{2} }\right) \frac{\partial\left(\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})\right)}{\partial \boldsymbol{x} }(\exp (\boldsymbol{x}))^{\top} \\\\
+&=\frac{\operatorname{diag}(\exp (\boldsymbol{x}))}{\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})}-\left(\frac{1}{\left(\mathbf{1}_{K}^{\mathrm{T} } \exp (\boldsymbol{x})\right)^{2} }\right) \operatorname{diag}(\exp (\boldsymbol{x})) \mathbf{1}_{K}(\exp (\boldsymbol{x}))^{\top} \\\\
+&=\frac{\operatorname{diag}(\exp (\boldsymbol{x}))}{\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})}-\left(\frac{1}{\left(\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})\right)^{2} }\right) \exp (\boldsymbol{x})(\exp (\boldsymbol{x}))^{\top} \\\\
+&=\operatorname{diag}\left(\frac{\exp (\boldsymbol{x})}{\mathbf{1}_{K}^{\mathrm{T} } \exp (\boldsymbol{x})}\right)-\frac{\exp (\boldsymbol{x})}{\mathbf{1}_{K}^{\top} \exp (\boldsymbol{x})} \frac{(\exp (\boldsymbol{x}))^{\mathrm{T} }}{\mathbf{1}_{K}^{\mathrm{T} } \exp (\boldsymbol{x})} \\\\
 &=\operatorname{diag}(\operatorname{softmax}(\boldsymbol{x}))-\operatorname{softmax}(\boldsymbol{x}) \operatorname{softmax}(\boldsymbol{x})^{\top} .
 \end{aligned}
 $$
@@ -181,12 +181,12 @@ $$
 
 所以风险函数求梯度为：
 $$
-\frac{\partial \mathcal{R}(\boldsymbol{W})}{\partial \boldsymbol{W}}=-\frac{1}{N} \sum_{n=1}^{N} \boldsymbol{x}^{(n)}\left(\boldsymbol{y}^{(n)}-\hat{\boldsymbol{y}}^{(n)}\right)^{\top}
+\frac{\partial \mathcal{R}(\boldsymbol{W})}{\partial \boldsymbol{W} }=-\frac{1}{N} \sum_{n=1}^{N} \boldsymbol{x}^{(n)}\left(\boldsymbol{y}^{(n)}-\hat{\boldsymbol{y} }^{(n)}\right)^{\top}
 $$
 
 梯度下降法更新：
 $$
-\boldsymbol{W}\_{t+1} \leftarrow \boldsymbol{W}\_{t}+\alpha\left(\frac{1}{N} \sum_{n=1}^{N} \boldsymbol{x}^{(n)}\left(\boldsymbol{y}^{(n)}-\hat{\boldsymbol{y}}\_{W_{t}}^{(n)}\right)^{\top}\right)
+\boldsymbol{W}\_{t+1} \leftarrow \boldsymbol{W}\_{t}+\alpha\left(\frac{1}{N} \sum_{n=1}^{N} \boldsymbol{x}^{(n)}\left(\boldsymbol{y}^{(n)}-\hat{\boldsymbol{y} }\_{W_{t} }^{(n)}\right)^{\top}\right)
 $$
 
 
@@ -219,7 +219,7 @@ $$
 梯度更新：
 
 $$
-\frac{\partial \mathcal{L}(\boldsymbol{w} ; \boldsymbol{x}, y)}{\partial \boldsymbol{w}}=\left\{\begin{array}{lll}
+\frac{\partial \mathcal{L}(\boldsymbol{w} ; \boldsymbol{x}, y)}{\partial \boldsymbol{w} }=\left\{\begin{array}{lll}
 0 & \text { if } & y \boldsymbol{w}^{\top} \boldsymbol{x}>0 \\\\
 -y \boldsymbol{x} & \text { if } & y \boldsymbol{w}^{\top} \boldsymbol{x}<0
 \end{array}\right.
@@ -253,7 +253,7 @@ $$
 \hat{y} &=\operatorname{sgn}\left(\frac{1}{T} \sum_{k=1}^{K} c_{k}\left(\boldsymbol{w}_{k}^{\top} \boldsymbol{x}\right)\right) \\\\
 &=\operatorname{sgn}\left(\frac{1}{T}\left(\sum_{k=1}^{K} c_{k} \boldsymbol{w}_{k}\right)^{\top} \boldsymbol{x}\right) \\\\
 &=\operatorname{sgn}\left(\left(\frac{1}{T} \sum_{t=1}^{T} \boldsymbol{w}_{t}\right)^{\top} \boldsymbol{x}\right) \\\\
-&=\operatorname{sgn}\left(\overline{\boldsymbol{w}}^{\top} \boldsymbol{x}\right)
+&=\operatorname{sgn}\left(\overline{\boldsymbol{w} }^{\top} \boldsymbol{x}\right)
 \end{aligned}
 $$
 
@@ -298,7 +298,7 @@ $$
 
 $$
 \begin{aligned}
-\max _{\boldsymbol{w}, b} & \frac{1}{\|\boldsymbol{w}\|^{2}} \\\\
+\max _{\boldsymbol{w}, b} & \frac{1}{\|\boldsymbol{w}\|^{2} } \\\\
 \text { s.t. } & y^{(n)}\left(\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}+b\right) \geq 1, \forall n \in\{1, \cdots, N\}
 \end{aligned}
 $$
@@ -404,7 +404,7 @@ $$
 点到面距离计算：任取平面一点与该点构成直线 $AB$ ，距离即是 $AB$ 在法向量 $\boldsymbol{w}$ 上的投影。
 
 $$
-|\mathrm{AC}|=\left|\overrightarrow{\mathrm{AB}} \cdot \frac{\overrightarrow{\mathrm{n}}}{|\overrightarrow{\mathrm{n}}|}\right|
+|\mathrm{AC}|=\left|\overrightarrow{\mathrm{AB} } \cdot \frac{\overrightarrow{\mathrm{n} }}{|\overrightarrow{\mathrm{n} }|}\right|
 $$
 
 点积展开计算、消去0项即可。

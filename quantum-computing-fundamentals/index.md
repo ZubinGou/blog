@@ -109,11 +109,11 @@
 		- $Y=\sigma\_{y}=\left(\begin{array}{cc}0 & -i \\\\ i & 0\end{array}\right)$ 绕Y旋转$\pi$度
 		- $Z=\sigma\_{z}=\left(\begin{array}{cc}1 & 0 \\\\ 0 & -1\end{array}\right)$ 绕Z旋转$\pi$度
 		- 泡利矩阵的线性组合是完备的二维酉变换的生成元：$\mathrm{U}=\mathrm{e}^{-i \theta\left(a \sigma\_{x}+b \sigma\_{y}+c \sigma\_{z}\right)}$
-	- Hadamard（H）门：$\mathrm{H}=\frac{1}{\sqrt{2}}\left[\begin{array}{cc}1 & 1 \\\\ 1 & -1\end{array}\right]$
+	- Hadamard（H）门：$\mathrm{H}=\frac{1}{\sqrt{2} }\left[\begin{array}{cc}1 & 1 \\\\ 1 & -1\end{array}\right]$
 	- Rotation Operators：
-		- RX($\theta$)：$R X(\theta)=e^{\frac{-i \theta X}{2}}=\cos \left(\frac{\theta}{2}\right) I-i \sin \left(\frac{\theta}{2}\right) X=\left[\begin{array}{cc}\cos \left(\frac{\theta}{2}\right) & -i \sin \left(\frac{\theta}{2}\right) \\\\ -i \sin \left(\frac{\theta}{2}\right) & \cos \left(\frac{\theta}{2}\right)\end{array}\right]$
-		- RY($\theta$)：$R Y(\theta)=e^{\frac{-i \theta Y}{2}}=\cos \left(\frac{\theta}{2}\right) I-i \sin \left(\frac{\theta}{2}\right) Y=\left[\begin{array}{cc}\cos \left(\frac{\theta}{2}\right) & -\sin \left(\frac{\theta}{2}\right) \\\\ \sin \left(\frac{\theta}{2}\right) & \cos \left(\frac{\theta}{2}\right)\end{array}\right]$
-		- RZ($\theta$)：$R Z(\theta)=e^{\frac{-i \theta Z}{2}}=\cos \left(\frac{\theta}{2}\right) I-i \sin \left(\frac{\theta}{2}\right) Z=\left[\begin{array}{cc}e^{\frac{-i \theta}{2}} & 0 \\\\ 0 & e^{\frac{i \theta}{2}}\end{array}\right] \sim \left[\begin{array}{cc}1 & \\\\ & e^{i \theta}\end{array}\right]$
+		- RX($\theta$)：$R X(\theta)=e^{\frac{-i \theta X}{2} }=\cos \left(\frac{\theta}{2}\right) I-i \sin \left(\frac{\theta}{2}\right) X=\left[\begin{array}{cc}\cos \left(\frac{\theta}{2}\right) & -i \sin \left(\frac{\theta}{2}\right) \\\\ -i \sin \left(\frac{\theta}{2}\right) & \cos \left(\frac{\theta}{2}\right)\end{array}\right]$
+		- RY($\theta$)：$R Y(\theta)=e^{\frac{-i \theta Y}{2} }=\cos \left(\frac{\theta}{2}\right) I-i \sin \left(\frac{\theta}{2}\right) Y=\left[\begin{array}{cc}\cos \left(\frac{\theta}{2}\right) & -\sin \left(\frac{\theta}{2}\right) \\\\ \sin \left(\frac{\theta}{2}\right) & \cos \left(\frac{\theta}{2}\right)\end{array}\right]$
+		- RZ($\theta$)：$R Z(\theta)=e^{\frac{-i \theta Z}{2} }=\cos \left(\frac{\theta}{2}\right) I-i \sin \left(\frac{\theta}{2}\right) Z=\left[\begin{array}{cc}e^{\frac{-i \theta}{2} } & 0 \\\\ 0 & e^{\frac{i \theta}{2} }\end{array}\right] \sim \left[\begin{array}{cc}1 & \\\\ & e^{i \theta}\end{array}\right]$
 		- RX, RY, RZ意味着量子态在布洛赫球上分别绕X, Y, Z旋转$\theta$角度，所以RX、RY带来概率幅的变化，RZ只有相位的变化。这三种操作使量子态在球上自由移动。
 - 多量子和比特逻辑门
 	- 所有逻辑操作都是酉变换，所以输入、输出比特数量相等

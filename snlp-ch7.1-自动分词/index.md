@@ -106,12 +106,12 @@
 	3. 文本中被明确定义的任意一个实体名词（如：日期、时间、货币、百分数、温度、长度、面积、体积、重量、地址、电话号码、传真号码、电子邮件地址等）是一个词。
 	4. 文本中任意一个专有名词（人名、地名、机构名）是一个词。
 - 假设随机变量S为一个汉字序列，W是S上所有可能切分出来的词序列，分词过程应该是求解使条件概率$P(W\mid S)$最大的切分出来的词序列
-	- $W^{*}=\underset{W}{\operatorname{argmax}} P(W \mid S)$
-	- 贝叶斯：$W^*=\underset{W}{\operatorname{argmax}} \frac{P(W) P(S \mid W)}{P(S)}$
-	- 分母为归一化因子：$W^{*}=\underset{W}{\operatorname{argmax}} P(W) P(S \mid W)$
+	- $W^{*}=\underset{W}{\operatorname{argmax} } P(W \mid S)$
+	- 贝叶斯：$W^*=\underset{W}{\operatorname{argmax} } \frac{P(W) P(S \mid W)}{P(S)}$
+	- 分母为归一化因子：$W^{*}=\underset{W}{\operatorname{argmax} } P(W) P(S \mid W)$
 - 按下表可以把一个可能的词序列W转换成一个可能的词类序列$C＝c_1c_2…c_N$
 	![fe3791a431566a9784181f3446b4db51.png](../../_resources/c0f6e4231aef408cab2d9b5e3d4def25.png)
-	- $W^\*$改写为：$C^{*}=\underset{C}{\operatorname{argmax}} P(C) P(S \mid C)$
+	- $W^\*$改写为：$C^{*}=\underset{C}{\operatorname{argmax} } P(C) P(S \mid C)$
 	- P(C)即语言模型
 	- P(S|C)称生成模型
 - 对于语言模型，如采用三元语法：
@@ -136,7 +136,7 @@
 - 规定每个字只有4个词位：词首（B）、词中（M）、词尾（E）和单独成词（S）
 	![d9fda95b1b9f2bb08497e744856296d9.png](../../_resources/8bc2cb8ecf1144d7a1c139f922635283.png)
 - 原理：将分词结果表示成字标注形式，分词问题转化为序列标注问题
-	- 对于汉语句子$C^{n}={c}\_{1} {c}\_{2} \ldots {c}\_{{n}}$
+	- 对于汉语句子$C^{n}={c}\_{1} {c}\_{2} \ldots {c}\_{ {n} }$
 	- $P\left(t\_{1}^{n} \mid c\_{1}^{n}\right)=\prod\_{k=1}^{n} P\left(t\_{k} \mid t\_{1}^{k-1}, c\_{1}^{n}\right) \approx \prod\_{k=1}^{n} P\left(t\_{k} \mid t\_{k-1}, c\_{k-2}^{k-2}\right)$
 		- $t_k\in \{B, M, E, S\}$
 - 特征窗口

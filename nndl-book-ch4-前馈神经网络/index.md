@@ -214,15 +214,15 @@ $$
 ## 4.4 反向传播算法
 第 𝑙 层神经元的误差项：
 $$
-\delta^{(l)} \triangleq \frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{z}^{(l)}} \in \mathbb{R}^{M\_{l}}
+\delta^{(l)} \triangleq \frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y} })}{\partial \boldsymbol{z}^{(l)} } \in \mathbb{R}^{M\_{l} }
 $$
 误差项𝛿(𝑙) 也间接反映了不同神经元对网络能力的贡献程度，从而比较好地解决了贡献度分配问题（Credit Assignment Problem，CAP）
 
 $$
 \begin{aligned}
-\delta^{(l)} & \triangleq \frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{z}^{(l)}} \\\\
-&=\frac{\partial \boldsymbol{a}^{(l)}}{\partial \boldsymbol{z}^{(l)}} \cdot \cdot \cdot \frac{\partial \boldsymbol{z}^{(l+1)}}{\partial \boldsymbol{a}^{(l)}} \cdot {\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{z}^{(l+1)}}} \\\\
-&={\operatorname{diag}\left(f\_{l}^{\prime}\left(\boldsymbol{z}^{(l)}\right)\right)}\left(\boldsymbol{W}^{(l+1)}\right)^{\mathrm{T}} \cdot {\delta}^{(l+1)} \\\\
+\delta^{(l)} & \triangleq \frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y} })}{\partial \boldsymbol{z}^{(l)} } \\\\
+&=\frac{\partial \boldsymbol{a}^{(l)} }{\partial \boldsymbol{z}^{(l)} } \cdot \cdot \cdot \frac{\partial \boldsymbol{z}^{(l+1)} }{\partial \boldsymbol{a}^{(l)} } \cdot {\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y} })}{\partial \boldsymbol{z}^{(l+1)} }} \\\\
+&={\operatorname{diag}\left(f\_{l}^{\prime}\left(\boldsymbol{z}^{(l)}\right)\right)}\left(\boldsymbol{W}^{(l+1)}\right)^{\mathrm{T} } \cdot {\delta}^{(l+1)} \\\\
 &=f\_{l}^{\prime}\left(\boldsymbol{z}^{(l)}\right) \odot\left(\left(\boldsymbol{W}^{(l+1)}\right)^{\top} \delta^{(l+1)}\right) \quad \in \mathbb{R}^{M}
 \end{aligned}
 $$
@@ -231,25 +231,25 @@ $$
 BP算法内涵：l层一个神经元误差项是所有与该神经元相连的l+1层神经元的误差项的权重和，再乘上该神经元激活函数的梯度
 $$
 \begin{aligned}
-\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial w\_{i j}^{(l)}} &=\llbracket\_{i}\left(a\_{j}^{(l-1)}\right) \delta^{(l)} \\\\
-&=\left[0, \cdots, a\_{j}^{(l-1)}, \cdots, 0\right]\left[\delta\_{1}^{(l)}, \cdots, \delta\_{i}^{(l)}, \cdots, \delta\_{M\_{l}}^{(l)}\right]^{\top} \\\\
+\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y} })}{\partial w\_{i j}^{(l)} } &=\llbracket\_{i}\left(a\_{j}^{(l-1)}\right) \delta^{(l)} \\\\
+&=\left[0, \cdots, a\_{j}^{(l-1)}, \cdots, 0\right]\left[\delta\_{1}^{(l)}, \cdots, \delta\_{i}^{(l)}, \cdots, \delta\_{M\_{l} }^{(l)}\right]^{\top} \\\\
 &=\delta\_{i}^{(l)} a\_{j}^{(l-1)}
 \end{aligned}
 $$
 
 进一步：
 $$
-\left[\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{W}^{(l)}}\right]\_{i j}=\left[\delta^{(l)}\left(\boldsymbol{a}^{(l-1)}\right)^{\top}\right]\_{i j}
+\left[\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y} })}{\partial \boldsymbol{W}^{(l)} }\right]\_{i j}=\left[\delta^{(l)}\left(\boldsymbol{a}^{(l-1)}\right)^{\top}\right]\_{i j}
 $$
 
 权重梯度：
 $$
-\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{W}^{(l)}}=\delta^{(l)}\left(\boldsymbol{a}^{(l-1)}\right)^{\top} \quad \in \mathbb{R}^{M\_{l} \times M\_{l-1}}
+\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y} })}{\partial \boldsymbol{W}^{(l)} }=\delta^{(l)}\left(\boldsymbol{a}^{(l-1)}\right)^{\top} \quad \in \mathbb{R}^{M\_{l} \times M\_{l-1} }
 $$
 
 偏置梯度：
 $$
-\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y}})}{\partial \boldsymbol{b}^{(l)}}=\delta^{(l)} \in \mathbb{R}^{M\_{l}}
+\frac{\partial \mathcal{L}(\boldsymbol{y}, \hat{\boldsymbol{y} })}{\partial \boldsymbol{b}^{(l)} }=\delta^{(l)} \in \mathbb{R}^{M\_{l} }
 $$
 
 BP训练FNN过程：
@@ -302,13 +302,13 @@ $$
 ![a5b776a74918b4258a5d227e5c7b21c4.png](../../_resources/470a58cee0174ca7810a89249fc8e698.png)
 $$
 \begin{aligned}
-\frac{\partial f(x ; w, b)}{\partial w} &=\frac{\partial f(x ; w, b)}{\partial h\_{6}} \frac{\partial h\_{6}}{\partial h\_{5}} \frac{\partial h\_{5}}{\partial h\_{4}} \frac{\partial h\_{4}}{\partial h\_{3}} \frac{\partial h\_{3}}{\partial h\_{2}} \frac{\partial h\_{2}}{\partial h\_{1}} \frac{\partial h\_{1}}{\partial w} \\\\
-\frac{\partial f(x ; w, b)}{\partial b} &=\frac{\partial f(x ; w, b)}{\partial h\_{6}} \frac{\partial h\_{6}}{\partial h\_{5}} \frac{\partial h\_{5}}{\partial h\_{4}} \frac{\partial h\_{4}}{\partial h\_{3}} \frac{\partial h\_{3}}{\partial h\_{2}} \frac{\partial h\_{2}}{\partial b}
+\frac{\partial f(x ; w, b)}{\partial w} &=\frac{\partial f(x ; w, b)}{\partial h\_{6} } \frac{\partial h\_{6} }{\partial h\_{5} } \frac{\partial h\_{5} }{\partial h\_{4} } \frac{\partial h\_{4} }{\partial h\_{3} } \frac{\partial h\_{3} }{\partial h\_{2} } \frac{\partial h\_{2} }{\partial h\_{1} } \frac{\partial h\_{1} }{\partial w} \\\\
+\frac{\partial f(x ; w, b)}{\partial b} &=\frac{\partial f(x ; w, b)}{\partial h\_{6} } \frac{\partial h\_{6} }{\partial h\_{5} } \frac{\partial h\_{5} }{\partial h\_{4} } \frac{\partial h\_{4} }{\partial h\_{3} } \frac{\partial h\_{3} }{\partial h\_{2} } \frac{\partial h\_{2} }{\partial b}
 \end{aligned}
 $$
 - 分为前向模式和反向模式，反向模式和反向传播的计算梯度的方式相同
-	- 自下而上，反向模式遍历每个输出，每次自动微分都求出所有相关节点的一个自变量分量 $x\_{i}$ 的导数 $\frac{d \cdot}{d x\_{i}}$
-	- 自上而下，前向模式遍历每个输入，每次自动求导都是求出函数 $y\_{i}(x)$ 关于所有相关节点的导数 $\frac{d y\_{i}}{d \cdot}$
+	- 自下而上，反向模式遍历每个输出，每次自动微分都求出所有相关节点的一个自变量分量 $x\_{i}$ 的导数 $\frac{d \cdot}{d x\_{i} }$
+	- 自上而下，前向模式遍历每个输入，每次自动求导都是求出函数 $y\_{i}(x)$ 关于所有相关节点的导数 $\frac{d y\_{i} }{d \cdot}$
 
 - 计算图构建方式
 	- 静态计算图（Static Computational Graph）：编译时构建计算图，构建时可以优化，并行能力强

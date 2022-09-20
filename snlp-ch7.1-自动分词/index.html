@@ -1,712 +1,101 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>《统计自然语言处理》第7.1章 - 自动分词 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《统计自然语言处理》第7.1章 - 自动分词" />
-<meta property="og:description" content="7.1 汉语自动分词中的基本问题 词是最小的能够独立运用的语言单位，很多孤立语和黏着语文本不像西方屈折语文本，词与词之间没有空格显示指示词的边界，首" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://zubingou.github.io/blog/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-01-17T13:56:11+08:00" />
-<meta property="article:modified_time" content="2021-01-17T13:56:11+08:00" /><meta property="og:site_name" content="My cool site" />
+{ {- define "title" } }{ { .Title } } - { { .Site.Title } }{ { end -} }
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
+{ {- define "content" -} }
+    { {- $params := .Scratch.Get "params" -} }
 
-<meta name="twitter:title" content="《统计自然语言处理》第7.1章 - 自动分词"/>
-<meta name="twitter:description" content="7.1 汉语自动分词中的基本问题 词是最小的能够独立运用的语言单位，很多孤立语和黏着语文本不像西方屈折语文本，词与词之间没有空格显示指示词的边界，首"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/" /><link rel="prev" href="https://zubingou.github.io/blog/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" /><link rel="next" href="https://zubingou.github.io/blog/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "《统计自然语言处理》第7.1章 - 自动分词",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/zubingou.github.io\/blog\/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D\/"
-        },"image": [{
-                            "@type": "ImageObject",
-                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
-                            "width":  3200 ,
-                            "height":  2048 
-                        }],"genre": "posts","keywords": "统计自然语言处理, NLP, statistics, notes","wordcount":  5102 ,
-        "url": "https:\/\/zubingou.github.io\/blog\/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D\/","datePublished": "2021-01-17T13:56:11+08:00","dateModified": "2021-01-17T13:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "ZubinGou","logo": {
-                    "@type": "ImageObject",
-                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
-                    "width":  304 ,
-                    "height":  304 
-                }},"author": {
-                "@type": "Person",
-                "name": "ZubinGou"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    { {- $toc := $params.toc -} }
+    { {- if eq $toc true -} }
+        { {- $toc = .Site.Params.page.toc | default dict -} }
+    { {- else if eq $toc false -} }
+        { {- $toc = dict "enable" false -} }
+    { {- end -} }
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- /* Auto TOC */ -} }
+    { {- if ne $toc.enable false -} }
+        <div class="toc" id="toc-auto">
+            <h2 class="toc-title">{ { T "contents" } }</h2>
+            <div class="toc-content{ { if eq $toc.auto false } } always-active{ { end } }" id="toc-content-auto"></div>
         </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/blog/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
-                    <i class="fa fa-globe" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/" selected>简体中文</option></select>
-                </a></div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- end -} }
+
+    <article class="page single">
+        { {- /* Title */ -} }
+        <h1 class="single-title animate__animated animate__flipInX">{ { .Title | emojify } }</h1>
+
+        { {- /* Subtitle */ -} }
+        { {- with $params.subtitle -} }
+            <h2 class="single-subtitle">{ { . } }</h2>
+        { {- end -} }
+
+        { {- /* Meta */ -} }
+        <div class="post-meta">
+            <div class="post-meta-line">
+                { {- $author := $params.author | default .Site.Author.name | default (T "author") -} }
+                { {- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -} }
+                <span class="post-author">
+                    { {- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -} }
+                    { {- partial "plugin/a.html" $options -} }
+                </span>
+
+                { {- $categories := slice -} }
+                { {- range .Params.categories -} }
+                    { {- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -} }
+                    { {- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw" aria-hidden="true"></i>%v</a>` $category.RelPermalink $category.Title) -} }
+                { {- end -} }
+                { {- with delimit $categories "&nbsp;" -} }
+                    &nbsp;<span class="post-category">
+                        { {- dict "Categories" . | T "includedInCategories" | safeHTML -} }
+                    </span>
+                { {- end -} }
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
+            <div class="post-meta-line">
+                { {- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -} }
+                    <i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{ { . } }">{ { . } }</time>&nbsp;
+                { {- end -} }
+                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{ { T "wordCount" .WordCount } }&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{ { T "readingTime" .ReadingTime } }&nbsp;
+                { {- $comment := .Scratch.Get "comment" | default dict -} }
+                { {- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -} }
+                    <span id="{ { .RelPermalink } }" class="leancloud_visitors" data-flag-title="{ { .Title } }">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{ { T "views" } }
+                    </span>&nbsp;
+                { {- end -} }
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/blog/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
-                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/blog/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/" selected>简体中文</option></select>
-                </a></div>
-    </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《统计自然语言处理》第7.1章 - 自动分词</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/nlp/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>NLP</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-01-17">2021-01-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5102 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
+
+        { {- /* Featured image */ -} }
+        { {- $image := $params.featuredimage -} }
+        { {- with .Resources.GetMatch "featured-image" -} }
+            { {- $image = .RelPermalink -} }
+        { {- end -} }
+        { {- with $image -} }
+            <div class="featured-image">
+                { {- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -} }
+            </div>
+        { {- end -} }
+
+        { {- /* Static TOC */ -} }
+        { {- if ne $toc.enable false -} }
+            <div class="details toc" id="toc-static"  data-kept="{ { if $toc.keepStatic } }true{ { end } }">
                 <div class="details-summary toc-title">
-                    <span>目录</span>
+                    <span>{ { T "contents" } }</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#71-汉语自动分词中的基本问题">7.1 汉语自动分词中的基本问题</a>
-      <ul>
-        <li><a href="#711-汉语分词的规范问题">7.1.1 汉语分词的规范问题</a></li>
-        <li><a href="#712-歧义切分问题">7.1.2 歧义切分问题</a></li>
-        <li><a href="#713-未登录词问题">7.1.3 未登录词问题</a></li>
-      </ul>
-    </li>
-    <li><a href="#72-汉语分词方法">7.2 汉语分词方法</a>
-      <ul>
-        <li><a href="#721-n-最短路径方法">7.2.1 N-最短路径方法</a></li>
-        <li><a href="#722-基于词的n元语法模型的分词方法">7.2.2 基于词的n元语法模型的分词方法</a>
-          <ul>
-            <li><a href="#改进的信源信道模型分词">改进的信源信道模型分词</a></li>
-          </ul>
-        </li>
-        <li><a href="#723-由字构词的汉语分词方法">7.2.3 由字构词的汉语分词方法</a></li>
-        <li><a href="#724-基于词感知机算法的汉语分词方法">7.2.4 基于词感知机算法的汉语分词方法</a></li>
-        <li><a href="#725-基于字的生成式模型和区分式模型相结合的汉语分词方法">7.2.5 基于字的生成式模型和区分式模型相结合的汉语分词方法</a></li>
-        <li><a href="#726-其他分词方法">7.2.6 其他分词方法</a></li>
-        <li><a href="#727-分词方法比较">7.2.7 分词方法比较</a></li>
-        <li><a href="#补充语言结构类型">补充：语言结构类型</a></li>
-      </ul>
-    </li>
-    <li><a href="#references">References</a></li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><h2 id="71-汉语自动分词中的基本问题">7.1 汉语自动分词中的基本问题</h2>
-<ul>
-<li>词是最小的能够独立运用的语言单位，很多孤立语和黏着语文本不像西方屈折语文本，词与词之间没有空格显示指示词的边界，首先需要自动分词。</li>
-<li>汉语自动分词：让计算机系统在汉语文本中的词与词之间自动加上空格或其他边界标记</li>
-<li>主要困难：分词规范、歧义切分、未登录词的识别</li>
-</ul>
-<h3 id="711-汉语分词的规范问题">7.1.1 汉语分词的规范问题</h3>
-<ul>
-<li>主要困难：
-<ol>
-<li>单字词与词素之间的划界</li>
-<li>词与短语（词组）的划界</li>
-</ol>
-</li>
-</ul>
-<h3 id="712-歧义切分问题">7.1.2 歧义切分问题</h3>
-<ul>
-<li>基本切分歧义类型：
-<ol>
-<li>交集型切分歧义：汉字串AJB称作交集型切分歧义，如果满足AJ、JB同时为词（A、J、B分别为汉字串）。此时汉字串J称作交集串。
-<ul>
-<li>交集串链：交集型切分歧义拥有的交集串的集合</li>
-<li>链长：交集串链中交集串的个数</li>
-<li>eg. “中国产品质量”字段的链长为4，“部分居民生活水平”字段的链长为6</li>
-<li>[孙茂松等，2001]认为，定义7-3中给出的名称“多义组合型切分歧义”是不太科学的（实际上，某些交集型切分歧义也是多义组合的），容易引起混淆，与“交集型”这个纯形式的名称相呼应，称作“包孕型”或者“覆盖型”可能更恰当</li>
-<li>[董振东，1997]称之为“偶发性歧义”</li>
-</ul>
-</li>
-<li>多义组合型切分歧义：汉字串AB称作多义组合型切分歧义，如果满足A、B、AB同时为词
-<ul>
-<li>eg. “将来”、“现在”、“才能”、“学生会”</li>
-<li>[孙茂松等, 2001]补充定义：文本中至少存在一个上下文语境C，在C的约束下，A、B在语法和语义上都成立</li>
-<li>[董振东，1997]称之为“固有歧义”</li>
-</ul>
-</li>
-</ol>
-</li>
-<li>[侯敏等，1995]认为还有“混合型”，集交集型与组合型的特点，交集型字段内包含组合型字段：
-<blockquote>
-<ul>
-<li>这篇文章写得太平淡了。</li>
-<li>这墙抹得太平了。</li>
-<li>即使太平时期也不应该放松警惕。</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h3 id="713-未登录词问题">7.1.3 未登录词问题</h3>
-<ul>
-<li>未登录词又称生词（unknown word），两种解释
-<ol>
-<li>词表没有收录的词</li>
-<li>训练语料中未曾出现的词，又称集外词（out of vocabulary, OOV）</li>
-</ol>
-<ul>
-<li>因词表在大规模语料中容易获取，通常将OOV与未登录词看作一回事</li>
-</ul>
-</li>
-<li>未登录词类型：
-<ol>
-<li>新出现的普通词汇：eg. 奥力给、不讲武德</li>
-<li>专有名词（proper names）：人名、地名、组织机构名
-<ul>
-<li>命名实体（named entity）：专有名词 + 时间和数字表达（日期、数量值、百分比、序数、货币数量等）</li>
-</ul>
-</li>
-<li>专业名词和研究领域名称：eg. 三聚氰胺、苏丹红、禽流感、堰塞湖</li>
-<li>其他专用名词，如新出现的产品、电影、书籍名</li>
-</ol>
-<ul>
-<li>黄昌宁等人（2003）统计，未登录词约九成为专有名词，其余为新词</li>
-</ul>
-</li>
-<li>实际应用中未登录词的影响远大于歧义切分：
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/0c7aa4165cb94cefb13ba7dbe8447d28.png"
-        data-srcset="../../_resources/0c7aa4165cb94cefb13ba7dbe8447d28.png, ../../_resources/0c7aa4165cb94cefb13ba7dbe8447d28.png 1.5x, ../../_resources/0c7aa4165cb94cefb13ba7dbe8447d28.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/0c7aa4165cb94cefb13ba7dbe8447d28.png"
-        title="d7be7fa7cd2deee23cab488bdae47afe.png" /></li>
-<li>需要说明的是，在汉语分词中对命名实体词汇的识别处理是指将命名实体中可独立成词的切分单位正确地识别出来，而不是指识别整个实体的左右边界。</li>
-</ul>
-<h2 id="72-汉语分词方法">7.2 汉语分词方法</h2>
-<ul>
-<li>分词方法：
-<ul>
-<li>基于词表的方法
-<ul>
-<li>正向最大匹配法（forward maximum matching method, FMM）</li>
-<li>逆向最大匹配法（backward maximum matching method, BMM）</li>
-<li>双向扫描法</li>
-<li>逐词扫描法</li>
-</ul>
-</li>
-<li>基于统计模型的方法（结合n元语法）
-<ul>
-<li>HMM</li>
-<li>CRF</li>
-<li>SVM</li>
-<li>深度学习</li>
-</ul>
-</li>
-<li>规则方法与统计方法相结合</li>
-</ul>
-</li>
-</ul>
-<h3 id="721-n-最短路径方法">7.2.1 N-最短路径方法</h3>
-<ul>
-<li>
-<p>分词两阶段：1. 粗分 2. 歧义排除和未登录词识别</p>
-</li>
-<li>
-<p>基于N-最短路径方法的汉语词语粗分模型[张华平等, 2002]</p>
-<ul>
-<li>旨在提高召回率并兼顾准确率</li>
-</ul>
-</li>
-<li>
-<p>基本思想：</p>
-<ol>
-<li>根据词典，找出字符串中所有可能的词，构造词语切分有向无环图</li>
-<li>每个词对应一条有向边，边长为权值</li>
-<li>求出N条最短路，作为粗分结果集（算并列长度，最后集合大小&gt;=N）</li>
-</ol>
-</li>
-<li>
-<p>建立词边：
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/01adf2b46ad540cc8bae34b14cd1adfc.png"
-        data-srcset="../../_resources/01adf2b46ad540cc8bae34b14cd1adfc.png, ../../_resources/01adf2b46ad540cc8bae34b14cd1adfc.png 1.5x, ../../_resources/01adf2b46ad540cc8bae34b14cd1adfc.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/01adf2b46ad540cc8bae34b14cd1adfc.png"
-        title="a668f30139f25d047243fceccbc71e50.png" /></p>
-</li>
-<li>
-<p>考虑边长影响，分为两种模型</p>
-<ol>
-<li>非统计粗分模型：所有词权重对等，即词边长均为1
-<ul>
-<li>NSP：结点V0到Vn的前N个最短路径的集合</li>
-<li>N-最短路方法：将词语粗分问题转化为求解有向无环图G的NSP</li>
-<li>求解方法：贪心，即Dijkstra简单扩展
-<ol>
-<li>记录每个结点N个最短路和前驱</li>
-<li>回溯求解NSP
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/0e913d8661614ef2bfe0f03d217b8fc8.png"
-        data-srcset="../../_resources/0e913d8661614ef2bfe0f03d217b8fc8.png, ../../_resources/0e913d8661614ef2bfe0f03d217b8fc8.png 1.5x, ../../_resources/0e913d8661614ef2bfe0f03d217b8fc8.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/0e913d8661614ef2bfe0f03d217b8fc8.png"
-        title="c45eda261562b8a677da731e209970a8.png" /></li>
-</ol>
-</li>
-<li>复杂度：字符串长度n，最短路径数N，某字作为词尾的平均次数k（总词数/末端词数，即切分图中结点入度平均值），算法复杂度为$O(n\times N\times k)$</li>
-</ul>
-</li>
-<li>统计粗分模型
-<ul>
-<li>词权重设置为词频负对数：$-\ln P(w_i)$
-<ul>
-<li>$P(W \mid C)=\frac{P(W) P(C \mid W)}{P(C)} \sim P(W)$</li>
-<li>$P(W)=\prod_{i=1}^{m} P\left(w_{i}\right)$</li>
-<li>越高频，越是捷径</li>
-</ul>
-</li>
-<li>求min：$p^*(W)=-\ln P(W)= \sum_{i=1}^{m}\left[-\ln P\left(w_{i}\right)\right]$</li>
-<li>同理用最短路算法求解</li>
-</ul>
-</li>
-</ol>
-</li>
-<li>
-<p>实验结果[张华平等, 2002]：在N＝10的情况下，非统计粗分模型和统计粗分模型切分句子的召回率分别为99.73％和99.94％，均高于最大匹配方法和最短路径方法获得的召回率。</p>
-</li>
-</ul>
-<h3 id="722-基于词的n元语法模型的分词方法">7.2.2 基于词的n元语法模型的分词方法</h3>
-<ul>
-<li>典型的生成式模型</li>
-<li>基本思想：
-<ol>
-<li>用词典对句子简单匹配，找出所有可能的词典词</li>
-<li>将词典词和所有单个字作为结点，构造n元切分词图</li>
-<li>边上概率表示代价，利用搜索算法（如Viterbi算法）找出代价最小路径
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/41c55cb890f0441c8af23aa6e3325d55.png"
-        data-srcset="../../_resources/41c55cb890f0441c8af23aa6e3325d55.png, ../../_resources/41c55cb890f0441c8af23aa6e3325d55.png 1.5x, ../../_resources/41c55cb890f0441c8af23aa6e3325d55.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/41c55cb890f0441c8af23aa6e3325d55.png"
-        title="e773bac8834931727cc0fb67e73deb47.png" /></li>
-</ol>
-</li>
-<li>未登录词与歧义切分一体化处理：改进的信源信道模型的分词方法[J.Gao等, 2003]
-<ul>
-<li>受到启发：[Richard Sproat等, 1996]的基于加权的有限状态转换机（weighted finite-state transducer）模型与未登录词识别一体化切分的实现方法</li>
-</ul>
-</li>
-</ul>
-<h4 id="改进的信源信道模型分词">改进的信源信道模型分词</h4>
-<ul>
-<li>将汉语词定义为4类
-<ol>
-<li>词表中有的词</li>
-<li>文本中任意一个经词法派生出来的词或短语为一个词，如重叠形式（高高兴兴，说说话、天天）、前缀派生（非党员、副部长）、后缀派生（全面性、朋友们）、中缀派生（看得出、看不出）、动词加时态助词（克服了、蚕食着）、动词加趋向动词（走出、走出来）、动词的分离形式（长度不超过3个字，如：洗了澡、洗过澡），等等</li>
-<li>文本中被明确定义的任意一个实体名词（如：日期、时间、货币、百分数、温度、长度、面积、体积、重量、地址、电话号码、传真号码、电子邮件地址等）是一个词。</li>
-<li>文本中任意一个专有名词（人名、地名、机构名）是一个词。</li>
-</ol>
-</li>
-<li>假设随机变量S为一个汉字序列，W是S上所有可能切分出来的词序列，分词过程应该是求解使条件概率$P(W\mid S)$最大的切分出来的词序列
-<ul>
-<li>$W^{*}=\underset{W}{\operatorname{argmax}} P(W \mid S)$</li>
-<li>贝叶斯：$W^*=\underset{W}{\operatorname{argmax}} \frac{P(W) P(S \mid W)}{P(S)}$</li>
-<li>分母为归一化因子：$W^{*}=\underset{W}{\operatorname{argmax}} P(W) P(S \mid W)$</li>
-</ul>
-</li>
-<li>按下表可以把一个可能的词序列W转换成一个可能的词类序列$C＝c_1c_2…c_N$
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/c0f6e4231aef408cab2d9b5e3d4def25.png"
-        data-srcset="../../_resources/c0f6e4231aef408cab2d9b5e3d4def25.png, ../../_resources/c0f6e4231aef408cab2d9b5e3d4def25.png 1.5x, ../../_resources/c0f6e4231aef408cab2d9b5e3d4def25.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/c0f6e4231aef408cab2d9b5e3d4def25.png"
-        title="fe3791a431566a9784181f3446b4db51.png" />
-<ul>
-<li>$W^*$改写为：$C^{*}=\underset{C}{\operatorname{argmax}} P(C) P(S \mid C)$</li>
-<li>P(C)即语言模型</li>
-<li>P(S|C)称生成模型</li>
-</ul>
-</li>
-<li>对于语言模型，如采用三元语法：
-<ul>
-<li>$P(C)=P\left(c_{1}\right) P\left(c_{2} \mid c_{1}\right) \prod_{i=3}^{N} P\left(c_{i} \mid c_{i-2} c_{i-1}\right)$</li>
-</ul>
-</li>
-<li>生成模型：
-<ul>
-<li>独立性假设：词类$c_i$生成汉字串$s_i$概率只与$c_i$自身有关，而与其上下文无关</li>
-<li>则：$P(S \mid C) \approx \prod_{i=1}^{N} P\left(s_{i} \mid c_{i}\right)$</li>
-</ul>
-</li>
-<li>[黄昌宁等，2003]实验：
-<ul>
-<li>词表、派生词表</li>
-<li>语料：新闻文本</li>
-<li>模型训练：
-<ol>
-<li>语料类别标记：FMM切分语料、专有名词、实体名词标注</li>
-<li>最大似然估计：估计统计语言模型概率参数</li>
-<li>用语言模型重新切分标注，得到刷新的训练语料，重复2、3直到收敛</li>
-</ol>
-</li>
-<li>交集型歧义字段（OAS）处理：最大匹配算法检测OAS，用特定类 $<GAP>$ 取代全体OAS，训练语言模型P(C)；类 $<GAP>$ 的生成模型的参数通过消歧规则或机器学习方法估计</li>
-<li>组合型歧义字段（CAS）处理：对高频、切分分布均匀的70条CAS训练二值分类器，用分类器进行消歧</li>
-</ul>
-</li>
-<li>实验结果[黄昌宁等，2003]：自动分词的正确率和召回率分别达到了96.3％和97.4％</li>
-</ul>
-<h3 id="723-由字构词的汉语分词方法">7.2.3 由字构词的汉语分词方法</h3>
-<ul>
-<li>由字构词（character-based tagging）的汉语分词方法[Xue and Converse,2002]</li>
-<li>思想：将分词过程看作字的分类问题</li>
-<li>规定每个字只有4个词位：词首（B）、词中（M）、词尾（E）和单独成词（S）
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/8bc2cb8ecf1144d7a1c139f922635283.png"
-        data-srcset="../../_resources/8bc2cb8ecf1144d7a1c139f922635283.png, ../../_resources/8bc2cb8ecf1144d7a1c139f922635283.png 1.5x, ../../_resources/8bc2cb8ecf1144d7a1c139f922635283.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/8bc2cb8ecf1144d7a1c139f922635283.png"
-        title="d9fda95b1b9f2bb08497e744856296d9.png" /></li>
-<li>原理：将分词结果表示成字标注形式，分词问题转化为序列标注问题
-<ul>
-<li>对于汉语句子$C^{n}={c}_{1} {c}_{2} \ldots {c}_{{n}}$</li>
-<li>$P\left(t_{1}^{n} \mid c_{1}^{n}\right)=\prod_{k=1}^{n} P\left(t_{k} \mid t_{1}^{k-1}, c_{1}^{n}\right) \approx \prod_{k=1}^{n} P\left(t_{k} \mid t_{k-1}, c_{k-2}^{k-2}\right)$
-<ul>
-<li>$t_k\in {B, M, E, S}$</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>特征窗口
-<ul>
-<li>一般取w=5个字，前后各两个字</li>
-<li>窗口中抽取特征，常用特征模板：
-(a) $c_{k} (k=-2,-1,0,1,2)$
-(b) $c_{k} c_{k+1} (k=-2,-1,0,1)$
-(c) $c_{-1} c_{1}$
-(d) $T\left(c_{-2}\right) T\left(c_{-1}\right) T\left(c_{0}\right) T\left(c_{1}\right) T\left(c_{2}\right)$</li>
-<li>前面三类特征模板（a）～（c）是窗口内的字及其组合特征</li>
-<li>模板（d）与定义的字符类别信息有关，主要是为了处理数字、标点符号和英文字符等有明显特征的词</li>
-<li>有了特征，利用常用判别式模型（最大熵、CRF、SVM、感知机）进行参数训练，然后利用解码算法找到最优切分结果</li>
-</ul>
-</li>
-<li>由字构词优势：平衡看待词表词与未登录词识别问题，分词过程为字重组的简单过程；学习架构上，既可以不必专门强调词表词信息，也不用专门设计特定的未登录词识别模块，因此，大大简化了分词系统的设计。</li>
-</ul>
-<h3 id="724-基于词感知机算法的汉语分词方法">7.2.4 基于词感知机算法的汉语分词方法</h3>
-<ul>
-<li>平均感知机（averaged perceptron）：使用<strong>词</strong>相关的特征</li>
-</ul>
-<p>假设x∈X是输入句子，y∈Y是切分结果，其中X是训练语料集合，Y是X中句子标注结果集合。我们用GEN（x）表示输入句子x的切分候选集，用$\phi(x, y)\in R^d$表示训练实例（x, y）对应的特征向量，α表示参数向量，其中$R^d$是模型的特征空间。那么，给定一个输入句子x，其最优切分结果满足如下条件：
-$$F(x)=\arg \max _{y \in \operatorname{GEN}(x)}{\Phi(x, y) \cdot \alpha}$$</p>
-<ul>
-<li>训练算法如下：
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/f9f31357d60d4a08a757c287fecc8973.png"
-        data-srcset="../../_resources/f9f31357d60d4a08a757c287fecc8973.png, ../../_resources/f9f31357d60d4a08a757c287fecc8973.png 1.5x, ../../_resources/f9f31357d60d4a08a757c287fecc8973.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/f9f31357d60d4a08a757c287fecc8973.png"
-        title="f8cecfff110697fa575a11ac89bb9591.png" /></li>
-<li>词感知机思路：
-<ol>
-<li>解码器每次读入一个字，生成所有候选词，候选词两种：
-a. 作为上一个候选词末尾
-b. 作文下一个候选字开始</li>
-<li>解码器维持源列表、目标列表（滚动数组），每读入一个词，与源列表每个候选组合为两个新候选（合并为新词或者作为下一个词的开始），新候选放入目标列表</li>
-<li>处理完成后，copy 目标列表 to 源列表，clear 目标列表，读入下一个词，重复（2）
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/5cc7e868835f4ad78978e361456b140e.png"
-        data-srcset="../../_resources/5cc7e868835f4ad78978e361456b140e.png, ../../_resources/5cc7e868835f4ad78978e361456b140e.png 1.5x, ../../_resources/5cc7e868835f4ad78978e361456b140e.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/5cc7e868835f4ad78978e361456b140e.png"
-        title="c3807219be7b261cffe418940923398b.png" /></li>
-</ol>
-</li>
-<li>该解码算法类似于全切分方法，理论上会生成所有$w^{l-1}$个切分结果（l为句长），为提升切分速度，限制目标列表tgt保留B个最高得分的候选（eg. B=16）。对tgt列表中切分候选打分和排序采用平均感知机分类器算法[Zhang and Clark, 2007]，使用如下特征：
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/3262af5dbe6a448494101ae2bc36890c.png"
-        data-srcset="../../_resources/3262af5dbe6a448494101ae2bc36890c.png, ../../_resources/3262af5dbe6a448494101ae2bc36890c.png 1.5x, ../../_resources/3262af5dbe6a448494101ae2bc36890c.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/3262af5dbe6a448494101ae2bc36890c.png"
-        title="6b74977fe04823b6d064993e1d7f361e.png" /></li>
-</ul>
-<h3 id="725-基于字的生成式模型和区分式模型相结合的汉语分词方法">7.2.5 基于字的生成式模型和区分式模型相结合的汉语分词方法</h3>
-<ul>
-<li>汉语分词两大主流方法
-<ol>
-<li>基于词的n元语法模型（生成式模型）
-<ul>
-<li>集内词效果好，集外词效果差</li>
-</ul>
-</li>
-<li>基于字的序列标注模型（区分式模型）
-<ul>
-<li>集外词效果好，集内词效果差</li>
-</ul>
-</li>
-</ol>
-</li>
-<li>［Wang et al., 2012］两个处于词边界的字的依赖关系和两个处于词内部的字的依赖关系不同（容易理解，词内部字依赖关系更强）
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/908d280cb2704e8e8e8dec02e9e10ef5.png"
-        data-srcset="../../_resources/908d280cb2704e8e8e8dec02e9e10ef5.png, ../../_resources/908d280cb2704e8e8e8dec02e9e10ef5.png 1.5x, ../../_resources/908d280cb2704e8e8e8dec02e9e10ef5.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/908d280cb2704e8e8e8dec02e9e10ef5.png"
-        title="9c06d04caa5d8c39170d8440d626b8cd.png" /></li>
-<li>两大方法优缺点：
-<ol>
-<li>基于词的生成式模型实际上隐含地考虑了这种处于不同位置字之间
-的依赖关系，而在基于字的判别式模型中却无法考虑这种依赖关系。</li>
-<li>但是，区分式模型能够充分利用上下文特征信息等，有较大的灵活性。因
-此，基于字的区分式模型具有较强的鲁棒性。</li>
-</ol>
-</li>
-<li>基于字的n元语法模型[Wang et al., 2009, 2010a, 2012]
-<ul>
-<li>结合基于字的生成式、判别式模型</li>
-<li>将字替换为&lt;字-标记&gt;对，即
-$P\left(w_{1}^{m} \mid c_{1}^{n}\right) \equiv P\left([c, t]_{1}^{n} \mid c_{1}^{n}\right)=\frac{P\left(c_{1}^{n} \mid[c, t]_{1}^{n}\right) \times P\left([c, t]_{1}^{n}\right)}{P\left(c_{1}^{n}\right)}$</li>
-<li>3-gram &amp; Bayes:
-$P\left(w_{1}^{m}\right)=\prod_{i=1}^{m} P\left(w_{i} \mid w_{1}^{j-1}\right) \approx \prod_{i=1}^{m} P\left(w_{i} \mid w_{i-2}^{i-1}\right)$</li>
-<li>简化：
-$P\left([c, t]_{1}^{n}\right) \approx \prod_{i=1}^{n} P\left([c, t]_{i} \mid[c, t]_{i-k}^{i-1}\right)$</li>
-</ul>
-</li>
-<li>基于字的n-gram特点：
-<ul>
-<li>以字为基本单位，但考虑了字与字的依赖关系，对词典词处理能力优于基于字的判别式模型</li>
-<li>但没有考虑未来信息（下文），对未登录词处理能力仍弱于基于字的判别式模型</li>
-</ul>
-</li>
-<li>改进：集成式分词模型[Wang et al., 2010a, 2012]
-<ul>
-<li>结合基于字的判别式、基于字的生成式</li>
-<li>线性插值法整合两个模型</li>
-<li>Score $\left(t_{k}\right)=\alpha \times \log \left(P\left([c, t]_{k} \mid[c, t]_{k-2}^{k-1}\right)\right)+(1-\alpha) \times \log \left(P\left(t_{k} \mid t_{k-1}, c_{k-2}^{k-2}\right)\right)$</li>
-</ul>
-</li>
-</ul>
-<h3 id="726-其他分词方法">7.2.6 其他分词方法</h3>
-<ul>
-<li>[Wu, 2003a]句法分析与自动分词相结合
-<ul>
-<li>利用句法结构消除组合型歧义</li>
-<li>效果差
-<ul>
-<li>组合型歧义少</li>
-<li>句法分词本身的歧义，倒打一耙</li>
-<li>句法分析器的语法规则使用范围有限</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>[Gao et al., 2005]汉语分词的语用方法（pragmatic approach）
-<ol>
-<li>词：根据它们在实际使用和处理中的需要从语用上定义的切分单位</li>
-<li>语用数学框架：切分已知词和检测不同类型的生词能够以一体化的方式同步进行</li>
-<li>切分标准：假设不存在独立于应用的通用切分标准，不同任务需要多重切分标准和不同的词汇粒度</li>
-</ol>
-</li>
-<li>由字构词的方法改进
-<ul>
-<li>［Zhang et al., 2006a, 2006b］为提升词典词召回率（recall），张瑞强等人提出了基于“子词”（sub-word）的判别式模型</li>
-<li>［Zhao et al., 2006a, 2010］赵海等人还比较了不同词位数量对该模型的影响，他们的实验表明，基于6个词位的效果最好</li>
-</ul>
-</li>
-<li>将汉语分词与词性标注两项任务同时进行，以达到同时提升两项任务性能的目的，一直是这一领域研究的一个重要方向，这种方法往往需要耗费更多的时间代价</li>
-</ul>
-<h3 id="727-分词方法比较">7.2.7 分词方法比较</h3>
-<ul>
-<li>测评语料：
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/7fe44984dbb8458184b876a2ce85d056.png"
-        data-srcset="../../_resources/7fe44984dbb8458184b876a2ce85d056.png, ../../_resources/7fe44984dbb8458184b876a2ce85d056.png 1.5x, ../../_resources/7fe44984dbb8458184b876a2ce85d056.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/7fe44984dbb8458184b876a2ce85d056.png"
-        title="dbf3ab7f574cf8586da7a33ffe2e0820.png" /></li>
-<li>测评指标：
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/8479a0877f1f4b308329fa233127b17d.png"
-        data-srcset="../../_resources/8479a0877f1f4b308329fa233127b17d.png, ../../_resources/8479a0877f1f4b308329fa233127b17d.png 1.5x, ../../_resources/8479a0877f1f4b308329fa233127b17d.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/8479a0877f1f4b308329fa233127b17d.png"
-        title="ff33397139b09acde0bd5523624f0db8.png" /></li>
-<li>测评结果：
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/550269bc9d5842b683e3e6469c850890.png"
-        data-srcset="../../_resources/550269bc9d5842b683e3e6469c850890.png, ../../_resources/550269bc9d5842b683e3e6469c850890.png 1.5x, ../../_resources/550269bc9d5842b683e3e6469c850890.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/550269bc9d5842b683e3e6469c850890.png"
-        title="234ffbf2c9c45d2483125f22a119216c.png" />
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/b48c36939bd94b7cbf8e98455964d99f.png"
-        data-srcset="../../_resources/b48c36939bd94b7cbf8e98455964d99f.png, ../../_resources/b48c36939bd94b7cbf8e98455964d99f.png 1.5x, ../../_resources/b48c36939bd94b7cbf8e98455964d99f.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/b48c36939bd94b7cbf8e98455964d99f.png"
-        title="a55b55044e3efe14bc4d8a3fd28c5aa6.png" /></li>
-<li>存在难题：
-<ul>
-<li>跨领域分词性能</li>
-<li>非规范文本：微博、短信，存在大量新词、流行语</li>
-</ul>
-</li>
-</ul>
-<h3 id="补充语言结构类型">补充：语言结构类型</h3>
-<ol>
-<li>孤立语，如：汉语
-<ul>
-<li>缺乏词性变化</li>
-<li>词序严格</li>
-<li>虚词十分重要</li>
-<li>复合词多，派生词少</li>
-</ul>
-</li>
-<li>屈折语，如：印欧语系诸语言，英语、德语、法语
-<ul>
-<li>屈折：内部屈折，词内部的语音形式的变化</li>
-<li>词性变化丰富，用以表示词间关系</li>
-<li>一种词性变化的语素可以表示几种不同的语法意义</li>
-<li>词尾和词干/词根结合紧密，脱离词尾，词根不能独立存在</li>
-</ul>
-</li>
-<li>黏着语，如：日语、土耳其语、维吾尔语、芬兰语
-<ul>
-<li>词前面和中间不变，只是词尾变化表示语法意义</li>
-<li>变词语素的一种变化只表示一种语法意义</li>
-<li>词根与变词语素不紧密，两者有恒大独立性</li>
-</ul>
-</li>
-<li>复综语/编插语/多式综合语，如：美洲印第安语、爱斯基摩语、巴斯克语
-<ul>
-<li>分不出词和句子，一个词的构成也是另一个词的组成</li>
-<li>没有能独立使用的词，只能许多成分相互编插组合在一起，连缀为句子使用</li>
-</ul>
-</li>
-</ol>
-<h2 id="references">References</h2>
-<ul>
-<li>叶蜚声《语言学纲要》</li>
-</ul>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-01-17</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/blog/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/" data-title="《统计自然语言处理》第7.1章 - 自动分词" data-hashtags="统计自然语言处理,NLP,statistics,notes"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/" data-hashtag="统计自然语言处理"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/" data-title="《统计自然语言处理》第7.1章 - 自动分词"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/" data-title="《统计自然语言处理》第7.1章 - 自动分词"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/snlp-ch7.1-%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/" data-title="《统计自然语言处理》第7.1章 - 自动分词"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <div class="details-content toc-content" id="toc-content-static">
+                    { {- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
+                </div>
             </div>
+        { {- end -} }
+
+        { {- /* Content */ -} }
+        <div class="content" id="content">
+            { {- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
         </div>
-    </div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/%E7%BB%9F%E8%AE%A1%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">统计自然语言处理</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/statistics/">statistics</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
-        </section>
-    </div>
+        { {- /* Footer */ -} }
+        { {- partial "single/footer.html" . -} }
 
-    <div class="post-nav"><a href="/blog/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" class="prev" rel="prev" title="《统计自然语言处理》第6章 - 概率图模型"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>《统计自然语言处理》第6章 - 概率图模型</a>
-            <a href="/blog/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" class="next" rel="next" title="《统计自然语言处理》第7.3章 - 命名实体识别">《统计自然语言处理》第7.3章 - 命名实体识别<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
-</div>
-<div id="comments"><div id="utterances" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
-            </noscript></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
-</html>
+        { {- /* Comment */ -} }
+        { {- partial "comment.html" . -} }
+    </article>
+{ {- end -} }

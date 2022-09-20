@@ -12,8 +12,8 @@
 - 学习准则
 	- 损失函数
 	- 经验风险最小化（Empirical Risk Minimization, ERM）
-		- $\mathcal{R}\_{\mathcal{D}}^{e m p}(\theta)=\frac{1}{N} \sum\_{n=1}^{N} \mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ; \theta\right)\right)$
-		- $\theta^{*}=\underset{\theta}{\arg \min } \mathcal{R}\_{\mathcal{D}}^{e m p}(\theta)$
+		- $\mathcal{R}\_{\mathcal{D} }^{e m p}(\theta)=\frac{1}{N} \sum\_{n=1}^{N} \mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ; \theta\right)\right)$
+		- $\theta^{*}=\underset{\theta}{\arg \min } \mathcal{R}\_{\mathcal{D} }^{e m p}(\theta)$
 	- 结构风险最小化（Structure Risk Minimization, SRM）
 		- 加入正则项，限制模型能力
 - 优化算法
@@ -24,7 +24,7 @@
 
 ## 2.3 示例：线性回归
 - 线性模型：$f(\boldsymbol{x} ; \boldsymbol{w}, b)=\boldsymbol{w}^{\top} \boldsymbol{x}+b$
-	- 增广权重和特征向量后：$f(\boldsymbol{x} ; \hat{\boldsymbol{w}})=\hat{\boldsymbol{w}}^{\top} \hat{\boldsymbol{x}}$
+	- 增广权重和特征向量后：$f(\boldsymbol{x} ; \hat{\boldsymbol{w} })=\hat{\boldsymbol{w} }^{\top} \hat{\boldsymbol{x} }$
 - 参数估计
 	- 经验风险最小化
 	- 结构风险最小化
@@ -36,16 +36,16 @@
 $$\begin{aligned} \mathcal{R}(\boldsymbol{w}) &=\sum\_{n=1}^{N} \mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ; \boldsymbol{w}\right)\right) \\\\ &=\frac{1}{2} \sum\_{n=1}^{N}\left(y^{(n)}-\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}\right)^{2} \\\\ &=\frac{1}{2}\left\|\boldsymbol{y}-\boldsymbol{X}^{\top} \boldsymbol{w}\right\|^{2} \end{aligned}$$
 
 偏导数：
-$$\begin{aligned} \frac{\partial \mathcal{R}(\boldsymbol{w})}{\partial \boldsymbol{w}} &=\frac{1}{2} \frac{\partial\left\|\boldsymbol{y}-\boldsymbol{X}^{\top} \boldsymbol{w}\right\|^{2}}{\partial \boldsymbol{w}} \\\\ &=-\boldsymbol{X}\left(\boldsymbol{y}-\boldsymbol{X}^{\top} \boldsymbol{w}\right) \end{aligned}$$
+$$\begin{aligned} \frac{\partial \mathcal{R}(\boldsymbol{w})}{\partial \boldsymbol{w} } &=\frac{1}{2} \frac{\partial\left\|\boldsymbol{y}-\boldsymbol{X}^{\top} \boldsymbol{w}\right\|^{2} }{\partial \boldsymbol{w} } \\\\ &=-\boldsymbol{X}\left(\boldsymbol{y}-\boldsymbol{X}^{\top} \boldsymbol{w}\right) \end{aligned}$$
 
 令偏导数为0，求得最优参数：
-$$\begin{aligned} \boldsymbol{w}^{*} &=\left(\boldsymbol{X} \boldsymbol{X}^{\mathrm{T}}\right)^{-1} \boldsymbol{X} \boldsymbol{y} \\\\ &=\left(\sum\_{n=1}^{N} \boldsymbol{x}^{(n)}\left(\boldsymbol{x}^{(n)}\right)^{\top}\right)^{-1}\left(\sum\_{n=1}^{N} \boldsymbol{x}^{(n)} y^{(n)}\right) . \end{aligned}$$
+$$\begin{aligned} \boldsymbol{w}^{*} &=\left(\boldsymbol{X} \boldsymbol{X}^{\mathrm{T} }\right)^{-1} \boldsymbol{X} \boldsymbol{y} \\\\ &=\left(\sum\_{n=1}^{N} \boldsymbol{x}^{(n)}\left(\boldsymbol{x}^{(n)}\right)^{\top}\right)^{-1}\left(\sum\_{n=1}^{N} \boldsymbol{x}^{(n)} y^{(n)}\right) . \end{aligned}$$
 
 这种求解线性回归参数的方法称为**最小二乘法（Least Square Method, LSM）**
 
-LSM要求$\boldsymbol{X X}^{\mathrm{T}} \in \mathbb{R}^{(D+1) \times(D+1)}$可逆，即满秩，即行向量线性无关，即每个特征与其他特征无关。常见的不可逆情况是样本数量N小于特征数量(D+1)，$\boldsymbol{X X}^{\mathrm{T}}$秩为N，存在多解。
+LSM要求$\boldsymbol{X X}^{\mathrm{T} } \in \mathbb{R}^{(D+1) \times(D+1)}$可逆，即满秩，即行向量线性无关，即每个特征与其他特征无关。常见的不可逆情况是样本数量N小于特征数量(D+1)，$\boldsymbol{X X}^{\mathrm{T} }$秩为N，存在多解。
 
-$\boldsymbol{X X}^{\mathrm{T}}$不可逆解决：
+$\boldsymbol{X X}^{\mathrm{T} }$不可逆解决：
 1. 先用主成分分析等方法预处理数据，消除不同特征的相关性，再用最小二乘法
 2. 用梯度下降法估计参数，初始化$\boldsymbol{w}=0$，迭代：
 $$\boldsymbol{w} \leftarrow \boldsymbol{w}+\alpha \boldsymbol{X}\left(\boldsymbol{y}-\boldsymbol{X}^{\top} \boldsymbol{w}\right)$$
@@ -70,7 +70,7 @@ $$y=f(\boldsymbol{x} ; \boldsymbol{w})+\epsilon=\boldsymbol{w}^{\top} \boldsymbo
 
 其中$\epsilon$服从高斯分布，则y服从高斯分布：
 
-$$\begin{aligned} p(y \mid \boldsymbol{x} ; \boldsymbol{w}, \sigma) &=\mathcal{N}\left(y ; \boldsymbol{w}^{\top} \boldsymbol{x}, \sigma^{2}\right) \\\\ &=\frac{1}{\sqrt{2 \pi} \sigma} \exp \left(-\frac{\left(y-\boldsymbol{w}^{\top} \boldsymbol{x}\right)^{2}}{2 \sigma^{2}}\right) . \end{aligned}$$
+$$\begin{aligned} p(y \mid \boldsymbol{x} ; \boldsymbol{w}, \sigma) &=\mathcal{N}\left(y ; \boldsymbol{w}^{\top} \boldsymbol{x}, \sigma^{2}\right) \\\\ &=\frac{1}{\sqrt{2 \pi} \sigma} \exp \left(-\frac{\left(y-\boldsymbol{w}^{\top} \boldsymbol{x}\right)^{2} }{2 \sigma^{2} }\right) . \end{aligned}$$
 
 参数$\boldsymbol{w}$在训练集上的似然函数（Likelihood）：
 $$\begin{aligned} p(\boldsymbol{y} \mid \boldsymbol{X} ; \boldsymbol{w}, \sigma) &=\prod\_{n=1}^{N} p\left(y^{(n)} \mid \boldsymbol{x}^{(n)} ; \boldsymbol{w}, \sigma\right) \\\\ &=\prod\_{n=1}^{N} \mathcal{N}\left(y^{(n)} ; \boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}, \sigma^{2}\right), \end{aligned}$$
@@ -86,19 +86,19 @@ $$\boldsymbol{w}^{M L}=\left(\boldsymbol{X} \boldsymbol{X}^{\top}\right)^{-1} \b
 ### （4）最大后验估计
 - 为了避免最大似然估计因数据较少而过拟合，给参数分布加上先验知识（如符合各向同性高斯分布）
 - 最大后验估计（Maximum A Posteriori Estimation，MAP）是指最优参数为后验分布 𝑝(𝒘|𝑿, 𝒚; 𝜈, 𝜎) 中概率密度最高的参数：
-$$\boldsymbol{w}^{M A P}=\underset{\boldsymbol{w}}{\arg \max } p(\boldsymbol{y} \mid \boldsymbol{X}, \boldsymbol{w} ; \sigma) p(\boldsymbol{w} ; \nu)$$
+$$\boldsymbol{w}^{M A P}=\underset{\boldsymbol{w} }{\arg \max } p(\boldsymbol{y} \mid \boldsymbol{X}, \boldsymbol{w} ; \sigma) p(\boldsymbol{w} ; \nu)$$
 
-$$\begin{aligned} \log p(\boldsymbol{w} \mid \boldsymbol{X}, \boldsymbol{y} ; \nu, \sigma) & \propto \log p(\boldsymbol{y} \mid \boldsymbol{X}, \boldsymbol{w} ; \sigma)+\log p(\boldsymbol{w} ; v) \\\\ & \propto-\frac{1}{2 \sigma^{2}} \sum\_{n=1}^{N}\left(y^{(n)}-\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}\right)^{2}-\frac{1}{2 v^{2}} \boldsymbol{w}^{\top} \boldsymbol{w} \\\\ &=-\frac{1}{2 \sigma^{2}}\left\|\boldsymbol{y}-\boldsymbol{X}^{\top} \boldsymbol{w}\right\|^{2}-\frac{1}{2 v^{2}} \boldsymbol{w}^{\top} \boldsymbol{w} \end{aligned}$$
+$$\begin{aligned} \log p(\boldsymbol{w} \mid \boldsymbol{X}, \boldsymbol{y} ; \nu, \sigma) & \propto \log p(\boldsymbol{y} \mid \boldsymbol{X}, \boldsymbol{w} ; \sigma)+\log p(\boldsymbol{w} ; v) \\\\ & \propto-\frac{1}{2 \sigma^{2} } \sum\_{n=1}^{N}\left(y^{(n)}-\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}\right)^{2}-\frac{1}{2 v^{2} } \boldsymbol{w}^{\top} \boldsymbol{w} \\\\ &=-\frac{1}{2 \sigma^{2} }\left\|\boldsymbol{y}-\boldsymbol{X}^{\top} \boldsymbol{w}\right\|^{2}-\frac{1}{2 v^{2} } \boldsymbol{w}^{\top} \boldsymbol{w} \end{aligned}$$
 
 等价于平方损失的结构风险最小化。
 
 
 ## 2.4 偏差-方差分解（Bias-Variance Decomposition）
-$$\mathbb{E}\_{\mathcal{D}}\left[\left(f\_{\mathcal{D}}(\boldsymbol{x})-f^{\*}(\boldsymbol{x})\right)^{2}\right]$$
+$$\mathbb{E}\_{\mathcal{D} }\left[\left(f\_{\mathcal{D} }(\boldsymbol{x})-f^{\*}(\boldsymbol{x})\right)^{2}\right]$$
 
-$$\quad=\mathbb{E}\_{\mathcal{D}}\left[\left(f\_{\mathcal{D}}(\boldsymbol{x})-\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\boldsymbol{x})\right]+\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\boldsymbol{x})\right]-f^{\*}(\boldsymbol{x})\right)^{2}\right]$$
+$$\quad=\mathbb{E}\_{\mathcal{D} }\left[\left(f\_{\mathcal{D} }(\boldsymbol{x})-\mathbb{E}\_{\mathcal{D} }\left[f\_{\mathcal{D} }(\boldsymbol{x})\right]+\mathbb{E}\_{\mathcal{D} }\left[f\_{\mathcal{D} }(\boldsymbol{x})\right]-f^{\*}(\boldsymbol{x})\right)^{2}\right]$$
 
-$$\quad=\underbrace{\left(\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\boldsymbol{x})\right]-f^{\*}(\boldsymbol{x})\right)^{2}}\_{\text {(bias.} \mathrm{x})^{2}}+\underbrace{\mathbb{E}\_{\mathcal{D}}\left[\left(f\_{\mathcal{D}}(\boldsymbol{x})-\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\boldsymbol{x})\right]\right)^{2}\right]}\_{\text {variance.} \mathrm{x}},$$
+$$\quad=\underbrace{\left(\mathbb{E}\_{\mathcal{D} }\left[f\_{\mathcal{D} }(\boldsymbol{x})\right]-f^{\*}(\boldsymbol{x})\right)^{2} }\_{\text {(bias.} \mathrm{x})^{2} }+\underbrace{\mathbb{E}\_{\mathcal{D} }\left[\left(f\_{\mathcal{D} }(\boldsymbol{x})-\mathbb{E}\_{\mathcal{D} }\left[f\_{\mathcal{D} }(\boldsymbol{x})\right]\right)^{2}\right]}\_{\text {variance.} \mathrm{x} },$$
 
 ![f2a461e93ab4c01948036725631693a7.png](../../_resources/c7687aa1e3bf4cb097f5eff1b0e00eae.png)
 
@@ -152,11 +152,11 @@ $$\quad=\underbrace{\left(\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\bolds
 - 准确率（Accuracy）：$\mathcal{A}=\frac{1}{N} \sum\_{n=1}^{N} I\left(y^{(n)}=\hat{y}^{(n)}\right)$
 - 错误率（Error Rate）：$\begin{aligned} \mathcal{E} &=1-\mathcal{A} \\\\ &=\frac{1}{N} \sum\_{n=1}^{N} I\left(y^{(n)} \neq \hat{y}^{(n)}\right) \end{aligned}$
 ![6e3be3d20d784add857bb60e0892b113.png](../../_resources/d43f8ec19b0947e399b1e80a01bcd3ff.png)
-- 精确率/精度/查准率（Precision）：$\mathcal{P}\_{c}=\frac{T P\_{c}}{T P\_{c}+F P\_{c}}$
-- 召回率（Recall）/查全率：$\mathcal{R}\_{c}=\frac{T P\_{c}}{T P\_{c}+F N\_{c}}$
-- F值（F Measure）：$\mathcal{F}\_{c}=\frac{\left(1+\beta^{2}\right) \times \mathcal{P}\_{c} \times \mathcal{R}\_{c}}{\beta^{2} \times \mathcal{P}\_{c}+\mathcal{R}\_{c}}$
+- 精确率/精度/查准率（Precision）：$\mathcal{P}\_{c}=\frac{T P\_{c} }{T P\_{c}+F P\_{c} }$
+- 召回率（Recall）/查全率：$\mathcal{R}\_{c}=\frac{T P\_{c} }{T P\_{c}+F N\_{c} }$
+- F值（F Measure）：$\mathcal{F}\_{c}=\frac{\left(1+\beta^{2}\right) \times \mathcal{P}\_{c} \times \mathcal{R}\_{c} }{\beta^{2} \times \mathcal{P}\_{c}+\mathcal{R}\_{c} }$
 - 宏平均（Macro Average）：**每一类**的性能指标的算术平均值
-	- $\begin{aligned} \mathcal{P}\_{\text {macro }} &=\frac{1}{C} \sum\_{c=1}^{C} \mathcal{P}\_{c} \\\\ \mathcal{R}\_{\text {macro }} &=\frac{1}{C} \sum\_{c=1}^{C} \mathcal{R}\_{c} \\\\ \mathcal{F} 1\_{\text {macro }} &=\frac{2 \times \mathcal{P}\_{\text {macro }} \times R\_{\text {macro }}}{P\_{\text {macro }}+R\_{\text {macro }}} . \end{aligned}$
+	- $\begin{aligned} \mathcal{P}\_{\text {macro } } &=\frac{1}{C} \sum\_{c=1}^{C} \mathcal{P}\_{c} \\\\ \mathcal{R}\_{\text {macro } } &=\frac{1}{C} \sum\_{c=1}^{C} \mathcal{R}\_{c} \\\\ \mathcal{F} 1\_{\text {macro } } &=\frac{2 \times \mathcal{P}\_{\text {macro } } \times R\_{\text {macro } }}{P\_{\text {macro } }+R\_{\text {macro } }} . \end{aligned}$
 - 微平均（Micro Average）：**每一个样本**的性能指标的算术平均值
 	- 不同类别的样本数量不均衡时，使用宏平均比微平均更合理，因为宏平均更关注小类别上的评价指标
 - 在实际应用中，我们也可以通过调整分类模型的阈值来进行更全面的评价，比如 AUC（Area Under Curve）、ROC（Receiver Operating Characteristic）曲线、PR（Precision-Recall）曲线等．
@@ -171,17 +171,17 @@ $$\quad=\underbrace{\left(\mathbb{E}\_{\mathcal{D}}\left[f\_{\mathcal{D}}(\bolds
 - 其中最基础的理论就是**可能近似正确（Probably Approximately Correct，PAC）学习理论**．
 
 - 泛化错误（Generalization Error）：期望错误与经验错误之间的差异，可以衡量模型是否可以很好地泛化到未知数据
-$$\mathcal{G}\_{\mathcal{D}}(f)=\mathcal{R}(f)-\mathcal{R}\_{\mathcal{D}}^{e m p}(f)$$
+$$\mathcal{G}\_{\mathcal{D} }(f)=\mathcal{R}(f)-\mathcal{R}\_{\mathcal{D} }^{e m p}(f)$$
 
-- 根据大数定律，训练集趋于无穷大时，经验风险趋近于期望风险，泛化错误趋向于0：$\lim \_{|\mathcal{D}| \rightarrow \infty} \mathcal{R}(f)-\mathcal{R}\_{\mathcal{D}}^{e m p}(f)=0$
+- 根据大数定律，训练集趋于无穷大时，经验风险趋近于期望风险，泛化错误趋向于0：$\lim \_{|\mathcal{D}| \rightarrow \infty} \mathcal{R}(f)-\mathcal{R}\_{\mathcal{D} }^{e m p}(f)=0$
 
 - PAC学习（PAC Learning）：因为不知道真实数据分布、目标函数，需要降低学习算法能力期望，只要求算法以一定概率学习到一个近似正确的假设
 	1. 近似正确（Approximately Correct）：泛化错误 𝒢𝒟(𝑓) 小于一个界限 𝜖
 	2. 可能（Probably）：一个学习算法𝒜 有“可能”以 1−𝛿 的概率学习到这样一个“近似正确”的假设
 - PAC可学习（PAC-Learnable）的算法：该学习算法能够在多项式时间内从合理数量的训练数据中学习到一个近似正确的𝑓(𝒙)
-- PAC学习的公式描述：$P\left(\left(\mathcal{R}(f)-\mathcal{R}\_{\mathcal{D}}^{e m p}(f)\right) \leq \epsilon\right) \geq 1-\delta$
+- PAC学习的公式描述：$P\left(\left(\mathcal{R}(f)-\mathcal{R}\_{\mathcal{D} }^{e m p}(f)\right) \leq \epsilon\right) \geq 1-\delta$
 	- 其中 𝜖,𝛿 是和样本数量 𝑁 以及假设空间$\mathcal{F}$相关的变量．如果固定 𝜖,𝛿，可以反过来计算出需要的样本数量：
-	$$N(\epsilon, \delta) \geq \frac{1}{2 \epsilon^{2}}\left(\log |\mathcal{F}|+\log \frac{2}{\delta}\right)$$
+	$$N(\epsilon, \delta) \geq \frac{1}{2 \epsilon^{2} }\left(\log |\mathcal{F}|+\log \frac{2}{\delta}\right)$$
 	- 可以看到，模型越复杂，即假设空间$\mathcal{F}$越大， 模型泛化能力越差为了提高模型的泛化能力，通常需要正则化（Regularization）来限制模型复杂度．
 
 ### 2.8.2 没有免费午餐定理（No Free Lunch Theorem，NFL）

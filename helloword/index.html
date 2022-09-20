@@ -1,532 +1,101 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>零基础用 GitHub Pages &#43; Hugo 搭建个人网站 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="零基础用 GitHub Pages &#43; Hugo 搭建个人网站" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://zubingou.github.io/blog/helloword/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-07-24T13:58:10+08:00" />
-<meta property="article:modified_time" content="2021-04-06T18:31:46+08:00" /><meta property="og:site_name" content="My cool site" />
+{ {- define "title" } }{ { .Title } } - { { .Site.Title } }{ { end -} }
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
+{ {- define "content" -} }
+    { {- $params := .Scratch.Get "params" -} }
 
-<meta name="twitter:title" content="零基础用 GitHub Pages &#43; Hugo 搭建个人网站"/>
-<meta name="twitter:description" content=""/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/helloword/" /><link rel="next" href="https://zubingou.github.io/blog/some-intuitions-in-linear-algebra/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "零基础用 GitHub Pages + Hugo 搭建个人网站",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/zubingou.github.io\/blog\/helloword\/"
-        },"image": [{
-                            "@type": "ImageObject",
-                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
-                            "width":  3200 ,
-                            "height":  2048 
-                        }],"genre": "posts","keywords": "Hugo, HTML","wordcount":  2198 ,
-        "url": "https:\/\/zubingou.github.io\/blog\/helloword\/","datePublished": "2019-07-24T13:58:10+08:00","dateModified": "2021-04-06T18:31:46+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "ZubinGou","logo": {
-                    "@type": "ImageObject",
-                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
-                    "width":  304 ,
-                    "height":  304 
-                }},"author": {
-                "@type": "Person",
-                "name": "ZubinGou"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    { {- $toc := $params.toc -} }
+    { {- if eq $toc true -} }
+        { {- $toc = .Site.Params.page.toc | default dict -} }
+    { {- else if eq $toc false -} }
+        { {- $toc = dict "enable" false -} }
+    { {- end -} }
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- /* Auto TOC */ -} }
+    { {- if ne $toc.enable false -} }
+        <div class="toc" id="toc-auto">
+            <h2 class="toc-title">{ { T "contents" } }</h2>
+            <div class="toc-content{ { if eq $toc.auto false } } always-active{ { end } }" id="toc-content-auto"></div>
         </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/blog/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
-                    <i class="fa fa-globe" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/helloword/" selected>简体中文</option></select>
-                </a></div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- end -} }
+
+    <article class="page single">
+        { {- /* Title */ -} }
+        <h1 class="single-title animate__animated animate__flipInX">{ { .Title | emojify } }</h1>
+
+        { {- /* Subtitle */ -} }
+        { {- with $params.subtitle -} }
+            <h2 class="single-subtitle">{ { . } }</h2>
+        { {- end -} }
+
+        { {- /* Meta */ -} }
+        <div class="post-meta">
+            <div class="post-meta-line">
+                { {- $author := $params.author | default .Site.Author.name | default (T "author") -} }
+                { {- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -} }
+                <span class="post-author">
+                    { {- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -} }
+                    { {- partial "plugin/a.html" $options -} }
+                </span>
+
+                { {- $categories := slice -} }
+                { {- range .Params.categories -} }
+                    { {- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -} }
+                    { {- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw" aria-hidden="true"></i>%v</a>` $category.RelPermalink $category.Title) -} }
+                { {- end -} }
+                { {- with delimit $categories "&nbsp;" -} }
+                    &nbsp;<span class="post-category">
+                        { {- dict "Categories" . | T "includedInCategories" | safeHTML -} }
+                    </span>
+                { {- end -} }
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
+            <div class="post-meta-line">
+                { {- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -} }
+                    <i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{ { . } }">{ { . } }</time>&nbsp;
+                { {- end -} }
+                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{ { T "wordCount" .WordCount } }&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{ { T "readingTime" .ReadingTime } }&nbsp;
+                { {- $comment := .Scratch.Get "comment" | default dict -} }
+                { {- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -} }
+                    <span id="{ { .RelPermalink } }" class="leancloud_visitors" data-flag-title="{ { .Title } }">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{ { T "views" } }
+                    </span>&nbsp;
+                { {- end -} }
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/blog/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
-                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/blog/helloword/" selected>简体中文</option></select>
-                </a></div>
-    </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">零基础用 GitHub Pages + Hugo 搭建个人网站</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/toy/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Toy</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2019-07-24">2019-07-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2198 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
+
+        { {- /* Featured image */ -} }
+        { {- $image := $params.featuredimage -} }
+        { {- with .Resources.GetMatch "featured-image" -} }
+            { {- $image = .RelPermalink -} }
+        { {- end -} }
+        { {- with $image -} }
+            <div class="featured-image">
+                { {- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -} }
+            </div>
+        { {- end -} }
+
+        { {- /* Static TOC */ -} }
+        { {- if ne $toc.enable false -} }
+            <div class="details toc" id="toc-static"  data-kept="{ { if $toc.keepStatic } }true{ { end } }">
                 <div class="details-summary toc-title">
-                    <span>目录</span>
+                    <span>{ { T "contents" } }</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#创建github-pages">创建GitHub Pages</a></li>
-    <li><a href="#安装hugo和git">安装Hugo和Git</a>
-      <ul>
-        <li><a href="#安装hugo">安装Hugo</a>
-          <ul>
-            <li><a href="#macos使用homebrew">macOS使用Homebrew</a></li>
-            <li><a href="#windows使用chocolatey">Windows使用Chocolatey</a></li>
-          </ul>
-        </li>
-        <li><a href="#安装git">安装Git</a></li>
-      </ul>
-    </li>
-    <li><a href="#创建site-生成网站">创建Site 生成网站</a>
-      <ul>
-        <li><a href="#创建site">创建site</a></li>
-        <li><a href="#安装主题">安装主题</a></li>
-        <li><a href="#设置模版">设置模版</a></li>
-        <li><a href="#配置-configtoml">配置 config.toml</a></li>
-        <li><a href="#生成草稿网站">生成草稿网站</a></li>
-      </ul>
-    </li>
-    <li><a href="#发布到github-pages">发布到GitHub Pages</a></li>
-    <li><a href="#主题优化">主题优化</a>
-      <ul>
-        <li><a href="#解决黑色主题闪屏问题">解决黑色主题闪屏问题</a></li>
-        <li><a href="#站点流量统计">站点流量统计</a></li>
-        <li><a href="#博客目录">博客目录</a></li>
-        <li><a href="#站内搜索">站内搜索</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><p><a href="https://gohugo.io/" target="_blank" rel="noopener noreffer ">Hugo</a>是用Go编写的静态站点生成器,生成速度（不到1s）比其他生成器快了许多,且配置比Hexo等简单，目前主要存在的缺点是主题不够丰富和成熟、插件较少。</p>
-<p>话不多说，开始搭建~</p>
-<h2 id="创建github-pages">创建GitHub Pages</h2>
-<ol>
-<li>
-<p>在GitHub新建一个Repository命名为[你的GitHub账户名].github.io，其他可以不用填写，直接创建即可。</p>
-<p><img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/59a23947be34486da5708e51b094e0fc.png"
-        data-srcset="../../_resources/59a23947be34486da5708e51b094e0fc.png, ../../_resources/59a23947be34486da5708e51b094e0fc.png 1.5x, ../../_resources/59a23947be34486da5708e51b094e0fc.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/59a23947be34486da5708e51b094e0fc.png"
-        title="../../_resources/59a23947be34486da5708e51b094e0fc.png" /></p>
-</li>
-<li>
-<p>进入刚创建的Repository，点击右边的Settings，下滑找到GitHub Pages，点击<code>Choose a theme</code>，随意选择一个theme（因为不会用到），点击<code>commit changes</code>就创建完成了。</p>
-<p><img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/c7799b39ec714fc286c5da2901cbb66d.png"
-        data-srcset="../../_resources/c7799b39ec714fc286c5da2901cbb66d.png, ../../_resources/c7799b39ec714fc286c5da2901cbb66d.png 1.5x, ../../_resources/c7799b39ec714fc286c5da2901cbb66d.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/c7799b39ec714fc286c5da2901cbb66d.png"
-        title="../../_resources/c7799b39ec714fc286c5da2901cbb66d.png" /></p>
-</li>
-</ol>
-<h2 id="安装hugo和git">安装Hugo和Git</h2>
-<h3 id="安装hugo">安装Hugo</h3>
-<h4 id="macos使用homebrew">macOS使用Homebrew</h4>
-<p><code>brew install hugo</code></p>
-<h4 id="windows使用chocolatey">Windows使用Chocolatey</h4>
-<p><code>choco install hugo -confirm</code></p>
-<p>详见 <a href="https://gohugo.io/getting-started/installing" target="_blank" rel="noopener noreffer ">https://gohugo.io/getting-started/installing</a></p>
-<h3 id="安装git">安装Git</h3>
-<p>在<a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreffer ">Git官网</a>下载安装。</p>
-<p>命令行输入 <code>git version</code> 显示 Git 的版本号，说明安装成功。</p>
-<p><em>注意需要将 Hugo 和 Git 安装目录都加入系统Path环境变量。</em></p>
-<h2 id="创建site-生成网站">创建Site 生成网站</h2>
-<h3 id="创建site">创建site</h3>
-<p>在用来存放博客的路径下，命令行执行：</p>
-<p><code>hugo new site mysite</code></p>
-<p>该命令创建一个名为 <code>mysite</code> 的文件夹来存放你的博客。</p>
-<p><code>mysite</code> 的目录结构如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">├── archetypes // .md 博客原型 模版
-</span></span><span class="line"><span class="cl">├── content // .md 存放你写的 Markdown 文件
-</span></span><span class="line"><span class="cl">├── data // YAML, JSON, or TOML等配置文件
-</span></span><span class="line"><span class="cl">├── layouts // .html 网站模版
-</span></span><span class="line"><span class="cl">├──  static  // images, CSS, JavaScript 等，决定网站的外观。
-</span></span><span class="line"><span class="cl">├── themes // 存放网站主题
-</span></span><span class="line"><span class="cl">└── config.toml // 网站的配置文件<span class="sb">`</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="安装主题">安装主题</h3>
-<p>你可以在<a href="https://themes.gohugo.io/" target="_blank" rel="noopener noreffer ">主题</a>选择自己喜欢的主题， 本站使用的是 <a href="https://themes.gohugo.io/leaveit/" target="_blank" rel="noopener noreffer ">LeaveIt</a>。</p>
-<p>执行：</p>
-<p><code>cd mysite/themes</code></p>
-<p>进入该文件夹用来存放主题的文件夹, 执行：</p>
-<p><code>git clone https://github.com/liuzc/LeaveIt.git</code></p>
-<h3 id="设置模版">设置模版</h3>
-<p>回到<code>mysite</code>:</p>
-<p><code>cd ..</code></p>
-<p>打开 <code>mysite/archetypes</code> 目录下的 模版 <code>default.md</code> ，更改为：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="err">+++</span>
-</span></span><span class="line"><span class="cl"><span class="nx">title</span> <span class="p">=</span>  <span class="s2">&#34;{{ replace .Name &#34;</span><span class="nx">-</span><span class="s2">&#34; &#34;</span>  <span class="s2">&#34; | title }}&#34;</span>  <span class="c"># 文章标题</span>
-</span></span><span class="line"><span class="cl"><span class="nx">date</span> <span class="p">=</span>  <span class="p">{{</span>  <span class="p">.</span><span class="nx">Date</span>  <span class="p">}}</span>  <span class="c"># 自动添加日期</span>
-</span></span><span class="line"><span class="cl"><span class="nx">draft</span> <span class="p">=</span>  <span class="kc">true</span>  <span class="c"># 是否为草稿</span>
-</span></span><span class="line"><span class="cl"><span class="nx">categories</span> <span class="p">=</span>  <span class="p">[</span><span class="s2">&#34;&#34;</span><span class="p">]</span>  <span class="c"># 目录（数组）</span>
-</span></span><span class="line"><span class="cl"><span class="nx">tags</span> <span class="p">=</span>  <span class="p">[</span><span class="s2">&#34;&#34;</span><span class="p">]</span>  <span class="c"># 标签（数组）</span>
-</span></span><span class="line"><span class="cl"><span class="nx">description</span> <span class="p">=</span>  <span class="s2">&#34;&#34;</span>  <span class="c"># 描述</span>
-</span></span><span class="line"><span class="cl"><span class="nx">comments</span> <span class="p">=</span>  <span class="kc">true</span>  <span class="c"># 是否开启评论</span>
-</span></span><span class="line"><span class="cl"><span class="nx">share</span> <span class="p">=</span>  <span class="kc">true</span>  <span class="c"># 是否开启分享</span>
-</span></span><span class="line"><span class="cl"><span class="err">+++</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>执行：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hugo new about.md
-</span></span><span class="line"><span class="cl">hugo new posts/firstBlog.md
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>在 <code>content</code> 文件夹创建 <code>about.md</code> 和 <code>firstBlog.md</code> ，打开他们随意输入些内容。</p>
-<h3 id="配置-configtoml">配置 config.toml</h3>
-<p>按照以下 <code>config.toml</code> 模板更改, 不知道的可以先空着。</p>
-<p>在 <code>mysite/static</code> 文件夹中新建 <code>images</code> 文件夹，将你的头像文件放入其中。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">baseURL</span> <span class="p">=</span>  <span class="s2">&#34;https://[你的GirHub用户名].github.io&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">title</span> <span class="p">=</span>  <span class="s2">&#34;My Site&#34;</span>  <span class="c"># 网站标题</span>
-</span></span><span class="line"><span class="cl"><span class="nx">languageCode</span> <span class="p">=</span>  <span class="s2">&#34;zh-cn&#34;</span>  <span class="c"># 语言</span>
-</span></span><span class="line"><span class="cl"><span class="nx">hasCJKLanguage</span> <span class="p">=</span>  <span class="kc">true</span>  <span class="c"># 字数统计时统计汉字</span>
-</span></span><span class="line"><span class="cl"><span class="nx">theme</span> <span class="p">=</span>  <span class="s2">&#34;LeaveIt&#34;</span>  <span class="c"># 主题</span>
-</span></span><span class="line"><span class="cl"><span class="nx">paginate</span> <span class="p">=</span>  <span class="c"># 每页博客数</span>
-</span></span><span class="line"><span class="cl"><span class="nx">enableEmoji</span> <span class="p">=</span>  <span class="kc">true</span>  <span class="c"># 支持 Emoji</span>
-</span></span><span class="line"><span class="cl"><span class="nx">enableRobotsTXT</span> <span class="p">=</span>  <span class="kc">true</span>  <span class="c"># 支持 robots.txt</span>
-</span></span><span class="line"><span class="cl"><span class="nx">googleAnalytics</span> <span class="p">=</span>  <span class="s2">&#34;&#34;</span>  <span class="c"># Google 统计 id</span>
-</span></span><span class="line"><span class="cl"><span class="nx">preserveTaxonomyNames</span> <span class="p">=</span>  <span class="kc">true</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">blackfriday</span><span class="p">]</span>  <span class="c"># Markdown 渲染引擎</span>
-</span></span><span class="line"><span class="cl"><span class="nx">hrefTargetBlank</span> <span class="p">=</span>  <span class="kc">true</span>  <span class="c"># Open external links in a new window/tab.</span>
-</span></span><span class="line"><span class="cl"><span class="nx">nofollowLinks</span> <span class="p">=</span>  <span class="kc">true</span>
-</span></span><span class="line"><span class="cl"><span class="nx">noreferrerLinks</span> <span class="p">=</span>  <span class="kc">true</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">Permalinks</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">posts</span> <span class="p">=</span>  <span class="s2">&#34;/:year/:month/:title/&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">menu</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">menu</span><span class="p">.</span><span class="nx">main</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">name</span> <span class="p">=</span>  <span class="s2">&#34;Blog&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">url</span> <span class="p">=</span>  <span class="s2">&#34;/posts/&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">weight</span> <span class="p">=</span>  <span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">menu</span><span class="p">.</span><span class="nx">main</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">name</span> <span class="p">=</span>  <span class="s2">&#34;Categories&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">url</span> <span class="p">=</span>  <span class="s2">&#34;/categories/&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">weight</span> <span class="p">=</span>  <span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">menu</span><span class="p">.</span><span class="nx">main</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">name</span> <span class="p">=</span>  <span class="s2">&#34;Tags&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">url</span> <span class="p">=</span>  <span class="s2">&#34;/tags/&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">weight</span> <span class="p">=</span>  <span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">menu</span><span class="p">.</span><span class="nx">main</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">name</span> <span class="p">=</span>  <span class="s2">&#34;About&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">url</span> <span class="p">=</span>  <span class="s2">&#34;/about/&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">weight</span> <span class="p">=</span>  <span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">params</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">since</span> <span class="p">=</span>  <span class="mi">2019</span>
-</span></span><span class="line"><span class="cl"><span class="nx">author</span> <span class="p">=</span>  <span class="s2">&#34;你的名字&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">avatar</span> <span class="p">=</span>  <span class="s2">&#34;/images/avatar.png&#34;</span>  <span class="c"># 头像文件路径` </span>
-</span></span><span class="line"><span class="cl"><span class="err">`</span><span class="nx">subtitle</span> <span class="p">=</span>  <span class="s2">&#34;Hugo is Absurdly Fast!&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">home_mode</span> <span class="p">=</span>  <span class="s2">&#34;&#34;</span>  <span class="c"># 填post则在首页post博客</span>
-</span></span><span class="line"><span class="cl"><span class="nx">enableGitalk</span> <span class="p">=</span>  <span class="kc">true</span>  <span class="c"># gitalk 评论系统</span>
-</span></span><span class="line"><span class="cl"><span class="nx">google_verification</span> <span class="p">=</span>  <span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">description</span> <span class="p">=</span>  <span class="s2">&#34;&#34;</span>  <span class="c"># 描述</span>
-</span></span><span class="line"><span class="cl"><span class="nx">keywords</span> <span class="p">=</span>  <span class="s2">&#34;&#34;</span>  <span class="c"># site keywords</span>
-</span></span><span class="line"><span class="cl"><span class="nx">beian</span> <span class="p">=</span>  <span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">baiduAnalytics</span> <span class="p">=</span>  <span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">license</span><span class="p">=</span>  <span class="s1">&#39;本文采用&lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34;&gt;知识共享署名-非商业性使用 4.0 国际许可协议&lt;/a&gt;进行许可&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">social</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">GitHub</span>  <span class="p">=</span>  <span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">Twitter</span>  <span class="p">=</span>  <span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">Email</span>  <span class="p">=</span>  <span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">Instagram</span>  <span class="p">=</span>  <span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">Wechat</span>  <span class="p">=</span>  <span class="s2">&#34;/images/me/wechat.png&#34;</span>  <span class="c"># Wechat QRcode image</span>
-</span></span><span class="line"><span class="cl"><span class="nx">Facebook</span>  <span class="p">=</span>  <span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">Telegram</span>  <span class="p">=</span>  <span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">Dribbble</span>  <span class="p">=</span>  <span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">Medium</span>  <span class="p">=</span>  <span class="s2">&#34;&#34;</span><span class="err">`</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="生成草稿网站">生成草稿网站</h3>
-<p>配置完 <code>config.toml</code> 后在 <code>mysite</code> 文件夹执行：</p>
-<p><code>hugo server -D</code></p>
-<p>打开 http://localhost:1313/ 即可查看生成的静态网站啦。</p>
-<h2 id="发布到github-pages">发布到GitHub Pages</h2>
-<p>生成网站命令：</p>
-<p><code>hugo</code></p>
-<p>生成网站存储在 public 文件夹中。</p>
-<p>执行：</p>
-<p><code>cd public</code></p>
-<p>进入 public 文件夹，然后：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git init
-</span></span><span class="line"><span class="cl">git remote add origin https://github.com/<span class="o">[</span>Github 用户名<span class="o">]</span>/<span class="o">[</span>Github 用户名<span class="o">]</span>.github.io.git
-</span></span><span class="line"><span class="cl">git add .
-</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;init commit&#34;</span>
-</span></span><span class="line"><span class="cl">git push -u origin master -f
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>这里 <code>-u origin master</code> 指定了默认主机，后面可以不加参数直接push了。</p>
-<p>以后再发布时的命令如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git add .
-</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;the commit message&#34;</span>
-</span></span><span class="line"><span class="cl">git push<span class="sb">`</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>接下来稍等片刻你便可以在 https://[你的GitHub用户名].github.io/ 访问你的网站啦！</p>
-<h2 id="主题优化">主题优化</h2>
-<p>下面主要是对 <a href="https://themes.gohugo.io/leaveit/" target="_blank" rel="noopener noreffer ">LeaveIt</a> 主题的一些优化。</p>
-<h3 id="解决黑色主题闪屏问题">解决黑色主题闪屏问题</h3>
-<p>切换为黑色主题后，每次打开新页面都会网页都会闪一下，亮瞎狗眼有没有！</p>
-<p>解决方法只需要更改 <code>mysite/themes/LeaveIt/layouts/_default/baseof.html</code> 的一行代码：</p>
-<p><code>&lt;body  class=&quot;dark-theme &quot;&gt;</code></p>
-<p>将默认加载的主题设为黑色即可。</p>
-<h3 id="站点流量统计">站点流量统计</h3>
-<p>利用<a href="https://busuanzi.ibruce.info/" target="_blank" rel="noopener noreffer ">不蒜子</a>，两行代码实现访问量统计，将以下代码</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span>  <span class="kr">async</span>  <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&#34;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>可以加在 <code>mysite/themes/LeaveIt/layouts/partials/js.html</code> 中。</p>
-<p>再将以下代码加到需要的位置即可：</p>
-<p>网站总访问量Page View:(可以放在<code>partials/footer.html</code>)</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">span</span>  <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;busuanzi_container_site_pv&#34;</span><span class="o">&gt;</span><span class="nx">本站总访问量</span><span class="o">&lt;</span><span class="nx">span</span>  <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;busuanzi_value_site_pv&#34;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;次&lt;/span&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>网站总访客数Unique Visitor:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">span</span>  <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;busuanzi_container_site_uv&#34;</span><span class="o">&gt;</span><span class="nx">您是第</span><span class="o">&lt;</span><span class="nx">span</span>  <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;busuanzi_value_site_uv&#34;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;位访客&lt;/span&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>博客总阅读量:（放在<code>_default/simple.html</code>）</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">span</span>  <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;busuanzi_container_site_pv&#34;</span><span class="o">&gt;</span><span class="nx">本文总阅读量</span><span class="o">&lt;</span><span class="nx">span</span>  <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;busuanzi_value_page_pv&#34;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;次&lt;/span&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="博客目录">博客目录</h3>
-<h3 id="站内搜索">站内搜索</h3>
-<p>留点坑，有空再来填。</p>
-<hr>
-<p>最后，致谢GitHub, Hugo, <a href="https://github.com/liuzc/leaveit" target="_blank" rel="noopener noreffer ">LeaveIt</a>, 和博主<a href="https://mogeko.me/" target="_blank" rel="noopener noreffer ">Mogeko</a>！</p>
-<p>添加个人域名、CDN、评论区等更多优化可以参考<a href="https://mogeko.me/" target="_blank" rel="noopener noreffer ">Mogeko</a>的<a href="https://mogeko.me/2018/025/" target="_blank" rel="noopener noreffer ">博客</a>。</p></div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-04-06&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/5954bd5900dedc5879621ad21beea0b37a5366d8" target="_blank" title="commit by ZubinGou(zebgou@gmail.com) 5954bd5900dedc5879621ad21beea0b37a5366d8: fix mathjax and some bugs">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>5954bd5</a></span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/blog/helloword/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/helloword/" data-title="零基础用 GitHub Pages &#43; Hugo 搭建个人网站" data-hashtags="Hugo,HTML"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/helloword/" data-hashtag="Hugo"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/helloword/" data-title="零基础用 GitHub Pages &#43; Hugo 搭建个人网站"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/helloword/" data-title="零基础用 GitHub Pages &#43; Hugo 搭建个人网站"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/helloword/" data-title="零基础用 GitHub Pages &#43; Hugo 搭建个人网站"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <div class="details-content toc-content" id="toc-content-static">
+                    { {- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
+                </div>
             </div>
+        { {- end -} }
+
+        { {- /* Content */ -} }
+        <div class="content" id="content">
+            { {- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
         </div>
-    </div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/hugo/">Hugo</a>,&nbsp;<a href="/blog/tags/html/">HTML</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
-        </section>
-    </div>
+        { {- /* Footer */ -} }
+        { {- partial "single/footer.html" . -} }
 
-    <div class="post-nav">
-            <a href="/blog/some-intuitions-in-linear-algebra/" class="next" rel="next" title="Some Intuitions in Linear Algebra">Some Intuitions in Linear Algebra<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
-</div>
-<div id="comments"><div id="utterances" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
-            </noscript></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
-</html>
+        { {- /* Comment */ -} }
+        { {- partial "comment.html" . -} }
+    </article>
+{ {- end -} }

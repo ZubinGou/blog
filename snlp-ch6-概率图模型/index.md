@@ -111,13 +111,13 @@
 - 估计问题/解码（decoding）问题：给定观察序列$O=O_1O_2...O_T$和模型$\mu=(\mathrm{A}, \mathrm{B}, \pi)$，快速计算$P(O\mid \mu)$
 - 推导：
 对于任意的状态序列$Q=q\_{1} q\_{2} \ldots q\_{T}$，有：
-$$\begin{aligned} P(O \mid Q, \mu) &=\prod\_{t=1}^{T-1} P(O\_{t} \mid q\_{t}, q\_{t+1}, \mu) \\\\ &=b\_{q\_{1}}(O\_{1}) \times b\_{q\_{2}}(O\_{2}) \times \cdots \times b\_{q\_{T}}(O\_{T}) \end{aligned}$$
+$$\begin{aligned} P(O \mid Q, \mu) &=\prod\_{t=1}^{T-1} P(O\_{t} \mid q\_{t}, q\_{t+1}, \mu) \\\\ &=b\_{q\_{1} }(O\_{1}) \times b\_{q\_{2} }(O\_{2}) \times \cdots \times b\_{q\_{T} }(O\_{T}) \end{aligned}$$
 并且
-$$P(Q \mid \mu)=\pi\_{q\_{1}} a\_{q\_{1} q\_{2}} a\_{q\_{2} q\_{3}} \cdots a\_{q\_{T-1} q\_{T}}$$
+$$P(Q \mid \mu)=\pi\_{q\_{1} } a\_{q\_{1} q\_{2} } a\_{q\_{2} q\_{3} } \cdots a\_{q\_{T-1} q\_{T} }$$
 由于
 $$P(O, Q \mid \mu)=P(O \mid Q, \mu) P(Q \mid \mu)$$
 因此
-$$\begin{aligned} P(O \mid \mu) &=\sum\_{Q} P(O, Q \mid \mu) \\\\ &=\sum\_{Q} P(O \mid Q, \mu) P(Q \mid \mu) \\\\ &=\sum\_{Q} \pi\_{q\_{1}} b\_{q\_{1}}(O\_{1}) \prod\_{t=1}^{T-1} a\_{q\_{t} q\_{t+1}} b\_{q\_{t+1}}(O\_{t+1}) \end{aligned}$$
+$$\begin{aligned} P(O \mid \mu) &=\sum\_{Q} P(O, Q \mid \mu) \\\\ &=\sum\_{Q} P(O \mid Q, \mu) P(Q \mid \mu) \\\\ &=\sum\_{Q} \pi\_{q\_{1} } b\_{q\_{1} }(O\_{1}) \prod\_{t=1}^{T-1} a\_{q\_{t} q\_{t+1} } b\_{q\_{t+1} }(O\_{t+1}) \end{aligned}$$
 - 算法改进：
 	- 问题：在N状态、T时间长度时，上述推导需要穷尽$N^T$个所有可能的状态序列，指数爆炸
 	- 改进：基于DP的前向算法/前向计算过程（forward procedure），$O(N^2T)$
@@ -128,7 +128,7 @@ $$\begin{aligned} P(O \mid \mu) &=\sum\_{Q} P(O, Q \mid \mu) \\\\ &=\sum\_{Q} P(
 - 前向变量：$\alpha\_{t}(i)=P(O\_{1} O\_{2} \cdots O\_{t}, q\_{t}=s\_{i} \mid \mu)$
 - 算法思想：先快速计算前向变量$\alpha_t(i)$，再据此算出$P(O\mid \mu)$
 	- 显而易见，$P(O\mid \mu)$为所有T长度的状态下观察序列出现概率和
-	- $P(O \mid \mu)=\sum\_{s\_{i}} P(O\_{1} O\_{2} \cdots O\_{\tau}, q\_{T}=s\_{i} \mid \mu)=\sum\_{i=1}^{N} \alpha\_{T}(i)$
+	- $P(O \mid \mu)=\sum\_{s\_{i} } P(O\_{1} O\_{2} \cdots O\_{\tau}, q\_{T}=s\_{i} \mid \mu)=\sum\_{i=1}^{N} \alpha\_{T}(i)$
 - DP思想：t+1的前向变量可以由t时刻所有前向变量归纳计算
 	- $\alpha\_{t-1}(j)=(\sum\_{i=1}^{N} \alpha\_{t}(i) a\_{i j}) b\_{j}(O\_{t+1})$
 	![43f618a51e5244613909496464f36e89.png](../../_resources/c979184de4024acb9b3d387104500ac9.png)
@@ -145,7 +145,7 @@ $$\begin{aligned} P(O \mid \mu) &=\sum\_{Q} P(O, Q \mid \mu) \\\\ &=\sum\_{Q} P(
 	- $\beta\_{t}(i)=\sum\_{j=1}^{N} a\_{i j} b\_{j}(O\_{t+1}) \beta\_{t-1}(j)$
 	![b7de6f1ccf50dd3dc3964dd9c2f79bef.png](../../_resources/b23ab601b50945dda996bd7471712fba.png)
 - 后向算法描述（backward precedure）
-	1. 初始化：$\beta\_{\mathrm{T}}(\mathrm{i})=1, \quad 1 \leq \mathrm{i} \leq \mathrm{N}$
+	1. 初始化：$\beta\_{\mathrm{T} }(\mathrm{i})=1, \quad 1 \leq \mathrm{i} \leq \mathrm{N}$
 	2. 归纳计算：$\beta\_{i}(i)=\sum\_{j=1}^{N} a\_{i j} b\_{j}(O\_{t+1}) \beta\_{i+1}(j), \quad T-1 \geqslant t \geqslant 1 ; 1 \leqslant i \leqslant N$
 	3. 求和终结：$P(O \mid \mu)=\sum\_{i=1}^{N} \pi\_{i} b\_{i}(O\_{1}) \beta\_{1}(i)$
 
@@ -162,15 +162,15 @@ $$P(O \mid \mu)=\sum\_{i=1}^{N} \alpha\_{t}(i) \times \beta\_{t}(i), \quad 1 \le
 		- $\gamma\_{t}(i)=P(q\_{t}=s\_{i} \mid O, \mu)$最大
 		- 贝叶斯：$\gamma\_{t}(i)=P(q\_{t}=s\_{i} \mid O, \mu)=\frac{P(q\_{t}=s\_{i}, O \mid \mu)}{P(O \mid \mu)}$
 		- 前后向算法：$\gamma\_{t}(i)=\frac{\alpha\_{t}(i) \beta\_{t}(i)}{\sum\_{i=1}^{N} \alpha\_{t}(i) \times \beta\_{i}(i)}$
-		- 时间t最优状态：$\hat{q}\_{t}=\underset{1 \leqslant \leqslant N}{\operatorname{argmax}}[\gamma\_{i}(i)]$
+		- 时间t最优状态：$\hat{q}\_{t}=\underset{1 \leqslant \leqslant N}{\operatorname{argmax} }[\gamma\_{i}(i)]$
 		- 断序问题：忽略了状态间的关系，可能导致两状态转移概率为0，则最优状态序列不合法
 	- 在给定模型$\mu$和观察序列$O$的条件下，使条件概率$P（Q\mid O，\mu）$最大的状态序列
-		- $\hat{Q}=\underset{Q}{\operatorname{argmax}} P(Q \mid O, \mu)$
+		- $\hat{Q}=\underset{Q}{\operatorname{argmax} } P(Q \mid O, \mu)$
 		- 避免了断序问题
 		- 维特比算法运用DP搜索求解
 - 维特比算法
 	- 维特比变量：在时间t时，HMM沿着某一条路径到达状态$s_i$，并输出观察序列$O_1O_2…O_t$的最大概率
-		- $\delta\_{t}(i)=\max \_{q\_{1} \cdot q\_{2}, \cdots, q\_{i-1}} P(q\_{1}, q\_{2}, \cdots, q\_{t}=s\_{i}, O\_{1} O\_{2} \cdots O\_{t} \mid \mu)$
+		- $\delta\_{t}(i)=\max \_{q\_{1} \cdot q\_{2}, \cdots, q\_{i-1} } P(q\_{1}, q\_{2}, \cdots, q\_{t}=s\_{i}, O\_{1} O\_{2} \cdots O\_{t} \mid \mu)$
 	- 递归关系：$\delta\_{t+1}(i)=\max \_{j}[\delta\_{t}(j) \cdot a\_{j i}] \cdot b\_{i}(O\_{t+1})$
 	- 算法描述
 		1. 初始化：
@@ -179,9 +179,9 @@ $$P(O \mid \mu)=\sum\_{i=1}^{N} \alpha\_{t}(i) \times \beta\_{t}(i), \quad 1 \le
 		2. 归纳计算：
 		$\delta\_{i}(j)=\max \_{1 \leqslant i \leqslant N}[\delta\_{i-1}(i) \cdot a\_{i j}] \cdot b\_{j}(O\_{t}), \quad 2 \leqslant t \leqslant T ; 1 \leqslant j \leqslant N$
 		记忆回退路径：
-		$\psi\_{t}(j)=\underset{1 \leqslant i \leqslant N}{\operatorname{argmax}}[\delta\_{i-1}(i) \cdot a\_{i j}] \cdot b\_{j}(O\_{t}), \quad 2 \leqslant t \leqslant T ; 1 \leqslant i \leqslant N$
+		$\psi\_{t}(j)=\underset{1 \leqslant i \leqslant N}{\operatorname{argmax} }[\delta\_{i-1}(i) \cdot a\_{i j}] \cdot b\_{j}(O\_{t}), \quad 2 \leqslant t \leqslant T ; 1 \leqslant i \leqslant N$
 		3. 终结：
-		$\hat{Q}\_{T}=\underset{1 \leqslant i \leqslant N}{\operatorname{argmax}}[\delta\_{T}(i)]$
+		$\hat{Q}\_{T}=\underset{1 \leqslant i \leqslant N}{\operatorname{argmax} }[\delta\_{T}(i)]$
 		$\hat{P}(\hat{Q}\_{T})=\max \_{1 \leqslant i \leqslant N}[\delta\_{T}(i)]$
 		4. 路径回溯：
 		$\hat{q}\_{t}=\psi\_{t+1}(\hat{q}\_{t-1}), \quad t=T-1, T-2, \cdots, 1$
@@ -191,13 +191,13 @@ $$P(O \mid \mu)=\sum\_{i=1}^{N} \alpha\_{t}(i) \times \beta\_{t}(i), \quad 1 \le
 
 ### 6.4.3 HMM参数估计
 - 训练问题/参数估计问题：给定观察序列$O=O_1O_2...O_T$，如何调节模型$\mu=(\mathrm{A}, \mathrm{B}, \pi)$的参数，使得$P(O\mid \mu)$最大：
-	- $\underset{\mu}{\arg \max } P(O\_{\text {training }} \mid \mu)$
+	- $\underset{\mu}{\arg \max } P(O\_{\text {training } } \mid \mu)$
 - 模型参数：构成$\mu$的$\pi_i, a\_{ij}, b_j(k)$
 - 可以采用最大似然估计：
 	- $\bar{\pi}\_{i}=\delta(q\_{1}, s\_{i})$
 		- $\delta(x, y)$为Kronecker函数，x=y时为1，否则为0
-	- $\begin{aligned} \bar{a}\_{i j} &=\frac{Q \text { 中从状态 } q\_{i} \text { 转移到 } q\_{j} \text { 的次数 }}{ Q \text { 中所有从状态 } q\_{i} \text { 转移到另一状态(包括 } q\_{j} \text { 自身 }) \text { 的次数 }} \\\\ &=\frac{\sum\_{t=1}^{T-1} \delta(q\_{t}, s\_{i}) \times \delta(q\_{t-1}, s\_{j})}{\sum\_{t=1}^{T-1} \delta(q\_{t}, s\_{i})} \end{aligned}$
-	- $\begin{aligned} \bar{b}\_{j}(k) &=\frac{Q \text { 中从状态 } q\_{j} \text { 输出符号 } v\_{k} \text { 的次数 }}{Q \text { 到达 } q\_{j} \text { 的次数 }} \\\\ &=\frac{\sum\_{t=1}^{T} \delta(q\_{t}, s\_{j}) \times \delta(O\_{t}, v\_{k})}{\sum\_{t=1}^{T} \delta(q\_{t}, s\_{j})} \end{aligned}$
+	- $\begin{aligned} \bar{a}\_{i j} &=\frac{Q \text { 中从状态 } q\_{i} \text { 转移到 } q\_{j} \text { 的次数 } }{ Q \text { 中所有从状态 } q\_{i} \text { 转移到另一状态(包括 } q\_{j} \text { 自身 }) \text { 的次数 } } \\\\ &=\frac{\sum\_{t=1}^{T-1} \delta(q\_{t}, s\_{i}) \times \delta(q\_{t-1}, s\_{j})}{\sum\_{t=1}^{T-1} \delta(q\_{t}, s\_{i})} \end{aligned}$
+	- $\begin{aligned} \bar{b}\_{j}(k) &=\frac{Q \text { 中从状态 } q\_{j} \text { 输出符号 } v\_{k} \text { 的次数 } }{Q \text { 到达 } q\_{j} \text { 的次数 } } \\\\ &=\frac{\sum\_{t=1}^{T} \delta(q\_{t}, s\_{j}) \times \delta(O\_{t}, v\_{k})}{\sum\_{t=1}^{T} \delta(q\_{t}, s\_{j})} \end{aligned}$
 	- 由于HMM的状态序列Q无法观察，因此这种最大似然估计方法不可行，可以采用EM算法
 - 期望最大化（expectation maximization， EM）算法
 	- 可用于含有隐变量的统计模型的参数最大似然估计
@@ -212,8 +212,8 @@ $$P(O \mid \mu)=\sum\_{i=1}^{N} \alpha\_{t}(i) \times \beta\_{t}(i), \quad 1 \le
 			- $\gamma\_{t}(i)=\sum\_{j=1}^{N} \hat{\xi}\_{t}(i, j)$
 		- 估计：
 			- $\bar{\pi}\_{i}=P(q\_{1}=s\_{i} \mid O, \mu)=\gamma\_{1}(i)$
-			- $\begin{aligned} \bar{a}\_{i j} &=\frac{Q \text { 中从状态 } q\_{i} \text { 转移到 } q\_{j} \text { 的期望次数 }}{ Q \text { 中所有从状态 } q\_{i} \text { 转移到另一状态(包括 } q\_{j} \text { 自身 }) \text { 的期望次数 }} \\\\ &=\frac{\sum\_{i=1}^{T-1} \xi\_{t}(i, j)}{\sum\_{t=1}^{T-1} \gamma\_{t}(i)} \end{aligned}$
-			- $\begin{aligned} \bar{b}\_{j}(k)=& \frac{Q \text { 中从状态 } q\_{j} \text { 输出符号 } v\_{k} \text { 的期望次数 }}{Q \text { 到达 } q\_{j} \text { 的期望次数 }} \\\\ &=\frac{\sum\_{i=1}^{T} \gamma\_{t}(j) \times \delta(O\_{t}, v\_{k})}{\sum\_{t=1}^{T} \gamma\_{t}(j)} \end{aligned}$
+			- $\begin{aligned} \bar{a}\_{i j} &=\frac{Q \text { 中从状态 } q\_{i} \text { 转移到 } q\_{j} \text { 的期望次数 } }{ Q \text { 中所有从状态 } q\_{i} \text { 转移到另一状态(包括 } q\_{j} \text { 自身 }) \text { 的期望次数 } } \\\\ &=\frac{\sum\_{i=1}^{T-1} \xi\_{t}(i, j)}{\sum\_{t=1}^{T-1} \gamma\_{t}(i)} \end{aligned}$
+			- $\begin{aligned} \bar{b}\_{j}(k)=& \frac{Q \text { 中从状态 } q\_{j} \text { 输出符号 } v\_{k} \text { 的期望次数 } }{Q \text { 到达 } q\_{j} \text { 的期望次数 } } \\\\ &=\frac{\sum\_{i=1}^{T} \gamma\_{t}(j) \times \delta(O\_{t}, v\_{k})}{\sum\_{t=1}^{T} \gamma\_{t}(j)} \end{aligned}$
 	- 算法描述：
 		1. 初始化，随机给$\pi_i, a\_{ij}, b_j(k)$赋值，满足约束：
 			- $\sum\_{i=1}^{N} \pi\_{i}=1$
@@ -228,7 +228,7 @@ $$P(O \mid \mu)=\sum\_{i=1}^{N} \alpha\_{t}(i) \times \beta\_{t}(i), \quad 1 \le
 - HMM实际应用，注意
 	- 多个概率连乘引起浮点数下溢
 		- Viterbi算法只涉及乘法和求最大值，可以对概率连乘取对数，避免下溢并加快运算
-		- 前向后向算法中，采用$|\log {P}(O \mid \mu\_{i+1})-\log P({O} \mid \mu\_{{i}})|<\varepsilon$判断收敛。但执行EM计算时有加法运算，这就使得EM计算中无法采用对数运算，在这种情况下，可以设置一个辅助的比例系数，将概率值乘以这个比例系数以放大概率值，避免浮点数下溢。在每次迭代结束重新估计参数值时，再将比例系数取消。
+		- 前向后向算法中，采用$|\log {P}(O \mid \mu\_{i+1})-\log P({O} \mid \mu\_{ {i} })|<\varepsilon$判断收敛。但执行EM计算时有加法运算，这就使得EM计算中无法采用对数运算，在这种情况下，可以设置一个辅助的比例系数，将概率值乘以这个比例系数以放大概率值，避免浮点数下溢。在每次迭代结束重新估计参数值时，再将比例系数取消。
 
 
 ## 6.5 层次化的隐马尔科夫模型hierarchical hidden Markov models, HHMM）
@@ -245,10 +245,10 @@ $$P(O \mid \mu)=\sum\_{i=1}^{N} \alpha\_{t}(i) \times \beta\_{t}(i), \quad 1 \le
 - 观察序列的产生：状态转移到某生成，产生一个观察输出后，终止状态控制转移过程返回到激活该层状态转移的上层状态。这一递归转移过程将形成一个生产状态序列，而每个生产状态生成一个观察输出符号，因此生产状态序列将为顶层状态生成一个观察输出序列。
 - 形式化描述：
 	- 状态$q_i^d(d\in \{1,..., D\})$，i为状态下标，d为层次标号
-	- 内部状态转移概率矩阵：$\begin{aligned} A^{q^{d}} &=\{a\_{i j}^{q^{d}}\} \\\\ &=\{P(q\_{j}^{d+1} \mid q\_{i}^{d+1})\} \end{aligned}$，其中$a\_{i j}^{a^{d}}$表示从状态i水平转移到状态j的概率
-	- 子状态初始分布矩阵：$\begin{aligned} \Pi^{q^{d}} &=\{\pi^{d}(q\_{i}^{d+1})\} \\\\ &=\{P(q\_{i}^{d+1} \mid q^{d})\} \end{aligned}$
-	- 参数输出概率矩阵：$\begin{aligned} B^{q\_{i}^{D}} &=\{b^{q\_{i}^{D}}(k)\} \\\\ &=\{P(\sigma\_{k} \mid q\_{i}^{D})\} \end{aligned}$
-	- HHMM参数集合：$\lambda=\{\{A^{q^{d}}\}\{\Pi^{q^{d}}\}\{B^{q^{D}}\}\}$
+	- 内部状态转移概率矩阵：$\begin{aligned} A^{q^{d} } &=\{a\_{i j}^{q^{d} }\} \\\\ &=\{P(q\_{j}^{d+1} \mid q\_{i}^{d+1})\} \end{aligned}$，其中$a\_{i j}^{a^{d} }$表示从状态i水平转移到状态j的概率
+	- 子状态初始分布矩阵：$\begin{aligned} \Pi^{q^{d} } &=\{\pi^{d}(q\_{i}^{d+1})\} \\\\ &=\{P(q\_{i}^{d+1} \mid q^{d})\} \end{aligned}$
+	- 参数输出概率矩阵：$\begin{aligned} B^{q\_{i}^{D} } &=\{b^{q\_{i}^{D} }(k)\} \\\\ &=\{P(\sigma\_{k} \mid q\_{i}^{D})\} \end{aligned}$
+	- HHMM参数集合：$\lambda=\{\{A^{q^{d} }\}\{\Pi^{q^{d} }\}\{B^{q^{D} }\}\}$
 - 与HMM一样，HHMM也有估计问题、序列问题和训练问题，详见原文[Fine et al., 1998]
 
 
@@ -265,19 +265,19 @@ $$P(O \mid \mu)=\sum\_{i=1}^{N} \alpha\_{t}(i) \times \beta\_{t}(i), \quad 1 \le
 	- 又称团势能函数/势函数（clique potential function），是定义在团上的非负实函数
 	- 每个团对应一个势函数，表示团的一个状态
 	- $\mathbf{x}_C$来表示团C中所有的结点，用$\phi(\mathbf{x}_C)$表示团势能。
-		- 如图6-11中团：$\mathbf{x}\_{\mathbf{C}\_{1}}=\{x\_{1}, \quad x\_{2}\}, \quad \mathbf{x}\_{\mathbf{C}\_{2}}=\{x\_{1}, \quad x\_{3}, \quad x\_{4}\}$
+		- 如图6-11中团：$\mathbf{x}\_{\mathbf{C}\_{1} }=\{x\_{1}, \quad x\_{2}\}, \quad \mathbf{x}\_{\mathbf{C}\_{2} }=\{x\_{1}, \quad x\_{3}, \quad x\_{4}\}$
 		- 势能非负，故一般定义 $\phi(\mathbf{x}_C)=\exp(-E(\mathbf{x}_C))$，$E(\mathbf{x}_C)$为$\mathbf{x}_C$的能量函数
 - 如果分布P $\phi(x_1，x_2，…，x_n)$的图模型可以表示为一个马尔可夫网络H，当C是H上完全子图的集合时，我们说H上的分布P $\phi(x_1，x_2，…，x_n)$可以用C的团势能函数$\phi(\mathbf{x}_C)$进行因子化：$\phi＝\phi_1(\mathbf{x}\_{C_1}),...,\phi_K(\mathbf{x}\_{C_K})$。P $\phi(x1，x2，…，xn)$可以看作H上的一个吉布斯分布（Gibbs distribution），其概率分布密度为：
 $
-p(x\_{1}, x\_{2}, \cdots, x\_{n})=\frac{1}{Z} \prod\_{i=1}^{K} \phi\_{i}(\mathbf{x}{C{i}})
+p(x\_{1}, x\_{2}, \cdots, x\_{n})=\frac{1}{Z} \prod\_{i=1}^{K} \phi\_{i}(\mathbf{x}{C{i} })
 $
 	- 其中，Z是一个归一化常量，称为划分函数（partition function）。
 	- 其中，$x\_{C_i} \subseteq {x_1，x_2，…，x_n}$（1≤i≤K），并且满足$\bigcup\_{i=1}^{K} x\_{C_i}=\{x_1,x_2,…,x_n \}$。
 - 显然，在无向图模型中每个$C_i$对应于一个团，而相应的吉布斯分布就是整个图模型的概率分布。
 	- 图6-11中的两个团$x\_{C_1}＝{x_1，x_2}$和$x\_{C_2}＝{x_1，x_3，x_4}$就可以定义相应的吉布斯分布，因为满足条件$x\_{C_1} \cup x\_{C_2}＝{x_1，x_2，x_3，x_4}$。
 - 因子化的乘积运算可以变成加法运算
-	$p(x\_{1}, x\_{2}, \cdots, x\_{n})=\frac{1}{Z} \exp \{-\sum\_{i=1}^{K} E\_{c\_{i}}(x\_{c\_{i}})\}=\frac{1}{Z} \exp \{-E(\mathbf{x})\}$
-	- 其中，$\sum\_{i=1}^{K} E\_{C\_{i}}(x\_{C\_{i}})$
+	$p(x\_{1}, x\_{2}, \cdots, x\_{n})=\frac{1}{Z} \exp \{-\sum\_{i=1}^{K} E\_{c\_{i} }(x\_{c\_{i} })\}=\frac{1}{Z} \exp \{-E(\mathbf{x})\}$
+	- 其中，$\sum\_{i=1}^{K} E\_{C\_{i} }(x\_{C\_{i} })$
 
 ## 6.7 最大熵模型
 ### 6.7.1 最大熵原理
@@ -302,8 +302,8 @@ $
 - MEMM直接采用条件概率模型$P(S_T\mid O_T)$，使得观察输出可以用特征表示，借助最大熵框架进行特征选取
 - HMM与MEMM区别：
 	- ![43fde9cbfeb1c8790866c3b967eba975.png](../../_resources/83baebd1d5194f1bb102a79f9fe5cab9.png)
-	- HMM中$\mu$解码求解的是：$\underset{S\_{T}}{\operatorname{argmax}} P(O\_{T} \mid S\_{T}, \mu)$
-	- MEMM中M解码器求解的是：$\underset{S\_{T}}{\operatorname{argmax}} P(S\_{T} \mid O\_{T}, \mu)$
+	- HMM中$\mu$解码求解的是：$\underset{S\_{T} }{\operatorname{argmax} } P(O\_{T} \mid S\_{T}, \mu)$
+	- MEMM中M解码器求解的是：$\underset{S\_{T} }{\operatorname{argmax} } P(S\_{T} \mid O\_{T}, \mu)$
 	- HMM当前观察输出只取决于当前状态，MEMM当前观察输出还可能取决于前一时刻的状态
 - MEMM思路
 	- 概率因子化为马尔可夫转移概率，该转移概率依赖于当前时刻的观察和前一时刻的状态：$P(S\_{1} \cdots S\_{T} \mid O\_{1} \cdots O\_{T})=\prod\_{t=1}^{T} P(S\_{t} \mid S\_{t-1}, O\_{t})$

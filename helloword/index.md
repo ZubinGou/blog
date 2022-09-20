@@ -84,8 +84,8 @@
 
 ```toml
 +++
-title =  "{{ replace .Name "-" "  " | title }}"  # 文章标题
-date =  {{  .Date  }}  # 自动添加日期
+title =  "{ { replace .Name "-" "  " | title } }"  # 文章标题
+date =  { {  .Date  } }  # 自动添加日期
 draft =  true  # 是否为草稿
 categories =  [""]  # 目录（数组）
 tags =  [""]  # 标签（数组）

@@ -1,370 +1,101 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>【NLP Papers】word2vec - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="【NLP Papers】word2vec" />
-<meta property="og:description" content="Efficient Estimation of Word Representations in Vector Space [Mikolov 2013] original word2vec paper images from The Pre-LSTM Ice-Age References https://machinelearningmedium.com/2017/07/11/word-to-vector-word-representations/ Y. Bengio, R. Ducharme, P. Vincent. A neural probabilistic language model. Journal of Machine Learning Research, 3:1137-1155, 2003. T. Mikolov, M. Karafi´at, L. Burget, J. ˇCernock´y, S. Khudanpur. Recurrent neural network" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://zubingou.github.io/blog/nlp-papersword2vec/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-01-25T11:56:11+08:00" />
-<meta property="article:modified_time" content="2021-01-25T11:56:11+08:00" /><meta property="og:site_name" content="My cool site" />
+{ {- define "title" } }{ { .Title } } - { { .Site.Title } }{ { end -} }
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
+{ {- define "content" -} }
+    { {- $params := .Scratch.Get "params" -} }
 
-<meta name="twitter:title" content="【NLP Papers】word2vec"/>
-<meta name="twitter:description" content="Efficient Estimation of Word Representations in Vector Space [Mikolov 2013] original word2vec paper images from The Pre-LSTM Ice-Age References https://machinelearningmedium.com/2017/07/11/word-to-vector-word-representations/ Y. Bengio, R. Ducharme, P. Vincent. A neural probabilistic language model. Journal of Machine Learning Research, 3:1137-1155, 2003. T. Mikolov, M. Karafi´at, L. Burget, J. ˇCernock´y, S. Khudanpur. Recurrent neural network"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/nlp-papersword2vec/" /><link rel="prev" href="https://zubingou.github.io/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="next" href="https://zubingou.github.io/blog/nlp-papersword2vec-improvement/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "【NLP Papers】word2vec",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/zubingou.github.io\/blog\/nlp-papersword2vec\/"
-        },"image": [{
-                            "@type": "ImageObject",
-                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
-                            "width":  3200 ,
-                            "height":  2048 
-                        }],"genre": "posts","keywords": "NLP, word2vec, notes","wordcount":  582 ,
-        "url": "https:\/\/zubingou.github.io\/blog\/nlp-papersword2vec\/","datePublished": "2021-01-25T11:56:11+08:00","dateModified": "2021-01-25T11:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "ZubinGou","logo": {
-                    "@type": "ImageObject",
-                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
-                    "width":  304 ,
-                    "height":  304 
-                }},"author": {
-                "@type": "Person",
-                "name": "ZubinGou"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    { {- $toc := $params.toc -} }
+    { {- if eq $toc true -} }
+        { {- $toc = .Site.Params.page.toc | default dict -} }
+    { {- else if eq $toc false -} }
+        { {- $toc = dict "enable" false -} }
+    { {- end -} }
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- /* Auto TOC */ -} }
+    { {- if ne $toc.enable false -} }
+        <div class="toc" id="toc-auto">
+            <h2 class="toc-title">{ { T "contents" } }</h2>
+            <div class="toc-content{ { if eq $toc.auto false } } always-active{ { end } }" id="toc-content-auto"></div>
         </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/blog/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
-                    <i class="fa fa-globe" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/nlp-papersword2vec/" selected>简体中文</option></select>
-                </a></div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- end -} }
+
+    <article class="page single">
+        { {- /* Title */ -} }
+        <h1 class="single-title animate__animated animate__flipInX">{ { .Title | emojify } }</h1>
+
+        { {- /* Subtitle */ -} }
+        { {- with $params.subtitle -} }
+            <h2 class="single-subtitle">{ { . } }</h2>
+        { {- end -} }
+
+        { {- /* Meta */ -} }
+        <div class="post-meta">
+            <div class="post-meta-line">
+                { {- $author := $params.author | default .Site.Author.name | default (T "author") -} }
+                { {- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -} }
+                <span class="post-author">
+                    { {- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -} }
+                    { {- partial "plugin/a.html" $options -} }
+                </span>
+
+                { {- $categories := slice -} }
+                { {- range .Params.categories -} }
+                    { {- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -} }
+                    { {- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw" aria-hidden="true"></i>%v</a>` $category.RelPermalink $category.Title) -} }
+                { {- end -} }
+                { {- with delimit $categories "&nbsp;" -} }
+                    &nbsp;<span class="post-category">
+                        { {- dict "Categories" . | T "includedInCategories" | safeHTML -} }
+                    </span>
+                { {- end -} }
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
+            <div class="post-meta-line">
+                { {- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -} }
+                    <i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{ { . } }">{ { . } }</time>&nbsp;
+                { {- end -} }
+                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{ { T "wordCount" .WordCount } }&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{ { T "readingTime" .ReadingTime } }&nbsp;
+                { {- $comment := .Scratch.Get "comment" | default dict -} }
+                { {- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -} }
+                    <span id="{ { .RelPermalink } }" class="leancloud_visitors" data-flag-title="{ { .Title } }">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{ { T "views" } }
+                    </span>&nbsp;
+                { {- end -} }
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/blog/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
-                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/blog/nlp-papersword2vec/" selected>简体中文</option></select>
-                </a></div>
-    </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">【NLP Papers】word2vec</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/nlp/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>NLP</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-01-25">2021-01-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 582 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
+
+        { {- /* Featured image */ -} }
+        { {- $image := $params.featuredimage -} }
+        { {- with .Resources.GetMatch "featured-image" -} }
+            { {- $image = .RelPermalink -} }
+        { {- end -} }
+        { {- with $image -} }
+            <div class="featured-image">
+                { {- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -} }
+            </div>
+        { {- end -} }
+
+        { {- /* Static TOC */ -} }
+        { {- if ne $toc.enable false -} }
+            <div class="details toc" id="toc-static"  data-kept="{ { if $toc.keepStatic } }true{ { end } }">
                 <div class="details-summary toc-title">
-                    <span>目录</span>
+                    <span>{ { T "contents" } }</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#abstract">Abstract</a></li>
-    <li><a href="#1-introduction">1 Introduction</a>
-      <ul>
-        <li><a href="#11-goals-of-the-paper">1.1 Goals of the Paper</a></li>
-        <li><a href="#12-previous-work">1.2 Previous Work</a></li>
-      </ul>
-    </li>
-    <li><a href="#2-model-architectures">2 Model Architectures</a>
-      <ul>
-        <li><a href="#21-feedforward-neural-net-language-model-nnlm">2.1 Feedforward Neural Net Language Model (NNLM)</a></li>
-        <li><a href="#22-recurrent-neural-net-language-model-rnnlm">2.2 Recurrent Neural Net Language Model (RNNLM)</a></li>
-        <li><a href="#23-parallel-training-of-neural-networks">2.3 Parallel Training of Neural Networks</a></li>
-      </ul>
-    </li>
-    <li><a href="#3-new-log-linear-models">3 New Log-linear Models</a>
-      <ul>
-        <li><a href="#31-continuous-bag-of-words-modelcbow">3.1 Continuous Bag-of-Words Model（CBOW）</a></li>
-        <li><a href="#32-continuous-skip-gram-modelsg">3.2 Continuous Skip-gram Model（SG）</a></li>
-      </ul>
-    </li>
-    <li><a href="#4-results">4 Results</a>
-      <ul>
-        <li><a href="#41-task-description">4.1 Task Description</a></li>
-        <li><a href="#42-maximization-of-accuracy">4.2 Maximization of Accuracy</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><h1 id="efficient-estimation-of-word-representations-in-vector-space">Efficient Estimation of Word Representations in Vector Space</h1>
-<p>[Mikolov 2013] original word2vec paper</p>
-<p><img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../../_resources/3cf682ae142a418bac9ff71e4ce4cafd.png"
-        data-srcset="../../../_resources/3cf682ae142a418bac9ff71e4ce4cafd.png, ../../../_resources/3cf682ae142a418bac9ff71e4ce4cafd.png 1.5x, ../../../_resources/3cf682ae142a418bac9ff71e4ce4cafd.png 2x"
-        data-sizes="auto"
-        alt="../../../_resources/3cf682ae142a418bac9ff71e4ce4cafd.png"
-        title="1_746thP9Ko96GcNmIQFI53g.png" /></p>
-<blockquote>
-<p>images from <a href="https://towardsdatascience.com/a-no-frills-guide-to-most-natural-language-processing-models-part-1-the-pre-lstm-ice-age-86055dd5d67c" target="_blank" rel="noopener noreffer ">The Pre-LSTM Ice-Age </a></p>
-</blockquote>
-<p>References</p>
-<ul>
-<li><a href="https://machinelearningmedium.com/2017/07/11/word-to-vector-word-representations/" target="_blank" rel="noopener noreffer ">https://machinelearningmedium.com/2017/07/11/word-to-vector-word-representations/</a></li>
-<li>Y. Bengio, R. Ducharme, P. Vincent. A neural probabilistic language model. Journal of Machine Learning Research, 3:1137-1155, 2003.</li>
-<li>T. Mikolov, M. Karafi´at, L. Burget, J. ˇCernock´y, S. Khudanpur. Recurrent neural network based language model, In: Proceedings of Interspeech, 2010.</li>
-</ul>
-<hr>
-<h2 id="abstract">Abstract</h2>
-<p>continuous word2vec: skip-gram, CBOW
-measure: word similarity task (syntactic and semantic)
-SOTA!</p>
-<h2 id="1-introduction">1 Introduction</h2>
-<h3 id="11-goals-of-the-paper">1.1 Goals of the Paper</h3>
-<p>Introduce techniques that can be used for learning high-quality wordvectors from huge data sets with billions of words, and with millions of words in the vocabulary.</p>
-<h3 id="12-previous-work">1.2 Previous Work</h3>
-<ul>
-<li>neural network language model (NNLM)</li>
-<li>learn word vector with single hidden layer, then train the NNLM (this work is the extension of this architecture)</li>
-</ul>
-<h2 id="2-model-architectures">2 Model Architectures</h2>
-<p>representations of words</p>
-<ul>
-<li>continuous: Latent Semantic Analysis (LSA), Latent Dirichlet Allocation (LDA)</li>
-<li>distributed: word2vec focus on
-<ul>
-<li>分布式与连续不互斥, 分布式表示相对的是one-hot表示。</li>
-</ul>
-</li>
-</ul>
-<p>training complexity (all the following models): $O=E \times T \times Q$</p>
-<ul>
-<li>E=epochs(3-50), T=words in trainning set, Q depends on model</li>
-</ul>
-<p>trainning method: SGD, BP</p>
-<h3 id="21-feedforward-neural-net-language-model-nnlm">2.1 Feedforward Neural Net Language Model (NNLM)</h3>
-<p>[Bengio, 2003]</p>
-<p>3 layers:</p>
-<ul>
-<li>input: $N$ previous words (1-of-V coding, V is vovabulary size)</li>
-<li>projection: $D$</li>
-<li>hidden: $H$</li>
-<li>output: $V$，对于输入词，每个词是</li>
-</ul>
-<p><img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../../_resources/e51a7c1e107941089a354402666a0e7e.png"
-        data-srcset="../../../_resources/e51a7c1e107941089a354402666a0e7e.png, ../../../_resources/e51a7c1e107941089a354402666a0e7e.png 1.5x, ../../../_resources/e51a7c1e107941089a354402666a0e7e.png 2x"
-        data-sizes="auto"
-        alt="../../../_resources/e51a7c1e107941089a354402666a0e7e.png"
-        title="8b01d5925d26b9523a295f2cad456935.png" /></p>
-<p>complexity:
-$$
-Q=N \times D+N \times D \times H+H \times V
-$$</p>
-<ul>
-<li>dominating term is $H \times V$, reduce to $H * \log _{2}(V)$:
-<ul>
-<li>Hierarchical softmax</li>
-<li>Avoiding normalized models for training</li>
-<li>Binary tree representations of the vocabulary (Huffman Trees)</li>
-</ul>
-</li>
-<li>dominating term becomes $N \times D \times H$</li>
-</ul>
-<h3 id="22-recurrent-neural-net-language-model-rnnlm">2.2 Recurrent Neural Net Language Model (RNNLM)</h3>
-<p>[Mikolov, 2010]</p>
-<p>2 layers:</p>
-<ul>
-<li>input: $D=H$</li>
-<li>hidden: $H$ (with recurrent matrix connects itself)</li>
-<li>ouput: $V$</li>
-</ul>
-<p>complexity:
-$$
-Q=H \times H+H \times V
-$$</p>
-<ul>
-<li>$H \times V$ can be efficiently reduced to $H \times \log_2(V)$ by using hierarchical softmax</li>
-<li>Most of the complexity then comes from $H \times H$</li>
-</ul>
-<h3 id="23-parallel-training-of-neural-networks">2.3 Parallel Training of Neural Networks</h3>
-<ul>
-<li>mini-batch asynchronous gradient descent with Adagrad</li>
-</ul>
-<h2 id="3-new-log-linear-models">3 New Log-linear Models</h2>
-<p>simplify hidden layer
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../../_resources/8801dc661bad4666a5d9d35f8a7b7c15.png"
-        data-srcset="../../../_resources/8801dc661bad4666a5d9d35f8a7b7c15.png, ../../../_resources/8801dc661bad4666a5d9d35f8a7b7c15.png 1.5x, ../../../_resources/8801dc661bad4666a5d9d35f8a7b7c15.png 2x"
-        data-sizes="auto"
-        alt="../../../_resources/8801dc661bad4666a5d9d35f8a7b7c15.png"
-        title="aac7caf3f593ce515c4e95eb5526d544.png" /></p>
-<h3 id="31-continuous-bag-of-words-modelcbow">3.1 Continuous Bag-of-Words Model（CBOW）</h3>
-<p>predicts the current word based on the context</p>
-<blockquote>
-<p>bag-of-words: order not matter</p>
-</blockquote>
-<p>the weight matrix between the input and the projection layer is shared for all word positions in the same way as in the NNLM</p>
-<p>complexity:
-$$
-Q=N \times D+D \times \log _{2}(V)
-$$</p>
-<h3 id="32-continuous-skip-gram-modelsg">3.2 Continuous Skip-gram Model（SG）</h3>
-<p>predicts surrounding words given the current word</p>
-<ul>
-<li>increase range (window size) improves quality and computational complexity</li>
-<li>give less weight to distant words by sampling less</li>
-</ul>
-<p>complexity:
-$$
-Q=C \times\left(D+D \times \log _{2}(V)\right)
-$$</p>
-<ul>
-<li>C = max distance</li>
-</ul>
-<h2 id="4-results">4 Results</h2>
-<ul>
-<li>Algebraic operations on the vector representations
-<ul>
-<li>X = vector(”biggest”)−vector(”big”)+vector(”small”)</li>
-<li>search for word closest to X measured by cosine distance (answer is smallest)</li>
-</ul>
-</li>
-</ul>
-<h3 id="41-task-description">4.1 Task Description</h3>
-<p>five types of semantic questions
-nine types of syntacitic questions
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../../_resources/4d5b96dca07f47e2b4d71e35857b270e.png"
-        data-srcset="../../../_resources/4d5b96dca07f47e2b4d71e35857b270e.png, ../../../_resources/4d5b96dca07f47e2b4d71e35857b270e.png 1.5x, ../../../_resources/4d5b96dca07f47e2b4d71e35857b270e.png 2x"
-        data-sizes="auto"
-        alt="../../../_resources/4d5b96dca07f47e2b4d71e35857b270e.png"
-        title="951ce6d5747200d1d2c5fe92aaa1435c.png" /></p>
-<h3 id="42-maximization-of-accuracy">4.2 Maximization of Accuracy</h3>
-<p>corpus: Google News
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../../_resources/fb6e6b6a83054fc2b73ac9d0d0bb4903.png"
-        data-srcset="../../../_resources/fb6e6b6a83054fc2b73ac9d0d0bb4903.png, ../../../_resources/fb6e6b6a83054fc2b73ac9d0d0bb4903.png 1.5x, ../../../_resources/fb6e6b6a83054fc2b73ac9d0d0bb4903.png 2x"
-        data-sizes="auto"
-        alt="../../../_resources/fb6e6b6a83054fc2b73ac9d0d0bb4903.png"
-        title="2364eb1b6d95d7c40ac06c6a292c2574.png" /></p>
-<p><img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../../_resources/cdbe5287a3ef4722a62d103264abae82.png"
-        data-srcset="../../../_resources/cdbe5287a3ef4722a62d103264abae82.png, ../../../_resources/cdbe5287a3ef4722a62d103264abae82.png 1.5x, ../../../_resources/cdbe5287a3ef4722a62d103264abae82.png 2x"
-        data-sizes="auto"
-        alt="../../../_resources/cdbe5287a3ef4722a62d103264abae82.png"
-        title="c1063b5ad5dc5fd4f38648083293e911.png" /></p>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-01-25</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/blog/nlp-papersword2vec/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/nlp-papersword2vec/" data-title="【NLP Papers】word2vec" data-hashtags="NLP,word2vec,notes"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/nlp-papersword2vec/" data-hashtag="NLP"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/nlp-papersword2vec/" data-title="【NLP Papers】word2vec"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/nlp-papersword2vec/" data-title="【NLP Papers】word2vec"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/nlp-papersword2vec/" data-title="【NLP Papers】word2vec"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <div class="details-content toc-content" id="toc-content-static">
+                    { {- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
+                </div>
             </div>
+        { {- end -} }
+
+        { {- /* Content */ -} }
+        <div class="content" id="content">
+            { {- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
         </div>
-    </div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/word2vec/">word2vec</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
-        </section>
-    </div>
+        { {- /* Footer */ -} }
+        { {- partial "single/footer.html" . -} }
 
-    <div class="post-nav"><a href="/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="prev" rel="prev" title="《神经网络与深度学习》第4章 - 前馈神经网络"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>《神经网络与深度学习》第4章 - 前馈神经网络</a>
-            <a href="/blog/nlp-papersword2vec-improvement/" class="next" rel="next" title="【NLP Papers】word2vec improvement">【NLP Papers】word2vec improvement<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
-</div>
-<div id="comments"><div id="utterances" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
-            </noscript></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
-</html>
+        { {- /* Comment */ -} }
+        { {- partial "comment.html" . -} }
+    </article>
+{ {- end -} }

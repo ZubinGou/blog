@@ -1,326 +1,101 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>《统计自然语言处理》第7.5章 - 词性标注 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《统计自然语言处理》第7.5章 - 词性标注" />
-<meta property="og:description" content="7.5 词性标注 7.5.1 概述 词性（part-of-speech）是词汇基本的语法属性，也称词类 主要难点 汉语缺乏词形态变化，不能从形态变化判别词类 常用词兼" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://zubingou.github.io/blog/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-01-18T13:56:11+08:00" />
-<meta property="article:modified_time" content="2021-01-18T13:56:11+08:00" /><meta property="og:site_name" content="My cool site" />
+{ {- define "title" } }{ { .Title } } - { { .Site.Title } }{ { end -} }
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
+{ {- define "content" -} }
+    { {- $params := .Scratch.Get "params" -} }
 
-<meta name="twitter:title" content="《统计自然语言处理》第7.5章 - 词性标注"/>
-<meta name="twitter:description" content="7.5 词性标注 7.5.1 概述 词性（part-of-speech）是词汇基本的语法属性，也称词类 主要难点 汉语缺乏词形态变化，不能从形态变化判别词类 常用词兼"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/" /><link rel="prev" href="https://zubingou.github.io/blog/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" /><link rel="next" href="https://zubingou.github.io/blog/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "《统计自然语言处理》第7.5章 - 词性标注",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/zubingou.github.io\/blog\/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8\/"
-        },"image": [{
-                            "@type": "ImageObject",
-                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
-                            "width":  3200 ,
-                            "height":  2048 
-                        }],"genre": "posts","keywords": "统计自然语言处理, NLP, statistics, notes","wordcount":  2031 ,
-        "url": "https:\/\/zubingou.github.io\/blog\/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8\/","datePublished": "2021-01-18T13:56:11+08:00","dateModified": "2021-01-18T13:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "ZubinGou","logo": {
-                    "@type": "ImageObject",
-                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
-                    "width":  304 ,
-                    "height":  304 
-                }},"author": {
-                "@type": "Person",
-                "name": "ZubinGou"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    { {- $toc := $params.toc -} }
+    { {- if eq $toc true -} }
+        { {- $toc = .Site.Params.page.toc | default dict -} }
+    { {- else if eq $toc false -} }
+        { {- $toc = dict "enable" false -} }
+    { {- end -} }
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- /* Auto TOC */ -} }
+    { {- if ne $toc.enable false -} }
+        <div class="toc" id="toc-auto">
+            <h2 class="toc-title">{ { T "contents" } }</h2>
+            <div class="toc-content{ { if eq $toc.auto false } } always-active{ { end } }" id="toc-content-auto"></div>
         </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/blog/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
-                    <i class="fa fa-globe" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/" selected>简体中文</option></select>
-                </a></div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- end -} }
+
+    <article class="page single">
+        { {- /* Title */ -} }
+        <h1 class="single-title animate__animated animate__flipInX">{ { .Title | emojify } }</h1>
+
+        { {- /* Subtitle */ -} }
+        { {- with $params.subtitle -} }
+            <h2 class="single-subtitle">{ { . } }</h2>
+        { {- end -} }
+
+        { {- /* Meta */ -} }
+        <div class="post-meta">
+            <div class="post-meta-line">
+                { {- $author := $params.author | default .Site.Author.name | default (T "author") -} }
+                { {- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -} }
+                <span class="post-author">
+                    { {- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -} }
+                    { {- partial "plugin/a.html" $options -} }
+                </span>
+
+                { {- $categories := slice -} }
+                { {- range .Params.categories -} }
+                    { {- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -} }
+                    { {- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw" aria-hidden="true"></i>%v</a>` $category.RelPermalink $category.Title) -} }
+                { {- end -} }
+                { {- with delimit $categories "&nbsp;" -} }
+                    &nbsp;<span class="post-category">
+                        { {- dict "Categories" . | T "includedInCategories" | safeHTML -} }
+                    </span>
+                { {- end -} }
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
+            <div class="post-meta-line">
+                { {- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -} }
+                    <i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{ { . } }">{ { . } }</time>&nbsp;
+                { {- end -} }
+                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{ { T "wordCount" .WordCount } }&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{ { T "readingTime" .ReadingTime } }&nbsp;
+                { {- $comment := .Scratch.Get "comment" | default dict -} }
+                { {- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -} }
+                    <span id="{ { .RelPermalink } }" class="leancloud_visitors" data-flag-title="{ { .Title } }">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{ { T "views" } }
+                    </span>&nbsp;
+                { {- end -} }
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/blog/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
-                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/blog/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/" selected>简体中文</option></select>
-                </a></div>
-    </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《统计自然语言处理》第7.5章 - 词性标注</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/nlp/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>NLP</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-01-18">2021-01-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2031 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
+
+        { {- /* Featured image */ -} }
+        { {- $image := $params.featuredimage -} }
+        { {- with .Resources.GetMatch "featured-image" -} }
+            { {- $image = .RelPermalink -} }
+        { {- end -} }
+        { {- with $image -} }
+            <div class="featured-image">
+                { {- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -} }
+            </div>
+        { {- end -} }
+
+        { {- /* Static TOC */ -} }
+        { {- if ne $toc.enable false -} }
+            <div class="details toc" id="toc-static"  data-kept="{ { if $toc.keepStatic } }true{ { end } }">
                 <div class="details-summary toc-title">
-                    <span>目录</span>
+                    <span>{ { T "contents" } }</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#75-词性标注">7.5 词性标注</a>
-      <ul>
-        <li><a href="#751-概述">7.5.1 概述</a></li>
-        <li><a href="#752-基于统计模型的词性标注">7.5.2 基于统计模型的词性标注</a></li>
-        <li><a href="#753-基于规则的词性标注">7.5.3 基于规则的词性标注</a></li>
-        <li><a href="#754-统计方法与规则方法结合">7.5.4 统计方法与规则方法结合</a></li>
-        <li><a href="#755-词性标注中的生词处理方法">7.5.5 词性标注中的生词处理方法</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><h2 id="75-词性标注">7.5 词性标注</h2>
-<h3 id="751-概述">7.5.1 概述</h3>
-<ul>
-<li>词性（part-of-speech）是词汇基本的语法属性，也称词类</li>
-<li>主要难点
-<ol>
-<li>汉语缺乏词形态变化，不能从形态变化判别词类</li>
-<li>常用词兼类现象严重
-<ul>
-<li>兼类词：有多种词性的词</li>
-</ul>
-</li>
-<li>研究者主观原因：词性划分目的和标准不统一</li>
-</ol>
-</li>
-</ul>
-<h3 id="752-基于统计模型的词性标注">7.5.2 基于统计模型的词性标注</h3>
-<ul>
-<li>基于统计模型（n-gram、一阶马尔科夫）的词性标注方法
-<ul>
-<li>代表：1983年I.Marshall建立的LOB语料库词性标注系统CLAWS（Constituent-Likelihood Automatic Word-tagging System）</li>
-</ul>
-</li>
-<li>HMM的词性标注：参数估计
-<ol>
-<li>随机初始参数：过于缺乏限制</li>
-<li>利用词典信息约束模型参数（Jelinek方法）
-<ul>
-<li>“词汇-词汇标记”对没有在词典中，令该词生成概率为0，否则为可能被标记的词性个数的倒数</li>
-<li>$b_{j . l}=\frac{b_{j . l}^{<em>} C\left(w^{l}\right)}{\sum_{w^{m}} b_{j . m}^{</em>} C\left(w^{m}\right)}$</li>
-<li>$b_{j . i}^{*}=\left{\begin{array}{ll}0, &amp; \text { 如果 } t^{j} \text { 不是词 } w^{l} \text { 所允许的词性 } \\ \frac{1}{T\left(w^{<strong>strong text</strong>l}\right)}, &amp; \text { 其他情况 }\end{array}\right.$</li>
-<li>等价于用最大似然估计来估算概率$P(w^k \mid t^i)$以初始化HMM，并假设每个词与其每个可能的词性标记出现的概率相等</li>
-</ul>
-</li>
-<li>词汇划分等价类，以类为单位进行参数估计，大大减少了参数个数
-<ul>
-<li>元词（metawords）$u_L$：所有具有相同可能词性的词汇划分为一组</li>
-<li>类似Jelinek方法处理元词：$b_{j . l}=\frac{b_{j . L}^{<em>} C\left(u_{L}\right)}{\sum_{u_{L}^{\prime}} b_{j . L^{\prime}}^{</em>} C\left(u_{L^{\prime}}\right)}$</li>
-<li>$b_{j . L}^{*}=\left{\begin{array}{ll}0, &amp; j \notin L \\ \frac{1}{L}, &amp; \text { 否则 }\end{array}\right.$</li>
-</ul>
-</li>
-</ol>
-</li>
-<li>HMM训练：前向后向算法</li>
-<li>模型参数对训练语料的适应性问题</li>
-</ul>
-<h3 id="753-基于规则的词性标注">7.5.3 基于规则的词性标注</h3>
-<ul>
-<li>按兼类词搭配关系和上下文语境建造词类消歧规则</li>
-<li>早期：人工构造</li>
-<li>语料发展：基于机器学习的规则自动提取</li>
-<li>基于转换的错误驱动的（transformation-based and error-driven）学习方法
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/8785e3413f85461e8236524dc7ba71eb.png"
-        data-srcset="../../_resources/8785e3413f85461e8236524dc7ba71eb.png, ../../_resources/8785e3413f85461e8236524dc7ba71eb.png 1.5x, ../../_resources/8785e3413f85461e8236524dc7ba71eb.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/8785e3413f85461e8236524dc7ba71eb.png"
-        title="854384c41492cef39dfc8bf1b8dea46c.png" />
-<ul>
-<li>劣势：学习时间过长</li>
-<li>改进：[周明等, 1998]每次迭代只调整受到影响的小部分转换规则，而不需要搜索所有转换规则</li>
-</ul>
-</li>
-<li>[李晓黎等, 2000]数据采掘方法获取汉语词性标注</li>
-</ul>
-<h3 id="754-统计方法与规则方法结合">7.5.4 统计方法与规则方法结合</h3>
-<ul>
-<li>理性主义方法与经验主义方法相结合</li>
-<li>[周强，1995]规则与统计结合
-<ul>
-<li>基本思想：
-<ol>
-<li>对初始标注结果，首先用规则排除常见、明显的歧义</li>
-<li>再通过统计排歧，处理剩余多类词并进行未登录词的词性推断</li>
-<li>最后人工校对</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>[张民，1998]
-<ul>
-<li>[周强，1995]的方法规则作用于是非受限的，而且没有考虑统计的可信度，使规则与统计的作用域不明确</li>
-<li>引入置信区间，构造基于置信区间的评价函数，实现统计与规则并举</li>
-<li>HMM，前向后向算法计算状态i的词w出现次数
-$F\left(t_{i-1}, t_{i}\right)=\sum_{t_{i-2}}\left[F\left(t_{i-2}, t_{i-1}\right) \times P\left(t_{i} \mid t_{i-1}, t_{i-2}\right) \times P\left(w_{i-1} \mid t_{i-1}\right)\right]$
-$B\left(t_{i-1}, t_{i}\right)=\sum_{t_{i+1}}\left[B\left(t_{i}, t_{i-1}\right) \times P\left(t_{i-1} \mid t_{i}, t_{i-1}\right) \times P\left(w_{i-1} \mid t_{i-1}\right)\right]$
-$\phi(w)_{i}=\underset{t}{\operatorname{argmax}} \sum_{t_{i-1}}\left[F\left(t_{i-1}, t_{i}\right) \times B\left(t_{i-1}, t_{i}\right) \times P\left(w_{i} \mid t_{i}\right)\right]$</li>
-<li>假设兼类词w的候选词性为T1，T2，T3，其对应概率的真实值分别为p1，p2，p3，词w的词性为Ti（i＝1,2,3）时的出现次数为$\phi(w)_{T_i}$</li>
-<li>$\hat{p}_{i}=\frac{\phi(w)_{T_{i}}}{\sum_{j=1}^{3} \phi(w)_{T_{j}}}$</li>
-<li>i=1，2，3时，记$\phi(w)_{T_i}$为n1,n2,n3（令n1&gt;n2&gt;n3）</li>
-<li>p1与p2相差小时，错误可能性较大</li>
-<li>阈值法：$p_1/p_2$是否大于阈值作为是否选择$T_1$也无法区别n1=300,n2=100与n1=3,n2=1的情况（前者显然更加可靠）</li>
-<li>可信度方法：根据n1，n2计算出的p1，p2只是p1，p2的近似值，我们必须估计出这种近似的误差，对p1/p2进行修正，然后再对修正后的p1/p2进行判别</li>
-</ul>
-</li>
-<li>可信度方法
-<ul>
-<li>由于ln（p1/p2）比p1/p2更快地逼近正态分布［Dagan and Itai,1994］，因此，可应用单边区间估计方法计算ln（p1/p2）的置信区间。</li>
-<li>假设希望的错误率（desired error probability）（显著性水平）为α（0＜α＜1），则可信度为1-α，服从正态分布的随机变量X的置信区间为$Z_{1-\alpha} \sqrt{\operatorname{vax} X}$
-<ul>
-<li>置信系数$Z_{1-\alpha}$</li>
-<li>标准差$\operatorname{vax} X=\operatorname{vax}\left[\ln \frac{\hat{p}_{1}}{\hat{p}_{2}}\right] \approx \frac{1}{n_{1}}+\frac{1}{n_{2}}$</li>
-<li>最终评价函数
-$\ln \frac{n_{1}}{n_{2}} \geqslant \theta+Z_{1-\alpha} \quad \sqrt{\frac{1}{n_{1}}+\frac{1}{n_{2}}}$</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>对统计标注结果的筛选，只对那些被认为可疑的标注结果，才采用规则方法进行歧义消解，而不是对所有的情况都既使用统计方法又使用规则方法</li>
-</ul>
-<h3 id="755-词性标注中的生词处理方法">7.5.5 词性标注中的生词处理方法</h3>
-<ol>
-<li>规则：生词处理通常与词形分词和兼类词消解一起进行</li>
-<li>统计：通过合理处理词汇的发射频率解决</li>
-</ol>
-<ul>
-<li>假设一个词汇序列W＝w1w2…wN对应的词性序列为T＝t1t2…tN，那么，词性标注问题就是求解使条件概率P（T|W）最大的T，即
-$\hat{T}=\underset{T}{\arg \max } P(T \mid W)=\underset{T}{\operatorname{argmax}} P(T) \times P(W \mid T)$</li>
-<li>对于一阶马尔科夫过程；
-$\hat{T}=\underset{t_{1} \cdot t_{2}, \cdots, t_{\mathrm{N}}}{\operatorname{argmax}} P\left(t_{1}\right) P\left(w_{1} \mid t_{1}\right) \prod_{i=2}^{N} P\left(t_{i} \mid t_{i-1}\right) P\left(w_{i} \mid t_{i}\right)$
-<ul>
-<li>$P(t_i \mid t_{i-1})$为HMM中的状态转移概率，$P(W_i \mid t_i)$为词汇发射概率</li>
-</ul>
-</li>
-<li>假设词汇序列W中有生词$x_j$，其词性标注为$t_j$
-$\begin{aligned} \hat{T}=&amp; \underset{t_{1}, t_{2}, \cdots, t_{N}}{\operatorname{argmax}} P\left(t_{1}\right) P\left(w_{1} \mid t_{1}\right) \\ &amp; \cdots P\left(t_{j} \mid t_{j-1}\right) P\left(x_{j} \mid t_{j}\right) \prod_{i=j-1}^{N} P\left(t_{i} \mid t_{i-1}\right) P\left(w_{i} \mid t_{i}\right) \end{aligned}$</li>
-<li>[赵铁军等，2001]将生词词汇发射概率赋值为1
-<ul>
-<li>简单高效，但缺乏统计先验知识，正确率受到影响</li>
-</ul>
-</li>
-<li>[张孝非等，2003]将词汇序列W加入训练集
-<ul>
-<li>HMM假设：$P\left(t_{j} \mid x_{j}\right) \approx \sum_{k=1}^{M} P\left(t_{k} \mid w_{j-1}\right) P\left(t_{j} \mid t_{k}\right)$</li>
-<li>Bayes公式计算发射频率：$P\left(x_{j} \mid t_{j}\right)=\frac{P\left(x_{j}\right)}{P\left(t_{j}\right)} \times P\left(t_{j} \mid x_{j}\right)$</li>
-<li>带入：$P\left(x_{j} \mid t_{j}\right) \approx \frac{P\left(x_{j}\right)}{P\left(t_{j}\right)} \times \sum_{k=1}^{M} P\left(t_{k} \mid w_{j-1}\right) P\left(t_{j} \mid t_{k}\right)$</li>
-<li>最大似然估计：$\begin{aligned} P\left(x_{j} \mid t_{j}\right) &amp; \approx \frac{C\left(x_{j}\right)}{C\left(t_{j}\right)} \sum_{k=1}^{M} P\left(t_{k} \mid w_{j-1}\right) P\left(t_{j} \mid t_{k}\right) \\ &amp;=\frac{1}{C\left(t_{j}\right)} \sum_{k=1}^{M}\left[\frac{C\left(w_{j-1} t_{k}\right)}{C\left(w_{j-1}\right)} \times \frac{C\left(t_{k} t_{j}\right)}{C\left(t_{k}\right)}\right] \end{aligned}$</li>
-</ul>
-</li>
-</ul>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-01-18</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/blog/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/" data-title="《统计自然语言处理》第7.5章 - 词性标注" data-hashtags="统计自然语言处理,NLP,statistics,notes"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/" data-hashtag="统计自然语言处理"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/" data-title="《统计自然语言处理》第7.5章 - 词性标注"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/" data-title="《统计自然语言处理》第7.5章 - 词性标注"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/snlp-ch7.5-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8/" data-title="《统计自然语言处理》第7.5章 - 词性标注"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <div class="details-content toc-content" id="toc-content-static">
+                    { {- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
+                </div>
             </div>
+        { {- end -} }
+
+        { {- /* Content */ -} }
+        <div class="content" id="content">
+            { {- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
         </div>
-    </div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/%E7%BB%9F%E8%AE%A1%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">统计自然语言处理</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/statistics/">statistics</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
-        </section>
-    </div>
+        { {- /* Footer */ -} }
+        { {- partial "single/footer.html" . -} }
 
-    <div class="post-nav"><a href="/blog/snlp-ch7.3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" class="prev" rel="prev" title="《统计自然语言处理》第7.3章 - 命名实体识别"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>《统计自然语言处理》第7.3章 - 命名实体识别</a>
-            <a href="/blog/snlp-ch8-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90/" class="next" rel="next" title="《统计自然语言处理》第8.1章 - 句法分析">《统计自然语言处理》第8.1章 - 句法分析<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
-</div>
-<div id="comments"><div id="utterances" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
-            </noscript></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
-</html>
+        { {- /* Comment */ -} }
+        { {- partial "comment.html" . -} }
+    </article>
+{ {- end -} }

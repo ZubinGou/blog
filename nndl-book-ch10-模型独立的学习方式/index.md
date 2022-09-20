@@ -6,15 +6,15 @@ M 个模型在同一任务上的期望错误：
 
 $$
 \begin{aligned}
-\mathcal{R}\left(f\_{m}\right) &=\mathbb{E}\_{\boldsymbol{x}}\left[\left(f\_{m}(\boldsymbol{x})-h(\boldsymbol{x})\right)^{2}\right] \\\\
-&=\mathbb{E}\_{\boldsymbol{x}}\left[\epsilon\_{m}(\boldsymbol{x})^{2}\right]
+\mathcal{R}\left(f\_{m}\right) &=\mathbb{E}\_{\boldsymbol{x} }\left[\left(f\_{m}(\boldsymbol{x})-h(\boldsymbol{x})\right)^{2}\right] \\\\
+&=\mathbb{E}\_{\boldsymbol{x} }\left[\epsilon\_{m}(\boldsymbol{x})^{2}\right]
 \end{aligned}
 $$
 
 则所有模型平均错误：
 
 $$
-\overline{\mathcal{R}}(f)=\frac{1}{M} \sum\_{m=1}^{M} \mathbb{E}\_{\boldsymbol{x}}\left[\epsilon\_{m}(\boldsymbol{x})^{2}\right]
+\overline{\mathcal{R} }(f)=\frac{1}{M} \sum\_{m=1}^{M} \mathbb{E}\_{\boldsymbol{x} }\left[\epsilon\_{m}(\boldsymbol{x})^{2}\right]
 $$
 
 集成学习（Ensemble Learning）：群体决策提高准确率。
@@ -28,7 +28,7 @@ $$
 
 可以证明：
 $$
-\overline{\mathcal{R}}(f) \geq \mathcal{R}(F) \geq \frac{1}{M} \overline{\mathcal{R}}(f)
+\overline{\mathcal{R} }(f) \geq \mathcal{R}(F) \geq \frac{1}{M} \overline{\mathcal{R} }(f)
 $$
 
 有效的集成需要基模型的差异尽可能大：
@@ -143,8 +143,8 @@ $$\begin{aligned} \mathcal{R}\_{T}\left(\theta\_{f}\right) &=\mathbb{E}\_{(x, y)
 
 $$
 \begin{aligned}
-\mathcal{R}\_{T}\left(\theta\_{f}, \theta\_{g}\right) &=\mathbb{E}\_{(\boldsymbol{x}, y) \sim p\_{S}(\boldsymbol{x}, y)}\left[\mathcal{L}\left(f\left(g\left(\boldsymbol{x} ; \theta\_{\mathrm{g}}\right) ; \theta\_{f}\right), y\right)\right]+\gamma d\_{\mathrm{g}}(S, T) \\\\
-&=\mathcal{R}\_{S}\left(\theta\_{f}, \theta\_{\mathrm{g}}\right)+\gamma d\_{\mathrm{g}}(S, T),
+\mathcal{R}\_{T}\left(\theta\_{f}, \theta\_{g}\right) &=\mathbb{E}\_{(\boldsymbol{x}, y) \sim p\_{S}(\boldsymbol{x}, y)}\left[\mathcal{L}\left(f\left(g\left(\boldsymbol{x} ; \theta\_{\mathrm{g} }\right) ; \theta\_{f}\right), y\right)\right]+\gamma d\_{\mathrm{g} }(S, T) \\\\
+&=\mathcal{R}\_{S}\left(\theta\_{f}, \theta\_{\mathrm{g} }\right)+\gamma d\_{\mathrm{g} }(S, T),
 \end{aligned}
 $$
 
@@ -244,21 +244,21 @@ $$
 假设所有任务来自同一任务空间，可以学习所有任务的通用表示，然后经过梯度下降在特定单任务上精调，模型 $f\_{\theta}$ 在新任务 $\mathcal{T}\_{m}$ 上学习到的任务适配参数：
 
 $$
-\theta\_{m}^{\prime}=\theta-\alpha \nabla\_{\theta} \mathcal{L}\_{\mathcal{T}\_{m}}\left(f\_{\theta}\right)
+\theta\_{m}^{\prime}=\theta-\alpha \nabla\_{\theta} \mathcal{L}\_{\mathcal{T}\_{m} }\left(f\_{\theta}\right)
 $$
 
 
 MAML的目标是学习一个参数𝜃 使得其经过一个梯度迭代就可以在新任务上达到最好的性能，即
 
 $$
-\min \_{\theta} \sum\_{\mathcal{T}\_{m} \sim p(\mathcal{T})} \mathcal{L}\_{\mathcal{T}\_{m}}\left(f\_{\theta\_{m}^{\prime}}\right)=\min \_{\theta} \sum\_{\mathcal{T}\_{m} \sim p(\mathcal{T})} \mathcal{L}\_{\mathcal{T}\_{m}}\left(f(\underbrace{\theta-\alpha \nabla\_{\theta} \mathcal{L}\_{\mathcal{T}\_{m}}\left(f\_{\theta}\right)}\_{\theta\_{m}^{\prime}})\right) .
+\min \_{\theta} \sum\_{\mathcal{T}\_{m} \sim p(\mathcal{T})} \mathcal{L}\_{\mathcal{T}\_{m} }\left(f\_{\theta\_{m}^{\prime} }\right)=\min \_{\theta} \sum\_{\mathcal{T}\_{m} \sim p(\mathcal{T})} \mathcal{L}\_{\mathcal{T}\_{m} }\left(f(\underbrace{\theta-\alpha \nabla\_{\theta} \mathcal{L}\_{\mathcal{T}\_{m} }\left(f\_{\theta}\right)}\_{\theta\_{m}^{\prime} })\right) .
 $$
 
 用梯度下降在所有任务上元优化（Meta-Optimization）：
 $$
 \begin{aligned}
-\theta & \leftarrow \theta-\beta \nabla\_{\theta} \sum\_{m=1}^{M} \mathcal{L}\_{\mathcal{T}\_{m}}\left(f\_{\theta\_{m}^{\prime}}\right) \\\\
-&=\theta-\beta \sum\_{m=1}^{M} \nabla\_{\theta} \mathcal{L}\_{\mathcal{T}\_{m}}\left(f\_{\theta\_{m}}\right)\left(I-\alpha \nabla\_{\theta}^{2} \mathcal{L}\_{\mathcal{T}\_{m}}\left(f\_{\theta\_{m}}\right)\right)
+\theta & \leftarrow \theta-\beta \nabla\_{\theta} \sum\_{m=1}^{M} \mathcal{L}\_{\mathcal{T}\_{m} }\left(f\_{\theta\_{m}^{\prime} }\right) \\\\
+&=\theta-\beta \sum\_{m=1}^{M} \nabla\_{\theta} \mathcal{L}\_{\mathcal{T}\_{m} }\left(f\_{\theta\_{m} }\right)\left(I-\alpha \nabla\_{\theta}^{2} \mathcal{L}\_{\mathcal{T}\_{m} }\left(f\_{\theta\_{m} }\right)\right)
 \end{aligned}
 $$
 

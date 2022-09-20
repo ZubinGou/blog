@@ -1,780 +1,101 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Crash Course Economics Notes - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="Crash Course Economics Notes" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://zubingou.github.io/blog/crash-course-economics-notes/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-08-20T13:52:18+08:00" />
-<meta property="article:modified_time" content="2021-04-06T17:23:14+08:00" /><meta property="og:site_name" content="My cool site" />
+{ {- define "title" } }{ { .Title } } - { { .Site.Title } }{ { end -} }
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
+{ {- define "content" -} }
+    { {- $params := .Scratch.Get "params" -} }
 
-<meta name="twitter:title" content="Crash Course Economics Notes"/>
-<meta name="twitter:description" content=""/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/crash-course-economics-notes/" /><link rel="prev" href="https://zubingou.github.io/blog/bupt-scs-beauty-analysis/" /><link rel="next" href="https://zubingou.github.io/blog/quantum-computing-fundamentals/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Crash Course Economics Notes",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/zubingou.github.io\/blog\/crash-course-economics-notes\/"
-        },"image": [{
-                            "@type": "ImageObject",
-                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
-                            "width":  3200 ,
-                            "height":  2048 
-                        }],"genre": "posts","keywords": "Notes, Economics","wordcount":  4814 ,
-        "url": "https:\/\/zubingou.github.io\/blog\/crash-course-economics-notes\/","datePublished": "2020-08-20T13:52:18+08:00","dateModified": "2021-04-06T17:23:14+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "ZubinGou","logo": {
-                    "@type": "ImageObject",
-                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
-                    "width":  304 ,
-                    "height":  304 
-                }},"author": {
-                "@type": "Person",
-                "name": "ZubinGou"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    { {- $toc := $params.toc -} }
+    { {- if eq $toc true -} }
+        { {- $toc = .Site.Params.page.toc | default dict -} }
+    { {- else if eq $toc false -} }
+        { {- $toc = dict "enable" false -} }
+    { {- end -} }
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- /* Auto TOC */ -} }
+    { {- if ne $toc.enable false -} }
+        <div class="toc" id="toc-auto">
+            <h2 class="toc-title">{ { T "contents" } }</h2>
+            <div class="toc-content{ { if eq $toc.auto false } } always-active{ { end } }" id="toc-content-auto"></div>
         </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/blog/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
-                    <i class="fa fa-globe" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/crash-course-economics-notes/" selected>简体中文</option></select>
-                </a></div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- end -} }
+
+    <article class="page single">
+        { {- /* Title */ -} }
+        <h1 class="single-title animate__animated animate__flipInX">{ { .Title | emojify } }</h1>
+
+        { {- /* Subtitle */ -} }
+        { {- with $params.subtitle -} }
+            <h2 class="single-subtitle">{ { . } }</h2>
+        { {- end -} }
+
+        { {- /* Meta */ -} }
+        <div class="post-meta">
+            <div class="post-meta-line">
+                { {- $author := $params.author | default .Site.Author.name | default (T "author") -} }
+                { {- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -} }
+                <span class="post-author">
+                    { {- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -} }
+                    { {- partial "plugin/a.html" $options -} }
+                </span>
+
+                { {- $categories := slice -} }
+                { {- range .Params.categories -} }
+                    { {- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -} }
+                    { {- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw" aria-hidden="true"></i>%v</a>` $category.RelPermalink $category.Title) -} }
+                { {- end -} }
+                { {- with delimit $categories "&nbsp;" -} }
+                    &nbsp;<span class="post-category">
+                        { {- dict "Categories" . | T "includedInCategories" | safeHTML -} }
+                    </span>
+                { {- end -} }
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
+            <div class="post-meta-line">
+                { {- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -} }
+                    <i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{ { . } }">{ { . } }</time>&nbsp;
+                { {- end -} }
+                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{ { T "wordCount" .WordCount } }&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{ { T "readingTime" .ReadingTime } }&nbsp;
+                { {- $comment := .Scratch.Get "comment" | default dict -} }
+                { {- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -} }
+                    <span id="{ { .RelPermalink } }" class="leancloud_visitors" data-flag-title="{ { .Title } }">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{ { T "views" } }
+                    </span>&nbsp;
+                { {- end -} }
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/blog/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
-                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/blog/crash-course-economics-notes/" selected>简体中文</option></select>
-                </a></div>
-    </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Crash Course Economics Notes</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/economics/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Economics</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2020-08-20">2020-08-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4814 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 23 分钟&nbsp;</div>
-        </div><div class="featured-image"><img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../_resources/crash-course-logo.png"
-        data-srcset="../_resources/crash-course-logo.png, ../_resources/crash-course-logo.png 1.5x, ../_resources/crash-course-logo.png 2x"
-        data-sizes="auto"
-        alt="../_resources/crash-course-logo.png"
-        title="../_resources/crash-course-logo.png" /></div><div class="details toc" id="toc-static"  data-kept="">
+
+        { {- /* Featured image */ -} }
+        { {- $image := $params.featuredimage -} }
+        { {- with .Resources.GetMatch "featured-image" -} }
+            { {- $image = .RelPermalink -} }
+        { {- end -} }
+        { {- with $image -} }
+            <div class="featured-image">
+                { {- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -} }
+            </div>
+        { {- end -} }
+
+        { {- /* Static TOC */ -} }
+        { {- if ne $toc.enable false -} }
+            <div class="details toc" id="toc-static"  data-kept="{ { if $toc.keepStatic } }true{ { end } }">
                 <div class="details-summary toc-title">
-                    <span>目录</span>
+                    <span>{ { T "contents" } }</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#ch1-fundamentals-of-economics">CH1 Fundamentals of Economics</a>
-      <ul>
-        <li><a href="#s1-intro">s1 Intro</a></li>
-        <li><a href="#s2-specialization-and-trade">s2 Specialization and Trade</a></li>
-        <li><a href="#s3-economic-systems-and-macroeconomics">s3 Economic Systems and Macroeconomics</a></li>
-        <li><a href="#s4-supply-and-demand">s4 Supply and Demand</a></li>
-      </ul>
-    </li>
-    <li><a href="#ch2-basic-of-macroeconomics">CH2 Basic of Macroeconomics</a>
-      <ul>
-        <li><a href="#s5-macroeconomics">s5 Macroeconomics</a></li>
-        <li><a href="#s6-productivity-and-growth">s6 Productivity and Growth</a></li>
-      </ul>
-    </li>
-    <li><a href="#ch3-inflation-monetary-and-fiscal-policy">CH3 Inflation, Monetary and Fiscal Policy</a>
-      <ul>
-        <li><a href="#s7-inflation-and-bubbles-and-tulips">s7 Inflation and Bubbles and Tulips</a></li>
-        <li><a href="#s8-fiscal-policy-and-stimulus">s8 Fiscal Policy and Stimulus</a></li>
-        <li><a href="#s9-deficits--debts">s9 Deficits &amp; Debts</a></li>
-        <li><a href="#s10-monetary-policy-and-ther-federal-reserve">s10 Monetary Policy and ther Federal Reserve</a></li>
-        <li><a href="#s11-money-and-finance">s11 Money and Finance</a></li>
-        <li><a href="#s12-2008-financial-crisis">s12 2008 Financial Crisis</a></li>
-        <li><a href="#s13-recession-hyperinflation-and-stagflation">s13 Recession, Hyperinflation, and Stagflation</a></li>
-      </ul>
-    </li>
-    <li><a href="#ch4-economic-schools-of-thought">CH4 Economic Schools of Thought</a>
-      <ul>
-        <li><a href="#s14-economic-schools-of-thought">s14 Economic Schools of Thought</a></li>
-      </ul>
-    </li>
-    <li><a href="#ch5-economics-in-international-relations-1">CH5 Economics in International Relations 1</a>
-      <ul>
-        <li><a href="#s15-imports-exports-and-exchange-rates">s15 Imports, Exports, and Exchange Rates</a></li>
-        <li><a href="#s16-globalization-and-trade-and-poverty">s16 Globalization and Trade and Poverty</a></li>
-        <li><a href="#s17-income-and-wealth-inequality">s17 Income and Wealth Inequality</a></li>
-      </ul>
-    </li>
-    <li><a href="#ch6-basics-of-microeconomics">CH6 Basics of Microeconomics</a>
-      <ul>
-        <li><a href="#s18-marginal-analysis-roller-coasters-elasticity-and-van-gogh">s18 Marginal Analysis, Roller Coasters, Elasticity, and Van Gogh</a></li>
-        <li><a href="#s19-markets-efficiency-and-price-signals">s19 Markets, Efficiency, and Price Signals</a></li>
-        <li><a href="#s20-prices-controls-subsidies-and-the-risks-of-good-intentions">s20 Prices Controls, Subsidies, and the Risks of Good Intentions</a></li>
-        <li><a href="#s21-market-failures-taxes-and-subsidies">s21 Market Failures, Taxes, and Subsidies</a></li>
-      </ul>
-    </li>
-    <li><a href="#ch7-environmental-and-education-economics">CH7 Environmental and Education Economics</a>
-      <ul>
-        <li><a href="#s22-evironmentl-econ">s22 Evironmentl Econ</a></li>
-        <li><a href="#s23-economics-of-education">s23 Economics of Education</a></li>
-      </ul>
-    </li>
-    <li><a href="#ch8-types-of-competition">CH8 Types of Competition</a>
-      <ul>
-        <li><a href="#s24-revenue-profits-and-price">s24 Revenue, Profits, and Price</a></li>
-        <li><a href="#s25-monopolies-and-anti-competitive-markets">s25 Monopolies and Anti-Competitive Markets</a></li>
-        <li><a href="#s26-game-theory-and-oligopoly">s26 Game Theory and Oligopoly</a></li>
-      </ul>
-    </li>
-    <li><a href="#ch9-how-people-affect-the-economics">CH9 How People Affect the Economics</a>
-      <ul>
-        <li><a href="#s27-behavioral-economics">s27 Behavioral Economics</a></li>
-        <li><a href="#s28-labor-markets-and-minimum-wage">s28 Labor Markets and Minimum Wage</a></li>
-        <li><a href="#s29-the-economics-of-healthcare">s29 The Economics of Healthcare</a></li>
-        <li><a href="#s30-the-economics-of-death">s30 The Economics of Death</a></li>
-      </ul>
-    </li>
-    <li><a href="#ch10-taxes-and-informal-economies">CH10 Taxes and Informal Economies</a></li>
-    <li><a href="#ch11-economics-in-international-relations-2">CH11 Economics in International Relations 2</a></li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><p>“Crash Course Economics” is pretty awesome for beginners!</p>
-<p>The following notes are basically taken from youtube comments.</p>
-<h2 id="ch1-fundamentals-of-economics">CH1 Fundamentals of Economics</h2>
-<h3 id="s1-intro">s1 Intro</h3>
-<ul>
-<li>ECONOMICS is the study of people and choices.</li>
-<li>Two assumption
-<ul>
-<li>SCARCITY</li>
-<li>Everything has COST</li>
-</ul>
-</li>
-<li>OPPORTUNITY COST is whatever you give up to do something.</li>
-<li>SCARCITY is the tension between infinite wants and finite resources.</li>
-<li>INCENTIVES is a set of external (rather than intrinsic) motivators that explain people’s choices.</li>
-<li>MACROECONOMICS is the study of production, employment, prices, and policies on a nationwide scale.</li>
-<li>MICROECONOMICS is the study of how consumers, workers, and firms interact to generate outcomes in specific markets.</li>
-</ul>
-<h3 id="s2-specialization-and-trade">s2 Specialization and Trade</h3>
-<ul>
-<li>Economics is the study of scarcity and choices. We have limited resources, so we need a way to analyze the best way to use them.</li>
-<li>Significant sustained increase in people’s lives happened after Industrial Revolution.</li>
-<li>Adam Smith concluded that division of labor made countries wealthy.
-<ul>
-<li>Analogy: one pizza takes few people to be created. One prepares ingredients, another puts it in the oven, another one puts it in the box. This division makes each worker more productive, since each one is focused on a thing they do best and they don’t need to spend time switching between the tasks.</li>
-<li>Without specializations, if you want something - you have to make it yourself.</li>
-<li>So if you are good at producing something - specialize at it and then trade with others.</li>
-</ul>
-</li>
-<li>Production Possibilities Frontier (PPF) shows different combinations of two goods being produced using all resources efficiently.
-<ul>
-<li>Every possible combination inside the curve is inefficient. On the curve - efficient. Outside - impossible.</li>
-<li>The country that can produce more goods of one kind (per time) than another country is having an absolute advantage over another country in production of those goods.</li>
-<li>Opportunity cost is a cost of production of good, measured in losses in production of another good.</li>
-<li>Country that can produce good with cheaper opportunity cost, has comparative advantage over another country.</li>
-<li>Individuals and countries should specialize in producing things in which they have a comparative advantage and then trade with other countries that specialize in something else. This trade is mutually beneficial.</li>
-</ul>
-</li>
-<li>If there is one point where economists agree it’s that specialization and trade makes the world better off.</li>
-<li>Self-sufficiency is inefficiency</li>
-</ul>
-<h3 id="s3-economic-systems-and-macroeconomics">s3 Economic Systems and Macroeconomics</h3>
-<ul>
-<li>As a social order, we have to figure out three things:
-<ul>
-<li>What will we produce?</li>
-<li>How to produce it?</li>
-<li>Who will get it?</li>
-</ul>
-</li>
-<li>Two different economic systems: market economies and planned economies.
-<ol>
-<li>In planned economy, government controls labor, land and capital.</li>
-<li>Communism is primarily defined by the lack of private property. Class-lessness is a symptom of having no private property. There are no communist countries in the world.</li>
-<li>Often socialism has some private property and some public ownership.</li>
-<li>Command economy is totally controlled by government.</li>
-<li>In market economies, individuals control production to get profit. Invisible hand - the unintended social benefits resulting from individual actions. “It’s not from the benevolence of the butcher, the brewer, or the baker, that we expect our dinner, but from the regard to their own interest.” The mechanism of the invisible hand is that if you produce unwanted or shoddy products, a competitor will produce better more desirable products and put you out of business. This results in businesses that produce the things that people want/demand most, at lower prices.</li>
-</ol>
-</li>
-<li>Modern economies are neither completely free market nor planned. There’s a spectrum of government involvement.</li>
-<li>Circular flow model.
-<ul>
-<li>Modern economy is made above households (individuals like him and you) and businesses.</li>
-<li>Businesses sell goods and services to households in product market.</li>
-<li>Households earn the money by selling labor to businesses.</li>
-<li>Businesses pay for the resources on resource market.</li>
-<li>Government also buys products and resources, i.e. to buy cars from businesses and hire policemen to drive them.</li>
-<li>Government gets the money from taxes, households and businesses (and borrowing).</li>
-</ul>
-</li>
-</ul>
-<h3 id="s4-supply-and-demand">s4 Supply and Demand</h3>
-<ul>
-<li>Market: any place where buyers and sellers meet to exchange goods and services.
-<ul>
-<li>An owner of a supermaket values the labor of the cashier more than the money she pays him.</li>
-</ul>
-</li>
-<li>Price singnal: the information that markets generate to guide the distribution of the resources.
-<ul>
-<li>usinesses, and in particular large corporations , are often villainized as greedy, heartless institutions, that take advantage of consumers, but if markets are transparent and buyers are free to choose, then businesses will have a hard time making advantage of people.</li>
-</ul>
-</li>
-<li>Supply and demand
-<ol>
-<li>When the price goes up - people buy less, when the price goes down - people buy more.</li>
-<li>When the price goes up - the farmer wants to produce more, when the price goes down - the farmer wants to produce less.</li>
-<li>When quantity supplied = quantity demanded, we get equilibrium price of product.</li>
-</ol>
-</li>
-<li>Four market behaviors
-<ul>
-<li>Supply ↑</li>
-<li>Supply ↓</li>
-<li>Demand ↑</li>
-<li>Demand ↓</li>
-</ul>
-</li>
-</ul>
-<h2 id="ch2-basic-of-macroeconomics">CH2 Basic of Macroeconomics</h2>
-<h3 id="s5-macroeconomics">s5 Macroeconomics</h3>
-<ul>
-<li>Macroeconomics: the study of the entire economy as a whole rather than individual markets.</li>
-<li>In general policy makers try to achieve three goals:
-<ul>
-<li>Keep the economy growing over time (gross domestic product - GDP)</li>
-<li>Limit unemployment (unemployment rate)</li>
-<li>Keep prices stable (inflation rate)</li>
-</ul>
-</li>
-<li>GDP is the value of all final goods and services produced within a country’s border in a specific period of time, usually a year.
-<ul>
-<li>Transactions where nothing new was produced - don’t count as GDP.</li>
-<li>Also not including illegal activities.</li>
-<li>Measured in dollars.</li>
-<li>Nominal GDP is GDP not adjusted for inflation.</li>
-<li>Real GDP is GDP adjusted for inflation.</li>
-</ul>
-</li>
-<li>Recession: when two successful quarters, or six months, show a decrease in real GDP.
-<ul>
-<li>Depression - a severe recession.</li>
-</ul>
-</li>
-<li>Unemployment rate is calculated by taking the number of people that are unemployed and dividing by the number of people in the labor force, times 100.
-<ul>
-<li>Discouraged workers - unemployed people that were looking for work, but have given up.</li>
-<li>There are three types of unemployment:
-<ol>
-<li>frictional unemployment - the time period between jobs, when a worker is searching for, or transitioning from one job to another.</li>
-<li>structural unemployment - unemployment caused by lack of demand for a worker’s specific type of labor.</li>
-<li>cyclical unemployment - unemployment due to recession.</li>
-</ol>
-</li>
-<li>Natural rate of unemployment - the lowest rate of unemployment that economy can sustain over a long period.</li>
-</ul>
-</li>
-<li>inflation - an increase in a currency supply relative to the number of people using it, resulting in rising prices of goods and services over time.
-<ul>
-<li>Deflation - a decrease in general price level of goods and services.</li>
-</ul>
-</li>
-</ul>
-<h3 id="s6-productivity-and-growth">s6 Productivity and Growth</h3>
-<ul>
-<li>
-<p>Why some countries have high GDP and others have low( some countries are rich and other poor):</p>
-<ol>
-<li>Lack of natural resources.</li>
-<li>Corrupt governments.</li>
-</ol>
-</li>
-<li>
-<p>GDP per capita(output per person) is used to tell how wealthy a country is.</p>
-</li>
-<li>
-<p>Countries with high GDP/capita have far less infant mortality, poverty and preventable diseases.</p>
-</li>
-<li>
-<p>Productivity and growth:</p>
-<ol>
-<li>The more a worker produces, the more a worker can earn.</li>
-<li>Economists argue that the main reason that some countries are rich is because of productiivty.</li>
-<li>Higher value produce also the growth effect.</li>
-<li>Productivity is key, but there are limits.</li>
-</ol>
-</li>
-<li>
-<p>People in poor countries need food, water, plumbing, hospitals and medicine, and all of those things are needed to get better efficiency.</p>
-</li>
-<li>
-<p>How much stuff is produced per person(can be called GDP)</p>
-</li>
-<li>
-<p>Factors of production effect the efficiency:</p>
-<ol>
-<li>Land</li>
-<li>Workers</li>
-<li>Capital( and also workers education, knowledge aka human capital)</li>
-<li>Technology: The sum total of knowledge and information that society has acquired concerning the use of resources to produce goods and services. (Connectivity= productivity).</li>
-</ol>
-</li>
-<li>
-<p>Increasing Productivity has resulted in increasing standards of living(globally and historically).</p>
-</li>
-</ul>
-<h2 id="ch3-inflation-monetary-and-fiscal-policy">CH3 Inflation, Monetary and Fiscal Policy</h2>
-<h3 id="s7-inflation-and-bubbles-and-tulips">s7 Inflation and Bubbles and Tulips</h3>
-<ul>
-<li>Pirchasing power: the amount of physical goods and services that can be bought by a given amount of monney.
-<ul>
-<li>Consumer price index(CPI): a statical estimate constructed using the prices of a sample of representative items whose prices are collected preriodically.</li>
-<li>“Real” means that prices from the past has been adjust for inflation. Norminal means a price from the past that hasn’t been adjust for inflation. So the highest “nominal” box office receipts list is quite different.</li>
-<li>Since we have to keep the market basket constant over time, a traditional CPI won’t adjust for either new products or increases in product quality.</li>
-</ul>
-</li>
-<li>Inflation: an increase in a currency supply relative to the number of people using it, resulting in rising prices of goods and services over time.
-<ul>
-<li>Demand pull inflation - too much money chasing too few goods.</li>
-</ul>
-</li>
-<li>Bubbles - a market phenomenon characterized by surges in asset prices to levels significantly above the fundamental value of that asset.
-<ul>
-<li>Speculation - trading a financial instrument involving high risk, in expectation of significant returns.</li>
-</ul>
-</li>
-</ul>
-<h3 id="s8-fiscal-policy-and-stimulus">s8 Fiscal Policy and Stimulus</h3>
-<ul>
-<li>Recessionary gap: a situation wherein the real GDP is lower than potential GDP at the full employment level.</li>
-<li>Inflationary gap: the amount by which the actual gross domestic product (GDP) exceeds potential full-employment GDP.</li>
-<li>Macroeconomics: the study of the entire economy as a whole rather than individual markets.</li>
-<li>Fiscal policy: the way a government adjusts its spending levels and tax rates to monitor and influence a nation’s economy.
-<ul>
-<li>Expansionary Fiscal Policy: stimulates the economy during or anticipation of a business-cycle contraction.</li>
-<li>Contractionary Fiscal Policy: enacted by a government to reduce the money supply and ultimately the spending in a country.</li>
-<li>Classical theories assumed that the economy will fix itself in a long run, and that government intervention will, at best, lead to unintended consequences and, at worst, cause massive inflation and debt.</li>
-</ul>
-</li>
-<li>Deficit spending: the government spends more money than it collects in tax revenue.
-<ul>
-<li>Crowding out: where increased public sector spending replaces, or drives down, private sector spending.</li>
-<li>Keynesian economists maintain that crowding out is only a problem if economy operates at full capacity, where all workers are employed and we’re producing as much as we can.</li>
-</ul>
-</li>
-<li>Austerity: raising taxes and cutting government spending to reduce debt. In crisis of 2008 was main policy of EU, which led to worse results than deficit spending policy in US.</li>
-<li>Multiplier effect: the initial increase in government spending of 100<a id="MathJax-Element-1-Frame"></a><a id="MathJax-Span-1"></a><a id="MathJax-Span-2"></a><a id="MathJax-Span-3"></a>m<a id="MathJax-Span-4"></a>i<a id="MathJax-Span-5"></a>g<a id="MathJax-Span-6"></a>h<a id="MathJax-Span-7"></a>t<a id="MathJax-Span-8"></a>t<a id="MathJax-Span-9"></a>u<a id="MathJax-Span-10"></a>r<a id="MathJax-Span-11"></a>n<a id="MathJax-Span-12"></a>o<a id="MathJax-Span-13"></a>u<a id="MathJax-Span-14"></a>t<a id="MathJax-Span-15"></a>t<a id="MathJax-Span-16"></a>o<a id="MathJax-Span-17"></a>b<a id="MathJax-Span-18"></a>e<a id="MathJax-Span-19"></a>175mightturnouttobe175 worth of actual spending in the economy. a. When the economy is booming, multiplier is close to 1x. b. When economy is in recession, the multiplier is around 2x. c. Spending on infrastructure, and aid to state &amp; local governments , also seems to have fairly high multiplier, about 1.5. But general cuts to payroll and income taxes seems to have a multiplier of about 1. If the government cuts 100<a id="MathJax-Element-2-Frame"></a><a id="MathJax-Span-20"></a><a id="MathJax-Span-21"></a><a id="MathJax-Span-22"></a>i<a id="MathJax-Span-23"></a>n<a id="MathJax-Span-24"></a>t<a id="MathJax-Span-25"></a>a<a id="MathJax-Span-26"></a>x<a id="MathJax-Span-27"></a>e<a id="MathJax-Span-28"></a>s<a id="MathJax-Span-29"></a>,<a id="MathJax-Span-30"></a>t<a id="MathJax-Span-31"></a>h<a id="MathJax-Span-32"></a>e<a id="MathJax-Span-33"></a>e<a id="MathJax-Span-34"></a>c<a id="MathJax-Span-35"></a>o<a id="MathJax-Span-36"></a>n<a id="MathJax-Span-37"></a>o<a id="MathJax-Span-38"></a>m<a id="MathJax-Span-39"></a>y<a id="MathJax-Span-40"></a>i<a id="MathJax-Span-41"></a>s<a id="MathJax-Span-42"></a>g<a id="MathJax-Span-43"></a>o<a id="MathJax-Span-44"></a>i<a id="MathJax-Span-45"></a>n<a id="MathJax-Span-46"></a>g<a id="MathJax-Span-47"></a>t<a id="MathJax-Span-48"></a>o<a id="MathJax-Span-49"></a>g<a id="MathJax-Span-50"></a>r<a id="MathJax-Span-51"></a>o<a id="MathJax-Span-52"></a>w<a id="MathJax-Span-53"></a>b<a id="MathJax-Span-54"></a>y<a id="MathJax-Span-55"></a>a<a id="MathJax-Span-56"></a>b<a id="MathJax-Span-57"></a>o<a id="MathJax-Span-58"></a>u<a id="MathJax-Span-59"></a>t<a id="MathJax-Span-60"></a>100intaxes,theeconomyisgoingtogrowbyabout100.</li>
-</ul>
-<h3 id="s9-deficits--debts">s9 Deficits &amp; Debts</h3>
-<ul>
-<li>Budget deficit: the amount by which a government’s spending exceeds it’s income over a particular period of time.
-<ul>
-<li>Debt: the accumulation of budget deficits.</li>
-<li>In the same way our GDP grows every year, due to population growth and productivity increases. And our ability to sustain debt grows along with our income.</li>
-</ul>
-</li>
-<li>Default: the investors who loaned the government money lose billions and the government loses all credibility, and it causes massive recession.</li>
-<li>Debt ceiling: limit on the amount of national debt that can be issued by US Treasury.</li>
-</ul>
-<h3 id="s10-monetary-policy-and-ther-federal-reserve">s10 Monetary Policy and ther Federal Reserve</h3>
-<ul>
-<li>The Federal Reserve is the central bank of US. Europe has the European Central Bank. Most Central Banks have two jobs:
-<ol>
-<li>they regulate and oversee the nation’s commercial banks by making sure that banks have enough money in reserve to avoid bank runs.</li>
-<li>they conduct monetary policy which is increasing or decreasing the money supply to speed up or slow down the overall economy.</li>
-</ol>
-</li>
-<li>interest rate - the price of borrowing money.
-<ul>
-<li>When interest rates are low, borrowers will find it easier to pay back loans so they will borrow more and spend more. When interest rates are high, borrowers borrow less and spend less.</li>
-<li>Expansionary monetary policy: when central bank wants to speed up the economy, it will increase the money supply, which will decrease interest rates and lead to more borrowing and spending.</li>
-<li>Contractionary monetary policy: when central bank wants to slow down the economy, they decrease the money supply. Less money available will increase interest rates and decrease borrowing and spending.</li>
-</ul>
-</li>
-<li>Liquid assets: an asset that can be converted into cash quickly and with minimal impact to the price received.</li>
-<li>3 main ways to change money supply:
-<ol>
-<li>Reserve Requirement</li>
-<li>Discount Rate</li>
-<li>Open market operations: this is when the federal reserve buys or sells short term government bonds.</li>
-</ol>
-</li>
-<li>Quantitative easing (Q.E.): when central banks buy longer term assets from banks.</li>
-<li>Monetary policy: changing money supply to speed up or slow down economy.</li>
-</ul>
-<h3 id="s11-money-and-finance">s11 Money and Finance</h3>
-<ul>
-<li>Money serve three main purposes:
-<ul>
-<li>Medium of exchange</li>
-<li>Store of value</li>
-<li>Unit of account</li>
-</ul>
-</li>
-<li>Financial system
-<ul>
-<li>Lenders</li>
-<li>Borrowers</li>
-<li>Governments</li>
-<li>Capital: the machinery, tools and factories owned by a business and used in production.</li>
-<li>Financial system is a network of institutions, markets and contracts that brings lenders and borrowers together.</li>
-<li>Debt: if you get a loan from the bank, you are obligated to pay back the amount you borrowed plus the amount of interest.</li>
-<li>Equity: the difference between the value of the assets/interest and the cost of liabilities of something owned.</li>
-<li>Financial instrument: a tradeable asset of any kind.</li>
-<li>Financial institution - an establishment that conducts financial transactions such as investments, loans and deposits.</li>
-<li>Financial markets with instruments like stocks and bonds, allow borrowers to crowdsource the money they need to borrow. They raise their capital from lots of investors, and spread the risk around.</li>
-</ul>
-</li>
-</ul>
-<h3 id="s12-2008-financial-crisis">s12 2008 Financial Crisis</h3>
-<blockquote>
-<p>“History doesn’t repeat itself, but it often rhymes”- Mark Twain</p>
-</blockquote>
-<h3 id="s13-recession-hyperinflation-and-stagflation">s13 Recession, Hyperinflation, and Stagflation</h3>
-<ul>
-<li>Hyperinflation: when a country experiences a monthly inflation rate of over 50% or around 13,000% annual inflation.
-<ul>
-<li>Extreme inflation also forces people to spend as quickly as possible rather than save of lend, so there is no money available to fund new businesses. And all that uncertainty limits foreign investment and trade.</li>
-<li>The more money you print, the more inflation you get.</li>
-<li>Economists call the number of times a dollar is spent per year a velocity of money. When people spend their money as quickly as they get it, that increases velocity, which pushes inflation up even faster.</li>
-</ul>
-</li>
-<li>Depression. After the initial crash in 1929 the federal reserve dropped interest rates to zero, output and prices fell, and regular people started to expect further price declines. Unemployment rose to 25% and the average family income dropped by around 40%.</li>
-<li>Stagflation: when output slows down or stops, or stagnates at the same time that prices rise. Stagnant economy + inflation = stagflation.
-<ul>
-<li>The FED tried to address this by boosting the money supply and cutting interest rates, but output couldn’t rise much because of low productivity and the oil shortage. So all that extra money just triggered inflation.</li>
-</ul>
-</li>
-</ul>
-<h2 id="ch4-economic-schools-of-thought">CH4 Economic Schools of Thought</h2>
-<h3 id="s14-economic-schools-of-thought">s14 Economic Schools of Thought</h3>
-<ul>
-<li>Economic theories are constantly been proven, disproven and revised. The problem is, when these theories are wrong, millions of people can be adversely affected.</li>
-<li>The founder of modern economics was a Scottish philosopher, named Adam Smith. In 1776 his book “The wealth of nations” was published. It was an organized discussion about economic theory.
-<ul>
-<li>When both focus on what they’re best at and then trade, everyone benefits.</li>
-</ul>
-</li>
-<li>In 1890 was published a book, called “Principles of economics” by Alfred Marshall. It embodied classical economics.</li>
-<li>In 1936 John Maynard Keynes published a book “A general theory of money” which launched a field of macroeconomics.
-<ul>
-<li>They claimed that during recessions it is necessary for the government to get involved by using monetary and fiscal policy to increase output and decrease unemployment.</li>
-</ul>
-</li>
-<li>Socialism: system where the means of producing and distributing goods is owned collectively or by a centralized government.</li>
-<li>Monetarism: focused on price stability and argue the money supply should be increased slowly and predictably to allow for steady growth.</li>
-<li>Supply side economics (trickle down economics): advocated deregulation and cutting taxes, especially corporate taxes.</li>
-<li>New neoclassical synthesis: synthesis of classical economic theories and Keynesian economics.</li>
-</ul>
-<h2 id="ch5-economics-in-international-relations-1">CH5 Economics in International Relations 1</h2>
-<h3 id="s15-imports-exports-and-exchange-rates">s15 Imports, Exports, and Exchange Rates</h3>
-<ul>
-<li>concept
-<ul>
-<li>Net exports: the annual difference between a country’s exports and imports</li>
-<li>Trade surplus: when a country exports more than it imports</li>
-<li>Trade deficit: when a country imports more than it exports</li>
-</ul>
-</li>
-<li>International trade
-<ul>
-<li>It doesn’t make sense to make everything on your own if you can trade with other countries that have a comparative advantage.</li>
-<li>Unsafe and unfair working conditions and environmental degradation.</li>
-</ul>
-</li>
-<li>NAFTA, 1994
-<ul>
-<li>Dropped trade barriers between Canada, the US and Mexico.</li>
-<li>Increased US trade deficits. Decreased manufacturing jobs.</li>
-<li>Millions of jobs created. Reduced prices. Net positive impact on 3 countries.</li>
-</ul>
-</li>
-<li>Protectionism: Placing high tariffs on imports and limiting the number of foreign goods to protect local businesses. Limited by the WTO or World Trade Organization.
-<ul>
-<li>Exchange rate - how much your currency is worth when you trade it for another country’s currency.</li>
-<li>Currency appreciation - An increase in the value of one currency in terms of another.</li>
-<li>Currency depreciation - A decrease in the level of a currency in a floating exchange rate system due to market forces. Foreign imports get more expensive, which makes them fall. Exports to other countries get cheaper, which makes them rise.</li>
-<li>Floating exchange rates - they change based on supply and demand.</li>
-<li>Balance of payments - accounting statement that records all International transactions in a country. It’s made up of two sub-accounts, the current account and the financial account.</li>
-<li>Current account - records the sale and purchase of goods and services, investment income earned abroad, and other transfers like donations and foreign aid.</li>
-<li>Financial account - records the purchase and sale of financial assets like stocks and bonds. There is a reason why the flow of goods and the flow of money are symmetric. If consumers, businesses and the government want to buy more stuff than their country is producing symmetrically, they have to import it. So there’s a trade deficit.</li>
-</ul>
-</li>
-</ul>
-<h3 id="s16-globalization-and-trade-and-poverty">s16 Globalization and Trade and Poverty</h3>
-<ul>
-<li>Poverty line: Minimum level of income deemed adequate in a particular country.</li>
-<li>Extreme poverty: Severe deprivation of basic needs including, food, safe drinking water, sanitation, health, shelter, education and information.</li>
-<li>UN definition of extreme poverty: People living under &lt;1.25/day (836 mn people as of 2015, down from 1.9 bn in 1950)</li>
-<li>1 in 7 people still live without electricity.</li>
-<li>Mobile phones are single most transformative technology to the developing world - Jeffrey Sachs</li>
-<li>Leapfrogging: Countries can skip straight to more efficient technology without significant costs</li>
-<li>Hans Rosling (statistician): 1-2 bn suffer from globalization deficiency.</li>
-<li>Multiplier effect means more</li>
-<li>Paul Krugman, “The Bangladeshi apparel industry is going to consist of what we would consider sweatshops, or it wont exist at all.”</li>
-<li>Outsourcing of jobs, exploitation and oppression, is a form of economic colonialism.</li>
-<li>Companies don’t follow same rules as developing countries. To tackle this public awareness is growing. e.g. US produces annual publication on list of goods produced by child or forced labor.</li>
-<li>Many experts believe globalization isn’t sustainable for the planet because of it’s impact on climate change, deforestation and pollution.</li>
-<li>Microcredit, Muhammad Yunus, small loans ($100) enabled people (especially women) to participate in the economy.</li>
-</ul>
-<h3 id="s17-income-and-wealth-inequality">s17 Income and Wealth Inequality</h3>
-<p>Two types of economic inequality - Wealth (accumulated assets such as savings, pensions, real estate, and stocks minus the liabilities) inequality - The unequal distribution of accumulated assets, minus liabilities - North America and Europe host 20% of the population yet have 67% of the world’s wealth - China hosts 20% of the population wet have 8% of the world’s wealth etcetera - Income inequality - The extent to which income is distributed in an uneven matter - Economic Big Bang - “At first countries’ incomes were all bunched together, but with the Industrial Revolution the differences exploded,… [It] pushed some countries forward onto the path to higher incomes while others stayed where they had been for millennia.” - Branko Milanovic - Industrial Revolution accelerated the gap between the richest and poorest - Globalisation and international trade are further accelerating this disparity - “The triumph of globalisation and market capitalism has improved living standards for billions while concentrating billions among the few.” - Richard Freeman - Skill-biased technological change - Skilled workers that have the education/skills best suited for technological work whereas it has served as a replacement for unskilled workers - Further gap between the poor and the rich and the poor and they rocking class - As economies develop and as manufacturing jobs move overseas, low skill low pay and high skill high pay work are the only jobs left - Other factors in exacerbating widening gap - Reduced influence of unions, tax policies that favour the wealthy, allowance for greater CEO salaries, gender, race - Lorenz curve graph allows us to measure the depth of income inequality - Can be used to calculate the GINI Index - the most commonly used measure of income equality (the size of the gap between the equal distribution of income and actual distribution) with 0 as complete quality and 100 as complete inequality - Critiques of income inequality - Claim all income brackets are making more money but the rich’s share is growing faster - However in the last 20 years, their average income has been falling while the rich have continually gotten richer - “Yes, some level of inequality is built in to capitalism… It is inherent to the system. The question is, what level of inequality is acceptable? And when does inequality start doing more harm than good?” - Bill Gates - Some economists argue greater income inequality is associated with increased violence, drug abuse, incarceration, diluted political equality (rich have disproportionate say in what policies advance and in this have an incentive to promote their own self-interest) - Solutions - Education, increased minimum wage, affordable, high quality childcare, provide a social safety net, adjustment of tax code to redistribute income - Increase income taxes and capital taxes on the rich - Progressive tax - a tax in which the tax rate increases as the taxable amount increases - “One idea is to fix loopholes that the rich use to avoid paying taxes. Other economists argue that taxing the rich won’t be as effective as reducing regulation and bureaucratic red tape.” - No society can surely be flourishing and happy of which the far greater part of the members are poor and miserable - Adam Smith</p>
-<h2 id="ch6-basics-of-microeconomics">CH6 Basics of Microeconomics</h2>
-<h3 id="s18-marginal-analysis-roller-coasters-elasticity-and-van-gogh">s18 Marginal Analysis, Roller Coasters, Elasticity, and Van Gogh</h3>
-<ul>
-<li>Microeconomics: Study of the economic behavior of individual units of an economy (such as a person, household, firm, or industry).</li>
-<li>Marginal analysis: An analysis of how individuals, businesses and governments make decisions.
-<ul>
-<li>Marginal = Additional</li>
-</ul>
-</li>
-<li>Utility: Satisfaction or happiness people get from consuming a good or service.</li>
-<li>Law of Diminishing Marginal Utility = Law of Decreasing Additional Satisfaction
-<ul>
-<li>Demand curve = Marginal benefit curve</li>
-<li>Supply curve = Marginal cost curve</li>
-</ul>
-</li>
-<li>Utils: A unit used to quantify satisfaction; they are completely subjective.</li>
-<li>Law of supply: An increase in price gives producers an incentive to produce more.</li>
-<li>Diamond-water paradox: Although water is on the whole more useful, in terms of survival, than diamonds, diamonds command a higher price in the market.</li>
-<li>Substitution effect: As prices rise consumers will replace expensive items with less costly alternatives.
-<ul>
-<li>Elasticity of demand: a measure of the relationship between a change in the quantity demanded of a particular good and a change in its price.</li>
-<li>Elasticity of supply: a measure of the responsiveness of quantity supplied to a change in price.</li>
-</ul>
-</li>
-</ul>
-<h3 id="s19-markets-efficiency-and-price-signals">s19 Markets, Efficiency, and Price Signals</h3>
-<ul>
-<li>Central planning is not efficient</li>
-<li>Two types of efficiency:
-<ul>
-<li>Productive Efficiency- The idea that products are made at lowest costs.</li>
-<li>Allocative Efficiency- State of economy in which production represents consumer’s preference.</li>
-</ul>
-</li>
-<li>Central planners are less likely to be allocatively efficient because they have a harder time getting feedback about what people want.</li>
-<li>Price Signals tells you what consumers are willing to by at higher prices.</li>
-<li>Price gouging: When sellers sells essential items (e.g water, food etc) at much higher price than reasonable.</li>
-<li>Below-Cost Pricing: This is also called Predatory Pricing. It’s when a business drive out competitors by charging lower prices even at a short-term loss. Competitors that can’t sustain such low prices will be forced out of the market giving the surviving businesses more market share and ability to raise prices.</li>
-</ul>
-<h3 id="s20-prices-controls-subsidies-and-the-risks-of-good-intentions">s20 Prices Controls, Subsidies, and the Risks of Good Intentions</h3>
-<ul>
-<li>President Richard Nixon, 1970s, 90-day price and wage freeze to fight inflation. Milton Friedman, ‘One of those plausible schemes with very pleasing commencement that have shameful conclusions’.</li>
-<li>Price ceiling - Maximum price for a specific good or service</li>
-<li>Price floor - Minimum price in a specific market. Keeping price artificially high and not allowing price to fall to equilibrium.</li>
-<li>In terms of helping consumers and producers, price controls are counter-productive. However minimum wage is a better solution.</li>
-<li>Economists generally agree that rent control results in reduced quantity and quality of housing that is available.</li>
-<li>A subsidy is a government payment given to individuals, organizations or businesses to offset costs to advance a specific public goal.</li>
-</ul>
-<h3 id="s21-market-failures-taxes-and-subsidies">s21 Market Failures, Taxes, and Subsidies</h3>
-<ul>
-<li>Free riders: people who benefit without paying</li>
-<li>Responding to incentives: why pay more if I can get it for less?</li>
-<li>Market failure: when markets fail to provide enough public goods Public good - anything having the characteristics of non-exclusion (cannot exclude/disfavour people that do not pay f.ex. those who evade taxes are not exempt from national defence) and non-rivalry (one person’s consumption of the good does not ruin it for others f.ex. public parks)</li>
-<li>Tragedy of the Commons - the idea that common goods that everyones has access to are often misused and exploited (fuelled by personal incentives that disregard the commonwealth)</li>
-<li>Environmental problems: deforestation/overfishing</li>
-<li>Externalities: situations when there are external costs or benefits that accrue to other people or society as a whole
-<ul>
-<li>Regulatory policies (rules established by govt decree) + market-based policies (policies designed to manipulate markets, prices, and incentives to correct market failures) can be used to fix externalities</li>
-</ul>
-</li>
-</ul>
-<h2 id="ch7-environmental-and-education-economics">CH7 Environmental and Education Economics</h2>
-<h3 id="s22-evironmentl-econ">s22 Evironmentl Econ</h3>
-<ul>
-<li>what can the government do?
-<ul>
-<li>enforce specific rules outside the market (just limit how much firms can pollute)</li>
-<li>influence the market through price incentives
-<ul>
-<li>add tax on products that cause pollution. (gasoline)</li>
-<li>subsidize products that reduce pollution (electric cars, renewable energy)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>how can technology help?
-<ul>
-<li>since our current technology doesn’t provide cheaper renewable energy, we can maximize the use of non renewable energy (energy-efficient cars)</li>
-<li>rebound effect: efforts to increase energy efficiency creates more available energy that only gets spent into something MORE and MORE.</li>
-</ul>
-</li>
-<li>what actions are the world taking?
-<ol>
-<li>International treatys in which countries commit on reducing greenhouse gases emission. (UN negotiations)</li>
-<li>funding “green” research into renewable energy.</li>
-<li>changes can be brought by individual consumers, along with changes by the government and producers. (turn the lights off when not in use! and other small things).</li>
-</ol>
-</li>
-</ul>
-<h3 id="s23-economics-of-education">s23 Economics of Education</h3>
-<p>omit.</p>
-<h2 id="ch8-types-of-competition">CH8 Types of Competition</h2>
-<h3 id="s24-revenue-profits-and-price">s24 Revenue, Profits, and Price</h3>
-<p>omit.</p>
-<h3 id="s25-monopolies-and-anti-competitive-markets">s25 Monopolies and Anti-Competitive Markets</h3>
-<p>omit.</p>
-<h3 id="s26-game-theory-and-oligopoly">s26 Game Theory and Oligopoly</h3>
-<ul>
-<li>
-<p>4 types of markets</p>
-<ol>
-<li>Perfect competition: Low barriers, identical products, no control over price (eg strawberries)</li>
-<li>Monopoly: There is one large company that produces a product with few substitutes. And because high barriers prevent competition, a monopoly has a lot of control over price.</li>
-<li>Monopolistic competition: a market with many producers and relatively low barriers; their products are very similar but not identical. (eg furniture stores or fast food)</li>
-<li>Oligopolies: markets that have high barriers to entry and are controlled by a few large companies. Similar to monopolistic competition, their products are similar but not identical. That gives them some control over their prices. How?</li>
-</ol>
-</li>
-<li>
-<p>Non-price competition: Companies focus on things like style, quality, location, or service. The goal is to distinguish their product from their competitors.</p>
-<ul>
-<li>The most recognizable form of non-price competition is advertising.</li>
-</ul>
-</li>
-<li>
-<p>Game theory: the study of strategic decision making.</p>
-</li>
-<li>
-<p>Collusion: If businesses don’t compete at all and they agree to charge the same high price, conspiring to form what economists call a cartel. They split the customers 50⁄50, but now they make even more profit – benefiting at the expense of consumers. It’s illegal in the US.</p>
-</li>
-<li>
-<p>Price leadership is when one company changes its prices, and its competitors have to decide if they’re going to follow suit.</p>
-</li>
-<li>
-<p>Pay off matrix: In game theory, a payoff matrix is a table in which strategies of one player are listed in rows and those of the other player in columns and the cells show payoffs to each player such that the payoff of the row player is listed first.</p>
-</li>
-</ul>
-<h2 id="ch9-how-people-affect-the-economics">CH9 How People Affect the Economics</h2>
-<h3 id="s27-behavioral-economics">s27 Behavioral Economics</h3>
-<ol>
-<li>Bounded rationality</li>
-<li>Lack of information</li>
-<li>Manipulate non interinsic attributes of price</li>
-<li>Framing effect</li>
-<li>Psychological pricing</li>
-<li>Nudge theory</li>
-<li>Risk(neutral &amp; averse)</li>
-</ol>
-<h3 id="s28-labor-markets-and-minimum-wage">s28 Labor Markets and Minimum Wage</h3>
-<p>omit.</p>
-<h3 id="s29-the-economics-of-healthcare">s29 The Economics of Healthcare</h3>
-<p>omit.</p>
-<h3 id="s30-the-economics-of-death">s30 The Economics of Death</h3>
-<p>omit.</p>
-<h2 id="ch10-taxes-and-informal-economies">CH10 Taxes and Informal Economies</h2>
-<p>omit.</p>
-<h2 id="ch11-economics-in-international-relations-2">CH11 Economics in International Relations 2</h2>
-<p>omit.</p></div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-04-06&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/a885b8cbbd67f9092bb9ef520eaf30c2fbfddf58" target="_blank" title="commit by ZubinGou(zebgou@gmail.com) a885b8cbbd67f9092bb9ef520eaf30c2fbfddf58: add blog &amp; fix mathjax">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>a885b8c</a></span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/blog/crash-course-economics-notes/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/crash-course-economics-notes/" data-title="Crash Course Economics Notes" data-hashtags="Notes,Economics"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/crash-course-economics-notes/" data-hashtag="Notes"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/crash-course-economics-notes/" data-title="Crash Course Economics Notes"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/crash-course-economics-notes/" data-title="Crash Course Economics Notes"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/crash-course-economics-notes/" data-title="Crash Course Economics Notes" data-image="../_resources/crash-course-logo.png"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <div class="details-content toc-content" id="toc-content-static">
+                    { {- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
+                </div>
             </div>
+        { {- end -} }
+
+        { {- /* Content */ -} }
+        <div class="content" id="content">
+            { {- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
         </div>
-    </div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/notes/">Notes</a>,&nbsp;<a href="/blog/tags/economics/">Economics</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
-        </section>
-    </div>
+        { {- /* Footer */ -} }
+        { {- partial "single/footer.html" . -} }
 
-    <div class="post-nav"><a href="/blog/bupt-scs-beauty-analysis/" class="prev" rel="prev" title="2019北邮计算机学院新生颜值分析"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>2019北邮计算机学院新生颜值分析</a>
-            <a href="/blog/quantum-computing-fundamentals/" class="next" rel="next" title="Quantum Computing Fundamentals">Quantum Computing Fundamentals<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
-</div>
-<div id="comments"><div id="utterances" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
-            </noscript></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
-</html>
+        { {- /* Comment */ -} }
+        { {- partial "comment.html" . -} }
+    </article>
+{ {- end -} }

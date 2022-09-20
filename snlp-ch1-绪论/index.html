@@ -1,339 +1,101 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>《统计自然语言处理》第1章 - 绪论 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《统计自然语言处理》第1章 - 绪论" />
-<meta property="og:description" content="ch0 序 本书框架 NLP理论 ch1-9 基础：概率论、信息论、形式语言与自动机 语料库和词汇知识库 语言模型 隐马尔可夫模型 词法分析、词性标注 句法分析 语义分析 NL" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://zubingou.github.io/blog/snlp-ch1-%E7%BB%AA%E8%AE%BA/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-01-13T13:56:11+08:00" />
-<meta property="article:modified_time" content="2021-01-13T13:56:11+08:00" /><meta property="og:site_name" content="My cool site" />
+{ {- define "title" } }{ { .Title } } - { { .Site.Title } }{ { end -} }
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
+{ {- define "content" -} }
+    { {- $params := .Scratch.Get "params" -} }
 
-<meta name="twitter:title" content="《统计自然语言处理》第1章 - 绪论"/>
-<meta name="twitter:description" content="ch0 序 本书框架 NLP理论 ch1-9 基础：概率论、信息论、形式语言与自动机 语料库和词汇知识库 语言模型 隐马尔可夫模型 词法分析、词性标注 句法分析 语义分析 NL"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/snlp-ch1-%E7%BB%AA%E8%AE%BA/" /><link rel="prev" href="https://zubingou.github.io/blog/quantum-computing-fundamentals/" /><link rel="next" href="https://zubingou.github.io/blog/snlp-ch2-%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86%E6%A6%82%E7%8E%87%E8%AE%BA%E4%BF%A1%E6%81%AF%E8%AE%BAsvm/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "《统计自然语言处理》第1章 - 绪论",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/zubingou.github.io\/blog\/snlp-ch1-%E7%BB%AA%E8%AE%BA\/"
-        },"image": [{
-                            "@type": "ImageObject",
-                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
-                            "width":  3200 ,
-                            "height":  2048 
-                        }],"genre": "posts","keywords": "统计自然语言处理, NLP, statistics, notes","wordcount":  2264 ,
-        "url": "https:\/\/zubingou.github.io\/blog\/snlp-ch1-%E7%BB%AA%E8%AE%BA\/","datePublished": "2021-01-13T13:56:11+08:00","dateModified": "2021-01-13T13:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "ZubinGou","logo": {
-                    "@type": "ImageObject",
-                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
-                    "width":  304 ,
-                    "height":  304 
-                }},"author": {
-                "@type": "Person",
-                "name": "ZubinGou"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    { {- $toc := $params.toc -} }
+    { {- if eq $toc true -} }
+        { {- $toc = .Site.Params.page.toc | default dict -} }
+    { {- else if eq $toc false -} }
+        { {- $toc = dict "enable" false -} }
+    { {- end -} }
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- /* Auto TOC */ -} }
+    { {- if ne $toc.enable false -} }
+        <div class="toc" id="toc-auto">
+            <h2 class="toc-title">{ { T "contents" } }</h2>
+            <div class="toc-content{ { if eq $toc.auto false } } always-active{ { end } }" id="toc-content-auto"></div>
         </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/blog/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
-                    <i class="fa fa-globe" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/snlp-ch1-%E7%BB%AA%E8%AE%BA/" selected>简体中文</option></select>
-                </a></div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- end -} }
+
+    <article class="page single">
+        { {- /* Title */ -} }
+        <h1 class="single-title animate__animated animate__flipInX">{ { .Title | emojify } }</h1>
+
+        { {- /* Subtitle */ -} }
+        { {- with $params.subtitle -} }
+            <h2 class="single-subtitle">{ { . } }</h2>
+        { {- end -} }
+
+        { {- /* Meta */ -} }
+        <div class="post-meta">
+            <div class="post-meta-line">
+                { {- $author := $params.author | default .Site.Author.name | default (T "author") -} }
+                { {- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -} }
+                <span class="post-author">
+                    { {- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -} }
+                    { {- partial "plugin/a.html" $options -} }
+                </span>
+
+                { {- $categories := slice -} }
+                { {- range .Params.categories -} }
+                    { {- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -} }
+                    { {- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw" aria-hidden="true"></i>%v</a>` $category.RelPermalink $category.Title) -} }
+                { {- end -} }
+                { {- with delimit $categories "&nbsp;" -} }
+                    &nbsp;<span class="post-category">
+                        { {- dict "Categories" . | T "includedInCategories" | safeHTML -} }
+                    </span>
+                { {- end -} }
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
+            <div class="post-meta-line">
+                { {- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -} }
+                    <i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{ { . } }">{ { . } }</time>&nbsp;
+                { {- end -} }
+                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{ { T "wordCount" .WordCount } }&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{ { T "readingTime" .ReadingTime } }&nbsp;
+                { {- $comment := .Scratch.Get "comment" | default dict -} }
+                { {- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -} }
+                    <span id="{ { .RelPermalink } }" class="leancloud_visitors" data-flag-title="{ { .Title } }">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{ { T "views" } }
+                    </span>&nbsp;
+                { {- end -} }
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/blog/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
-                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/blog/snlp-ch1-%E7%BB%AA%E8%AE%BA/" selected>简体中文</option></select>
-                </a></div>
-    </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《统计自然语言处理》第1章 - 绪论</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/nlp/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>NLP</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-01-13">2021-01-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2264 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
+
+        { {- /* Featured image */ -} }
+        { {- $image := $params.featuredimage -} }
+        { {- with .Resources.GetMatch "featured-image" -} }
+            { {- $image = .RelPermalink -} }
+        { {- end -} }
+        { {- with $image -} }
+            <div class="featured-image">
+                { {- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -} }
+            </div>
+        { {- end -} }
+
+        { {- /* Static TOC */ -} }
+        { {- if ne $toc.enable false -} }
+            <div class="details toc" id="toc-static"  data-kept="{ { if $toc.keepStatic } }true{ { end } }">
                 <div class="details-summary toc-title">
-                    <span>目录</span>
+                    <span>{ { T "contents" } }</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#ch0-序">ch0 序</a></li>
-    <li><a href="#ch1-绪论">ch1 绪论</a>
-      <ul>
-        <li><a href="#11-基本概念">1.1 基本概念</a></li>
-        <li><a href="#12-研究内容与困难">1.2 研究内容与困难</a></li>
-        <li><a href="#13-基本方法及其发展">1.3 基本方法及其发展</a></li>
-        <li><a href="#14-研究现状">1.4 研究现状</a></li>
-        <li><a href="#15-本书内容安排">1.5 本书内容安排</a></li>
-        <li><a href="#补充">补充</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><h2 id="ch0-序">ch0 序</h2>
-<ul>
-<li>本书框架
-<ul>
-<li>NLP理论 ch1-9
-<ul>
-<li>基础：概率论、信息论、形式语言与自动机</li>
-<li>语料库和词汇知识库</li>
-<li>语言模型</li>
-<li>隐马尔可夫模型</li>
-<li>词法分析、词性标注</li>
-<li>句法分析</li>
-<li>语义分析</li>
-</ul>
-</li>
-<li>NLP应用 ch10-15
-<ul>
-<li>机器翻译、语音翻译、文本分类、信息检索、问答系统、知识抽取、口语信息处理与人际对话系统</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>理论基础
-<ul>
-<li>基于统计的NLP：经验主义</li>
-<li>基于规则的NLP：理性主义
-<ul>
-<li>ie. symbolic approach!</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>中文房间的个人思考
-<ul>
-<li>房中人不懂汉语，只懂英语，而手册是进行语言转换，假设各语言表现力是等价的，那么中文和英文是同一语义的不同表现形式，于是我们可以说房中人简介理解了中文的含义（即获得与语义），这与智能是相互独立的
-<ul>
-<li>“房中人不能理解中文”不成立？</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="ch1-绪论">ch1 绪论</h2>
-<h3 id="11-基本概念">1.1 基本概念</h3>
-<ul>
-<li>linguistic science<strong>s</strong>
-<ul>
-<li>语言学（linguistics）是指对语言的科学研究。</li>
-<li>语音学（phonetics）是研究人类发音特点，特别是语音发音特点，并提出各种语音描述、分类和转写方法的科学。</li>
-</ul>
-</li>
-<li>默认：NLP = NLU = 计算语言学</li>
-<li>“理解”的标准：图灵测试</li>
-</ul>
-<h3 id="12-研究内容与困难">1.2 研究内容与困难</h3>
-<ul>
-<li>
-<p>主要研究内容</p>
-<ul>
-<li>机器翻译（machine translation, MT）</li>
-<li>自动文摘（automatic summarizing或automatic abstracting）</li>
-<li>信息检索（information retrieval）</li>
-<li>文档分类（document categorization/classification）</li>
-<li>问答系统（question-answering system）</li>
-<li>信息过滤（information filtering）</li>
-<li>信息抽取（information extraction）</li>
-<li>文本挖掘（text mining）</li>
-<li>舆情分析（public opinion analysis）</li>
-<li>隐喻计算（metaphorical computation）</li>
-<li>文字编辑和自动校对（automatic proofreading）</li>
-<li>作文自动评分</li>
-<li>光读字符识别（optical character recognition, OCR）</li>
-<li>语音识别（speech recognition）</li>
-<li>文语转换（text-to-speech conversion）</li>
-<li>说话人识别／认证／验证（speaker recognition/identification/verification）</li>
-</ul>
-</li>
-<li>
-<p>层次</p>
-<ul>
-<li>形态学（morphology）：形态学（又称“词汇形态学”或“词法”）是语言学的一个分支，研究词的内部结构，包括屈折变化和构词法两个部分。</li>
-<li>语法学（syntax）：研究句子结构成分之间的相互关系和组成句子序列的规则。其关注的中心是：为什么一句话可以这么说，也可以那么说？</li>
-<li>语义学（semantics）：是一门研究意义，特别是语言意义的学科.其重点在探明符号与符号所指的对象之间的关系，从而指导人们的言语活动。它所关注的重点是：这个语言单位到底说了什么？</li>
-<li>语用学（pragmatics）：是现代语言学用来指从使用者的角度研究语言，特别是使用者所作的选择、他们在社会互动中所受的制约、他们的语言使用对信递活动中其他参与者的影响。</li>
-</ul>
-</li>
-<li>
-<p>面临的困难</p>
-<ul>
-<li>歧义消解（disambiguation）问题</li>
-<li>未知语言现象的处理问题</li>
-</ul>
-</li>
-</ul>
-<h3 id="13-基本方法及其发展">1.3 基本方法及其发展</h3>
-<ul>
-<li>
-<p>两种研究方法</p>
-<ul>
-<li>理性主义（rationalist）方法：主张建立符号处理系统，由人工整理和编写初始的语言知识表示体系（通常为规则），构造相应的推理程序，系统根据规则和程序，将自然语言理解为符号结构——该结构的意义可以从结构中的符号的意义推导出来。按照这种思路，在自然语言处理系统中，一般首先由词法分析器按照人编写的词法规则对输入句子的单词进行词法分析，然后，语法分析器根据人设计的语法规则对输入句子进行语法结构分析，最后再根据一套变换规则将语法结构映射到语义符号（如逻辑表达式、语义网络、中间语言等）。</li>
-<li>经验主义（empiricist）方法：也是从假定人脑所具有的一些认知能力开始的。因此，从这种意义上讲，两种方法并不是绝对对立的。但是，经验主义的方法认为人脑并不是从一开始就具有一些具体的处理原则和对具体语言成分的处理方法，而是假定孩子的大脑一开始具有处理联想（association）、模式识别（patternrecognition）和通用化（generalization）处理的能力，这些能力能够使孩子充分利用感官输入来掌握具体的自然语言结构。在系统实现方法上，经验主义方法主张通过建立特定的数学模型来学习复杂的、广泛的语言结构，然后利用统计学、模式识别和机器学习等方法来训练模型的参数，以扩大语言使用的规模。因此，经验主义的自然语言处理方法是建立在统计方法基础之上的，因此，我们又称其为统计自然语言处理（statisticalnaturallanguageprocessing）方法。</li>
-</ul>
-</li>
-<li>
-<p>在统计自然语言处理方法中，一般需要收集一些文本作为统计模型建立的基础，这些文本称为语料（corpus）。经过筛选、加工和标注等处理的大批量语料构成的数据库叫做语料库（corpusbase）。由于统计方法通常以大规模语料库为基础，因此，又称为基于语料（corpusbased）的自然语言处理方法。</p>
-</li>
-<li>
-<p>发展：</p>
-<ul>
-<li>对半个多世纪发展两点重要认识
-<ul>
-<li>对于句法分析，基于单一标记的短语结构规则是不充分的</li>
-<li>短语结构规则在真实文本中的分布呈现严重的扭曲</li>
-</ul>
-</li>
-<li>本领域中称得上里程碑式的成果
-<ul>
-<li>复杂特征集和合一语法的提出</li>
-<li>语言学研究中词汇主义的建立</li>
-<li>语料库方法和统计语言模型的广泛运用</li>
-</ul>
-</li>
-<li>经验主义方法和理性主义方法相互融合</li>
-</ul>
-</li>
-</ul>
-<h3 id="14-研究现状">1.4 研究现状</h3>
-<ol>
-<li>已开发完成一批颇具影响的语言资源库，部分技术已达到或基本达到实用化程度，并在实际应用中发挥着巨大作用。</li>
-<li>许多新的研究方向不断出现。</li>
-<li>许多理论问题尚未得到根本性的解决。</li>
-</ol>
-<h3 id="15-本书内容安排">1.5 本书内容安排</h3>
-<p><img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../_resources/9b5a2b1ced784981b606653b5e7ab07d.png"
-        data-srcset="../../_resources/9b5a2b1ced784981b606653b5e7ab07d.png, ../../_resources/9b5a2b1ced784981b606653b5e7ab07d.png 1.5x, ../../_resources/9b5a2b1ced784981b606653b5e7ab07d.png 2x"
-        data-sizes="auto"
-        alt="../../_resources/9b5a2b1ced784981b606653b5e7ab07d.png"
-        title="a0c313e67c8cbba8203fef9dceae37e1.png" /></p>
-<h3 id="补充">补充</h3>
-<ul>
-<li>计算语言学
-<ul>
-<li>计算语音学</li>
-<li>计算词汇学</li>
-<li>计算句法学</li>
-<li>计算语义学</li>
-<li>计算语用学</li>
-</ul>
-</li>
-</ul>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-01-13</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/blog/snlp-ch1-%E7%BB%AA%E8%AE%BA/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/snlp-ch1-%E7%BB%AA%E8%AE%BA/" data-title="《统计自然语言处理》第1章 - 绪论" data-hashtags="统计自然语言处理,NLP,statistics,notes"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/snlp-ch1-%E7%BB%AA%E8%AE%BA/" data-hashtag="统计自然语言处理"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/snlp-ch1-%E7%BB%AA%E8%AE%BA/" data-title="《统计自然语言处理》第1章 - 绪论"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/snlp-ch1-%E7%BB%AA%E8%AE%BA/" data-title="《统计自然语言处理》第1章 - 绪论"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/snlp-ch1-%E7%BB%AA%E8%AE%BA/" data-title="《统计自然语言处理》第1章 - 绪论"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <div class="details-content toc-content" id="toc-content-static">
+                    { {- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
+                </div>
             </div>
+        { {- end -} }
+
+        { {- /* Content */ -} }
+        <div class="content" id="content">
+            { {- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
         </div>
-    </div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/%E7%BB%9F%E8%AE%A1%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">统计自然语言处理</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/statistics/">statistics</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
-        </section>
-    </div>
+        { {- /* Footer */ -} }
+        { {- partial "single/footer.html" . -} }
 
-    <div class="post-nav"><a href="/blog/quantum-computing-fundamentals/" class="prev" rel="prev" title="Quantum Computing Fundamentals"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Quantum Computing Fundamentals</a>
-            <a href="/blog/snlp-ch2-%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86%E6%A6%82%E7%8E%87%E8%AE%BA%E4%BF%A1%E6%81%AF%E8%AE%BAsvm/" class="next" rel="next" title="《统计自然语言处理》第2章 - 预备知识：概率论、信息论、SVM">《统计自然语言处理》第2章 - 预备知识：概率论、信息论、SVM<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
-</div>
-<div id="comments"><div id="utterances" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
-            </noscript></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
-</html>
+        { {- /* Comment */ -} }
+        { {- partial "comment.html" . -} }
+    </article>
+{ {- end -} }

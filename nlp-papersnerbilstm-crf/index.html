@@ -1,381 +1,101 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>【NLP Papers】NER：BiLSTM-CRF - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="【NLP Papers】NER：BiLSTM-CRF" />
-<meta property="og:description" content="Neural Architectures for Named Entity Recognition [Lample et. al., 2016] 摘要 NER之前的SOTA：大量手工特征、领域知识，泛化能力差 介绍了两种模型： BiLSTM-CRF Stack-LSTM：类似移进-规约的 transition-based 方" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://zubingou.github.io/blog/nlp-papersnerbilstm-crf/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-03-10T13:56:11+08:00" />
-<meta property="article:modified_time" content="2021-03-10T13:56:11+08:00" /><meta property="og:site_name" content="My cool site" />
+{ {- define "title" } }{ { .Title } } - { { .Site.Title } }{ { end -} }
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
+{ {- define "content" -} }
+    { {- $params := .Scratch.Get "params" -} }
 
-<meta name="twitter:title" content="【NLP Papers】NER：BiLSTM-CRF"/>
-<meta name="twitter:description" content="Neural Architectures for Named Entity Recognition [Lample et. al., 2016] 摘要 NER之前的SOTA：大量手工特征、领域知识，泛化能力差 介绍了两种模型： BiLSTM-CRF Stack-LSTM：类似移进-规约的 transition-based 方"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/nlp-papersnerbilstm-crf/" /><link rel="prev" href="https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" /><link rel="next" href="https://zubingou.github.io/blog/nndl-book-ch15-%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "【NLP Papers】NER：BiLSTM-CRF",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/zubingou.github.io\/blog\/nlp-papersnerbilstm-crf\/"
-        },"image": [{
-                            "@type": "ImageObject",
-                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
-                            "width":  3200 ,
-                            "height":  2048 
-                        }],"genre": "posts","keywords": "NLP, LSTM, NER, CRF, notes\u0022","wordcount":  1644 ,
-        "url": "https:\/\/zubingou.github.io\/blog\/nlp-papersnerbilstm-crf\/","datePublished": "2021-03-10T13:56:11+08:00","dateModified": "2021-03-10T13:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "ZubinGou","logo": {
-                    "@type": "ImageObject",
-                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
-                    "width":  304 ,
-                    "height":  304 
-                }},"author": {
-                "@type": "Person",
-                "name": "ZubinGou"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    { {- $toc := $params.toc -} }
+    { {- if eq $toc true -} }
+        { {- $toc = .Site.Params.page.toc | default dict -} }
+    { {- else if eq $toc false -} }
+        { {- $toc = dict "enable" false -} }
+    { {- end -} }
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- /* Auto TOC */ -} }
+    { {- if ne $toc.enable false -} }
+        <div class="toc" id="toc-auto">
+            <h2 class="toc-title">{ { T "contents" } }</h2>
+            <div class="toc-content{ { if eq $toc.auto false } } always-active{ { end } }" id="toc-content-auto"></div>
         </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/blog/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
-                    <i class="fa fa-globe" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/nlp-papersnerbilstm-crf/" selected>简体中文</option></select>
-                </a></div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- end -} }
+
+    <article class="page single">
+        { {- /* Title */ -} }
+        <h1 class="single-title animate__animated animate__flipInX">{ { .Title | emojify } }</h1>
+
+        { {- /* Subtitle */ -} }
+        { {- with $params.subtitle -} }
+            <h2 class="single-subtitle">{ { . } }</h2>
+        { {- end -} }
+
+        { {- /* Meta */ -} }
+        <div class="post-meta">
+            <div class="post-meta-line">
+                { {- $author := $params.author | default .Site.Author.name | default (T "author") -} }
+                { {- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -} }
+                <span class="post-author">
+                    { {- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -} }
+                    { {- partial "plugin/a.html" $options -} }
+                </span>
+
+                { {- $categories := slice -} }
+                { {- range .Params.categories -} }
+                    { {- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -} }
+                    { {- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw" aria-hidden="true"></i>%v</a>` $category.RelPermalink $category.Title) -} }
+                { {- end -} }
+                { {- with delimit $categories "&nbsp;" -} }
+                    &nbsp;<span class="post-category">
+                        { {- dict "Categories" . | T "includedInCategories" | safeHTML -} }
+                    </span>
+                { {- end -} }
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
+            <div class="post-meta-line">
+                { {- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -} }
+                    <i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{ { . } }">{ { . } }</time>&nbsp;
+                { {- end -} }
+                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{ { T "wordCount" .WordCount } }&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{ { T "readingTime" .ReadingTime } }&nbsp;
+                { {- $comment := .Scratch.Get "comment" | default dict -} }
+                { {- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -} }
+                    <span id="{ { .RelPermalink } }" class="leancloud_visitors" data-flag-title="{ { .Title } }">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{ { T "views" } }
+                    </span>&nbsp;
+                { {- end -} }
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/blog/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
-                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/blog/nlp-papersnerbilstm-crf/" selected>简体中文</option></select>
-                </a></div>
-    </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">【NLP Papers】NER：BiLSTM-CRF</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/nlp/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>NLP</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-03-10">2021-03-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1644 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
+
+        { {- /* Featured image */ -} }
+        { {- $image := $params.featuredimage -} }
+        { {- with .Resources.GetMatch "featured-image" -} }
+            { {- $image = .RelPermalink -} }
+        { {- end -} }
+        { {- with $image -} }
+            <div class="featured-image">
+                { {- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -} }
+            </div>
+        { {- end -} }
+
+        { {- /* Static TOC */ -} }
+        { {- if ne $toc.enable false -} }
+            <div class="details toc" id="toc-static"  data-kept="{ { if $toc.keepStatic } }true{ { end } }">
                 <div class="details-summary toc-title">
-                    <span>目录</span>
+                    <span>{ { T "contents" } }</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#摘要">摘要</a></li>
-    <li><a href="#1-introduction">1. Introduction</a></li>
-    <li><a href="#2-lstm-crf-model">2. LSTM-CRF Model</a>
-      <ul>
-        <li><a href="#21-lstm">2.1 LSTM</a></li>
-        <li><a href="#22-crf-tagging-models">2.2 CRF Tagging Models</a></li>
-      </ul>
-    </li>
-    <li><a href="#23-parameterization-and-training">2.3 Parameterization and Training</a></li>
-    <li><a href="#24-tagging-schemes">2.4 Tagging Schemes</a></li>
-    <li><a href="#3-transition-based-chunking-model">3. Transition-Based Chunking Model</a></li>
-    <li><a href="#4-input-word-embeddings">4. Input Word Embeddings</a>
-      <ul>
-        <li><a href="#41-character-based-models-of-words">4.1 Character-based models of words</a></li>
-        <li><a href="#42-pretrained-embeddings">4.2 Pretrained embeddings</a></li>
-        <li><a href="#43-dropout-training">4.3 Dropout training</a></li>
-      </ul>
-    </li>
-    <li><a href="#5-experiments">5. Experiments</a>
-      <ul>
-        <li><a href="#51-training">5.1 Training</a></li>
-        <li><a href="#52-data-sets">5.2 Data Sets</a></li>
-        <li><a href="#53-results">5.3 Results</a></li>
-      </ul>
-    </li>
-    <li><a href="#总结">总结</a></li>
-    <li><a href="#references">References</a></li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><h1 id="neural-architectures-for-named-entity-recognition">Neural Architectures for Named Entity Recognition</h1>
-<p>[Lample et. al., 2016]</p>
-<h2 id="摘要">摘要</h2>
-<p>NER之前的SOTA：大量手工特征、领域知识，泛化能力差</p>
-<p>介绍了两种模型：</p>
-<ol>
-<li>BiLSTM-CRF</li>
-<li>Stack-LSTM：类似移进-规约的 transition-based 方法</li>
-</ol>
-<p>word representations：</p>
-<ol>
-<li>character-based learned from supervised corpus</li>
-<li>word level learned from unannotated corpora</li>
-</ol>
-<p>实验结果：BiLSTM-CRF和S-LSTM（表现稍逊）在四种语言（English, Dutch, German, and Spanish）的NER上SOTA</p>
-<h2 id="1-introduction">1. Introduction</h2>
-<p>model旨在捕捉两种信息：</p>
-<ol>
-<li>多个字符组合：
-a. BiLSTM-CRF
-b. S-LSTM</li>
-<li>&ldquo;being a name&quot;的特征
-a. orthographic evidence：属于name的word的特征
-- chat-based word representations
-b. distributional evidence: name在句子中位置
-- distributional representations
-<ul>
-<li>结合两种表示，并使用了dropout防止过度依赖其中一种。</li>
-</ul>
-</li>
-</ol>
-<h2 id="2-lstm-crf-model">2. LSTM-CRF Model</h2>
-<h3 id="21-lstm">2.1 LSTM</h3>
-<p>$$
-\begin{aligned}
-\mathbf{i}_{t}=&amp; \sigma\left(\mathbf{W}_{x i} \mathbf{x}_{t}+\mathbf{W}_{h i} \mathbf{h}_{t-1}+\mathbf{W}_{c i} \mathbf{c}_{t-1}+\mathbf{b}_{i}\right) \\
-\mathbf{c}_{t}=&amp;\left(1-\mathbf{i}_{t}\right) \odot \mathbf{c}_{t-1}+\
-&amp; \mathbf{i}_{t} \odot \tanh \left(\mathbf{W}_{x c} \mathbf{x}_{t}+\mathbf{W}_{h c} \mathbf{h}_{t-1}+\mathbf{b}_{c}\right) \\
-\mathbf{o}_{t}=&amp; \sigma\left(\mathbf{W}_{x o} \mathbf{x}_{t}+\mathbf{W}_{h o} \mathbf{h}_{t-1}+\mathbf{W}_{c o} \mathbf{c}_{t}+\mathbf{b}_{o}\right) \\
-\mathbf{h}_{t}=&amp;\mathbf{o}_{t} \odot \tanh \left(\mathbf{c}_{t}\right)
-\end{aligned}
-$$</p>
-<p>相比于原始LSTM有两点改进：</p>
-<ol>
-<li>peephole连接：门也依赖与上一时刻记忆单元</li>
-<li>耦合输入门和遗忘门：$\boldsymbol{f}_{t}=1-\boldsymbol{i}_{t}$</li>
-</ol>
-<p>使用了BiLSTM</p>
-<h3 id="22-crf-tagging-models">2.2 CRF Tagging Models</h3>
-<p>对LSTM输出的$h_t$用CRF进行jointly model</p>
-<p>输入：
-$$
-\mathbf{X}=\left(\mathbf{x}_{1}, \mathbf{x}_{2}, \ldots, \mathbf{x}_{n}\right)
-$$</p>
-<p>BiLSTM输出的发射分值矩阵：$\mathbf{P}$, size: $n\times k$</p>
-<blockquote>
-<p>k: # of tags</p>
-</blockquote>
-<p>假设预测tag序列为：
-$$
-\mathbf{y}=\left(y_{1}, y_{2}, \ldots, y_{n}\right)
-$$</p>
-<p>tag转移矩阵：$\mathbf{A}$, size: $(k+2)\times (k+2)$</p>
-<blockquote>
-<p>$y_0, y_n$分别表示句子的 <code>start</code> 和 <code>end</code> 标签</p>
-</blockquote>
-<p>分数定义为：
-$$
-s(\mathbf{X}, \mathbf{y})=\sum_{i=0}^{n} A_{y_{i}, y_{i+1}}+\sum_{i=1}^{n} P_{i, y_{i}}
-$$</p>
-<p>softmax计算$y$的条件概率：
-$$
-p(\mathbf{y} \mid \mathbf{X})=\frac{e^{s(\mathbf{X}, \mathbf{y})}}{\sum_{\widetilde{\mathbf{y}} \in \mathbf{Y}_{\mathbf{X}}} e^{s(\mathbf{X}, \widetilde{\mathbf{y}})}}
-$$</p>
-<p>训练优化正确tag序列的log-probability：
-$$
-\begin{aligned}
-\log (p(\mathbf{y} \mid \mathbf{X})) &amp;=s(\mathbf{X}, \mathbf{y})-\log \left(\sum_{\tilde{\mathbf{y}} \in \mathbf{Y}_{\mathbf{X}}} e^{s(\mathbf{X}, \widetilde{\mathbf{y}})}\right) \\
-&amp;=s(\mathbf{X}, \mathbf{y})-\underset{\widetilde{\mathbf{y}} \in \mathbf{Y}_{\mathbf{X}}}{\operatorname{logadd}} s(\mathbf{X}, \widetilde{\mathbf{y}})
-\end{aligned}
-$$</p>
-<p>其中，$\mathbf{Y_X}$表示所有可能tag序列。</p>
-<p>预测：
-$$
-\mathbf{y}^{*}=\underset{\tilde{\mathbf{y}} \in \mathbf{Y}_{\mathbf{X}}}{\operatorname{argmax}} s(\mathbf{X}, \widetilde{\mathbf{y}})
-$$</p>
-<h2 id="23-parameterization-and-training">2.3 Parameterization and Training</h2>
-<p>网络的主要结构：
-<img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../../_resources/5544c02e864045edb0e373c13123a707.png"
-        data-srcset="../../../_resources/5544c02e864045edb0e373c13123a707.png, ../../../_resources/5544c02e864045edb0e373c13123a707.png 1.5x, ../../../_resources/5544c02e864045edb0e373c13123a707.png 2x"
-        data-sizes="auto"
-        alt="../../../_resources/5544c02e864045edb0e373c13123a707.png"
-        title="49afbc6e96c8e2b4d6abd69e69c7a8a4.png" />
-BiLSRM的输出是每个词的各个词性的评分，即发射分值矩阵$\mathbf{P}$，由BiLSTM 得到的（word-in-context词向量$c_i$）与 二元语法的转移评分计算（$\mathbf{A}_{y,y&rsquo;}$) 计算 ？</p>
-<p>将$c_i$线性映射到每个标签上，从而得到得分。</p>
-<p><img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../../_resources/b96700de7b0e43b1a96418e82a368ae5.png"
-        data-srcset="../../../_resources/b96700de7b0e43b1a96418e82a368ae5.png, ../../../_resources/b96700de7b0e43b1a96418e82a368ae5.png 1.5x, ../../../_resources/b96700de7b0e43b1a96418e82a368ae5.png 2x"
-        data-sizes="auto"
-        alt="../../../_resources/b96700de7b0e43b1a96418e82a368ae5.png"
-        title="d67f7ebf494b530226b4f64286aabc70.png" /></p>
-<p>参数：</p>
-<ul>
-<li>bigram compatibility scores $\mathbf{A}$</li>
-<li>matrix $\mathbf{P}$</li>
-<li>BiLSTM参数</li>
-<li>linear feature weights ?</li>
-<li>word embeddings</li>
-</ul>
-<p>$c_i$与CRF层之间加入一个隐层，效果略好。</p>
-<h2 id="24-tagging-schemes">2.4 Tagging Schemes</h2>
-<p>没有使用IOB格式（Inside, Outside, Beginning)：I-label, O-label, B-label。</p>
-<p>使用IOBES：singleton entities（S）、End（E）</p>
-<h2 id="3-transition-based-chunking-model">3. Transition-Based Chunking Model</h2>
-<p>略。</p>
-<h2 id="4-input-word-embeddings">4. Input Word Embeddings</h2>
-<ul>
-<li>Char-level representattion：对单词拼写(morphologically)敏感</li>
-<li>Pretrained embeddings(skip-n-gram)：对词顺序敏感</li>
-</ul>
-<h3 id="41-character-based-models-of-words">4.1 Character-based models of words</h3>
-<p><img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../../_resources/25b4b08579454ba39d5e875928aa762b.png"
-        data-srcset="../../../_resources/25b4b08579454ba39d5e875928aa762b.png, ../../../_resources/25b4b08579454ba39d5e875928aa762b.png 1.5x, ../../../_resources/25b4b08579454ba39d5e875928aa762b.png 2x"
-        data-sizes="auto"
-        alt="../../../_resources/25b4b08579454ba39d5e875928aa762b.png"
-        title="5b9a330f78ea63ea848ba5140d414dfb.png" />
-如上图，每个单词的embeddings由三组embedding拼接：</p>
-<ol>
-<li>char-level（表征suffix）: forward LSTM</li>
-<li>char-level（表征prefix）: backward LSTM</li>
-<li>word-level: lookup table</li>
-</ol>
-<p>测试遇到 <code>UNK</code> 的处理：以0.5概率替换singletons，训练得到 <code>UNK</code> 的embedding</p>
-<blockquote>
-<p>为什么LSTM比CNN能更好地建模word和char关系？</p>
-<ul>
-<li>CNN捕捉位置无关信息（共享权重），而word的信息与char所在位置有关（如前后缀和词干stems编码了不同信息）</li>
-</ul>
-</blockquote>
-<h3 id="42-pretrained-embeddings">4.2 Pretrained embeddings</h3>
-<p>用预训练词向量初始化lookup table</p>
-<p>预训练词向量采用 skip-n-gram (Ling et al., 2015a)：考虑了词顺序的 skip-gram (Mikolov et al., 2013a)</p>
-<h3 id="43-dropout-training">4.3 Dropout training</h3>
-<p>use dropout  (Hinton et al., 2012) to encourage the model to depend on both representations (significant improment).</p>
-<h2 id="5-experiments">5. Experiments</h2>
-<h3 id="51-training">5.1 Training</h3>
-<p>SGD with gradient clipping better than Adadelta/Adam :)</p>
-<h3 id="52-data-sets">5.2 Data Sets</h3>
-<p>CoNLL-2002 and CoNLL-2003 datasets</p>
-<p>预处理：英文NER中替换所有数字为0</p>
-<h3 id="53-results">5.3 Results</h3>
-<p><img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../../_resources/86a3602112794a83acd92e3b30edfcd2.png"
-        data-srcset="../../../_resources/86a3602112794a83acd92e3b30edfcd2.png, ../../../_resources/86a3602112794a83acd92e3b30edfcd2.png 1.5x, ../../../_resources/86a3602112794a83acd92e3b30edfcd2.png 2x"
-        data-sizes="auto"
-        alt="../../../_resources/86a3602112794a83acd92e3b30edfcd2.png"
-        title="07bda40f3b19624539fa82809dc09999.png" /></p>
-<p>BiLSTM-CRF 在CoNLL 2003 (English) 上的 F1 达到 90.94，在未使用额外语料的模型中达到SOTA</p>
-<h2 id="总结">总结</h2>
-<ol>
-<li>首次将BiLSTM-CRF用于序列标注是 <code>Bidirectional LSTM-CRF Models for Sequence Tagging</code> [Huang et. al., 2015]，而本文最大特点是在 pre-trained word embedding（skip-n-gram）的基础上结合了character-based word embeddings，通过引入字符级特征提高了模型在NER任务中的表现；</li>
-<li>CRF考虑了序列标注中全局范围内转移概率；</li>
-<li>Dropout可以用于平衡多种特征比例。</li>
-</ol>
-<p>论文描述不确切地方：2.3 <code>...adding a hidden layer between ci and the CRF layer...</code>，应该是指在 <code>c_i</code> 和 <code>token2tag</code> 线性映射层之间添加一个隐层。</p>
-<h2 id="references">References</h2>
-<ul>
-<li><a href="https://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/" target="_blank" rel="noopener noreffer ">https://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/</a></li>
-</ul>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-03-10</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/blog/nlp-papersnerbilstm-crf/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/nlp-papersnerbilstm-crf/" data-title="【NLP Papers】NER：BiLSTM-CRF" data-hashtags="NLP,LSTM,NER,CRF,notes&#34;"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/nlp-papersnerbilstm-crf/" data-hashtag="NLP"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/nlp-papersnerbilstm-crf/" data-title="【NLP Papers】NER：BiLSTM-CRF"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/nlp-papersnerbilstm-crf/" data-title="【NLP Papers】NER：BiLSTM-CRF"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/nlp-papersnerbilstm-crf/" data-title="【NLP Papers】NER：BiLSTM-CRF"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <div class="details-content toc-content" id="toc-content-static">
+                    { {- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
+                </div>
             </div>
+        { {- end -} }
+
+        { {- /* Content */ -} }
+        <div class="content" id="content">
+            { {- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
         </div>
-    </div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/lstm/">LSTM</a>,&nbsp;<a href="/blog/tags/ner/">NER</a>,&nbsp;<a href="/blog/tags/crf/">CRF</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
-        </section>
-    </div>
+        { {- /* Footer */ -} }
+        { {- partial "single/footer.html" . -} }
 
-    <div class="post-nav"><a href="/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" class="prev" rel="prev" title="基于PyTorch实现word2vec模型及其优化"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>基于PyTorch实现word2vec模型及其优化</a>
-            <a href="/blog/nndl-book-ch15-%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" class="next" rel="next" title="《神经网络与深度学习》第15章 - 序列生成模型">《神经网络与深度学习》第15章 - 序列生成模型<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
-</div>
-<div id="comments"><div id="utterances" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
-            </noscript></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
-</html>
+        { {- /* Comment */ -} }
+        { {- partial "comment.html" . -} }
+    </article>
+{ {- end -} }

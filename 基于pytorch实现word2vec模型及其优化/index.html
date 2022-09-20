@@ -1,302 +1,101 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>基于PyTorch实现word2vec模型及其优化 - Zubin`s Site</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="基于PyTorch实现word2vec模型及其优化" />
-<meta property="og:description" content="SkipGram NegativeSampling implemented in PyTorch. GitHub: https://github.com/ZubinGou/SGNS-PyTorch Paper Efficient Estimation of Word Representations in Vector Space (original word2vec paper) Distributed Representations of Words and Phrases and their Compositionality (negative sampling paper) Notes Word2Vec是用无监督方式从文本中学习词向量来表征语义信息的模型，语义相" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-03-08T13:46:57+08:00" />
-<meta property="article:modified_time" content="2021-03-08T13:46:57+08:00" /><meta property="og:site_name" content="My cool site" />
+{ {- define "title" } }{ { .Title } } - { { .Site.Title } }{ { end -} }
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
+{ {- define "content" -} }
+    { {- $params := .Scratch.Get "params" -} }
 
-<meta name="twitter:title" content="基于PyTorch实现word2vec模型及其优化"/>
-<meta name="twitter:description" content="SkipGram NegativeSampling implemented in PyTorch. GitHub: https://github.com/ZubinGou/SGNS-PyTorch Paper Efficient Estimation of Word Representations in Vector Space (original word2vec paper) Distributed Representations of Words and Phrases and their Compositionality (negative sampling paper) Notes Word2Vec是用无监督方式从文本中学习词向量来表征语义信息的模型，语义相"/>
-<meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" /><link rel="prev" href="https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" /><link rel="next" href="https://zubingou.github.io/blog/nlp-papersnerbilstm-crf/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "基于PyTorch实现word2vec模型及其优化",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/zubingou.github.io\/blog\/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96\/"
-        },"image": [{
-                            "@type": "ImageObject",
-                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
-                            "width":  3200 ,
-                            "height":  2048 
-                        }],"genre": "posts","keywords": "PyTorch, word2vec, NLP, Pre-training","wordcount":  693 ,
-        "url": "https:\/\/zubingou.github.io\/blog\/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96\/","datePublished": "2021-03-08T13:46:57+08:00","dateModified": "2021-03-08T13:46:57+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "ZubinGou","logo": {
-                    "@type": "ImageObject",
-                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
-                    "width":  304 ,
-                    "height":  304 
-                }},"author": {
-                "@type": "Person",
-                "name": "ZubinGou"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    { {- $toc := $params.toc -} }
+    { {- if eq $toc true -} }
+        { {- $toc = .Site.Params.page.toc | default dict -} }
+    { {- else if eq $toc false -} }
+        { {- $toc = dict "enable" false -} }
+    { {- end -} }
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- /* Auto TOC */ -} }
+    { {- if ne $toc.enable false -} }
+        <div class="toc" id="toc-auto">
+            <h2 class="toc-title">{ { T "contents" } }</h2>
+            <div class="toc-content{ { if eq $toc.auto false } } always-active{ { end } }" id="toc-content-auto"></div>
         </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/blog/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
-                    <i class="fa fa-globe" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" selected>简体中文</option></select>
-                </a></div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/blog/" title="Zubin`s Site">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
+    { {- end -} }
+
+    <article class="page single">
+        { {- /* Title */ -} }
+        <h1 class="single-title animate__animated animate__flipInX">{ { .Title | emojify } }</h1>
+
+        { {- /* Subtitle */ -} }
+        { {- with $params.subtitle -} }
+            <h2 class="single-subtitle">{ { . } }</h2>
+        { {- end -} }
+
+        { {- /* Meta */ -} }
+        <div class="post-meta">
+            <div class="post-meta-line">
+                { {- $author := $params.author | default .Site.Author.name | default (T "author") -} }
+                { {- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -} }
+                <span class="post-author">
+                    { {- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -} }
+                    { {- partial "plugin/a.html" $options -} }
+                </span>
+
+                { {- $categories := slice -} }
+                { {- range .Params.categories -} }
+                    { {- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -} }
+                    { {- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw" aria-hidden="true"></i>%v</a>` $category.RelPermalink $category.Title) -} }
+                { {- end -} }
+                { {- with delimit $categories "&nbsp;" -} }
+                    &nbsp;<span class="post-category">
+                        { {- dict "Categories" . | T "includedInCategories" | safeHTML -} }
+                    </span>
+                { {- end -} }
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
+            <div class="post-meta-line">
+                { {- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -} }
+                    <i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{ { . } }">{ { . } }</time>&nbsp;
+                { {- end -} }
+                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{ { T "wordCount" .WordCount } }&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{ { T "readingTime" .ReadingTime } }&nbsp;
+                { {- $comment := .Scratch.Get "comment" | default dict -} }
+                { {- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -} }
+                    <span id="{ { .RelPermalink } }" class="leancloud_visitors" data-flag-title="{ { .Title } }">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{ { T "views" } }
+                    </span>&nbsp;
+                { {- end -} }
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/blog/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
-                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" selected>简体中文</option></select>
-                </a></div>
-    </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">基于PyTorch实现word2vec模型及其优化</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/project/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Project</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-03-08">2021-03-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 693 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
+
+        { {- /* Featured image */ -} }
+        { {- $image := $params.featuredimage -} }
+        { {- with .Resources.GetMatch "featured-image" -} }
+            { {- $image = .RelPermalink -} }
+        { {- end -} }
+        { {- with $image -} }
+            <div class="featured-image">
+                { {- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -} }
+            </div>
+        { {- end -} }
+
+        { {- /* Static TOC */ -} }
+        { {- if ne $toc.enable false -} }
+            <div class="details toc" id="toc-static"  data-kept="{ { if $toc.keepStatic } }true{ { end } }">
                 <div class="details-summary toc-title">
-                    <span>目录</span>
+                    <span>{ { T "contents" } }</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#paper">Paper</a></li>
-    <li><a href="#notes">Notes</a>
-      <ul>
-        <li><a href="#subsampling">Subsampling</a></li>
-        <li><a href="#negative-sampling">Negative Sampling</a></li>
-      </ul>
-    </li>
-    <li><a href="#训练">训练</a></li>
-    <li><a href="#评估">评估</a></li>
-    <li><a href="#结果">结果</a></li>
-    <li><a href="#references">References</a></li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><p>SkipGram NegativeSampling implemented in PyTorch.</p>
-<blockquote>
-<p>GitHub: <a href="https://github.com/ZubinGou/SGNS-PyTorch" target="_blank" rel="noopener noreffer ">https://github.com/ZubinGou/SGNS-PyTorch</a></p>
-</blockquote>
-<h2 id="paper">Paper</h2>
-<ol>
-<li><a href="http://arxiv.org/pdf/1301.3781.pdf" target="_blank" rel="noopener noreffer ">Efficient Estimation of Word Representations in Vector Space</a> (original word2vec paper)</li>
-<li><a href="http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf" target="_blank" rel="noopener noreffer ">Distributed Representations of Words and Phrases and their Compositionality</a> (negative sampling paper)</li>
-</ol>
-<h2 id="notes">Notes</h2>
-<p><img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="../../../_resources/117fc4e48d744d729870aa5bca14d299.png"
-        data-srcset="../../../_resources/117fc4e48d744d729870aa5bca14d299.png, ../../../_resources/117fc4e48d744d729870aa5bca14d299.png 1.5x, ../../../_resources/117fc4e48d744d729870aa5bca14d299.png 2x"
-        data-sizes="auto"
-        alt="../../../_resources/117fc4e48d744d729870aa5bca14d299.png"
-        title="skip-gram.png" /></p>
-<p>Word2Vec是用无监督方式从文本中学习词向量来表征语义信息的模型，语义相近的词在嵌入空间中距离相近。类似于auto-encoder，Word2Vec训练的神经网络不用于处理新任务，真正需要的是模型参数，即隐层的权重矩阵。</p>
-<p>Skip-gram是在给定目标单词的情况下，预测其上下文单词。</p>
-<p>用两个word matrix，W表示目标单词向量矩阵(V*N)，W&rsquo;表示上下文单词向量矩阵（N*V），词向量维度N，词汇表维度V。</p>
-<p>模型：</p>
-<ol>
-<li>投影：$h_i=Wx_k$</li>
-<li>计算相似度：$z=W&rsquo;h_i$</li>
-<li>转换为概率分布：$\hat y=\text{softmax}(z)$</li>
-</ol>
-<p>高效训练的三个trick（来自第二篇paper）：</p>
-<ol>
-<li>subsampling of the frequent words</li>
-<li>nagative sampling (alternative to hierarchical softmax)</li>
-<li>treat word pairs / phases as one word</li>
-</ol>
-<h3 id="subsampling">Subsampling</h3>
-<p>高频词数量远超训练所需，所以进行抽样，基于词频以一定概率丢弃词汇（论文中公式）：
-$$
-P\left(w_{i}\right)=1-\sqrt{\frac{t}{f\left(w_{i}\right)}}
-$$</p>
-<p>作者实际使用的公式（t默认0.0001）：
-$$P\left(w_{i}\right)=\sqrt{\frac{t}{f\left(w_{i}\right)}} + \frac{t}{f\left(w_{i}\right)}$$</p>
-<h3 id="negative-sampling">Negative Sampling</h3>
-<p>负采样使得每个训练样本仅更新一小部分权重。negative word指期望概率为0的单词，选取概率为：
-$$
-P_n(w_i)=f(w_i)^{3 / 4} / Z
-$$</p>
-<h2 id="训练">训练</h2>
-<p>在 <code>text8</code> 语料上训练，默认采用词向量维数为100，词典大小为50000，window_size为5，负采样数为10。</p>
-<h2 id="评估">评估</h2>
-<ol>
-<li>基于词向量的语言学特性
-<ul>
-<li>similarity task 词相似</li>
-<li>analogy task 词类比 (A-B=C-D)</li>
-</ul>
-</li>
-<li>Task-specific
-<ul>
-<li>对具体任务的性能提升</li>
-</ul>
-</li>
-</ol>
-<p>这里基于词相似，在 <code>WordSim-353</code>、<code>Stanford Rare Word (RW)</code> 和 <code>SimLex-999</code> 上利用 <code>Spearman's rank correlation coefficient</code> 进行评估。</p>
-<h2 id="结果">结果</h2>
-<p>训练1小时（4个epoch），尚未完全拟合的情况下效果如下。对照 <code>Gensim Word2vec</code> 默认训练结果和 <a href="https://code.google.com/archive/p/word2vec/" target="_blank" rel="noopener noreffer "><code>GoogleNews-vectors-negative300</code></a> ：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>WordSim353</th>
-<th>RW</th>
-<th>SimLex-999</th>
-<th>Corpus</th>
-<th>embed_dim</th>
-<th>vocab_size</th>
-<th>Time</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Gensim</td>
-<td>0.624</td>
-<td>0.320</td>
-<td>0.250</td>
-<td>text8</td>
-<td>100</td>
-<td>71290</td>
-<td>1min</td>
-</tr>
-<tr>
-<td>SGNS-PyTorch</td>
-<td><strong>0.661</strong></td>
-<td>0.343</td>
-<td>0.265</td>
-<td>text8</td>
-<td>100</td>
-<td>50000</td>
-<td>1h</td>
-</tr>
-<tr>
-<td>GoogleNews</td>
-<td>0.659</td>
-<td><strong>0.553</strong></td>
-<td><strong>0.436</strong></td>
-<td>GoogleNews</td>
-<td>300</td>
-<td>3000000</td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-<p>测试过程和结果在 <a href="https://github.com/ZubinGou/SGNS-PyTorch/blob/main/test.ipynb" target="_blank" rel="noopener noreffer ">test.ipynb</a></p>
-<h2 id="references">References</h2>
-<ul>
-<li><a href="https://github.com/Andras7/word2vec-pytorch" target="_blank" rel="noopener noreffer ">https://github.com/Andras7/word2vec-pytorch</a></li>
-<li><a href="https://github.com/fanglanting/skip-gram-pytorch" target="_blank" rel="noopener noreffer ">https://github.com/fanglanting/skip-gram-pytorch</a></li>
-</ul>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-03-08</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" data-title="基于PyTorch实现word2vec模型及其优化" data-hashtags="PyTorch,word2vec,NLP,Pre-training"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" data-hashtag="PyTorch"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" data-title="基于PyTorch实现word2vec模型及其优化"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" data-title="基于PyTorch实现word2vec模型及其优化"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" data-title="基于PyTorch实现word2vec模型及其优化"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <div class="details-content toc-content" id="toc-content-static">
+                    { {- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
+                </div>
             </div>
+        { {- end -} }
+
+        { {- /* Content */ -} }
+        <div class="content" id="content">
+            { {- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
         </div>
-    </div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/pytorch/">PyTorch</a>,&nbsp;<a href="/blog/tags/word2vec/">word2vec</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/pre-training/">Pre-training</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
-        </section>
-    </div>
+        { {- /* Footer */ -} }
+        { {- partial "single/footer.html" . -} }
 
-    <div class="post-nav"><a href="/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" class="prev" rel="prev" title="《神经网络与深度学习》第8章 - 注意力机制和外部记忆"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>《神经网络与深度学习》第8章 - 注意力机制和外部记忆</a>
-            <a href="/blog/nlp-papersnerbilstm-crf/" class="next" rel="next" title="【NLP Papers】NER：BiLSTM-CRF">【NLP Papers】NER：BiLSTM-CRF<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
-</div>
-<div id="comments"><div id="utterances" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
-            </noscript></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
-</html>
+        { {- /* Comment */ -} }
+        { {- partial "comment.html" . -} }
+    </article>
+{ {- end -} }

@@ -13,7 +13,7 @@ $$
 
 给定N个序列的数据集，序列概率模型学习模型$p\_{\theta}\left(x \mid \boldsymbol{x}\_{1:(t-1)}\right)$来最大化整个数据集的对数似然函数：
 $$
-\max \_{\theta} \sum\_{n=1}^{N} \log p\_{\theta}\left(\boldsymbol{x}\_{1: T\_{n}}^{(n)}\right)=\max \_{\theta} \sum\_{n=1}^{N} \sum\_{t=1}^{T\_{n}} \log p\_{\theta}\left(x\_{t}^{(n)} \mid \boldsymbol{x}\_{1:(t-1)}^{(n)}\right)
+\max \_{\theta} \sum\_{n=1}^{N} \log p\_{\theta}\left(\boldsymbol{x}\_{1: T\_{n} }^{(n)}\right)=\max \_{\theta} \sum\_{n=1}^{N} \sum\_{t=1}^{T\_{n} } \log p\_{\theta}\left(x\_{t}^{(n)} \mid \boldsymbol{x}\_{1:(t-1)}^{(n)}\right)
 $$
 
 这种每次将前一步的输出作为当前输入的方式称为自回归（AutoRegressive），这类模型称为自动回归生成模型（AutoRegressive Generative Model）
@@ -35,7 +35,7 @@ $$
 
 N=1时，一元（Unigram）模型：
 $$
-p\left(\boldsymbol{x}\_{1: T} ; \theta\right)=\prod\_{t=1}^{T} p\left(x\_{t}\right)=\prod\_{k=1}^{|\mathcal{V}|} \theta\_{k}^{m\_{k}}
+p\left(\boldsymbol{x}\_{1: T} ; \theta\right)=\prod\_{t=1}^{T} p\left(x\_{t}\right)=\prod\_{k=1}^{|\mathcal{V}|} \theta\_{k}^{m\_{k} }
 $$
 
 可以证明，其最大似然估计等于频率估计
@@ -64,7 +64,7 @@ $$
 ## 15.3 深度序列模型
 深度序列模型（Deep Sequence Model）：用神经网络估计条件概率：
 $$
-p\_{\theta}\left(x\_{t} \mid \boldsymbol{x}\_{1:(t-1)}\right)=f\_{k\_{x\_{t}}}\left(\boldsymbol{x}\_{1:(t-1)} ; \theta\right)
+p\_{\theta}\left(x\_{t} \mid \boldsymbol{x}\_{1:(t-1)}\right)=f\_{k\_{x\_{t} }}\left(\boldsymbol{x}\_{1:(t-1)} ; \theta\right)
 $$
 
 ### 15.3.1 模型结构
@@ -78,7 +78,7 @@ $$
 ### 15.3.2 参数学习
 给定训练序列，训练目标是找到参数 $\theta$ （embed、weight、bias等）使得对数似然函数最大：
 $$
-p\_{\theta}\left(x\_{t} \mid \boldsymbol{x}\_{1:(t-1)}\right)=f\_{k\_{x\_{t}}}\left(\boldsymbol{x}\_{1:(t-1)} ; \theta\right)
+p\_{\theta}\left(x\_{t} \mid \boldsymbol{x}\_{1:(t-1)}\right)=f\_{k\_{x\_{t} }}\left(\boldsymbol{x}\_{1:(t-1)} ; \theta\right)
 $$
 
 一般通过梯度上升法学习：
@@ -104,15 +104,15 @@ $$
 
 对N个独立同分布的序列，测试集的联合概率为：
 $$
-\prod\_{n=1}^{N} p\_{\theta}\left(\boldsymbol{x}\_{1: T\_{n}}^{(n)}\right)=\prod\_{n=1}^{N} \prod\_{t=1}^{T\_{n}} p\_{\theta}\left(x\_{t}^{(n)} \mid \boldsymbol{x}\_{1:(t-1)}^{(n)}\right)
+\prod\_{n=1}^{N} p\_{\theta}\left(\boldsymbol{x}\_{1: T\_{n} }^{(n)}\right)=\prod\_{n=1}^{N} \prod\_{t=1}^{T\_{n} } p\_{\theta}\left(x\_{t}^{(n)} \mid \boldsymbol{x}\_{1:(t-1)}^{(n)}\right)
 $$
 
 模型$p_\theta(x)$的困惑度定义为：
 $$
 \begin{aligned}
-\operatorname{PPL}(\theta) &=2^{-\frac{1}{T} \sum\_{n=1}^{N} \log \_{2} p\_{\theta}\left(x\_{1: T\_{n}}^{(n)}\right)} \\\\
+\operatorname{PPL}(\theta) &=2^{-\frac{1}{T} \sum\_{n=1}^{N} \log \_{2} p\_{\theta}\left(x\_{1: T\_{n} }^{(n)}\right)} \\\\
 &=2^{-\frac{1}{T} \sum\_{n=1}^{N} \sum\_{t=1}^{T n} \log \_{2} p\_{\theta}\left(x\_{t}^{(n)} \mid x\_{1:(t-1)}^{(n)}\right)} \\\\
-&=\left(\prod\_{n=1}^{N} \prod\_{t=1}^{T\_{n}} p\_{\theta}\left(x\_{t}^{(n)} \mid x\_{1:(t-1)}^{(n)}\right)\right)^{-1 / T}
+&=\left(\prod\_{n=1}^{N} \prod\_{t=1}^{T\_{n} } p\_{\theta}\left(x\_{t}^{(n)} \mid x\_{1:(t-1)}^{(n)}\right)\right)^{-1 / T}
 \end{aligned}
 $$
 其中$T$为测试序列总长度。可以看到，困惑度为每个词的条件概率的几何平均数的倒数。
@@ -122,7 +122,7 @@ BLEU（BiLingual Evaluation Understudy）：衡量生成序列与参考序列之
 
 N 元组合的精度（Precision）：
 $$
-P\_{N}(\boldsymbol{x})=\frac{\sum\_{w \in \mathcal{W}} \min \left(c\_{w}(\boldsymbol{x}), \max \_{k=1}^{K} c\_{w}\left(\boldsymbol{s}^{(k)}\right)\right)}{\sum\_{w \in \mathcal{W}} c\_{w}(\boldsymbol{x})},
+P\_{N}(\boldsymbol{x})=\frac{\sum\_{w \in \mathcal{W} } \min \left(c\_{w}(\boldsymbol{x}), \max \_{k=1}^{K} c\_{w}\left(\boldsymbol{s}^{(k)}\right)\right)}{\sum\_{w \in \mathcal{W} } c\_{w}(\boldsymbol{x})},
 $$
 对每个N元组合$w$，累加$w$在K个参考序列中出现的最多次数，除以总N元组合个数，得到生成序列的N元组合在参考序列出现的比例。
 
@@ -136,7 +136,7 @@ $$
 
 BLEU是对不同长度的N元组合精度的几何加权平均：
 $$
-\operatorname{BLEU-N}(\boldsymbol{x})=b(\boldsymbol{x}) \times \exp \left(\sum\_{N=1}^{N^{\prime}} \alpha\_{N} \log P\_{N}\right)
+\operatorname{BLEU-N}(\boldsymbol{x})=b(\boldsymbol{x}) \times \exp \left(\sum\_{N=1}^{N^{\prime} } \alpha\_{N} \log P\_{N}\right)
 $$
 
 注：BLEU只计算精度，不关心召回率。
@@ -147,7 +147,7 @@ ROUGE（Recall-Oriented Understudy for Gisting Evaluation）
 - 计算召回率
 
 $$
-\operatorname{ROUGE-N}(\boldsymbol{x})=\frac{\sum\_{k=1}^{K} \sum\_{w \in \mathcal{W}} \min \left(c\_{w}(\boldsymbol{x}), c\_{w}\left(\boldsymbol{s}^{(k)}\right)\right)}{\sum\_{k=1}^{K} \sum\_{w \in \mathcal{W}} c\_{w}\left(\boldsymbol{s}^{(k)}\right)},
+\operatorname{ROUGE-N}(\boldsymbol{x})=\frac{\sum\_{k=1}^{K} \sum\_{w \in \mathcal{W} } \min \left(c\_{w}(\boldsymbol{x}), c\_{w}\left(\boldsymbol{s}^{(k)}\right)\right)}{\sum\_{k=1}^{K} \sum\_{w \in \mathcal{W} } c\_{w}\left(\boldsymbol{s}^{(k)}\right)},
 $$
 
 
@@ -165,12 +165,12 @@ $$
 
 用最大似然估计训练模型参数：
 $$
-\hat{\theta}=\underset{\theta}{\arg \max } \sum\_{n=1}^{N} \log p\_{\theta}\left(\boldsymbol{y}\_{1: T\_{n}} \mid \boldsymbol{x}\_{1: S\_{n}}\right)
+\hat{\theta}=\underset{\theta}{\arg \max } \sum\_{n=1}^{N} \log p\_{\theta}\left(\boldsymbol{y}\_{1: T\_{n} } \mid \boldsymbol{x}\_{1: S\_{n} }\right)
 $$
 
 根据输入序列生成最可能目标序列（greedy / beam search）：
 $$
-\hat{\boldsymbol{y}}=\underset{\boldsymbol{y}}{\arg \max } p\_{\hat{\theta}}(\boldsymbol{y} \mid \boldsymbol{x})
+\hat{\boldsymbol{y} }=\underset{\boldsymbol{y} }{\arg \max } p\_{\hat{\theta} }(\boldsymbol{y} \mid \boldsymbol{x})
 $$
 
 条件概率 $p\_{\theta}\left(y\_{t} \mid \boldsymbol{y}\_{1:(t-1)}, \boldsymbol{x}\_{1: S}\right)$ 可以通过不同神经网络实现，如RNN、注意力模型等。
@@ -188,17 +188,17 @@ $$
 解码过程中，将上一步的隐状态$h^{dec}\_{t-1}$作为查询向量，对所用输入序列的隐状态中选择信息：
 $$
 \begin{aligned}
-\boldsymbol{c}\_{t} &=\operatorname{att}\left(\boldsymbol{H}^{\mathrm{enc}}, \boldsymbol{h}\_{t-1}^{\mathrm{dec}}\right)=\sum\_{i=1}^{S} \alpha\_{i} \boldsymbol{h}\_{i}^{\mathrm{enc}} \\\\
-&=\sum\_{i=1}^{S} \operatorname{softmax}\left(s\left(\boldsymbol{h}\_{i}^{\mathrm{enc}}, \boldsymbol{h}\_{t-1}^{\mathrm{dec}}\right)\right) \boldsymbol{h}\_{i}^{\mathrm{enc}}
+\boldsymbol{c}\_{t} &=\operatorname{att}\left(\boldsymbol{H}^{\mathrm{enc} }, \boldsymbol{h}\_{t-1}^{\mathrm{dec} }\right)=\sum\_{i=1}^{S} \alpha\_{i} \boldsymbol{h}\_{i}^{\mathrm{enc} } \\\\
+&=\sum\_{i=1}^{S} \operatorname{softmax}\left(s\left(\boldsymbol{h}\_{i}^{\mathrm{enc} }, \boldsymbol{h}\_{t-1}^{\mathrm{dec} }\right)\right) \boldsymbol{h}\_{i}^{\mathrm{enc} }
 \end{aligned}
 $$
 
 将从输入序列中选择的信息$c_t$也作为解码器的输入，得到t步骤的隐状态：
 $$
-\boldsymbol{h}\_{t}^{\mathrm{dec}}=f\_{\mathrm{dec}}\left(\boldsymbol{h}\_{t-1}^{\mathrm{dec}},\left[\boldsymbol{e}\_{y\_{t-1}} ; \mathbf{c}\_{t}\right], \theta\_{\mathrm{dec}}\right)
+\boldsymbol{h}\_{t}^{\mathrm{dec} }=f\_{\mathrm{dec} }\left(\boldsymbol{h}\_{t-1}^{\mathrm{dec} },\left[\boldsymbol{e}\_{y\_{t-1} } ; \mathbf{c}\_{t}\right], \theta\_{\mathrm{dec} }\right)
 $$
 
-最后，将 $\boldsymbol{h}\_{t}^{\mathrm{dec}}$ 输入到分类器得到每个词的概率。
+最后，将 $\boldsymbol{h}\_{t}^{\mathrm{dec} }$ 输入到分类器得到每个词的概率。
 
 ### 15.6.1 基于自注意力的seq2seq
 基于CNN的seq2seq除了长程依赖，还有无法并行计算的缺陷，自注意力模型解决了这个问题。这里主要介绍Transformer。
@@ -206,7 +206,7 @@ $$
 自注意力：
 $$
 \begin{array}{l}
-\operatorname{self}-\operatorname{att}(\boldsymbol{Q}, \boldsymbol{K}, \boldsymbol{V})=\boldsymbol{V} \operatorname{softmax}\left(\frac{\boldsymbol{K}^{\top} \boldsymbol{Q}}{\sqrt{D\_{k}}}\right), \\\\
+\operatorname{self}-\operatorname{att}(\boldsymbol{Q}, \boldsymbol{K}, \boldsymbol{V})=\boldsymbol{V} \operatorname{softmax}\left(\frac{\boldsymbol{K}^{\top} \boldsymbol{Q} }{\sqrt{D\_{k} }}\right), \\\\
 \boldsymbol{Q}=\boldsymbol{W}\_{q} \boldsymbol{H}, \boldsymbol{K}=\boldsymbol{W}\_{k} \boldsymbol{H}, \boldsymbol{V}=\boldsymbol{W}\_{v} \boldsymbol{H}
 \end{array}
 $$
@@ -223,7 +223,7 @@ $$
 **基于self-attention的序列编码**
 由于self-attention忽略了未知信息，需要在初始输入序列中加入位置编码：
 $$
-\boldsymbol{H}^{(0)}=\left[\boldsymbol{e}\_{x\_{1}}+\boldsymbol{p}\_{1}, \cdots, \boldsymbol{e}\_{x\_{T}}+\boldsymbol{p}\_{T}\right]
+\boldsymbol{H}^{(0)}=\left[\boldsymbol{e}\_{x\_{1} }+\boldsymbol{p}\_{1}, \cdots, \boldsymbol{e}\_{x\_{T} }+\boldsymbol{p}\_{T}\right]
 $$
 
 其中$p_t$为位置编码，可以作为可学习参数，也可以预定义为：
@@ -253,16 +253,16 @@ $$
 
 **Transfermer**
 基于多头自注意力的seq2seq
-1. 编码器：多层的多头注意力，输入序列$\boldsymbol{x}\_{1: S}$，输出隐状态序列$\boldsymbol{H}^{\mathrm{enc}}=\left[\boldsymbol{h}\_{1}^{\mathrm{enc}}, \cdots, \boldsymbol{h}\_{S}^{\mathrm{en}}\right]$，再映射为键值对供解码器使用：
+1. 编码器：多层的多头注意力，输入序列$\boldsymbol{x}\_{1: S}$，输出隐状态序列$\boldsymbol{H}^{\mathrm{enc} }=\left[\boldsymbol{h}\_{1}^{\mathrm{enc} }, \cdots, \boldsymbol{h}\_{S}^{\mathrm{en} }\right]$，再映射为键值对供解码器使用：
 $$
 \begin{array}{l}
-\boldsymbol{K}^{\text {enc }}=\boldsymbol{W}\_{k}^{\prime} \boldsymbol{H}^{\text {enc }}, \\\\
-\boldsymbol{V}^{\text {enc }}=\boldsymbol{W}\_{v}^{\prime} \boldsymbol{H}^{\text {enc }}
+\boldsymbol{K}^{\text {enc } }=\boldsymbol{W}\_{k}^{\prime} \boldsymbol{H}^{\text {enc } }, \\\\
+\boldsymbol{V}^{\text {enc } }=\boldsymbol{W}\_{v}^{\prime} \boldsymbol{H}^{\text {enc } }
 \end{array}
 $$
 
 2. 解码器：自回归方式，三个部分：
-	a. 掩蔽自注意模块：使用自注意力编码已知前缀序列$\boldsymbol{y}\_{0:(t-1)}$，得到$\boldsymbol{H}^{\mathrm{dec}}=\left[\boldsymbol{h}\_{1}^{\mathrm{dec}}, \cdots, \boldsymbol{h}\_{t}^{\mathrm{dec}}\right]$
+	a. 掩蔽自注意模块：使用自注意力编码已知前缀序列$\boldsymbol{y}\_{0:(t-1)}$，得到$\boldsymbol{H}^{\mathrm{dec} }=\left[\boldsymbol{h}\_{1}^{\mathrm{dec} }, \cdots, \boldsymbol{h}\_{t}^{\mathrm{dec} }\right]$
 	b. 解码器到编码器模块：将$h_t^{dec}$线性映射得到$q_t^{dec}$，从编码器得到的键值对查询相关信息
 	c. 逐位置的FNN：使用FNN综合所有信息
 	
