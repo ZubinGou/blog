@@ -1,101 +1,534 @@
-{ {- define "title" } }{ { .Title } } - { { .Site.Title } }{ { end -} }
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>《神经网络与深度学习》第2章 - 机器学习概述 - Zubin`s Blog</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《神经网络与深度学习》第2章 - 机器学习概述" />
+<meta property="og:description" content="2 机器学习概述 2.1 基本概念 2.2 机器学习三要素 模型 线性 非线性 学习准则 损失函数 经验风险最小化（Empirical Risk Minimization, ERM） $\mathcal{R}_{\mathcal{D}}^{e m p}(\theta)=\frac{1}{N} \sum_{n=1}^{N} \mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ; \theta\right)\right)$ $\theta^{*}=\underset{\theta}{\arg \min } \mathcal{R}_{\mathcal{D}}^{e" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zubingou.github.io/blog/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-01-21T17:56:11+08:00" />
+<meta property="article:modified_time" content="2021-01-21T17:56:11+08:00" /><meta property="og:site_name" content="My cool site" />
 
-{ {- define "content" -} }
-    { {- $params := .Scratch.Get "params" -} }
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
 
-    { {- $toc := $params.toc -} }
-    { {- if eq $toc true -} }
-        { {- $toc = .Site.Params.page.toc | default dict -} }
-    { {- else if eq $toc false -} }
-        { {- $toc = dict "enable" false -} }
-    { {- end -} }
+<meta name="twitter:title" content="《神经网络与深度学习》第2章 - 机器学习概述"/>
+<meta name="twitter:description" content="2 机器学习概述 2.1 基本概念 2.2 机器学习三要素 模型 线性 非线性 学习准则 损失函数 经验风险最小化（Empirical Risk Minimization, ERM） $\mathcal{R}_{\mathcal{D}}^{e m p}(\theta)=\frac{1}{N} \sum_{n=1}^{N} \mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ; \theta\right)\right)$ $\theta^{*}=\underset{\theta}{\arg \min } \mathcal{R}_{\mathcal{D}}^{e"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" /><link rel="prev" href="https://zubingou.github.io/blog/nndl-book-ch1-%E7%BB%AA%E8%AE%BA/" /><link rel="next" href="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《神经网络与深度学习》第2章 - 机器学习概述",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "神经网络与深度学习, NLP, notes, DL","wordcount":  4933 ,
+        "url": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0\/","datePublished": "2021-01-21T17:56:11+08:00","dateModified": "2021-01-21T17:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-    { {- /* Auto TOC */ -} }
-    { {- if ne $toc.enable false -} }
-        <div class="toc" id="toc-auto">
-            <h2 class="toc-title">{ { T "contents" } }</h2>
-            <div class="toc-content{ { if eq $toc.auto false } } always-active{ { end } }" id="toc-content-auto"></div>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/" title="Zubin`s Blog">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
         </div>
-    { {- end -} }
-
-    <article class="page single">
-        { {- /* Title */ -} }
-        <h1 class="single-title animate__animated animate__flipInX">{ { .Title | emojify } }</h1>
-
-        { {- /* Subtitle */ -} }
-        { {- with $params.subtitle -} }
-            <h2 class="single-subtitle">{ { . } }</h2>
-        { {- end -} }
-
-        { {- /* Meta */ -} }
-        <div class="post-meta">
-            <div class="post-meta-line">
-                { {- $author := $params.author | default .Site.Author.name | default (T "author") -} }
-                { {- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -} }
-                <span class="post-author">
-                    { {- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -} }
-                    { {- partial "plugin/a.html" $options -} }
-                </span>
-
-                { {- $categories := slice -} }
-                { {- range .Params.categories -} }
-                    { {- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -} }
-                    { {- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw" aria-hidden="true"></i>%v</a>` $category.RelPermalink $category.Title) -} }
-                { {- end -} }
-                { {- with delimit $categories "&nbsp;" -} }
-                    &nbsp;<span class="post-category">
-                        { {- dict "Categories" . | T "includedInCategories" | safeHTML -} }
-                    </span>
-                { {- end -} }
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/" title="Zubin`s Blog">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
             </div>
-            <div class="post-meta-line">
-                { {- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -} }
-                    <i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{ { . } }">{ { . } }</time>&nbsp;
-                { {- end -} }
-                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{ { T "wordCount" .WordCount } }&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{ { T "readingTime" .ReadingTime } }&nbsp;
-                { {- $comment := .Scratch.Get "comment" | default dict -} }
-                { {- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -} }
-                    <span id="{ { .RelPermalink } }" class="leancloud_visitors" data-flag-title="{ { .Title } }">
-                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{ { T "views" } }
-                    </span>&nbsp;
-                { {- end -} }
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
             </div>
         </div>
-
-        { {- /* Featured image */ -} }
-        { {- $image := $params.featuredimage -} }
-        { {- with .Resources.GetMatch "featured-image" -} }
-            { {- $image = .RelPermalink -} }
-        { {- end -} }
-        { {- with $image -} }
-            <div class="featured-image">
-                { {- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -} }
-            </div>
-        { {- end -} }
-
-        { {- /* Static TOC */ -} }
-        { {- if ne $toc.enable false -} }
-            <div class="details toc" id="toc-static"  data-kept="{ { if $toc.keepStatic } }true{ { end } }">
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《神经网络与深度学习》第2章 - 机器学习概述</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/deep-learning/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Deep Learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-01-21">2021-01-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4933 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
-                    <span>{ { T "contents" } }</span>
+                    <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static">
-                    { {- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
-                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#21-基本概念">2.1 基本概念</a></li>
+    <li><a href="#22-机器学习三要素">2.2 机器学习三要素</a></li>
+    <li><a href="#23-示例线性回归">2.3 示例：线性回归</a>
+      <ul>
+        <li><a href="#1经验风险最小化">（1）经验风险最小化</a></li>
+        <li><a href="#2结构风险最小化">（2）结构风险最小化</a></li>
+        <li><a href="#3最大似然估计">（3）最大似然估计</a></li>
+        <li><a href="#4最大后验估计">（4）最大后验估计</a></li>
+      </ul>
+    </li>
+    <li><a href="#24-偏差-方差分解bias-variance-decomposition">2.4 偏差-方差分解（Bias-Variance Decomposition）</a></li>
+    <li><a href="#25-机器学习算法的类型">2.5 机器学习算法的类型</a></li>
+    <li><a href="#26-数据的特征表示">2.6 数据的特征表示</a>
+      <ul>
+        <li><a href="#261-传统的特征学习">2.6.1 传统的特征学习</a></li>
+        <li><a href="#262-深度学习方法">2.6.2 深度学习方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#27-评价指标">2.7 评价指标</a></li>
+    <li><a href="#28-理论和定理">2.8 理论和定理</a>
+      <ul>
+        <li><a href="#281-pac-学习理论">2.8.1 PAC 学习理论</a></li>
+        <li><a href="#282-没有免费午餐定理no-free-lunch-theoremnfl">2.8.2 没有免费午餐定理（No Free Lunch Theorem，NFL）</a></li>
+        <li><a href="#283-奥卡姆剃须刀原则occams-razor">2.8.3 奥卡姆剃须刀原则（Occam’s Razor）</a></li>
+        <li><a href="#284-丑小鸭定理ugly-duckling-theorem">2.8.4 丑小鸭定理（Ugly Duckling Theorem）</a></li>
+        <li><a href="#285-归纳偏置inductive-bias">2.8.5 归纳偏置（Inductive Bias）</a></li>
+      </ul>
+    </li>
+    <li><a href="#习题选做">习题选做</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#习题-2-1-分析为什么平方损失函数不适用于分类问题">习题 2-1 分析为什么平方损失函数不适用于分类问题</a></li>
+            <li><a href="#2-2">2-2</a></li>
+            <li><a href="#习题-2-11-分别用一元二元和三元特征的词袋模型表示文本我打了张三和张三打了我并分析不同模型的优缺点">习题 2-11 分别用一元、二元和三元特征的词袋模型表示文本“我打了张三”和“张三打了我”，并分析不同模型的优缺点．</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="2-机器学习概述">2 机器学习概述</h1>
+<h2 id="21-基本概念">2.1 基本概念</h2>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/0c6c8d9eb5e34dd792a11d7edce6d558.png"
+        data-srcset="../../_resources/0c6c8d9eb5e34dd792a11d7edce6d558.png, ../../_resources/0c6c8d9eb5e34dd792a11d7edce6d558.png 1.5x, ../../_resources/0c6c8d9eb5e34dd792a11d7edce6d558.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/0c6c8d9eb5e34dd792a11d7edce6d558.png"
+        title="5f6ed6d7a72c0ef1642b1419f57000ec.png" /></p>
+<h2 id="22-机器学习三要素">2.2 机器学习三要素</h2>
+<ul>
+<li>模型
+<ul>
+<li>线性</li>
+<li>非线性</li>
+</ul>
+</li>
+<li>学习准则
+<ul>
+<li>损失函数</li>
+<li>经验风险最小化（Empirical Risk Minimization, ERM）
+<ul>
+<li>$\mathcal{R}_{\mathcal{D}}^{e m p}(\theta)=\frac{1}{N} \sum_{n=1}^{N} \mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ; \theta\right)\right)$</li>
+<li>$\theta^{*}=\underset{\theta}{\arg \min } \mathcal{R}_{\mathcal{D}}^{e m p}(\theta)$</li>
+</ul>
+</li>
+<li>结构风险最小化（Structure Risk Minimization, SRM）
+<ul>
+<li>加入正则项，限制模型能力</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>优化算法
+<ul>
+<li>参数和超参数</li>
+<li>梯度下降</li>
+<li>提前停止</li>
+<li>BGD、SGD、mini-batch</li>
+</ul>
+</li>
+</ul>
+<h2 id="23-示例线性回归">2.3 示例：线性回归</h2>
+<ul>
+<li>线性模型：$f(\boldsymbol{x} ; \boldsymbol{w}, b)=\boldsymbol{w}^{\top} \boldsymbol{x}+b$
+<ul>
+<li>增广权重和特征向量后：$f(\boldsymbol{x} ; \hat{\boldsymbol{w}})=\hat{\boldsymbol{w}}^{\top} \hat{\boldsymbol{x}}$</li>
+</ul>
+</li>
+<li>参数估计
+<ul>
+<li>经验风险最小化</li>
+<li>结构风险最小化</li>
+<li>最大似然估计</li>
+<li>最大后验估计</li>
+</ul>
+</li>
+</ul>
+<h3 id="1经验风险最小化">（1）经验风险最小化</h3>
+<p>经验风险：
+$$\begin{aligned} \mathcal{R}(\boldsymbol{w}) &amp;=\sum_{n=1}^{N} \mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ; \boldsymbol{w}\right)\right) \\ &amp;=\frac{1}{2} \sum_{n=1}^{N}\left(y^{(n)}-\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}\right)^{2} \\ &amp;=\frac{1}{2}\left|\boldsymbol{y}-\boldsymbol{X}^{\top} \boldsymbol{w}\right|^{2} \end{aligned}$$</p>
+<p>偏导数：
+$$\begin{aligned} \frac{\partial \mathcal{R}(\boldsymbol{w})}{\partial \boldsymbol{w}} &amp;=\frac{1}{2} \frac{\partial\left|\boldsymbol{y}-\boldsymbol{X}^{\top} \boldsymbol{w}\right|^{2}}{\partial \boldsymbol{w}} \\ &amp;=-\boldsymbol{X}\left(\boldsymbol{y}-\boldsymbol{X}^{\top} \boldsymbol{w}\right) \end{aligned}$$</p>
+<p>令偏导数为0，求得最优参数：
+$$\begin{aligned} \boldsymbol{w}^{*} &amp;=\left(\boldsymbol{X} \boldsymbol{X}^{\mathrm{T}}\right)^{-1} \boldsymbol{X} \boldsymbol{y} \\ &amp;=\left(\sum_{n=1}^{N} \boldsymbol{x}^{(n)}\left(\boldsymbol{x}^{(n)}\right)^{\top}\right)^{-1}\left(\sum_{n=1}^{N} \boldsymbol{x}^{(n)} y^{(n)}\right) . \end{aligned}$$</p>
+<p>这种求解线性回归参数的方法称为<strong>最小二乘法（Least Square Method, LSM）</strong></p>
+<p>LSM要求$\boldsymbol{X X}^{\mathrm{T}} \in \mathbb{R}^{(D+1) \times(D+1)}$可逆，即满秩，即行向量线性无关，即每个特征与其他特征无关。常见的不可逆情况是样本数量N小于特征数量(D+1)，$\boldsymbol{X X}^{\mathrm{T}}$秩为N，存在多解。</p>
+<p>$\boldsymbol{X X}^{\mathrm{T}}$不可逆解决：</p>
+<ol>
+<li>先用主成分分析等方法预处理数据，消除不同特征的相关性，再用最小二乘法</li>
+<li>用梯度下降法估计参数，初始化$\boldsymbol{w}=0$，迭代：
+$$\boldsymbol{w} \leftarrow \boldsymbol{w}+\alpha \boldsymbol{X}\left(\boldsymbol{y}-\boldsymbol{X}^{\top} \boldsymbol{w}\right)$$
+<ul>
+<li>也称最小均方算法（Least Mean Squares, LMS)</li>
+</ul>
+</li>
+</ol>
+<h3 id="2结构风险最小化">（2）结构风险最小化</h3>
+<p>最小二乘法要求特征相互独立，但即使独立，如果特征之间有较大多重共线性（Multicollinearity，即其他特征线性组合预测某一特征），也会使得$\boldsymbol{X X}^{\top}$的逆数值无法准确计算。数据集X上的小扰动就会导致逆发生大的改变，结果不稳定。</p>
+<p>解决：[Hoerl et al., 1970] 岭回归（Ridge Regression）
+给$X X^{\top}$对角元素加上常数$\lambda$使得$\left(\boldsymbol{X X}^{\top}+\lambda I\right)$满秩（？），最优参数为：
+$$\boldsymbol{w}^{*}=\left(\boldsymbol{X} \boldsymbol{X}^{\top}+\lambda I\right)^{-1} \boldsymbol{X} \boldsymbol{y}$$</p>
+<p>岭回归的解$\boldsymbol{w}^*$可以看作<strong>结构风险最小化准则</strong>下的最小二乘估计，目标函数可以写为：
+$$\mathcal{R}(\boldsymbol{w})=\frac{1}{2}\left|\boldsymbol{y}-\boldsymbol{X}^{\top} \boldsymbol{w}\right|^{2}+\frac{1}{2} \lambda|\boldsymbol{w}|^{2}$$</p>
+<h3 id="3最大似然估计">（3）最大似然估计</h3>
+<blockquote>
+<ul>
+<li>概率表达了给定$\theta$下随机变量$\mathbf{X}=\mathbf{x}$的可能性，似然表达了给定样本$\mathbf{X}=\mathbf{x}$下参数$\theta_1$（相对于参数$\theta_2$）为真实值的可能性</li>
+<li>似然函数定义：$L(\theta \mid \mathbf{x})=f(\mathbf{x} \mid \theta)$，严格记号竖线|表示条件概率/分布，分号;隔开参数，则该式子严格书写应为：$L(\theta \mid \mathbf{x})=f(\mathbf{x} ; \theta)$</li>
+</ul>
+</blockquote>
+<p>y随机变量为函数加噪声：
+$$y=f(\boldsymbol{x} ; \boldsymbol{w})+\epsilon=\boldsymbol{w}^{\top} \boldsymbol{x}+\epsilon$$</p>
+<p>其中$\epsilon$服从高斯分布，则y服从高斯分布：</p>
+<p>$$\begin{aligned} p(y \mid \boldsymbol{x} ; \boldsymbol{w}, \sigma) &amp;=\mathcal{N}\left(y ; \boldsymbol{w}^{\top} \boldsymbol{x}, \sigma^{2}\right) \\ &amp;=\frac{1}{\sqrt{2 \pi} \sigma} \exp \left(-\frac{\left(y-\boldsymbol{w}^{\top} \boldsymbol{x}\right)^{2}}{2 \sigma^{2}}\right) . \end{aligned}$$</p>
+<p>参数$\boldsymbol{w}$在训练集上的似然函数（Likelihood）：
+$$\begin{aligned} p(\boldsymbol{y} \mid \boldsymbol{X} ; \boldsymbol{w}, \sigma) &amp;=\prod_{n=1}^{N} p\left(y^{(n)} \mid \boldsymbol{x}^{(n)} ; \boldsymbol{w}, \sigma\right) \\ &amp;=\prod_{n=1}^{N} \mathcal{N}\left(y^{(n)} ; \boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}, \sigma^{2}\right), \end{aligned}$$</p>
+<p>方便计算取对数似然函数（Log Likelihood）：
+$$\log p(\boldsymbol{y} \mid \boldsymbol{X} ; \boldsymbol{w}, \sigma)=\sum_{n=1}^{N} \log \mathcal{N}\left(y^{(n)} ; \boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}, \sigma^{2}\right)$$</p>
+<p>最大似然估计（Maximum Likelihood Estimation，MLE）指找到参数$\boldsymbol{w}$使得似然函数最大，令偏导数为0得到：
+$$\boldsymbol{w}^{M L}=\left(\boldsymbol{X} \boldsymbol{X}^{\top}\right)^{-1} \boldsymbol{X} \boldsymbol{y}$$</p>
+<p>与最小二乘法解相同。</p>
+<h3 id="4最大后验估计">（4）最大后验估计</h3>
+<ul>
+<li>为了避免最大似然估计因数据较少而过拟合，给参数分布加上先验知识（如符合各向同性高斯分布）</li>
+<li>最大后验估计（Maximum A Posteriori Estimation，MAP）是指最优参数为后验分布 𝑝(𝒘|𝑿, 𝒚; 𝜈, 𝜎) 中概率密度最高的参数：
+$$\boldsymbol{w}^{M A P}=\underset{\boldsymbol{w}}{\arg \max } p(\boldsymbol{y} \mid \boldsymbol{X}, \boldsymbol{w} ; \sigma) p(\boldsymbol{w} ; \nu)$$</li>
+</ul>
+<p>$$\begin{aligned} \log p(\boldsymbol{w} \mid \boldsymbol{X}, \boldsymbol{y} ; \nu, \sigma) &amp; \propto \log p(\boldsymbol{y} \mid \boldsymbol{X}, \boldsymbol{w} ; \sigma)+\log p(\boldsymbol{w} ; v) \\ &amp; \propto-\frac{1}{2 \sigma^{2}} \sum_{n=1}^{N}\left(y^{(n)}-\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}\right)^{2}-\frac{1}{2 v^{2}} \boldsymbol{w}^{\top} \boldsymbol{w} \\ &amp;=-\frac{1}{2 \sigma^{2}}\left|\boldsymbol{y}-\boldsymbol{X}^{\top} \boldsymbol{w}\right|^{2}-\frac{1}{2 v^{2}} \boldsymbol{w}^{\top} \boldsymbol{w} \end{aligned}$$</p>
+<p>等价于平方损失的结构风险最小化。</p>
+<h2 id="24-偏差-方差分解bias-variance-decomposition">2.4 偏差-方差分解（Bias-Variance Decomposition）</h2>
+<p>$$\mathbb{E}_{\mathcal{D}}\left[\left(f_{\mathcal{D}}(\boldsymbol{x})-f^{*}(\boldsymbol{x})\right)^{2}\right]$$</p>
+<p>$$\quad=\mathbb{E}_{\mathcal{D}}\left[\left(f_{\mathcal{D}}(\boldsymbol{x})-\mathbb{E}_{\mathcal{D}}\left[f_{\mathcal{D}}(\boldsymbol{x})\right]+\mathbb{E}_{\mathcal{D}}\left[f_{\mathcal{D}}(\boldsymbol{x})\right]-f^{*}(\boldsymbol{x})\right)^{2}\right]$$</p>
+<p>$$\quad=\underbrace{\left(\mathbb{E}_{\mathcal{D}}\left[f_{\mathcal{D}}(\boldsymbol{x})\right]-f^{*}(\boldsymbol{x})\right)^{2}}_{\text {(bias.} \mathrm{x})^{2}}+\underbrace{\mathbb{E}_{\mathcal{D}}\left[\left(f_{\mathcal{D}}(\boldsymbol{x})-\mathbb{E}_{\mathcal{D}}\left[f_{\mathcal{D}}(\boldsymbol{x})\right]\right)^{2}\right]}_{\text {variance.} \mathrm{x}},$$</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/c7687aa1e3bf4cb097f5eff1b0e00eae.png"
+        data-srcset="../../_resources/c7687aa1e3bf4cb097f5eff1b0e00eae.png, ../../_resources/c7687aa1e3bf4cb097f5eff1b0e00eae.png 1.5x, ../../_resources/c7687aa1e3bf4cb097f5eff1b0e00eae.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/c7687aa1e3bf4cb097f5eff1b0e00eae.png"
+        title="f2a461e93ab4c01948036725631693a7.png" /></p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/7c75237538054f9f9d3bba82648419af.png"
+        data-srcset="../../_resources/7c75237538054f9f9d3bba82648419af.png, ../../_resources/7c75237538054f9f9d3bba82648419af.png 1.5x, ../../_resources/7c75237538054f9f9d3bba82648419af.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/7c75237538054f9f9d3bba82648419af.png"
+        title="31db780d35f0bc8de934e105669d0ec2.png" /></p>
+<h2 id="25-机器学习算法的类型">2.5 机器学习算法的类型</h2>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/a7d5d3537b0541178dbf8c32884a5786.png"
+        data-srcset="../../_resources/a7d5d3537b0541178dbf8c32884a5786.png, ../../_resources/a7d5d3537b0541178dbf8c32884a5786.png 1.5x, ../../_resources/a7d5d3537b0541178dbf8c32884a5786.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/a7d5d3537b0541178dbf8c32884a5786.png"
+        title="c18f2f6e041d2844cd1750acf122869f.png" /></p>
+<h2 id="26-数据的特征表示">2.6 数据的特征表示</h2>
+<p>图像特征：简单表示为$M\times N$维向量。为提高准确率，也常常加入额外特征，如直方图、宽高比、纹理特征、边缘特征等。假设总共抽取了D个特征，则这些特征可以表示为一个向量$x \in \mathbb{R}^{D}$</p>
+<p>文本特征：</p>
+<ul>
+<li>BOW</li>
+<li>N-Gram</li>
+</ul>
+<p>直接使用原始特征进行学习，对模型能力要求高，原始特征存在很多不足。</p>
+<p>特征工程（Feature Engineering）：人工特征提取</p>
+<p>特征学习（Feature Learning）/表示学习（Representation Learning）：机器自动学习有效的特征</p>
+<h3 id="261-传统的特征学习">2.6.1 传统的特征学习</h3>
+<ol>
+<li>特征选择（Feature Selection）
+<ul>
+<li>选取特征子集</li>
+<li>子集搜索：
+<ul>
+<li>暴力：搜索全部$2^{D}$个候选子集</li>
+<li>贪心：
+<ul>
+<li>前向搜索（Forward Search）：空集开始，每一轮加入最优特征</li>
+<li>反向搜索（Backward Search）：原始开始，每一轮删除最无用特征</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>子集搜索方法分类：
+<ul>
+<li>过滤式方法（Filter Method）：不依赖于具体机器学习模型，每次增加最有信息量的特征，或删除最没有信息量的特征。通过信息增益（Information Gain）衡量。</li>
+<li>包裹式方法（Wrapper Method）：使用后续机器学习模型的准确率作为评价，每次增加最有用特征，或删除最无用特征。将机器学习模型包裹到特征选择过程内部</li>
+</ul>
+</li>
+<li>$\ell_{1}$ 正则化：也可以实现特征选择，因为$\ell_{1}$ 正则化导致稀疏特征，间接实现了特征选择</li>
+</ul>
+</li>
+<li>特征抽取（Feature Extraction）
+<ul>
+<li>构造新的特征空间，将原始特征投影在新的空间中得到新的表示</li>
+<li>特征抽取分类：
+<ul>
+<li>监督：抽取对特性任务最有用的特征，eg. 线性判别分析（Linear Discriminant Analysis，LDA）</li>
+<li>无监督：与具体任务无关，目的通常是减少冗余信息和噪声，eg. 主成分分析（Principal Component Analysis，PCA）和自编码器（Auto-Encoder，AE）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/4d33184115d0432bbf5ba35b023bab54.png"
+        data-srcset="../../_resources/4d33184115d0432bbf5ba35b023bab54.png, ../../_resources/4d33184115d0432bbf5ba35b023bab54.png 1.5x, ../../_resources/4d33184115d0432bbf5ba35b023bab54.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/4d33184115d0432bbf5ba35b023bab54.png"
+        title="297240b74879b94c7acfd1a9805e1732.png" /></p>
+<p>特征选择和特征抽取的优点：用较少特征表示原始特征大部分信息，去掉噪声信息，并进而调高计算效率和减小维度灾难（Curse of Dimensionality）。因为特征选择或抽取后一般特征数量会减少，也经常称为维数约减或降维（Dimension Reduction）。</p>
+<h3 id="262-深度学习方法">2.6.2 深度学习方法</h3>
+<p>传统的特征抽取一般是和预测模型的学习分离的</p>
+<p>深度学习：表示学习和预测学习有机统一，端到端。难点是如何评价表示学习对最终系统输出结果的贡献或影响，即贡献度分配问题。目前比较有效的模型是神经网络，将最后的输出层作为预测学习，其他层作为表示学习</p>
+<h2 id="27-评价指标">2.7 评价指标</h2>
+<ul>
+<li>准确率（Accuracy）：$\mathcal{A}=\frac{1}{N} \sum_{n=1}^{N} I\left(y^{(n)}=\hat{y}^{(n)}\right)$</li>
+<li>错误率（Error Rate）：$\begin{aligned} \mathcal{E} &amp;=1-\mathcal{A} \\ &amp;=\frac{1}{N} \sum_{n=1}^{N} I\left(y^{(n)} \neq \hat{y}^{(n)}\right) \end{aligned}$
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/d43f8ec19b0947e399b1e80a01bcd3ff.png"
+        data-srcset="../../_resources/d43f8ec19b0947e399b1e80a01bcd3ff.png, ../../_resources/d43f8ec19b0947e399b1e80a01bcd3ff.png 1.5x, ../../_resources/d43f8ec19b0947e399b1e80a01bcd3ff.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/d43f8ec19b0947e399b1e80a01bcd3ff.png"
+        title="6e3be3d20d784add857bb60e0892b113.png" /></li>
+<li>精确率/精度/查准率（Precision）：$\mathcal{P}_{c}=\frac{T P_{c}}{T P_{c}+F P_{c}}$</li>
+<li>召回率（Recall）/查全率：$\mathcal{R}_{c}=\frac{T P_{c}}{T P_{c}+F N_{c}}$</li>
+<li>F值（F Measure）：$\mathcal{F}_{c}=\frac{\left(1+\beta^{2}\right) \times \mathcal{P}_{c} \times \mathcal{R}_{c}}{\beta^{2} \times \mathcal{P}_{c}+\mathcal{R}_{c}}$</li>
+<li>宏平均（Macro Average）：<strong>每一类</strong>的性能指标的算术平均值
+<ul>
+<li>$\begin{aligned} \mathcal{P}_{\text {macro }} &amp;=\frac{1}{C} \sum_{c=1}^{C} \mathcal{P}_{c} \\ \mathcal{R}_{\text {macro }} &amp;=\frac{1}{C} \sum_{c=1}^{C} \mathcal{R}_{c} \\ \mathcal{F} 1_{\text {macro }} &amp;=\frac{2 \times \mathcal{P}_{\text {macro }} \times R_{\text {macro }}}{P_{\text {macro }}+R_{\text {macro }}} . \end{aligned}$</li>
+</ul>
+</li>
+<li>微平均（Micro Average）：<strong>每一个样本</strong>的性能指标的算术平均值
+<ul>
+<li>不同类别的样本数量不均衡时，使用宏平均比微平均更合理，因为宏平均更关注小类别上的评价指标</li>
+</ul>
+</li>
+<li>在实际应用中，我们也可以通过调整分类模型的阈值来进行更全面的评价，比如 AUC（Area Under Curve）、ROC（Receiver Operating Characteristic）曲线、PR（Precision-Recall）曲线等．</li>
+<li>此外，很多任务还有自己专门的评价方式，比如TopN 准确率．</li>
+<li>交叉验证（Cross-Validation）：K组，轮流一组测试，其他训练，求平均</li>
+</ul>
+<h2 id="28-理论和定理">2.8 理论和定理</h2>
+<h3 id="281-pac-学习理论">2.8.1 PAC 学习理论</h3>
+<ul>
+<li>
+<p>计算学习理论（Computational Learning Theory）是机器学习的理论基础：分析问题难度、计算模型能力，为学习算法提供理论保证，并指导机器学习模型和学习算法的设计</p>
+</li>
+<li>
+<p>其中最基础的理论就是<strong>可能近似正确（Probably Approximately Correct，PAC）学习理论</strong>．</p>
+</li>
+<li>
+<p>泛化错误（Generalization Error）：期望错误与经验错误之间的差异，可以衡量模型是否可以很好地泛化到未知数据
+$$\mathcal{G}_{\mathcal{D}}(f)=\mathcal{R}(f)-\mathcal{R}_{\mathcal{D}}^{e m p}(f)$$</p>
+</li>
+<li>
+<p>根据大数定律，训练集趋于无穷大时，经验风险趋近于期望风险，泛化错误趋向于0：$\lim _{|\mathcal{D}| \rightarrow \infty} \mathcal{R}(f)-\mathcal{R}_{\mathcal{D}}^{e m p}(f)=0$</p>
+</li>
+<li>
+<p>PAC学习（PAC Learning）：因为不知道真实数据分布、目标函数，需要降低学习算法能力期望，只要求算法以一定概率学习到一个近似正确的假设</p>
+<ol>
+<li>近似正确（Approximately Correct）：泛化错误 𝒢𝒟(𝑓) 小于一个界限 𝜖</li>
+<li>可能（Probably）：一个学习算法𝒜 有“可能”以 1−𝛿 的概率学习到这样一个“近似正确”的假设</li>
+</ol>
+</li>
+<li>
+<p>PAC可学习（PAC-Learnable）的算法：该学习算法能够在多项式时间内从合理数量的训练数据中学习到一个近似正确的𝑓(𝒙)</p>
+</li>
+<li>
+<p>PAC学习的公式描述：$P\left(\left(\mathcal{R}(f)-\mathcal{R}_{\mathcal{D}}^{e m p}(f)\right) \leq \epsilon\right) \geq 1-\delta$</p>
+<ul>
+<li>其中 𝜖,𝛿 是和样本数量 𝑁 以及假设空间$\mathcal{F}$相关的变量．如果固定 𝜖,𝛿，可以反过来计算出需要的样本数量：
+$$N(\epsilon, \delta) \geq \frac{1}{2 \epsilon^{2}}\left(\log |\mathcal{F}|+\log \frac{2}{\delta}\right)$$</li>
+<li>可以看到，模型越复杂，即假设空间$\mathcal{F}$越大， 模型泛化能力越差为了提高模型的泛化能力，通常需要正则化（Regularization）来限制模型复杂度．</li>
+</ul>
+</li>
+</ul>
+<h3 id="282-没有免费午餐定理no-free-lunch-theoremnfl">2.8.2 没有免费午餐定理（No Free Lunch Theorem，NFL）</h3>
+<ul>
+<li>
+<p>Wolpert 和 Macerday 在最优化理论提出：对于基于迭代的最优化算法，不存在某种算法对所有问题（有限的搜索空间内）都有效</p>
+</li>
+<li>
+<p>如果一个算法对某些问题有效，那么它一定在另外一些问题上比纯随机搜索算法更差</p>
+</li>
+<li>
+<p>也就是说，不能脱离具体问题来谈论算法的优劣，任何算法都有局限性．必须要“具体问题具体分析”．</p>
+</li>
+<li>
+<p>机器学习中，不存在一种机器学习算法能适合于任何领域或任务</p>
+</li>
+</ul>
+<h3 id="283-奥卡姆剃须刀原则occams-razor">2.8.3 奥卡姆剃须刀原则（Occam’s Razor）</h3>
+<ul>
+<li>如无必要，勿增实体</li>
+<li>正则化思想：简单模型泛化能力好</li>
+<li>性能相近模型，选择简单的</li>
+<li>最小描述长度（Minimum Description Length，MDL）原则
+<ul>
+<li>奥卡姆剃刀的一种形式化</li>
+<li>即对一个数据集 𝒟，最好的模型$f \in \mathcal{F}$会使得数据集的压缩效果最好，即编码长度最小（压缩数据长度 + 模型长度）</li>
+<li>贝叶斯学习解释：模型𝑓 在数据集𝒟 上的对数后验概率为$\begin{aligned} \max _{f} \log p(f \mid \mathcal{D}) &amp;=\max _{f} \log p(\mathcal{D} \mid f)+\log p(f) \\ &amp;=\min _{f}-\log p(\mathcal{D} \mid f)-\log p(f) \end{aligned}$</li>
+</ul>
+</li>
+</ul>
+<h3 id="284-丑小鸭定理ugly-duckling-theorem">2.8.4 丑小鸭定理（Ugly Duckling Theorem）</h3>
+<p>[Watanable, 1969]：“丑小鸭与白天鹅之间的区别和两只白天鹅之间的区别一样大”</p>
+<p>不存在相似性的客观标准，一切相似性标注都是主观的。eg. 外观两只白天鹅更相似，基因丑小鸭与它父母的差别小于它父母与其他白天鹅的差别。</p>
+<h3 id="285-归纳偏置inductive-bias">2.8.5 归纳偏置（Inductive Bias）</h3>
+<p>归纳偏置：学习算法对学习问题做的假设。贝叶斯学习称之为先验（Prior）</p>
+<p>eg. 最近邻分类器中，我们会假设在特征空间中，一个小的局部区域中的大部分样本同属一类．在朴素贝叶斯分类器中，我们会假设每个特征的条件概率是互相独立的</p>
+<h2 id="习题选做">习题选做</h2>
+<h4 id="习题-2-1-分析为什么平方损失函数不适用于分类问题">习题 2-1 分析为什么平方损失函数不适用于分类问题</h4>
+<p>损失函数用于反应问题的优化程度，分类问题中的标签，没有连续概念，每个标签之间的距离也没有意义，预测值和标签之间的均分误差不能反应问题的优化程度。</p>
+<p>最小化平方损失函数本质上等同于在误差服从高斯分布的假设下的极大似然估计，在分类问题下大部分时候误差并不服从高斯分布。</p>
+<h4 id="2-2">2-2</h4>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/6761b09973b44c4cbf45dbb7c8dbdbc4.png"
+        data-srcset="../../_resources/6761b09973b44c4cbf45dbb7c8dbdbc4.png, ../../_resources/6761b09973b44c4cbf45dbb7c8dbdbc4.png 1.5x, ../../_resources/6761b09973b44c4cbf45dbb7c8dbdbc4.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/6761b09973b44c4cbf45dbb7c8dbdbc4.png"
+        title="e4fa93d5a8c31fdeb83c11c0e8ef7b0f.png" />
+$w=\left(X^{T} R X\right)^{-1}(R X)^{T} Y$
+每个样本重视程度不同</p>
+<h4 id="习题-2-11-分别用一元二元和三元特征的词袋模型表示文本我打了张三和张三打了我并分析不同模型的优缺点">习题 2-11 分别用一元、二元和三元特征的词袋模型表示文本“我打了张三”和“张三打了我”，并分析不同模型的优缺点．</h4>
+<p>一元：我、打了、张三
+x1 = [1,1,1]
+x2 = [1,1,1]
+无法表示语序</p>
+<p>二元：$我、$张三、我打了、张三打了、打了张三、打了我、张三#、我#
+$x_{1}=[1,0,1,0,1,0,1,0]$
+$x_{2}=[0,1,0,1,0,1,0,1]$
+可以表示单词间相邻顺序</p>
+<p>三元：$我打了、$张三打了、我打了张三、张三打了我、打了张三#、打了我#
+$x_{1}=[1,0,1,0,1,0]$
+$x_{2}=[0,1,0,1,0,1]$
+可以表示单词前后相邻顺序</p>
+<p>n-gram：n为1时，无法表示顺序信息，n太大出现一个特征表示一个句子的情况，失去文本元信息</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-01-21</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/blog/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" data-title="《神经网络与深度学习》第2章 - 机器学习概述" data-hashtags="神经网络与深度学习,NLP,notes,DL"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" data-title="《神经网络与深度学习》第2章 - 机器学习概述"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" data-title="《神经网络与深度学习》第2章 - 机器学习概述"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" data-title="《神经网络与深度学习》第2章 - 机器学习概述"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
-        { {- end -} }
-
-        { {- /* Content */ -} }
-        <div class="content" id="content">
-            { {- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
         </div>
+    </div>
 
-        { {- /* Footer */ -} }
-        { {- partial "single/footer.html" . -} }
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a>,&nbsp;<a href="/blog/tags/dl/">DL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
+        </section>
+    </div>
 
-        { {- /* Comment */ -} }
-        { {- partial "comment.html" . -} }
-    </article>
-{ {- end -} }
+    <div class="post-nav"><a href="/blog/nndl-book-ch1-%E7%BB%AA%E8%AE%BA/" class="prev" rel="prev" title="《神经网络与深度学习》第1章 - 绪论"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>《神经网络与深度学习》第1章 - 绪论</a>
+            <a href="/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" class="next" rel="next" title="《神经网络与深度学习》第3章 - 线性模型">《神经网络与深度学习》第3章 - 线性模型<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
+</html>

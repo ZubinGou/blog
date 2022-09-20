@@ -1,101 +1,600 @@
-{ {- define "title" } }{ { .Title } } - { { .Site.Title } }{ { end -} }
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>《神经网络与深度学习》第8章 - 注意力机制和外部记忆 - Zubin`s Blog</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《神经网络与深度学习》第8章 - 注意力机制和外部记忆" />
+<meta property="og:description" content="用CNN等编码一个向量表示文本所有特征，存在信息瓶颈 网络容量（Network Capacity）：存储信息受限与神经元数量和网络复杂度 对于过载" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-26T13:56:11+08:00" />
+<meta property="article:modified_time" content="2021-02-26T13:56:11+08:00" /><meta property="og:site_name" content="My cool site" />
 
-{ {- define "content" -} }
-    { {- $params := .Scratch.Get "params" -} }
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
 
-    { {- $toc := $params.toc -} }
-    { {- if eq $toc true -} }
-        { {- $toc = .Site.Params.page.toc | default dict -} }
-    { {- else if eq $toc false -} }
-        { {- $toc = dict "enable" false -} }
-    { {- end -} }
+<meta name="twitter:title" content="《神经网络与深度学习》第8章 - 注意力机制和外部记忆"/>
+<meta name="twitter:description" content="用CNN等编码一个向量表示文本所有特征，存在信息瓶颈 网络容量（Network Capacity）：存储信息受限与神经元数量和网络复杂度 对于过载"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" /><link rel="prev" href="https://zubingou.github.io/blog/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="next" href="https://zubingou.github.io/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《神经网络与深度学习》第8章 - 注意力机制和外部记忆",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "神经网络与深度学习, NLP, notes, ML","wordcount":  4092 ,
+        "url": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86\/","datePublished": "2021-02-26T13:56:11+08:00","dateModified": "2021-02-26T13:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-    { {- /* Auto TOC */ -} }
-    { {- if ne $toc.enable false -} }
-        <div class="toc" id="toc-auto">
-            <h2 class="toc-title">{ { T "contents" } }</h2>
-            <div class="toc-content{ { if eq $toc.auto false } } always-active{ { end } }" id="toc-content-auto"></div>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/" title="Zubin`s Blog">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
         </div>
-    { {- end -} }
-
-    <article class="page single">
-        { {- /* Title */ -} }
-        <h1 class="single-title animate__animated animate__flipInX">{ { .Title | emojify } }</h1>
-
-        { {- /* Subtitle */ -} }
-        { {- with $params.subtitle -} }
-            <h2 class="single-subtitle">{ { . } }</h2>
-        { {- end -} }
-
-        { {- /* Meta */ -} }
-        <div class="post-meta">
-            <div class="post-meta-line">
-                { {- $author := $params.author | default .Site.Author.name | default (T "author") -} }
-                { {- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -} }
-                <span class="post-author">
-                    { {- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -} }
-                    { {- partial "plugin/a.html" $options -} }
-                </span>
-
-                { {- $categories := slice -} }
-                { {- range .Params.categories -} }
-                    { {- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -} }
-                    { {- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw" aria-hidden="true"></i>%v</a>` $category.RelPermalink $category.Title) -} }
-                { {- end -} }
-                { {- with delimit $categories "&nbsp;" -} }
-                    &nbsp;<span class="post-category">
-                        { {- dict "Categories" . | T "includedInCategories" | safeHTML -} }
-                    </span>
-                { {- end -} }
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/" title="Zubin`s Blog">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
             </div>
-            <div class="post-meta-line">
-                { {- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -} }
-                    <i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{ { . } }">{ { . } }</time>&nbsp;
-                { {- end -} }
-                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{ { T "wordCount" .WordCount } }&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{ { T "readingTime" .ReadingTime } }&nbsp;
-                { {- $comment := .Scratch.Get "comment" | default dict -} }
-                { {- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -} }
-                    <span id="{ { .RelPermalink } }" class="leancloud_visitors" data-flag-title="{ { .Title } }">
-                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{ { T "views" } }
-                    </span>&nbsp;
-                { {- end -} }
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
             </div>
         </div>
-
-        { {- /* Featured image */ -} }
-        { {- $image := $params.featuredimage -} }
-        { {- with .Resources.GetMatch "featured-image" -} }
-            { {- $image = .RelPermalink -} }
-        { {- end -} }
-        { {- with $image -} }
-            <div class="featured-image">
-                { {- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -} }
-            </div>
-        { {- end -} }
-
-        { {- /* Static TOC */ -} }
-        { {- if ne $toc.enable false -} }
-            <div class="details toc" id="toc-static"  data-kept="{ { if $toc.keepStatic } }true{ { end } }">
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《神经网络与深度学习》第8章 - 注意力机制和外部记忆</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/deep-learning/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Deep Learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-02-26">2021-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4092 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
-                    <span>{ { T "contents" } }</span>
+                    <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static">
-                    { {- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
-                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#81-认知神经科学中的注意力">8.1 认知神经科学中的注意力</a></li>
+    <li><a href="#82-注意力机制">8.2 注意力机制</a>
+      <ul>
+        <li><a href="#821-注意力机制的变体">8.2.1 注意力机制的变体</a>
+          <ul>
+            <li><a href="#硬性注意力">硬性注意力</a></li>
+            <li><a href="#键值对注意力">键值对注意力</a></li>
+            <li><a href="#多头注意力">多头注意力</a></li>
+            <li><a href="#结构化注意力">结构化注意力</a></li>
+            <li><a href="#指针网络">指针网络</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#83-自注意力模型">8.3 自注意力模型</a></li>
+    <li><a href="#84-人脑中的记忆">8.4 人脑中的记忆</a></li>
+    <li><a href="#85-记忆增强神经网络">8.5 记忆增强神经网络</a>
+      <ul>
+        <li><a href="#851-端到端记忆网络">8.5.1 端到端记忆网络</a></li>
+        <li><a href="#852-神经图灵机">8.5.2 神经图灵机</a></li>
+      </ul>
+    </li>
+    <li><a href="#86-基于神经动力学的联想记忆">8.6 基于神经动力学的联想记忆</a>
+      <ul>
+        <li><a href="#861-hopfield-网络">8.6.1 Hopfield 网络</a></li>
+        <li><a href="#862-使用联想记忆增加网络容量">8.6.2 使用联想记忆增加网络容量</a></li>
+      </ul>
+    </li>
+    <li><a href="#习题">习题</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#习题-8-1-分析-lstm-模型中隐藏层神经元数量与参数数量之间的关系">习题 8-1 分析 LSTM 模型中隐藏层神经元数量与参数数量之间的关系．</a></li>
+            <li><a href="#习题-8-2-分析缩放点积模型可以缓解-softmax-函数梯度消失的原因">习题 8-2 分析缩放点积模型可以缓解 Softmax 函数梯度消失的原因．</a></li>
+            <li><a href="#习题-8-3-当将自注意力模型作为一个神经层使用时分析它和卷积层以及循环层在建模长距离依赖关系的效率和计算复杂度方面的差异">习题 8-3 当将自注意力模型作为一个神经层使用时，分析它和卷积层以及循环层在建模长距离依赖关系的效率和计算复杂度方面的差异．</a></li>
+            <li><a href="#习题-8-4-试设计用集合树栈或队列来组织外部记忆并分析它们的差异">习题 8-4 试设计用集合、树、栈或队列来组织外部记忆，并分析它们的差异．</a></li>
+            <li><a href="#习题-8-5-分析端到端记忆网络和神经图灵机对外部记忆操作的异同点">习题 8-5 分析端到端记忆网络和神经图灵机对外部记忆操作的异同点．</a></li>
+            <li><a href="#习题-8-6-证明-hopfield-网络的能量函数随时间单调递减">习题 8-6 证明 Hopfield 网络的能量函数随时间单调递减</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>用CNN等编码一个向量表示文本所有特征，存在信息瓶颈</p>
+<p>网络容量（Network Capacity）：存储信息受限与神经元数量和网络复杂度</p>
+<ul>
+<li>对于过载信息：引入注意力和记忆机制</li>
+</ul>
+<h2 id="81-认知神经科学中的注意力">8.1 认知神经科学中的注意力</h2>
+<p>注意力（Attention）：从大量信息中选择小部分有用信息重点处理，忽略其他信息</p>
+<p>注意力分类：</p>
+<ol>
+<li>自上而下的有意识的注意力，称为聚焦式注意力（Focus Attention）/ 选择性注意力（Selective Attention）：有预定目的、依赖任务的，主动有意识地聚焦于某一对象的注
+意力</li>
+<li>自下而上的无意识的注意力，称为基于显著性的注意力（Saliency-Based Attention）：如果一个对象的刺激信息不同于其周围信息，一种无意识的“赢者通吃”（Winner-Take-All）或者门控（Gating）机制就可以把注意力转向这个对象</li>
+</ol>
+<h2 id="82-注意力机制">8.2 注意力机制</h2>
+<p>可以将最大汇聚（Max Pooling）、门控（Gating）机制近似地看作自下而上的基于显著性的注意力机制</p>
+<p>注意力机制计算步骤：</p>
+<ol>
+<li>在所有输入信息上计算注意力分布</li>
+<li>根据注意力分布计算输入信息的加权分布</li>
+</ol>
+<p><strong>注意力分布</strong>
+$$
+\begin{aligned}
+\alpha_{n} &amp;=p(z=n \mid \boldsymbol{X}, \boldsymbol{q}) \\
+&amp;=\operatorname{softmax}\left(s\left(\boldsymbol{x}_{n}, \boldsymbol{q}\right)\right) \\
+&amp;=\frac{\exp \left(s\left(\boldsymbol{x}_{n}, \boldsymbol{q}\right)\right)}{\sum_{j=1}^{N} \exp \left(s\left(\boldsymbol{x}_{j}, \boldsymbol{q}\right)\right)}
+\end{aligned}
+$$</p>
+<ul>
+<li>查询向量（Query Vector）$q$</li>
+<li>注意力变量$z \in[1, N]$，表示被选择信息的索引位置</li>
+<li>注意力分布（Attention Distribution）$\alpha_{n}$</li>
+<li>注意力打分函数$s(\boldsymbol{x}, \boldsymbol{q})$</li>
+</ul>
+<p>$$
+\begin{aligned}
+\text { 加性模型 } &amp; &amp;
+s(\boldsymbol{x}, \boldsymbol{q})&amp;=\boldsymbol{v}^{\top} \tanh (\boldsymbol{W} \boldsymbol{x}+\boldsymbol{U} \boldsymbol{q})\
+\text { 点积模型 } &amp; &amp; s(\boldsymbol{x}, \boldsymbol{q}) &amp;=\boldsymbol{x}^{\top} \boldsymbol{q} \\
+\text { 缩放点积模型 } &amp; &amp; s(\boldsymbol{x}, \boldsymbol{q}) &amp;=\frac{\boldsymbol{x}^{\top} \boldsymbol{q}}{\sqrt{D}}, \\
+\text { 双线性模型 } &amp; &amp; s(\boldsymbol{x}, \boldsymbol{q})&amp;=\boldsymbol{x}^{\top} \boldsymbol{W} \boldsymbol{q},
+\end{aligned}
+$$</p>
+<p><strong>加权平均</strong>
+软性注意力机制（Soft Attention Mechanism
+$$
+\begin{aligned}
+\operatorname{att}(\boldsymbol{X}, \boldsymbol{q}) &amp;=\sum_{n=1}^{N} \alpha_{n} \boldsymbol{x}_{n}, \\
+&amp;=\mathbb{E}_{\boldsymbol{z} \sim p(z \mid \boldsymbol{X}, \boldsymbol{q})}\left[\boldsymbol{x}_{z}\right]
+\end{aligned}
+$$</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/b379b8fe2711480f8af5978078e21fec.png"
+        data-srcset="../../_resources/b379b8fe2711480f8af5978078e21fec.png, ../../_resources/b379b8fe2711480f8af5978078e21fec.png 1.5x, ../../_resources/b379b8fe2711480f8af5978078e21fec.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/b379b8fe2711480f8af5978078e21fec.png"
+        title="692288459ef878cf2172e5a8cd155df7.png" /></p>
+<h3 id="821-注意力机制的变体">8.2.1 注意力机制的变体</h3>
+<h4 id="硬性注意力">硬性注意力</h4>
+<p>只关注某一个输入向量</p>
+<p>两种实现方式：</p>
+<ol>
+<li>最大采样：$\operatorname{att}(\boldsymbol{X}, \boldsymbol{q})=\boldsymbol{x}_{\hat{n}}$，$\hat{n}=\underset{n=1}{\arg \max } \alpha_{n}$</li>
+<li>随机采样（根据注意力分布）</li>
+</ol>
+<p>硬性注意力缺点：损失函数和注意力分布函数关系不可导，无法用BP训练，通常采用强化学习训练。</p>
+<h4 id="键值对注意力">键值对注意力</h4>
+<p>键计算注意力分布，值计算聚合信息
+$$
+\begin{aligned}
+\operatorname{att}((\boldsymbol{K}, \boldsymbol{V}), \boldsymbol{q}) &amp;=\sum_{n=1}^{N} \alpha_{n} \boldsymbol{v}_{n} \\
+&amp;=\sum_{n=1}^{N} \frac{\exp \left(s\left(\boldsymbol{k}_{n}, \boldsymbol{q}\right)\right)}{\sum_{j} \exp \left(s\left(\boldsymbol{k}_{j}, \boldsymbol{q}\right)\right)} \boldsymbol{v}_{n},
+\end{aligned}
+$$</p>
+<h4 id="多头注意力">多头注意力</h4>
+<p>多头注意力（Multi-Head Attention）是利用多个查询 𝑸 = [𝒒1, ⋯ , 𝒒𝑀]，来并行地从输入信息中选取多组信息：</p>
+<p>$$
+\operatorname{att}((\boldsymbol{K}, \boldsymbol{V}), \boldsymbol{Q})=\operatorname{att}\left((\boldsymbol{K}, \boldsymbol{V}), \boldsymbol{q}_{1}\right) \oplus \cdots \oplus \operatorname{att}\left((\boldsymbol{K}, \boldsymbol{V}), \boldsymbol{q}_{M}\right)
+$$</p>
+<h4 id="结构化注意力">结构化注意力</h4>
+<p>输入信息本身具有层次（Hierarchical）结构，比如文本可以分为词、句子、段落、篇章等不同粒度的层次。</p>
+<p>可以使用层次化的注意力来进行更好的信息选择 [Yang et al.,2016]</p>
+<p>可以假设注意力为上下文相关的二项分布，用一种图模型来构建更复杂的结构化注意力分布 [Kim et al., 2017]</p>
+<h4 id="指针网络">指针网络</h4>
+<p>指针网络（Pointer Network）[Vinyals et al., 2015]是一种Seq2seq模型，输入$\boldsymbol{X}=\boldsymbol{x}_{1}, \cdots, \boldsymbol{x}_{N}$，输出$\boldsymbol{c}_{1: M}=c_{1}, c_{2}, \cdots, c_{M}, c_{m} \in[1, N], \forall m$</p>
+<p>输出为输入序列的下标</p>
+<p>$$
+\begin{aligned}
+p\left(c_{1: M} \mid \boldsymbol{x}_{1: N}\right) &amp;=\prod_{m=1}^{M} p\left(c_{m} \mid c_{1:(m-1)}, \boldsymbol{x}_{1: N}\right) \\
+&amp; \approx \prod_{m=1}^{M} p\left(c_{m} \mid \boldsymbol{x}_{c_{1}}, \cdots, \boldsymbol{x}_{c_{m-1}}, \boldsymbol{x}_{1: N}\right),
+\end{aligned}
+$$</p>
+<p>$$
+p\left(c_{m} \mid c_{1:(m-1)}, \boldsymbol{x}_{1: N}\right)=\operatorname{softmax}\left(s_{m, n}\right)
+$$
+$$
+s_{m, n}=\boldsymbol{v}^{\top} \tanh \left(\boldsymbol{W} \boldsymbol{x}_{n}+\boldsymbol{U} \boldsymbol{h}_{m}\right), \forall n \in[1, N]
+$$</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/43a613fd332042f3a2d3be63c377a81e.png"
+        data-srcset="../../_resources/43a613fd332042f3a2d3be63c377a81e.png, ../../_resources/43a613fd332042f3a2d3be63c377a81e.png 1.5x, ../../_resources/43a613fd332042f3a2d3be63c377a81e.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/43a613fd332042f3a2d3be63c377a81e.png"
+        title="9b5068f5d270171849d71b4e1eee55d7.png" /></p>
+<h2 id="83-自注意力模型">8.3 自注意力模型</h2>
+<p>自注意力模型（Self-Attention Model）：即内部注意力（Intra-Attention）</p>
+<p>自注意力可以作为神经网络中的一层来使用，有效地建模长距离依赖问题 [Vaswani et al., 2017]</p>
+<p>经常采用查询-键-值（Query-Key-Value，QKV）模式</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/ff0c8448082f4eaba2e4762f11527df3.png"
+        data-srcset="../../_resources/ff0c8448082f4eaba2e4762f11527df3.png, ../../_resources/ff0c8448082f4eaba2e4762f11527df3.png 1.5x, ../../_resources/ff0c8448082f4eaba2e4762f11527df3.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/ff0c8448082f4eaba2e4762f11527df3.png"
+        title="87adaecfc12645c8f7cbc44cb917b18e.png" /></p>
+<p>$$
+\begin{array}{l}
+\boldsymbol{Q}=\boldsymbol{W}_{q} \boldsymbol{X} \in \mathbb{R}^{D_{k} \times N} \\
+\boldsymbol{K}=\boldsymbol{W}_{k} \boldsymbol{X} \in \mathbb{R}^{D_{k} \times N} \\
+\boldsymbol{V}=\boldsymbol{W}_{v} \boldsymbol{X} \in \mathbb{R}^{D_{v} \times N}
+\end{array}
+$$</p>
+<p>$$
+\begin{aligned}
+\boldsymbol{h}_{n} &amp;=\operatorname{att}\left((\boldsymbol{K}, \boldsymbol{V}), \boldsymbol{q}_{n}\right) \\
+&amp;=\sum_{j=1}^{N} \alpha_{n j} \boldsymbol{v}_{j} \\
+&amp;=\sum_{j=1}^{N} \operatorname{softmax}\left(s\left(\boldsymbol{k}_{j}, \boldsymbol{q}_{n}\right)\right) \boldsymbol{v}_{j},
+\end{aligned}
+$$</p>
+<p>如使用缩放点积打分，输出可以简写为：
+$$
+\boldsymbol{H}=\boldsymbol{V} \operatorname{softmax}\left(\frac{\boldsymbol{K}^{\top} \boldsymbol{Q}}{\sqrt{D_{k}}}\right)
+$$</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/66a6091dc1aa44d9ba9e7f9d965f6134.png"
+        data-srcset="../../_resources/66a6091dc1aa44d9ba9e7f9d965f6134.png, ../../_resources/66a6091dc1aa44d9ba9e7f9d965f6134.png 1.5x, ../../_resources/66a6091dc1aa44d9ba9e7f9d965f6134.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/66a6091dc1aa44d9ba9e7f9d965f6134.png"
+        title="c0f955a106e62040cc66ffb13a42e1ba.png" /></p>
+<ul>
+<li>实线是可学习的权重</li>
+<li>虚线是动态生成的权重，可以处理变长信息</li>
+</ul>
+<h2 id="84-人脑中的记忆">8.4 人脑中的记忆</h2>
+<p>信息作为一种整体效应（Collective Effect）存储在大脑组织中，即记忆在大脑皮层是分布式存储的，而不是存储于某个局部区域。</p>
+<p>人脑记忆具有周期性和联想性</p>
+<p><strong>记忆周期</strong></p>
+<ul>
+<li>长期记忆（Long-Term Memory）：也称为结构记忆或知识（Knowledge），体现为神经元之间的连接形态，其更新速度比较慢
+<ul>
+<li>类比权重参数</li>
+</ul>
+</li>
+<li>短期记忆（Short-Term Memory）：体现为神经元的活动，更新较快，维持时间为几秒至几分钟
+<ul>
+<li>类比隐状态</li>
+</ul>
+</li>
+<li>工作记忆（Working Memory）：人脑的缓存，短期记忆一般指输入信息在人脑中的表示和短期存储，工作记忆是和任务相关的“容器”。容量较小，一般可以容纳4组项目。</li>
+</ul>
+<p>演化（Evolution）过程：．短期记忆、长期记忆的动态更新过程</p>
+<p><strong>联想记忆</strong></p>
+<p>大脑主要通过<strong>联想</strong>进行检索</p>
+<p>联想记忆（Associative Memory）：学习和记住不同对象之间关系的能力</p>
+<ul>
+<li>基于内容寻址的存储（Content-Addressable Memory，CAM）：联想记忆，通过内容匹配方法进行寻址的信息存储方式</li>
+<li>随机访问存储（Random Access Memory, RAM)：现代计算机根据地址存储</li>
+</ul>
+<p>类比：</p>
+<ul>
+<li>LSTM记忆单元 &lt;-&gt; 计算机的寄存器</li>
+<li>外部记忆 &lt;-&gt; 计算机的内存</li>
+</ul>
+<p>神经网络引入外部记忆途径：</p>
+<ol>
+<li>结构化记忆，类似于计算机存储信息</li>
+<li>基于神经动力学的联想记忆，有更好的生物学解释性</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/8a5706990c284ab193cce496ca1f7412.png"
+        data-srcset="../../_resources/8a5706990c284ab193cce496ca1f7412.png, ../../_resources/8a5706990c284ab193cce496ca1f7412.png 1.5x, ../../_resources/8a5706990c284ab193cce496ca1f7412.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/8a5706990c284ab193cce496ca1f7412.png"
+        title="3ae89e265dba855042f5db23b1f9c61a.png" /></p>
+<h2 id="85-记忆增强神经网络">8.5 记忆增强神经网络</h2>
+<p>记忆增强神经网络（Memory Augmented Neural Network，MANN）：简称为记忆网络（Memory Network，MN），装备外部记忆的神经网络。</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/1901836e0eea40c78bcd5df784fa77c5.png"
+        data-srcset="../../_resources/1901836e0eea40c78bcd5df784fa77c5.png, ../../_resources/1901836e0eea40c78bcd5df784fa77c5.png 1.5x, ../../_resources/1901836e0eea40c78bcd5df784fa77c5.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/1901836e0eea40c78bcd5df784fa77c5.png"
+        title="6aa33a6b3d8043498fd27adc794bd1b7.png" /></p>
+<p>外部记忆将参数与记忆容量分离，在少量增加参数的条件下可以大幅增加网络容量。因此可以将注意力机制看作一个接口，将信息的存储与计算分离。</p>
+<h3 id="851-端到端记忆网络">8.5.1 端到端记忆网络</h3>
+<p>端到端记忆网络（End-To-End Memory Network，MemN2N）[Sukhbaatar et al., 2015] ：可微网络结构，可以多次从外部记忆中读取信息（只读）。</p>
+<p>主网络根据输入 𝒙 生成 𝒒，并使用键值对注意力机制来从外部记忆中读取相关信息 𝒓，
+$$
+\boldsymbol{r}=\sum_{n=1}^{N} \operatorname{softmax}\left(\boldsymbol{a}_{n}^{\top} \boldsymbol{q}\right) \boldsymbol{c}_{n}
+$$
+并产生输出：
+$$
+y=f(q+r)
+$$</p>
+<p>多跳操作：主网络与外部记忆进行多轮交互，根据上次读取信息继续查询读取。</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/995e0678775f4c469114e2a7aeb93079.png"
+        data-srcset="../../_resources/995e0678775f4c469114e2a7aeb93079.png, ../../_resources/995e0678775f4c469114e2a7aeb93079.png 1.5x, ../../_resources/995e0678775f4c469114e2a7aeb93079.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/995e0678775f4c469114e2a7aeb93079.png"
+        title="202d7bb29bf23c9278407f91061d0427.png" /></p>
+<h3 id="852-神经图灵机">8.5.2 神经图灵机</h3>
+<p>神经图灵机（Neural Turing Machine，NTM）：由控制器和外部记忆构成。</p>
+<ul>
+<li>外部记忆：矩阵$M \in \mathbb{R}^{D \times N}$</li>
+<li>控制器：前馈或循环神经网络</li>
+</ul>
+<p>寻址：基于位置、基于内容</p>
+<p>基于内容：
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/794eb31a2924496b929fabd58f5010be.png"
+        data-srcset="../../_resources/794eb31a2924496b929fabd58f5010be.png, ../../_resources/794eb31a2924496b929fabd58f5010be.png 1.5x, ../../_resources/794eb31a2924496b929fabd58f5010be.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/794eb31a2924496b929fabd58f5010be.png"
+        title="bab7e1792a4fbe0f0545387301357c22.png" /></p>
+<ul>
+<li>读向量（read vector）$r_t$</li>
+<li>删除向量（erase vector）$e_t$</li>
+<li>增加向量（add vector）$a_t$</li>
+</ul>
+<p>$$
+\boldsymbol{m}_{t+1, n}=\boldsymbol{m}_{t, n}\left(1-\alpha_{t, n} \boldsymbol{e}_{t}\right)+\alpha_{t, n} \boldsymbol{a}_{t}, \quad \forall n \in[1, N]
+$$</p>
+<h2 id="86-基于神经动力学的联想记忆">8.6 基于神经动力学的联想记忆</h2>
+<p>将基于神经动力学（Neurodynamics）的联想记忆模型引入到神经网络以增加网络容量。联想记忆模型可以利用神经动力学原理实现按内容寻址的信息存储和检索。</p>
+<p>联想记忆模型（Associative Memory Model）主要是通过神经网络的动态演化来进行联想，有两种应用场景：</p>
+<ol>
+<li>自联想模型（Auto-Associative Model）/自编码器（Auto-Encoder，AE）：输入和输出模式在同一空间。</li>
+<li>异联想模型（Hetero-Associative Model）：输入输出模式不在同一空间</li>
+</ol>
+<h3 id="861-hopfield-网络">8.6.1 Hopfield 网络</h3>
+<p>Hopfield 网络（Hopfield Network）：一种RNN模型，由一组相互连接的神经元构成。所有神经元连接不分层。</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/bb19850f03ac4f4f9bfef51248403cdc.png"
+        data-srcset="../../_resources/bb19850f03ac4f4f9bfef51248403cdc.png, ../../_resources/bb19850f03ac4f4f9bfef51248403cdc.png 1.5x, ../../_resources/bb19850f03ac4f4f9bfef51248403cdc.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/bb19850f03ac4f4f9bfef51248403cdc.png"
+        title="93b6af0afc093e898975074cd9ad78cc.png" /></p>
+<p>下面讨论离散 Hopfield 网络，神经元状态为 {+1, −1} 两种，还有连续 Hopfield 网络，即神经元状态为连续值。</p>
+<p>第i个神经元更新规则：
+$$
+S_{i}=\left{\begin{array}{ll}
++1 &amp; \text { if } \sum_{j=1}^{M} w_{i j} S_{j}+b_{i} \geq 0 \\
+-1 &amp; \text { otherwise }
+\end{array}\right.
+$$</p>
+<p>连接权重 $w_{ij}$ 有以下性质：
+$$
+\begin{array}{ll}
+w_{i i} &amp; =0 \quad \forall i \in[1, M] \\
+w_{i j} &amp; =w_{j i} \quad \forall i, j \in[1, M]
+\end{array}
+$$</p>
+<p>更新方式：</p>
+<ul>
+<li>异步：每次随机或者按顺序更新一个神经元</li>
+<li>同步：一次更新所有神经元，需要同步时钟</li>
+</ul>
+<p><strong>能量函数</strong>
+Hopfield 网络的能量函数（Energy Function）：
+$$
+\begin{aligned}
+E &amp;=-\frac{1}{2} \sum_{i, j} w_{i j} s_{i} s_{j}-\sum_{i} b_{i} s_{i} \\
+&amp;=-\frac{1}{2} \boldsymbol{s}^{\top} \boldsymbol{W} \boldsymbol{s}-\boldsymbol{b}^{\top} \boldsymbol{s}
+\end{aligned}
+$$</p>
+<p>吸引点（Attractor）：稳态，能量的局部最低点
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/8d58d18e599044bea061c95acd00ecd5.png"
+        data-srcset="../../_resources/8d58d18e599044bea061c95acd00ecd5.png, ../../_resources/8d58d18e599044bea061c95acd00ecd5.png 1.5x, ../../_resources/8d58d18e599044bea061c95acd00ecd5.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/8d58d18e599044bea061c95acd00ecd5.png"
+        title="4671ecbbe2b44948a717ec01ac8dc9cf.png" /></p>
+<p><strong>联想记忆</strong>
+Hopfield 网络会收敛到所处管辖区域内的吸引点，将吸引点看作网络存储中的模式（Pattern），Hopfield的检索是基于内容寻址的检索。</p>
+<p><strong>信息存储</strong>
+信息存储是指将一组向量$x_{1}, \cdots, x_{N}$存储在网络中的过程，存储过程主要是调整神经元之间的连接权重，因此可以看作一种学习过程。</p>
+<p>学习规则可以是简单的平均点积：
+$$
+w_{i j}=\frac{1}{N} \sum_{n=1}^{N} x_{i}^{(n)} x_{j}^{(n)}
+$$</p>
+<p>赫布规则（Hebbian Rule，或 Hebb’s Rule）：常同时激活的神经元连接加强，反之连接消失。</p>
+<p><strong>存储容量</strong>
+对于数量为 $M$ 的互相连接的二值神经元网络，其总状态数为 $2^M$</p>
+<p>Hopfield 网络的最大容量为 0.14𝑀，玻尔兹曼机的容量为 0.6𝑀</p>
+<p>改进学习算法、网络结构或者引入更复杂的运算，可以有效改进联想记忆网络的容量。</p>
+<h3 id="862-使用联想记忆增加网络容量">8.6.2 使用联想记忆增加网络容量</h3>
+<p>将联想记忆作为更大网络的组件，用来增加短期记忆的容量。参数可以使用Hebbian来学习，或者作为整个网络参数的一部分来学习。</p>
+<h2 id="习题">习题</h2>
+<h4 id="习题-8-1-分析-lstm-模型中隐藏层神经元数量与参数数量之间的关系">习题 8-1 分析 LSTM 模型中隐藏层神经元数量与参数数量之间的关系．</h4>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/97408a607c0c4569b5adf1f53585d232.png"
+        data-srcset="../../_resources/97408a607c0c4569b5adf1f53585d232.png, ../../_resources/97408a607c0c4569b5adf1f53585d232.png 1.5x, ../../_resources/97408a607c0c4569b5adf1f53585d232.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/97408a607c0c4569b5adf1f53585d232.png"
+        title="471dd2084810348f186999e4b837893d.png" />
+假设输入x维度为n，隐层神经元数为m，参数数量：</p>
+<ul>
+<li>三个门+cell更新：$(m+n+1)\times m\times 4$</li>
+</ul>
+<h4 id="习题-8-2-分析缩放点积模型可以缓解-softmax-函数梯度消失的原因">习题 8-2 分析缩放点积模型可以缓解 Softmax 函数梯度消失的原因．</h4>
+<p>$$
+\operatorname{Attention}(Q, K, V)=\operatorname{softmax}\left(\frac{Q K^{T}}{\sqrt{d_{k}}}\right) V
+$$</p>
+<p>向量点积往往很大，Softmax函数在输入值都很大大的区域会将元素差距拉得非常大，$\hat{y}_{k}$接近1，梯度也就接近0了</p>
+<p>Scale：
+$$
+E\left(q_{i} k_{i}\right)=E q_{i} E k_{i}=0
+$$</p>
+<p>$$
+\begin{aligned}
+D\left(q_{i} k_{i}\right) &amp;=E\left(q_{i}^{2} k_{i}^{2}\right)-\left(E\left(q_{i} k_{i}\right)\right)^{2} \\
+&amp;=E q_{i}^{2} E k_{i}^{2} \\
+&amp;=\left(D\left(q_{i}\right)+\left(E q_{i}\right)^{2}\right)\left(D\left(k_{i}\right)+\left(E k_{i}\right)^{2}\right) \\
+&amp;=\sigma^{4}=1
+\end{aligned}
+$$</p>
+<p>$$
+E\left(Q K^{T}\right)=\sum_{i=1}^{d_{k}} E\left(q_{i} k_{i}\right)=0
+$$</p>
+<p>$$
+D\left(Q K^{T}\right)=\sum_{i=1}^{d_{k}} D\left(q_{i} k_{i}\right)=d_{k} \sigma^{4}=d_{k}
+$$</p>
+<p>点积期望为0，通过除以标准差缩放，相当于进行了标准化Standardization，控制softmax输入的方差为1，有效解决了梯度消失问题。</p>
+<h4 id="习题-8-3-当将自注意力模型作为一个神经层使用时分析它和卷积层以及循环层在建模长距离依赖关系的效率和计算复杂度方面的差异">习题 8-3 当将自注意力模型作为一个神经层使用时，分析它和卷积层以及循环层在建模长距离依赖关系的效率和计算复杂度方面的差异．</h4>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/6e4ab592f48f4e4dba2d1a17f14191ce.png"
+        data-srcset="../../_resources/6e4ab592f48f4e4dba2d1a17f14191ce.png, ../../_resources/6e4ab592f48f4e4dba2d1a17f14191ce.png 1.5x, ../../_resources/6e4ab592f48f4e4dba2d1a17f14191ce.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/6e4ab592f48f4e4dba2d1a17f14191ce.png"
+        title="b5c016b9f01702d1378a6abcbef4d44b.png" />
+<em>图片来源：Why self-attention? [Tang, Gongbo, et al., 2018]</em></p>
+<p>近似时间复杂度：</p>
+<ul>
+<li>自注意力：$O(1)$</li>
+<li>CNN：$O(\log_k(n))$</li>
+<li>RNN：$O(n)$</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/7611df07cdf14af9b62fde51577eedff.png"
+        data-srcset="../../_resources/7611df07cdf14af9b62fde51577eedff.png, ../../_resources/7611df07cdf14af9b62fde51577eedff.png 1.5x, ../../_resources/7611df07cdf14af9b62fde51577eedff.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/7611df07cdf14af9b62fde51577eedff.png"
+        title="7d24d6478abcae0c2041e65d0fe030a1.png" />
+<em>来源：cs224n, 2019, lec14</em></p>
+<h4 id="习题-8-4-试设计用集合树栈或队列来组织外部记忆并分析它们的差异">习题 8-4 试设计用集合、树、栈或队列来组织外部记忆，并分析它们的差异．</h4>
+<p>TODO</p>
+<h4 id="习题-8-5-分析端到端记忆网络和神经图灵机对外部记忆操作的异同点">习题 8-5 分析端到端记忆网络和神经图灵机对外部记忆操作的异同点．</h4>
+<p>区别：</p>
+<ul>
+<li>端到端记忆网络：使用键值对注意力从外部记忆读取</li>
+<li>神经图灵机：同时对所有记忆进行不同程度的读写</li>
+</ul>
+<h4 id="习题-8-6-证明-hopfield-网络的能量函数随时间单调递减">习题 8-6 证明 Hopfield 网络的能量函数随时间单调递减</h4>
+<p>TODO</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-02-26</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" data-title="《神经网络与深度学习》第8章 - 注意力机制和外部记忆" data-hashtags="神经网络与深度学习,NLP,notes,ML"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" data-title="《神经网络与深度学习》第8章 - 注意力机制和外部记忆"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" data-title="《神经网络与深度学习》第8章 - 注意力机制和外部记忆"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/nndl-book-ch8-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E5%92%8C%E5%A4%96%E9%83%A8%E8%AE%B0%E5%BF%86/" data-title="《神经网络与深度学习》第8章 - 注意力机制和外部记忆"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
-        { {- end -} }
-
-        { {- /* Content */ -} }
-        <div class="content" id="content">
-            { {- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
         </div>
+    </div>
 
-        { {- /* Footer */ -} }
-        { {- partial "single/footer.html" . -} }
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a>,&nbsp;<a href="/blog/tags/ml/">ML</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
+        </section>
+    </div>
 
-        { {- /* Comment */ -} }
-        { {- partial "comment.html" . -} }
-    </article>
-{ {- end -} }
+    <div class="post-nav"><a href="/blog/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="prev" rel="prev" title="《神经网络与深度学习》第5章 - 卷积神经网络"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>《神经网络与深度学习》第5章 - 卷积神经网络</a>
+            <a href="/blog/%E5%9F%BA%E4%BA%8Epytorch%E5%AE%9E%E7%8E%B0word2vec%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" class="next" rel="next" title="基于PyTorch实现word2vec模型及其优化">基于PyTorch实现word2vec模型及其优化<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
+</html>

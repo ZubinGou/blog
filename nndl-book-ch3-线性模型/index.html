@@ -1,101 +1,566 @@
-{ {- define "title" } }{ { .Title } } - { { .Site.Title } }{ { end -} }
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>《神经网络与深度学习》第3章 - 线性模型 - Zubin`s Blog</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《神经网络与深度学习》第3章 - 线性模型" />
+<meta property="og:description" content="ch3 线性模型 线性模型：通过样本特征的线性组合来进行预测。其线性组合函数为： $$ \begin{aligned} f(\boldsymbol{x} ; \boldsymbol{w}) &amp;=w_{1} x_{1}&#43;w_{2} x_{2}&#43;\cdots&#43;w_{D} x_{D}&#43;b \\ &amp;=\boldsymbol{w}^{\top} \boldsymbol{x}&#43;b \end{aligned} $$ 线性回归：直接使用 $y=f(\boldsymbol{x} ; \boldsymbol{w})$ 来预测输出目标 分" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-01-22T15:56:11+08:00" />
+<meta property="article:modified_time" content="2021-01-22T15:56:11+08:00" /><meta property="og:site_name" content="My cool site" />
 
-{ {- define "content" -} }
-    { {- $params := .Scratch.Get "params" -} }
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
 
-    { {- $toc := $params.toc -} }
-    { {- if eq $toc true -} }
-        { {- $toc = .Site.Params.page.toc | default dict -} }
-    { {- else if eq $toc false -} }
-        { {- $toc = dict "enable" false -} }
-    { {- end -} }
+<meta name="twitter:title" content="《神经网络与深度学习》第3章 - 线性模型"/>
+<meta name="twitter:description" content="ch3 线性模型 线性模型：通过样本特征的线性组合来进行预测。其线性组合函数为： $$ \begin{aligned} f(\boldsymbol{x} ; \boldsymbol{w}) &amp;=w_{1} x_{1}&#43;w_{2} x_{2}&#43;\cdots&#43;w_{D} x_{D}&#43;b \\ &amp;=\boldsymbol{w}^{\top} \boldsymbol{x}&#43;b \end{aligned} $$ 线性回归：直接使用 $y=f(\boldsymbol{x} ; \boldsymbol{w})$ 来预测输出目标 分"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" /><link rel="prev" href="https://zubingou.github.io/blog/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" /><link rel="next" href="https://zubingou.github.io/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《神经网络与深度学习》第3章 - 线性模型",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "神经网络与深度学习, NLP, notes, DL","wordcount":  2860 ,
+        "url": "https:\/\/zubingou.github.io\/blog\/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B\/","datePublished": "2021-01-22T15:56:11+08:00","dateModified": "2021-01-22T15:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-    { {- /* Auto TOC */ -} }
-    { {- if ne $toc.enable false -} }
-        <div class="toc" id="toc-auto">
-            <h2 class="toc-title">{ { T "contents" } }</h2>
-            <div class="toc-content{ { if eq $toc.auto false } } always-active{ { end } }" id="toc-content-auto"></div>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/" title="Zubin`s Blog">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
         </div>
-    { {- end -} }
-
-    <article class="page single">
-        { {- /* Title */ -} }
-        <h1 class="single-title animate__animated animate__flipInX">{ { .Title | emojify } }</h1>
-
-        { {- /* Subtitle */ -} }
-        { {- with $params.subtitle -} }
-            <h2 class="single-subtitle">{ { . } }</h2>
-        { {- end -} }
-
-        { {- /* Meta */ -} }
-        <div class="post-meta">
-            <div class="post-meta-line">
-                { {- $author := $params.author | default .Site.Author.name | default (T "author") -} }
-                { {- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -} }
-                <span class="post-author">
-                    { {- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -} }
-                    { {- partial "plugin/a.html" $options -} }
-                </span>
-
-                { {- $categories := slice -} }
-                { {- range .Params.categories -} }
-                    { {- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -} }
-                    { {- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw" aria-hidden="true"></i>%v</a>` $category.RelPermalink $category.Title) -} }
-                { {- end -} }
-                { {- with delimit $categories "&nbsp;" -} }
-                    &nbsp;<span class="post-category">
-                        { {- dict "Categories" . | T "includedInCategories" | safeHTML -} }
-                    </span>
-                { {- end -} }
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/" title="Zubin`s Blog">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
             </div>
-            <div class="post-meta-line">
-                { {- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -} }
-                    <i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{ { . } }">{ { . } }</time>&nbsp;
-                { {- end -} }
-                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{ { T "wordCount" .WordCount } }&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{ { T "readingTime" .ReadingTime } }&nbsp;
-                { {- $comment := .Scratch.Get "comment" | default dict -} }
-                { {- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -} }
-                    <span id="{ { .RelPermalink } }" class="leancloud_visitors" data-flag-title="{ { .Title } }">
-                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{ { T "views" } }
-                    </span>&nbsp;
-                { {- end -} }
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
             </div>
         </div>
-
-        { {- /* Featured image */ -} }
-        { {- $image := $params.featuredimage -} }
-        { {- with .Resources.GetMatch "featured-image" -} }
-            { {- $image = .RelPermalink -} }
-        { {- end -} }
-        { {- with $image -} }
-            <div class="featured-image">
-                { {- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -} }
-            </div>
-        { {- end -} }
-
-        { {- /* Static TOC */ -} }
-        { {- if ne $toc.enable false -} }
-            <div class="details toc" id="toc-static"  data-kept="{ { if $toc.keepStatic } }true{ { end } }">
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《神经网络与深度学习》第3章 - 线性模型</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/deep-learning/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Deep Learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-01-22">2021-01-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2860 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
-                    <span>{ { T "contents" } }</span>
+                    <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static">
-                    { {- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
-                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#31-线性判别函数和决策边界">3.1 线性判别函数和决策边界</a>
+      <ul>
+        <li><a href="#311-二分类">3.1.1 二分类</a></li>
+        <li><a href="#312-多分类">3.1.2 多分类</a></li>
+      </ul>
+    </li>
+    <li><a href="#32-logistic-回归">3.2 Logistic 回归</a></li>
+    <li><a href="#33-softmax-回归">3.3 Softmax 回归</a></li>
+    <li><a href="#34-感知器">3.4 感知器</a>
+      <ul>
+        <li><a href="#341-参数学习">3.4.1 参数学习</a></li>
+        <li><a href="#342-感知器的收敛性">3.4.2 感知器的收敛性</a></li>
+        <li><a href="#343-参数平均感知器">3.4.3 参数平均感知器</a></li>
+        <li><a href="#344-扩展到多分类">3.4.4 扩展到多分类</a></li>
+      </ul>
+    </li>
+    <li><a href="#35-支持向量机">3.5 支持向量机</a>
+      <ul>
+        <li><a href="#351-参数学习">3.5.1 参数学习</a></li>
+        <li><a href="#352-核函数">3.5.2 核函数</a></li>
+        <li><a href="#353-软间隔">3.5.3 软间隔</a></li>
+      </ul>
+    </li>
+    <li><a href="#36-损失函数对比">3.6 损失函数对比</a></li>
+    <li><a href="#习题">习题</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#习题-3-1-证明在两类线性分类中权重向量𝒘-与决策平面正交">习题 3-1 证明在两类线性分类中，权重向量𝒘 与决策平面正交．</a></li>
+          </ul>
+        </li>
+        <li><a href="#习题-3-2-在线性空间中证明一个点-𝒙-到平面-𝑓𝒙-𝒘--𝒘t𝒙--𝑏--0-的距离为-𝑓𝒙-𝒘𝒘">习题 3-2 在线性空间中，证明一个点 𝒙 到平面 𝑓(𝒙; 𝒘) = 𝒘T𝒙 + 𝑏 = 0 的距离为 |𝑓(𝒙; 𝒘)|/‖𝒘‖</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="ch3-线性模型">ch3 线性模型</h1>
+<p>线性模型：通过样本特征的线性组合来进行预测。其线性组合函数为：
+$$
+\begin{aligned}
+f(\boldsymbol{x} ; \boldsymbol{w}) &amp;=w_{1} x_{1}+w_{2} x_{2}+\cdots+w_{D} x_{D}+b \\
+&amp;=\boldsymbol{w}^{\top} \boldsymbol{x}+b
+\end{aligned}
+$$</p>
+<ol>
+<li>线性回归：直接使用 $y=f(\boldsymbol{x} ; \boldsymbol{w})$ 来预测输出目标</li>
+<li>分类问题：离散便签，需要引入非线性决策函数（Decision Function） $g(\cdot)$ 预测输出目标： $y=g(f(\boldsymbol{x} ; \boldsymbol{w}))$
+<ul>
+<li>$f(\boldsymbol{x} ; \boldsymbol{w})$ 也称判别函数（Discriminant Function）</li>
+</ul>
+</li>
+</ol>
+<p>四种线性分类模型（主要区别：不同损失函数）</p>
+<ol>
+<li>Logistic 回归</li>
+<li>Softmax 回归</li>
+<li>感知器</li>
+<li>支持向量机</li>
+</ol>
+<h2 id="31-线性判别函数和决策边界">3.1 线性判别函数和决策边界</h2>
+<p>线性分类模型（Linear Classification Model）或线性分类器（Linear Classifier）：一个或多个线性判别函数 + 非线性决策函数</p>
+<h3 id="311-二分类">3.1.1 二分类</h3>
+<p>分割超平面（Hyperplane） / 决策边界（Decision Boundary） / 决策平面（Decision Surface）： $f(\boldsymbol{x} ; \boldsymbol{w})=0$ 的点组成的平面</p>
+<p>特征空间中每个样本点到决策平面的有向距离（Signed Distance）：
+$$
+\gamma=\frac{f(\boldsymbol{x} ; \boldsymbol{w})}{|\boldsymbol{w}|}
+$$</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/3820a4e403bc4102a1401762b3ea8701.png"
+        data-srcset="../../_resources/3820a4e403bc4102a1401762b3ea8701.png, ../../_resources/3820a4e403bc4102a1401762b3ea8701.png 1.5x, ../../_resources/3820a4e403bc4102a1401762b3ea8701.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/3820a4e403bc4102a1401762b3ea8701.png"
+        title="3108e711ea94a00da916e6f1d13bcbd8.png" /></p>
+<p>线性模型学习目标是尽量满足：
+$$
+y^{(n)} f\left(\boldsymbol{x}^{(n)} ; \boldsymbol{w}^{*}\right)&gt;0, \quad \forall n \in[1, N]
+$$</p>
+<p>两类线性可分：训练集的所有样本都满足上式。</p>
+<p>学习参数 $\boldsymbol{w}$，需要定义合适的损失函数和优化方法。</p>
+<p>直接采用0-1损失函数：
+$$
+y^{(n)} f\left(\boldsymbol{x}^{(n)} ; \boldsymbol{w}^{*}\right)&gt;0, \quad \forall n \in[1, N]
+$$</p>
+<ul>
+<li>存在问题：$\boldsymbol{w}$ 导数为0，无法优化。</li>
+</ul>
+<h3 id="312-多分类">3.1.2 多分类</h3>
+<p>判别函数：</p>
+<ol>
+<li>一对其余： $C$ 个二分类函数</li>
+<li>一对一：$C(C-1)/2$ 个二分类函数</li>
+<li>argmax：改进的“一对其余”，$C$ 个判别函数</li>
+</ol>
+<p>$$
+y=\underset{c=1}{\arg \max } f_{c}\left(\boldsymbol{x} ; \boldsymbol{w}_{c}\right) .
+$$</p>
+<p>“一对其余”和“一对一”存在难以确定区域：
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/788b87d745544b6ba1015d136ca42cdf.png"
+        data-srcset="../../_resources/788b87d745544b6ba1015d136ca42cdf.png, ../../_resources/788b87d745544b6ba1015d136ca42cdf.png 1.5x, ../../_resources/788b87d745544b6ba1015d136ca42cdf.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/788b87d745544b6ba1015d136ca42cdf.png"
+        title="dd80cae95bb2424e661898ac687c4679.png" /></p>
+<p>多类线性可分：对训练集，每一类均存在判别函数使得该类下所有样本的当前类判别函数最大。</p>
+<h2 id="32-logistic-回归">3.2 Logistic 回归</h2>
+<p>Logistic 回归（Logistic Regression，LR）：二分类</p>
+<p>引入非线性函数 g 预测类别后验概率：
+$$
+p(y=1 \mid \boldsymbol{x})=g(f(\boldsymbol{x} ; \boldsymbol{w}))
+$$</p>
+<p>$g(\cdot)$ 称为激活函数（Activation Funtion）：将线性函数值域挤压到 $(0, 1)$ 之间，表示概率。</p>
+<ul>
+<li>$g(\cdot)$ 的逆函数 $g^{-1}(\cdot)$ 称为联系函数（Link Function）</li>
+</ul>
+<p>Logistic 回归使用 Logistic 函数作为激活函数。标签y=1的后验概率：
+$$
+\begin{aligned}
+p(y=1 \mid \boldsymbol{x}) &amp;=\sigma\left(\boldsymbol{w}^{\top} \boldsymbol{x}\right) \\
+&amp; \triangleq \frac{1}{1+\exp \left(-\boldsymbol{w}^{\top} \boldsymbol{x}\right)},
+\end{aligned}
+$$</p>
+<p>变换得到：</p>
+<p>$$
+\begin{aligned}
+\boldsymbol{w}^{\top} \boldsymbol{x} &amp;=\log \frac{p(y=1 \mid \boldsymbol{x})}{1-p(y=1 \mid \boldsymbol{x})} \\
+&amp;=\log \frac{p(y=1 \mid \boldsymbol{x})}{p(y=0 \mid \boldsymbol{x})},
+\end{aligned}
+$$</p>
+<p>其中 $\frac{p(y=1 \mid \boldsymbol{x})}{p(y=0 \mid \boldsymbol{x})}$ 称为几率（Odds），几率的对数称为对数几率（Log Odds，或Logit）</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/49f4530a117b4dc09f8bbe4b4cdfacd1.png"
+        data-srcset="../../_resources/49f4530a117b4dc09f8bbe4b4cdfacd1.png, ../../_resources/49f4530a117b4dc09f8bbe4b4cdfacd1.png 1.5x, ../../_resources/49f4530a117b4dc09f8bbe4b4cdfacd1.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/49f4530a117b4dc09f8bbe4b4cdfacd1.png"
+        title="17dced3f48881b98ed099d685b2b0405.png" /></p>
+<p><strong>参数学习</strong>
+损失函数：交叉熵
+风险函数：</p>
+<p>$$
+\begin{aligned}
+\mathcal{R}(\boldsymbol{w})=&amp;-\frac{1}{N} \sum_{n=1}^{1 \mathrm{~N}}\left(p_{r}\left(y^{(n)}=1 \mid \boldsymbol{x}^{(n)}\right) \log \hat{y}^{(n)}+p_{r}\left(y^{(n)}=0 \mid \boldsymbol{x}^{(n)}\right) \log \left(1-\hat{y}^{(n)}\right)\right) \\
+&amp;=-\frac{1}{N} \sum_{n=1}^{N}\left(y^{(n)} \log \hat{y}^{(n)}+\left(1-y^{(n)}\right) \log \left(1-\hat{y}^{(n)}\right)\right) .
+\end{aligned}
+$$</p>
+<p>求导：</p>
+<p>$$
+\begin{aligned}
+\frac{\partial \mathcal{R}(\boldsymbol{w})}{\partial \boldsymbol{w}} &amp;=-\frac{1}{N} \sum_{n=1}^{N}\left(y^{(n)} \frac{\hat{y}^{(n)}\left(1-\hat{y}^{(n)}\right)}{\hat{y}^{(n)}} \boldsymbol{x}^{(n)}-\left(1-y^{(n)}\right) \frac{\hat{y}^{(n)}\left(1-\hat{y}^{(n)}\right)}{1-\hat{y}^{(n)}} \boldsymbol{x}^{(n)}\right) \\
+&amp;=-\frac{1}{N} \sum_{n=1}^{N}\left(y^{(n)}\left(1-\hat{y}^{(n)}\right) \boldsymbol{x}^{(n)}-\left(1-y^{(n)}\right) \hat{y}^{(n)} \boldsymbol{x}^{(n)}\right) \\
+&amp;=-\frac{1}{N} \sum_{n=1}^{N} \boldsymbol{x}^{(n)}\left(y^{(n)}-\hat{y}^{(n)}\right)
+\end{aligned}
+$$</p>
+<p>梯度下降法参数更新：
+$$
+\boldsymbol{w}<em>{t+1} \leftarrow \boldsymbol{w}</em>{t}+\alpha \frac{1}{N} \sum_{n=1}^{N} \boldsymbol{x}^{(n)}\left(y^{(n)}-\hat{y}<em>{\boldsymbol{w}</em>{t}}^{(n)}\right)
+$$</p>
+<p>因为风险函数 $\mathcal{R}(\boldsymbol{w})$ 是关于参数的连续可导凸函数，所以还可以用更高阶的优化方法（如牛顿法）来优化。</p>
+<h2 id="33-softmax-回归">3.3 Softmax 回归</h2>
+<p>Sotfmax回归（Softmax Regression）：即多项或多类的 Logistic 回归。</p>
+<p>预测类别：</p>
+<p>$$
+\begin{aligned}
+p(y=c \mid \boldsymbol{x}) &amp;=\operatorname{softmax} (\boldsymbol{w}_{c}^{\top} \boldsymbol{x}) \\
+&amp;=\frac{\exp \left(\boldsymbol{w}_{c}^{\top} \boldsymbol{x}\right)}{\sum_{c^{\prime}=1}^{C} \exp \left(\boldsymbol{w}_{c^{\prime}}^{\top} \boldsymbol{x}\right)}
+\end{aligned}
+$$</p>
+<p>向量化表示：
+$$
+\begin{aligned}
+\hat{\boldsymbol{y}} &amp;=\operatorname{softmax}\left(\boldsymbol{W}^{\top} \boldsymbol{x}\right) \\
+&amp;=\frac{\exp \left(\boldsymbol{W}^{\top} \boldsymbol{x}\right)}{\mathbf{1}_{C}^{\mathrm{T}} \exp \left(\boldsymbol{W}^{\top} \boldsymbol{x}\right)}
+\end{aligned}
+$$</p>
+<p>决策函数：
+$$
+\begin{aligned}
+\hat{y} &amp;=\underset{c=1}{\arg \max } p(y=c \mid \boldsymbol{x}) \\
+&amp;=\underset{c=1}{\arg \max } \boldsymbol{w}_{c}^{\top} \boldsymbol{x} .
+\end{aligned}
+$$</p>
+<p>风险函数：
+$$
+\begin{aligned}
+\mathcal{R}(\boldsymbol{W}) &amp;=-\frac{1}{N} \sum_{n=1}^{N} \sum_{c=1}^{C} \boldsymbol{y}<em>{c}^{(n)} \log \hat{\boldsymbol{y}}</em>{c}^{(n)} \\
+&amp;=-\frac{1}{N} \sum_{n=1}^{N}\left(\boldsymbol{y}^{(n)}\right)^{\mathrm{T}} \log \hat{\boldsymbol{y}}^{(n)}
+\end{aligned}
+$$</p>
+<p>Softmax 函数求导：</p>
+<p>$$
+\begin{aligned}
+&amp;\frac{\partial \operatorname{softmax}(\boldsymbol{x})}{\partial \boldsymbol{x}}=\frac{\partial\left(\frac{\exp (x)}{1_{K}^{\top} \exp (x)}\right)}{\partial \boldsymbol{x}} \\
+&amp;=\frac{1}{\mathbf{1}<em>{K}^{\top} \exp (\boldsymbol{x})} \frac{\partial \exp (\boldsymbol{x})}{\partial \boldsymbol{x}}+\frac{\partial\left(\frac{1}{1</em>{K}^{\mathrm{T} \exp (x)}}\right)}{\partial \boldsymbol{x}}(\exp (\boldsymbol{x}))^{\top} \\
+&amp;=\frac{\operatorname{diag}(\exp (\boldsymbol{x}))}{\mathbf{1}<em>{K}^{\top} \exp (\boldsymbol{x})}-\left(\frac{1}{\left(\mathbf{1}</em>{K}^{\mathrm{T}} \exp (\boldsymbol{x})\right)^{2}}\right) \frac{\partial\left(\mathbf{1}<em>{K}^{\top} \exp (\boldsymbol{x})\right)}{\partial \boldsymbol{x}}(\exp (\boldsymbol{x}))^{\top} \\
+&amp;=\frac{\operatorname{diag}(\exp (\boldsymbol{x}))}{\mathbf{1}</em>{K}^{\top} \exp (\boldsymbol{x})}-\left(\frac{1}{\left(\mathbf{1}<em>{K}^{\mathrm{T}} \exp (\boldsymbol{x})\right)^{2}}\right) \operatorname{diag}(\exp (\boldsymbol{x})) \mathbf{1}</em>{K}(\exp (\boldsymbol{x}))^{\top} \\
+&amp;=\frac{\operatorname{diag}(\exp (\boldsymbol{x}))}{\mathbf{1}<em>{K}^{\top} \exp (\boldsymbol{x})}-\left(\frac{1}{\left(\mathbf{1}</em>{K}^{\top} \exp (\boldsymbol{x})\right)^{2}}\right) \exp (\boldsymbol{x})(\exp (\boldsymbol{x}))^{\top} \\
+&amp;=\operatorname{diag}\left(\frac{\exp (\boldsymbol{x})}{\mathbf{1}<em>{K}^{\mathrm{T}} \exp (\boldsymbol{x})}\right)-\frac{\exp (\boldsymbol{x})}{\mathbf{1}</em>{K}^{\top} \exp (\boldsymbol{x})} \frac{(\exp (\boldsymbol{x}))^{\mathrm{T}}}{\mathbf{1}_{K}^{\mathrm{T}} \exp (\boldsymbol{x})} \\
+&amp;=\operatorname{diag}(\operatorname{softmax}(\boldsymbol{x}))-\operatorname{softmax}(\boldsymbol{x}) \operatorname{softmax}(\boldsymbol{x})^{\top} .
+\end{aligned}
+$$</p>
+<p>即若 $y=\operatorname{softmax}(z)$，则  $\frac{\partial y}{\partial z}=\operatorname{diag}(y)-y y^{\top}$</p>
+<p>所以风险函数求梯度为：
+$$
+\frac{\partial \mathcal{R}(\boldsymbol{W})}{\partial \boldsymbol{W}}=-\frac{1}{N} \sum_{n=1}^{N} \boldsymbol{x}^{(n)}\left(\boldsymbol{y}^{(n)}-\hat{\boldsymbol{y}}^{(n)}\right)^{\top}
+$$</p>
+<p>梯度下降法更新：
+$$
+\boldsymbol{W}_{t+1} \leftarrow \boldsymbol{W}_{t}+\alpha\left(\frac{1}{N} \sum_{n=1}^{N} \boldsymbol{x}^{(n)}\left(\boldsymbol{y}^{(n)}-\hat{\boldsymbol{y}}_{W_{t}}^{(n)}\right)^{\top}\right)
+$$</p>
+<h2 id="34-感知器">3.4 感知器</h2>
+<h3 id="341-参数学习">3.4.1 参数学习</h3>
+<p>感知器（Perceptron）</p>
+<p>分类准则：
+$$
+\hat{y}=\operatorname{sgn}\left(\boldsymbol{w}^{\top} \boldsymbol{x}\right)
+$$</p>
+<p>学习目标，找到参数使得：
+$$
+y^{(n)} \boldsymbol{w}^{* \top} \boldsymbol{x}^{(n)}&gt;0, \quad \forall n \in{1, \cdots, N}
+$$</p>
+<p>感知器的学习算法：错误驱动的在线学习算法 [Rosenblatt, 1958]，每错分一个样本，就用该样本更新权重：</p>
+<p>$$
+\boldsymbol{w} \leftarrow \boldsymbol{w}+y \boldsymbol{x}
+$$</p>
+<p>损失函数：</p>
+<p>$$
+\mathcal{L}(\boldsymbol{w} ; \boldsymbol{x}, y)=\max \left(0,-y \boldsymbol{w}^{\top} \boldsymbol{x}\right)
+$$</p>
+<p>梯度更新：</p>
+<p>$$
+\frac{\partial \mathcal{L}(\boldsymbol{w} ; \boldsymbol{x}, y)}{\partial \boldsymbol{w}}=\left{\begin{array}{lll}
+0 &amp; \text { if } &amp; y \boldsymbol{w}^{\top} \boldsymbol{x}&gt;0 \\
+-y \boldsymbol{x} &amp; \text { if } &amp; y \boldsymbol{w}^{\top} \boldsymbol{x}&lt;0
+\end{array}\right.
+$$</p>
+<p>感知器参数学习过程：
+（黑色：当前权重向量，红色虚线：更新方向）
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/db442afde21b44d3ac2276634e6114cb.png"
+        data-srcset="../../_resources/db442afde21b44d3ac2276634e6114cb.png, ../../_resources/db442afde21b44d3ac2276634e6114cb.png 1.5x, ../../_resources/db442afde21b44d3ac2276634e6114cb.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/db442afde21b44d3ac2276634e6114cb.png"
+        title="85a655694944a21c12cce1a384f4a2d2.png" /></p>
+<h3 id="342-感知器的收敛性">3.4.2 感知器的收敛性</h3>
+<ol>
+<li>在数据集线性可分时，感知器可以找到一个超平面把两类数据分开，但并不能保证其泛化能力．</li>
+<li>感知器对样本顺序比较敏感．每次迭代的顺序不一致时，找到的分割超平面也往往不一致．</li>
+<li>如果训练集不是线性可分的，就永远不会收敛．</li>
+</ol>
+<h3 id="343-参数平均感知器">3.4.3 参数平均感知器</h3>
+<p>投票感知器（Voted Perceptron）：感知器收单个样本影响大，为提高鲁棒性和泛化能力，将所有 K 个权重用置信系数加权平均起来，投票决定结果。</p>
+<p>置信系数 $c_{k}$ 设置为当前更新权重后直到下一次更新的迭代次数。则投票感知器为：</p>
+<p>$$
+\hat{y}=\operatorname{sgn}\left(\sum_{k=1}^{K} c_{k} \operatorname{sgn}\left(\boldsymbol{w}_{k}^{\top} \boldsymbol{x}\right)\right)
+$$</p>
+<p>平均感知器（Averaged Perceptron）[Collins, 2002]：</p>
+<p>$$
+\begin{aligned}
+\hat{y} &amp;=\operatorname{sgn}\left(\frac{1}{T} \sum_{k=1}^{K} c_{k}\left(\boldsymbol{w}<em>{k}^{\top} \boldsymbol{x}\right)\right) \\
+&amp;=\operatorname{sgn}\left(\frac{1}{T}\left(\sum</em>{k=1}^{K} c_{k} \boldsymbol{w}<em>{k}\right)^{\top} \boldsymbol{x}\right) \\
+&amp;=\operatorname{sgn}\left(\left(\frac{1}{T} \sum</em>{t=1}^{T} \boldsymbol{w}_{t}\right)^{\top} \boldsymbol{x}\right) \\
+&amp;=\operatorname{sgn}\left(\overline{\boldsymbol{w}}^{\top} \boldsymbol{x}\right)
+\end{aligned}
+$$</p>
+<h3 id="344-扩展到多分类">3.4.4 扩展到多分类</h3>
+<h2 id="35-支持向量机">3.5 支持向量机</h2>
+<p>支持向量机（Support Vector Machine，SVM）：经典二分类算法，找到的超平面具有更好的鲁棒性。</p>
+<p>$$
+y_{n} \in{+1,-1}
+$$</p>
+<p>超平面：
+$$
+\boldsymbol{w}^{\top} \boldsymbol{x}+b=0
+$$</p>
+<p>每个样本到分割超平面的距离：</p>
+<p>$$
+\gamma^{(n)}=\frac{\left|\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}+b\right|}{|\boldsymbol{w}|}=\frac{y^{(n)}\left(\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}+b\right)}{|\boldsymbol{w}|}
+$$</p>
+<p>间隔（Margin）：数据集中所有样本到分割超平面的最短距离：</p>
+<p>$$
+\gamma=\min _{n} \gamma^{(n)}
+$$</p>
+<p>SVM的目标：</p>
+<p>$$
+\begin{array}{ll}
+\max _{\boldsymbol{w}, b} &amp; \gamma \\
+\text { s.t. } &amp; \frac{y^{(n)}\left(\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}+b\right)}{|\boldsymbol{w}|} \geq \gamma, \forall n \in{1, \cdots, N} .
+\end{array}
+$$</p>
+<p>由于 $\boldsymbol{w}$ 和 $b$ 可以同时缩放不改变间隔，可以限制 $|\boldsymbol{w}| \cdot \gamma=1$ ，则上式等价于：</p>
+<p>$$
+\begin{aligned}
+\max _{\boldsymbol{w}, b} &amp; \frac{1}{|\boldsymbol{w}|^{2}} \\
+\text { s.t. } &amp; y^{(n)}\left(\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}+b\right) \geq 1, \forall n \in{1, \cdots, N}
+\end{aligned}
+$$</p>
+<p>支持向量（Suport Vector）： 满足 $y^{(n)}\left(\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}+b\right)=1$ 的样本点。</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/5e42dd9a13b14ea681cb9cee1f719291.png"
+        data-srcset="../../_resources/5e42dd9a13b14ea681cb9cee1f719291.png, ../../_resources/5e42dd9a13b14ea681cb9cee1f719291.png 1.5x, ../../_resources/5e42dd9a13b14ea681cb9cee1f719291.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/5e42dd9a13b14ea681cb9cee1f719291.png"
+        title="a48c71f1fa2db1a93cb440d9a3f64377.png" /></p>
+<h3 id="351-参数学习">3.5.1 参数学习</h3>
+<p>将目标函数写成凸优化问题，采用拉格朗日乘数法，并得到拉格朗日对偶函数，采用序列最小优化（Sequential Minimal Optimization, SMO）等高效算法进行优化。</p>
+<p>最优参数的SVM决策函数：</p>
+<p>$$
+\begin{aligned}
+f(\boldsymbol{x}) &amp;=\operatorname{sgn}\left(\boldsymbol{w}^{* \top} \boldsymbol{x}+b^{<em>}\right) \\
+&amp;=\operatorname{sgn}\left(\sum_{n=1}^{N} \lambda_{n}^{</em>} y^{(n)}\left(\boldsymbol{x}^{(n)}\right)^{\top} \boldsymbol{x}+b^{*}\right)
+\end{aligned}
+$$</p>
+<h3 id="352-核函数">3.5.2 核函数</h3>
+<p>SVM可以使用核函数（Kernel Function）隐式地将样本从延时特征空间映射到更高维的空间，解决原始特征空间中线性不可分的问题。</p>
+<p>则决策函数为：
+$$
+\begin{aligned}
+f(\boldsymbol{x}) &amp;=\operatorname{sgn}\left(\boldsymbol{w}^{*} \boldsymbol{\phi}(\boldsymbol{x})+b^{*}\right) \\
+&amp;=\operatorname{sgn}\left(\sum_{n=1}^{N} \lambda_{n}^{*} y^{(n)} k\left(\boldsymbol{x}^{(n)}, \boldsymbol{x}\right)+b^{*}\right)
+\end{aligned}
+$$</p>
+<p>$k(\boldsymbol{x}, \boldsymbol{z})=\phi(\boldsymbol{x})^{\top} \phi(\boldsymbol{z})$ 为核函数，通常不需要显示给出 $\phi(\boldsymbol{x})$ 的具体形式，可以通过核技巧（Kernel Trick）来构造，比如构造：</p>
+<p>$$
+k(\boldsymbol{x}, \boldsymbol{z})=\left(1+\boldsymbol{x}^{\top} \boldsymbol{z}\right)^{2}=\phi(\boldsymbol{x})^{\top} \phi(\boldsymbol{z})
+$$</p>
+<p>来隐式地计算 $\boldsymbol{x, z}$ 在特征空间 $\phi$ 中的内积，其中：</p>
+<p>$$
+\phi(\boldsymbol{x})=\left[1, \sqrt{2} x_{1}, \sqrt{2} x_{2}, \sqrt{2} x_{1} x_{2}, x_{1}^{2}, x_{2}^{2}\right]^{\top}
+$$</p>
+<h3 id="353-软间隔">3.5.3 软间隔</h3>
+<p>当线性不可分时，为了容忍部分不满足约束的样本，引入松弛变量（Slack Variable）$\xi$，将优化问题变为</p>
+<p>$$
+\begin{array}{ll}
+\min _{\boldsymbol{w}, b} &amp; \frac{1}{2}|\boldsymbol{w}|^{2}+C \sum_{n=1}^{N} \xi_{n} \\
+\text { s.t. } &amp; 1-y^{(n)}\left(\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}+b\right)-\xi_{n} \leq 0, \quad \forall n \in{1, \cdots, N} \\
+&amp; \xi_{n} \geq 0, \quad \forall n \in{1, \cdots, N}
+\end{array}
+$$</p>
+<p>参数 $C &gt; 0$ 控制间隔和松弛变量之间和平衡，引入松弛变量的间隔称为软间隔（Soft Margin）。</p>
+<p>上式也可以表示为 <strong>经验风险 + 正则化项</strong> 的形式：</p>
+<p>$$
+\min _{\boldsymbol{w}, b} \quad \sum_{n=1}^{N} \max \left(0,1-y^{(n)}\left(\boldsymbol{w}^{\top} \boldsymbol{x}^{(n)}+b\right)\right)+\frac{1}{2 C}|\boldsymbol{w}|^{2}
+$$</p>
+<p>前面一项可以看作 Hinge损失函数，后一项看作正则项，$\frac{1}{c}$ 为正则化系数。</p>
+<h2 id="36-损失函数对比">3.6 损失函数对比</h2>
+<p>统一定义标签：
+$$
+y \in{+1,-1}
+$$</p>
+<p>决策函数：
+$$
+f(\boldsymbol{x} ; \boldsymbol{w})=\boldsymbol{w}^{\top} \boldsymbol{x}+b
+$$</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/57baee45892347eab9241cc1b47b588c.png"
+        data-srcset="../../_resources/57baee45892347eab9241cc1b47b588c.png, ../../_resources/57baee45892347eab9241cc1b47b588c.png 1.5x, ../../_resources/57baee45892347eab9241cc1b47b588c.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/57baee45892347eab9241cc1b47b588c.png"
+        title="a67dbd71aaa5550b002c5b0d5c34f525.png" /></p>
+<blockquote>
+<p>平方损失函数其实也可以用于分类问题的 loss 函数，但本质上等同于误差服从高斯分布假设下的极大似然估计，而分类问题大部分时候不服从高斯分布。
+直观上理解，标签之间的距离没有意义，预测值和标签之间的距离不能反应问题优化程度。</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/ec087fd86375437da75ff6320802cdfe.png"
+        data-srcset="../../_resources/ec087fd86375437da75ff6320802cdfe.png, ../../_resources/ec087fd86375437da75ff6320802cdfe.png 1.5x, ../../_resources/ec087fd86375437da75ff6320802cdfe.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/ec087fd86375437da75ff6320802cdfe.png"
+        title="17ec69c0a09ff745f7396afef15ee28a.png" /></p>
+<h2 id="习题">习题</h2>
+<h4 id="习题-3-1-证明在两类线性分类中权重向量𝒘-与决策平面正交">习题 3-1 证明在两类线性分类中，权重向量𝒘 与决策平面正交．</h4>
+<p>判别函数：
+$$
+f(x)=w^{T} * x+w_{0}
+$$</p>
+<p>决策平面：
+$$
+f(x)=w^{T} * x+w_{0}=0
+$$</p>
+<p>$w^T$ 平面法向量，任取平面两点构成线段均垂直于法向量。</p>
+<h3 id="习题-3-2-在线性空间中证明一个点-𝒙-到平面-𝑓𝒙-𝒘--𝒘t𝒙--𝑏--0-的距离为-𝑓𝒙-𝒘𝒘">习题 3-2 在线性空间中，证明一个点 𝒙 到平面 𝑓(𝒙; 𝒘) = 𝒘T𝒙 + 𝑏 = 0 的距离为 |𝑓(𝒙; 𝒘)|/‖𝒘‖</h3>
+<p>点到面距离计算：任取平面一点与该点构成直线 $AB$ ，距离即是 $AB$ 在法向量 $\boldsymbol{w}$ 上的投影。</p>
+<p>$$
+|\mathrm{AC}|=\left|\overrightarrow{\mathrm{AB}} \cdot \frac{\overrightarrow{\mathrm{n}}}{|\overrightarrow{\mathrm{n}}|}\right|
+$$</p>
+<p>点积展开计算、消去0项即可。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-01-22</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" data-title="《神经网络与深度学习》第3章 - 线性模型" data-hashtags="神经网络与深度学习,NLP,notes,DL"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" data-hashtag="神经网络与深度学习"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" data-title="《神经网络与深度学习》第3章 - 线性模型"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" data-title="《神经网络与深度学习》第3章 - 线性模型"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/nndl-book-ch3-%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" data-title="《神经网络与深度学习》第3章 - 线性模型"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
-        { {- end -} }
-
-        { {- /* Content */ -} }
-        <div class="content" id="content">
-            { {- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
         </div>
+    </div>
 
-        { {- /* Footer */ -} }
-        { {- partial "single/footer.html" . -} }
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">神经网络与深度学习</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a>,&nbsp;<a href="/blog/tags/dl/">DL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
+        </section>
+    </div>
 
-        { {- /* Comment */ -} }
-        { {- partial "comment.html" . -} }
-    </article>
-{ {- end -} }
+    <div class="post-nav"><a href="/blog/nndl-book-ch2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" class="prev" rel="prev" title="《神经网络与深度学习》第2章 - 机器学习概述"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>《神经网络与深度学习》第2章 - 机器学习概述</a>
+            <a href="/blog/nndl-book-ch4-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="next" rel="next" title="《神经网络与深度学习》第4章 - 前馈神经网络">《神经网络与深度学习》第4章 - 前馈神经网络<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
+</html>

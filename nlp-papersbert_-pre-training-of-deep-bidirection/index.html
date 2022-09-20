@@ -1,101 +1,279 @@
-{ {- define "title" } }{ { .Title } } - { { .Site.Title } }{ { end -} }
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding - Zubin`s Blog</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding" />
+<meta property="og:description" content="[Devlin et al., NAACL 2019]
+BERT: Bidirectional Encoder representations from Transformers
+1 Introduction two pre-train strategies:
+ feature-based  ELMo: task-specific architecture   fine-tuning  GPT     limitations: standard language models are unidirectional masked language model (MLM, inspired by Cloze task) use a &ldquo;next sentence prediction&rdquo; task that jointly pretain text-pair representations  2 Related Work 2.1 Unsupervised Feature-based Approaches from word2vec to ELMo&hellip;
+2.2 Unsupervised Fine-tuning Approaches GPT use left-to-right language modeling and auto-encoder objectives" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zubingou.github.io/blog/nlp-papersbert_-pre-training-of-deep-bidirection/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-24T14:56:11+08:00" />
+<meta property="article:modified_time" content="2021-03-24T14:56:11+08:00" /><meta property="og:site_name" content="My cool site" />
 
-{ {- define "content" -} }
-    { {- $params := .Scratch.Get "params" -} }
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
 
-    { {- $toc := $params.toc -} }
-    { {- if eq $toc true -} }
-        { {- $toc = .Site.Params.page.toc | default dict -} }
-    { {- else if eq $toc false -} }
-        { {- $toc = dict "enable" false -} }
-    { {- end -} }
+<meta name="twitter:title" content="【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"/>
+<meta name="twitter:description" content="[Devlin et al., NAACL 2019]
+BERT: Bidirectional Encoder representations from Transformers
+1 Introduction two pre-train strategies:
+ feature-based  ELMo: task-specific architecture   fine-tuning  GPT     limitations: standard language models are unidirectional masked language model (MLM, inspired by Cloze task) use a &ldquo;next sentence prediction&rdquo; task that jointly pretain text-pair representations  2 Related Work 2.1 Unsupervised Feature-based Approaches from word2vec to ELMo&hellip;
+2.2 Unsupervised Fine-tuning Approaches GPT use left-to-right language modeling and auto-encoder objectives"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/nlp-papersbert_-pre-training-of-deep-bidirection/" /><link rel="prev" href="https://zubingou.github.io/blog/nlp-paperscontextual-word-representations_-a-con/" /><link rel="next" href="https://zubingou.github.io/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zubingou.github.io\/blog\/nlp-papersbert_-pre-training-of-deep-bidirection\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "NLP, BERT, Pre-training, notes\u0022","wordcount":  195 ,
+        "url": "https:\/\/zubingou.github.io\/blog\/nlp-papersbert_-pre-training-of-deep-bidirection\/","datePublished": "2021-03-24T14:56:11+08:00","dateModified": "2021-03-24T14:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-    { {- /* Auto TOC */ -} }
-    { {- if ne $toc.enable false -} }
-        <div class="toc" id="toc-auto">
-            <h2 class="toc-title">{ { T "contents" } }</h2>
-            <div class="toc-content{ { if eq $toc.auto false } } always-active{ { end } }" id="toc-content-auto"></div>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/" title="Zubin`s Blog">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
         </div>
-    { {- end -} }
-
-    <article class="page single">
-        { {- /* Title */ -} }
-        <h1 class="single-title animate__animated animate__flipInX">{ { .Title | emojify } }</h1>
-
-        { {- /* Subtitle */ -} }
-        { {- with $params.subtitle -} }
-            <h2 class="single-subtitle">{ { . } }</h2>
-        { {- end -} }
-
-        { {- /* Meta */ -} }
-        <div class="post-meta">
-            <div class="post-meta-line">
-                { {- $author := $params.author | default .Site.Author.name | default (T "author") -} }
-                { {- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -} }
-                <span class="post-author">
-                    { {- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -} }
-                    { {- partial "plugin/a.html" $options -} }
-                </span>
-
-                { {- $categories := slice -} }
-                { {- range .Params.categories -} }
-                    { {- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -} }
-                    { {- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw" aria-hidden="true"></i>%v</a>` $category.RelPermalink $category.Title) -} }
-                { {- end -} }
-                { {- with delimit $categories "&nbsp;" -} }
-                    &nbsp;<span class="post-category">
-                        { {- dict "Categories" . | T "includedInCategories" | safeHTML -} }
-                    </span>
-                { {- end -} }
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/" title="Zubin`s Blog">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
             </div>
-            <div class="post-meta-line">
-                { {- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -} }
-                    <i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{ { . } }">{ { . } }</time>&nbsp;
-                { {- end -} }
-                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{ { T "wordCount" .WordCount } }&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{ { T "readingTime" .ReadingTime } }&nbsp;
-                { {- $comment := .Scratch.Get "comment" | default dict -} }
-                { {- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -} }
-                    <span id="{ { .RelPermalink } }" class="leancloud_visitors" data-flag-title="{ { .Title } }">
-                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{ { T "views" } }
-                    </span>&nbsp;
-                { {- end -} }
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
             </div>
         </div>
-
-        { {- /* Featured image */ -} }
-        { {- $image := $params.featuredimage -} }
-        { {- with .Resources.GetMatch "featured-image" -} }
-            { {- $image = .RelPermalink -} }
-        { {- end -} }
-        { {- with $image -} }
-            <div class="featured-image">
-                { {- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -} }
-            </div>
-        { {- end -} }
-
-        { {- /* Static TOC */ -} }
-        { {- if ne $toc.enable false -} }
-            <div class="details toc" id="toc-static"  data-kept="{ { if $toc.keepStatic } }true{ { end } }">
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/nlp/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>NLP</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-03-24">2021-03-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 195 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
-                    <span>{ { T "contents" } }</span>
+                    <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static">
-                    { {- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
-                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-introduction">1 Introduction</a></li>
+    <li><a href="#2-related-work">2 Related Work</a>
+      <ul>
+        <li><a href="#21-unsupervised-feature-based-approaches">2.1 Unsupervised Feature-based Approaches</a></li>
+        <li><a href="#22-unsupervised-fine-tuning-approaches">2.2 Unsupervised Fine-tuning Approaches</a></li>
+        <li><a href="#23-transfer-learning-from-supervised-data">2.3 Transfer Learning from Supervised Data</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-bert">3 BERT</a>
+      <ul>
+        <li><a href="#31-pre-training-bert">3.1 Pre-training BERT</a></li>
+        <li><a href="#32-fine-tuning-bert">3.2 Fine-tuning BERT</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-experiments">4 Experiments</a></li>
+    <li><a href="#5-ablation-studies">5 Ablation Studies</a></li>
+    <li><a href="#6-conclusion">6 Conclusion</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>[Devlin et al., NAACL 2019]</p>
+<p>BERT: Bidirectional Encoder representations from Transformers</p>
+<h2 id="1-introduction">1 Introduction</h2>
+<p>two pre-train strategies:</p>
+<ol>
+<li>feature-based
+<ul>
+<li>ELMo: task-specific architecture</li>
+</ul>
+</li>
+<li>fine-tuning
+<ul>
+<li>GPT</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>limitations: standard language models are unidirectional</li>
+<li>masked language model (MLM, inspired by Cloze task)</li>
+<li>use a &ldquo;next sentence prediction&rdquo; task that jointly pretain text-pair representations</li>
+</ul>
+<h2 id="2-related-work">2 Related Work</h2>
+<h3 id="21-unsupervised-feature-based-approaches">2.1 Unsupervised Feature-based Approaches</h3>
+<p>from word2vec to ELMo&hellip;</p>
+<h3 id="22-unsupervised-fine-tuning-approaches">2.2 Unsupervised Fine-tuning Approaches</h3>
+<p>GPT use left-to-right language modeling and auto-encoder objectives</p>
+<h3 id="23-transfer-learning-from-supervised-data">2.3 Transfer Learning from Supervised Data</h3>
+<h2 id="3-bert">3 BERT</h2>
+<p>two steps:</p>
+<ol>
+<li>pretraining</li>
+<li>fine-tuning</li>
+</ol>
+<p>WordPiece embeddings</p>
+<h3 id="31-pre-training-bert">3.1 Pre-training BERT</h3>
+<p><strong>Task #1: Masked LM</strong></p>
+<ul>
+<li>mask 15% of all WordPiece tokens in each sequence at random.</li>
+<li>mismatch if [MASK] between pre-training and fine-tuning
+<ul>
+<li>80%: [MASK]</li>
+<li>10%: random token</li>
+<li>10%: unchanged</li>
+</ul>
+</li>
+</ul>
+<p><strong>Task #2: Next Sentence Prediction(NSP)</strong></p>
+<ul>
+<li>purpose: many tasks such as QA and NLI are based on two sentences.</li>
+<li>pre-train for a binarized next sentence prediction
+<ul>
+<li>50% IsNext</li>
+<li>50% NotNext</li>
+</ul>
+</li>
+<li>final model achieves 97%-98% accuracy on NSP</li>
+<li>BERT transfers all parameters to initialize end-task model parameters</li>
+</ul>
+<h3 id="32-fine-tuning-bert">3.2 Fine-tuning BERT</h3>
+<p>input and output for different tasks</p>
+<h2 id="4-experiments">4 Experiments</h2>
+<p>GLUE, SQuAD v1.1, SQuAD v2.0, SWAG</p>
+<h2 id="5-ablation-studies">5 Ablation Studies</h2>
+<ul>
+<li>Effect of Pre-training Tasks</li>
+<li>Effect of Model Size</li>
+<li>Feature-based Approach with BERT</li>
+</ul>
+<h2 id="6-conclusion">6 Conclusion</h2>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../../_resources/e701f88d745347bab49f75565d6430cd.png"
+        data-srcset="../../../_resources/e701f88d745347bab49f75565d6430cd.png, ../../../_resources/e701f88d745347bab49f75565d6430cd.png 1.5x, ../../../_resources/e701f88d745347bab49f75565d6430cd.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/e701f88d745347bab49f75565d6430cd.png"
+        title="88119d5820069cd6ea1914c6049a9682.png" /></p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../../_resources/4276e9de919f4c90aca49affa924e24c.png"
+        data-srcset="../../../_resources/4276e9de919f4c90aca49affa924e24c.png, ../../../_resources/4276e9de919f4c90aca49affa924e24c.png 1.5x, ../../../_resources/4276e9de919f4c90aca49affa924e24c.png 2x"
+        data-sizes="auto"
+        alt="../../../_resources/4276e9de919f4c90aca49affa924e24c.png"
+        title="d076d4b7ae2b58b370bc36b79dee3ac6.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-03-24</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/blog/nlp-papersbert_-pre-training-of-deep-bidirection/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/nlp-papersbert_-pre-training-of-deep-bidirection/" data-title="【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding" data-hashtags="NLP,BERT,Pre-training,notes&#34;"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/nlp-papersbert_-pre-training-of-deep-bidirection/" data-hashtag="NLP"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/nlp-papersbert_-pre-training-of-deep-bidirection/" data-title="【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/nlp-papersbert_-pre-training-of-deep-bidirection/" data-title="【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/nlp-papersbert_-pre-training-of-deep-bidirection/" data-title="【NLP Papers】BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
-        { {- end -} }
-
-        { {- /* Content */ -} }
-        <div class="content" id="content">
-            { {- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
         </div>
+    </div>
 
-        { {- /* Footer */ -} }
-        { {- partial "single/footer.html" . -} }
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/bert/">BERT</a>,&nbsp;<a href="/blog/tags/pre-training/">Pre-training</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
+        </section>
+    </div>
 
-        { {- /* Comment */ -} }
-        { {- partial "comment.html" . -} }
-    </article>
-{ {- end -} }
+    <div class="post-nav"><a href="/blog/nlp-paperscontextual-word-representations_-a-con/" class="prev" rel="prev" title="【NLP Papers】Contextual Word Representations: A Contextual Introduction"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>【NLP Papers】Contextual Word Representations: A Contextual Introduction</a>
+            <a href="/blog/nndl-book-ch7-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/" class="next" rel="next" title="《神经网络与深度学习》第7章 - 网络优化与正则化">《神经网络与深度学习》第7章 - 网络优化与正则化<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
+</html>

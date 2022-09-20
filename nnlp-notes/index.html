@@ -1,101 +1,1589 @@
-{ {- define "title" } }{ { .Title } } - { { .Site.Title } }{ { end -} }
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>NNLP: A Primer on Neural Network Models for Natural Language Processing - Zubin`s Blog</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="NNLP: A Primer on Neural Network Models for Natural Language Processing" />
+<meta property="og:description" content="一篇非常简洁的神经网络应用于NLP的综述（2016）。 1. Introduction purpose 过去近十年: NLP通常使用线性机器学习模型（SVM、LR）在高维稀疏特征向量上训" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zubingou.github.io/blog/nnlp-notes/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-02T13:56:11+08:00" />
+<meta property="article:modified_time" content="2022-09-20T15:00:01+08:00" /><meta property="og:site_name" content="My cool site" />
 
-{ {- define "content" -} }
-    { {- $params := .Scratch.Get "params" -} }
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
 
-    { {- $toc := $params.toc -} }
-    { {- if eq $toc true -} }
-        { {- $toc = .Site.Params.page.toc | default dict -} }
-    { {- else if eq $toc false -} }
-        { {- $toc = dict "enable" false -} }
-    { {- end -} }
+<meta name="twitter:title" content="NNLP: A Primer on Neural Network Models for Natural Language Processing"/>
+<meta name="twitter:description" content="一篇非常简洁的神经网络应用于NLP的综述（2016）。 1. Introduction purpose 过去近十年: NLP通常使用线性机器学习模型（SVM、LR）在高维稀疏特征向量上训"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/nnlp-notes/" /><link rel="prev" href="https://zubingou.github.io/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="next" href="https://zubingou.github.io/blog/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "NNLP: A Primer on Neural Network Models for Natural Language Processing",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zubingou.github.io\/blog\/nnlp-notes\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "NNLP, NLP, Neural Network, notes","wordcount":  5396 ,
+        "url": "https:\/\/zubingou.github.io\/blog\/nnlp-notes\/","datePublished": "2021-02-02T13:56:11+08:00","dateModified": "2022-09-20T15:00:01+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-    { {- /* Auto TOC */ -} }
-    { {- if ne $toc.enable false -} }
-        <div class="toc" id="toc-auto">
-            <h2 class="toc-title">{ { T "contents" } }</h2>
-            <div class="toc-content{ { if eq $toc.auto false } } always-active{ { end } }" id="toc-content-auto"></div>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/" title="Zubin`s Blog">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
         </div>
-    { {- end -} }
-
-    <article class="page single">
-        { {- /* Title */ -} }
-        <h1 class="single-title animate__animated animate__flipInX">{ { .Title | emojify } }</h1>
-
-        { {- /* Subtitle */ -} }
-        { {- with $params.subtitle -} }
-            <h2 class="single-subtitle">{ { . } }</h2>
-        { {- end -} }
-
-        { {- /* Meta */ -} }
-        <div class="post-meta">
-            <div class="post-meta-line">
-                { {- $author := $params.author | default .Site.Author.name | default (T "author") -} }
-                { {- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -} }
-                <span class="post-author">
-                    { {- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -} }
-                    { {- partial "plugin/a.html" $options -} }
-                </span>
-
-                { {- $categories := slice -} }
-                { {- range .Params.categories -} }
-                    { {- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -} }
-                    { {- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw" aria-hidden="true"></i>%v</a>` $category.RelPermalink $category.Title) -} }
-                { {- end -} }
-                { {- with delimit $categories "&nbsp;" -} }
-                    &nbsp;<span class="post-category">
-                        { {- dict "Categories" . | T "includedInCategories" | safeHTML -} }
-                    </span>
-                { {- end -} }
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/" title="Zubin`s Blog">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
             </div>
-            <div class="post-meta-line">
-                { {- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -} }
-                    <i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{ { . } }">{ { . } }</time>&nbsp;
-                { {- end -} }
-                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{ { T "wordCount" .WordCount } }&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{ { T "readingTime" .ReadingTime } }&nbsp;
-                { {- $comment := .Scratch.Get "comment" | default dict -} }
-                { {- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -} }
-                    <span id="{ { .RelPermalink } }" class="leancloud_visitors" data-flag-title="{ { .Title } }">
-                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{ { T "views" } }
-                    </span>&nbsp;
-                { {- end -} }
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
             </div>
         </div>
-
-        { {- /* Featured image */ -} }
-        { {- $image := $params.featuredimage -} }
-        { {- with .Resources.GetMatch "featured-image" -} }
-            { {- $image = .RelPermalink -} }
-        { {- end -} }
-        { {- with $image -} }
-            <div class="featured-image">
-                { {- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -} }
-            </div>
-        { {- end -} }
-
-        { {- /* Static TOC */ -} }
-        { {- if ne $toc.enable false -} }
-            <div class="details toc" id="toc-static"  data-kept="{ { if $toc.keepStatic } }true{ { end } }">
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">NNLP: A Primer on Neural Network Models for Natural Language Processing</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/nlp/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>NLP</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-02-02">2021-02-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5396 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
-                    <span>{ { T "contents" } }</span>
+                    <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static">
-                    { {- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
-                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-introduction">1. Introduction</a>
+      <ul>
+        <li><a href="#11-scope">1.1 Scope</a></li>
+        <li><a href="#12-a-note-on-terminology">1.2 A Note on Terminology</a></li>
+        <li><a href="#13-mathematical-notation">1.3 Mathematical Notation</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-neural-netword-architectures">2. Neural Netword Architectures</a></li>
+    <li><a href="#3-feature-representation">3. Feature Representation</a>
+      <ul>
+        <li><a href="#31-dense-vectors-vs-one-hot-representations">3.1 Dense Vectors vs. One-Hot Representations</a></li>
+        <li><a href="#32-variable-number-of-features-continuous-bag-of-words">3.2 Variable Number of Features: Continuous Bag of Words</a></li>
+        <li><a href="#33-distance-and-position-features">3.3 Distance and Position Features</a></li>
+        <li><a href="#34-feature-combinations">3.4 Feature Combinations</a></li>
+        <li><a href="#35-dimensionality">3.5 Dimensionality</a></li>
+        <li><a href="#36-vector-sharing">3.6 Vector Sharing</a></li>
+        <li><a href="#37-networks-output">3.7 Network&rsquo;s Output</a></li>
+        <li><a href="#38-historical-node">3.8 Historical Node</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-feed-forward-neural-networks">4. Feed-Forward Neural Networks</a>
+      <ul>
+        <li><a href="#41-a-brain-inspired-metaphor">4.1 A Brain-Inspired Metaphor</a></li>
+        <li><a href="#42-in-mathematical-notation">4.2 In Mathematical Notation</a></li>
+        <li><a href="#43-representation-power">4.3 Representation Power</a></li>
+        <li><a href="#44-common-non-linearities">4.4 Common Non-linearities</a>
+          <ul>
+            <li><a href="#441-sigmoid">4.4.1 Sigmoid</a></li>
+            <li><a href="#442-hyperbolic-tangent-tanh">4.4.2 Hyperbolic Tangent (tanh)</a></li>
+            <li><a href="#443-hard-tanh">4.4.3 Hard tanh</a></li>
+            <li><a href="#444-rectifier-relu">4.4.4 Rectifier (ReLU)</a></li>
+          </ul>
+        </li>
+        <li><a href="#45-output-transformations">4.5 Output Transformations</a></li>
+        <li><a href="#46-embedding-layers">4.6 Embedding Layers</a>
+          <ul>
+            <li><a href="#461-a-note-on-notation">4.6.1 A Note on Notation</a></li>
+            <li><a href="#462-a-note-on-sparse-vs-dense-features">4.6.2 A Note on Sparse vs. Dense Features</a></li>
+          </ul>
+        </li>
+        <li><a href="#47-loss-functions">4.7 Loss Functions</a>
+          <ul>
+            <li><a href="#471-hinge-binary--margin-loss--svm-loss">4.7.1 Hinge (binary) / margin loss / SVM loss</a></li>
+            <li><a href="#472-hinge-multiclass">4.7.2 Hinge (multiclass)</a></li>
+            <li><a href="#473-log-loss">4.7.3 Log Loss</a></li>
+            <li><a href="#474-categorical-cross-entropy-loss">4.7.4 Categorical Cross-Entropy Loss</a></li>
+            <li><a href="#475-ranking-losses">4.7.5 Ranking Losses</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#5-word-embeddings">5. Word Embeddings</a>
+      <ul>
+        <li><a href="#51-random-initialization">5.1 Random Initialization</a></li>
+        <li><a href="#52-supervised-task-specific-pre-training">5.2 Supervised Task-Specific Pre-training</a></li>
+        <li><a href="#53-unsupervised-pre-training">5.3 Unsupervised Pre-training</a></li>
+        <li><a href="#54-training-objectives">5.4 Training Objectives</a></li>
+        <li><a href="#55-the-choice-of-contexts">5.5 The Choice of Contexts</a>
+          <ul>
+            <li><a href="#551-window-approach">5.5.1 Window Approach</a></li>
+            <li><a href="#552-sentences-paragraphs-or-documents">5.5.2 Sentences, Paragraphs or Documents</a></li>
+            <li><a href="#553-syntactic-window">5.5.3 Syntactic Window</a></li>
+            <li><a href="#554-multilingual">5.5.4 Multilingual</a></li>
+            <li><a href="#555-character-based-and-sub-word-representations">5.5.5 Character-Based and Sub-word Representations</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#6-neural-network-training">6. Neural Network Training</a>
+      <ul>
+        <li><a href="#61-stochastic-gradient-training">6.1 Stochastic Gradient Training</a></li>
+        <li><a href="#62-the-computation-graph-abstraction">6.2 The Computation Graph Abstraction</a>
+          <ul>
+            <li><a href="#621-forward-computation">6.2.1 Forward Computation</a></li>
+            <li><a href="#622-backward-computation-derivatives-backprop">6.2.2 Backward Computation (Derivatives, Backprop)</a></li>
+            <li><a href="#623-software">6.2.3 Software</a></li>
+            <li><a href="#624-implementation-recipe">6.2.4 Implementation Recipe</a></li>
+            <li><a href="#625-network-composition">6.2.5 Network Composition</a></li>
+          </ul>
+        </li>
+        <li><a href="#63-optimization-issues">6.3 Optimization Issues</a>
+          <ul>
+            <li><a href="#631-initialization">6.3.1 Initialization</a></li>
+            <li><a href="#632-vanishing-and-exploding-gradients">6.3.2 Vanishing and Exploding Gradients</a></li>
+            <li><a href="#633-saturation-and-dead-neurons">6.3.3 Saturation and Dead Neurons</a></li>
+            <li><a href="#634-shuffling">6.3.4 Shuffling</a></li>
+            <li><a href="#635-learning-rate">6.3.5 Learning Rate</a></li>
+            <li><a href="#636-minibatches">6.3.6 Minibatches</a></li>
+          </ul>
+        </li>
+        <li><a href="#64-regularization">6.4 Regularization</a></li>
+      </ul>
+    </li>
+    <li><a href="#7-cascading-and-multi-task-learning">7. Cascading and Multi-task Learning</a>
+      <ul>
+        <li><a href="#71-model-cascading">7.1 Model Cascading</a></li>
+        <li><a href="#72-multi-task-learning">7.2 Multi-task Learning</a></li>
+      </ul>
+    </li>
+    <li><a href="#8-structured-output-prediction">8. Structured Output Prediction</a>
+      <ul>
+        <li><a href="#81-greedy-structured-prediction">8.1 Greedy Structured Prediction</a></li>
+        <li><a href="#82-search-based-structured-prediction">8.2 Search Based Structured Prediction</a>
+          <ul>
+            <li><a href="#821-probabilistic-objective-crf">8.2.1 Probabilistic Objective (CRF)</a></li>
+            <li><a href="#822-reranking">8.2.2 Reranking</a></li>
+            <li><a href="#823-memm-and-hybrid-approaches">8.2.3 MEMM and Hybrid Approaches</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#9-convolutional-layers">9. Convolutional Layers</a>
+      <ul>
+        <li><a href="#91-basic-convolution--pooling">9.1 Basic Convolution + Pooling</a></li>
+        <li><a href="#92-dynamic-hierarchical-and-k-max-pooling">9.2 Dynamic, Hierarchical and k-max Pooling</a></li>
+        <li><a href="#93-variations">9.3 Variations</a></li>
+      </ul>
+    </li>
+    <li><a href="#10-recurrent-neural-networks--modeling-sequences-and-stacks">10. Recurrent Neural Networks – Modeling Sequences and Stacks</a>
+      <ul>
+        <li><a href="#101-the-rnn-abstraction">10.1 The RNN Abstraction</a></li>
+        <li><a href="#102-rnn-training">10.2 RNN Training</a>
+          <ul>
+            <li><a href="#1021-acceptor-接收器">10.2.1 Acceptor 接收器</a></li>
+            <li><a href="#1022-encoder-编码器">10.2.2 Encoder 编码器</a></li>
+            <li><a href="#1023-transducer-转换器">10.2.3 Transducer 转换器</a></li>
+            <li><a href="#1024-encoder---decoder">10.2.4 Encoder - Decoder</a></li>
+          </ul>
+        </li>
+        <li><a href="#103-multi-layer-stacked-rnns">10.3 Multi-layer (Stacked) RNNs</a></li>
+        <li><a href="#104-bidirectional-rnns-birnn">10.4 Bidirectional RNNs (biRNN)</a></li>
+        <li><a href="#105-rnns-for-representing-stacks">10.5 RNNs for Representing Stacks</a></li>
+        <li><a href="#106-a-note-on-reading-the-literature">10.6 A Note on Reading the Literature</a></li>
+      </ul>
+    </li>
+    <li><a href="#11-concrete-rnn-architectures">11. Concrete RNN Architectures</a>
+      <ul>
+        <li><a href="#111-simple-rnn-srnn">11.1 Simple RNN (SRNN)</a></li>
+        <li><a href="#112-long-short-term-memory-lstm">11.2 Long Short-Term Memory (LSTM)</a></li>
+        <li><a href="#113-gated-recurrent-unit-gru">11.3 Gated Recurrent Unit (GRU)</a></li>
+        <li><a href="#114-other-variants">11.4 Other Variants</a></li>
+      </ul>
+    </li>
+    <li><a href="#12-modeling-trees--recursive-neural-networks">12. Modeling Trees – Recursive Neural Networks</a>
+      <ul>
+        <li><a href="#121-formal-definition">12.1 Formal Definition</a></li>
+        <li><a href="#122-extensions-and-variations">12.2 Extensions and Variations</a></li>
+        <li><a href="#123-training-recursive-neural-networks">12.3 Training Recursive Neural Networks</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>一篇非常简洁的神经网络应用于NLP的综述（2016）。</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<ul>
+<li>purpose
+<ul>
+<li>过去近十年: NLP通常使用线性机器学习模型（SVM、LR）在高维稀疏特征向量上训练</li>
+<li>recent：神经网络（非线性）运用在稠密向量</li>
+</ul>
+</li>
+<li>primer for beginners</li>
+<li>advanced: Deep Learning (Bengio, Goodfellow, and Courville)</li>
+</ul>
+<h3 id="11-scope">1.1 Scope</h3>
+<ul>
+<li>OUT of Scope:
+<ul>
+<li>vast literature of language modeling</li>
+<li>acoustic modeling</li>
+<li>neural networks for machine translation</li>
+<li>multi-modal applications combining language</li>
+<li>other signals such as images and videos</li>
+<li>Caching methods</li>
+<li>methods for efficient training with large output vocabularies</li>
+<li>attention models</li>
+<li>autoencoders and recursive autoencoders</li>
+<li>etc.</li>
+</ul>
+</li>
+</ul>
+<h3 id="12-a-note-on-terminology">1.2 A Note on Terminology</h3>
+<ul>
+<li>feature: a concrete, linguistic input such as a word, a suffix, or a part-of-speech tag</li>
+<li>input vector: actual input that is fed to the neural-network classifier</li>
+<li>input vector entry: a specific value of the input</li>
+</ul>
+<h3 id="13-mathematical-notation">1.3 Mathematical Notation</h3>
+<ul>
+<li>matrices: bold upper $(\mathbf{X}, \mathbf{Y}, \mathbf{Z})$</li>
+<li>vectors: bold lower $(\mathbf{b})$, row vec default
+<ul>
+<li>thus, right multiplied by mat: $(\mathbf{x} \mathbf{W}+\mathbf{b})$</li>
+</ul>
+</li>
+<li>series of mat/vec: superscript indices $\left(\mathbf{W}^{1}, \mathbf{W}^{2}\right)$</li>
+<li>exponentiated: with brackets $(\mathbf{W})^{2},\left(\mathbf{W}^{3}\right)^{2}$</li>
+<li>vector concatenation: $\left[\mathbf{v}_{\mathbf{1}} ; \mathbf{v}_{\mathbf{2}}\right]$</li>
+</ul>
+<h2 id="2-neural-netword-architectures">2. Neural Netword Architectures</h2>
+<ul>
+<li>discuss two kinds
+<ul>
+<li>feed-forward networks</li>
+<li>recurrent / recursive networks</li>
+</ul>
+</li>
+<li>feed-forward networks
+<ul>
+<li>include:
+<ul>
+<li>fully connected layers, eg. MLP</li>
+<li>nn with convolutional and pooling layers</li>
+</ul>
+</li>
+<li>All of the networks act as classifiers</li>
+</ul>
+</li>
+<li>Fully connected feed-forward neural networks (Section 4)
+<ul>
+<li>non-linear learners</li>
+<li>大多可以直接替代线性分类器</li>
+<li>很容易加入预训练词嵌入模型</li>
+</ul>
+</li>
+<li>Networks with convolutional and pooling layers (Section 9)
+<ul>
+<li>expect to find strong local clues regarding class membership(ie. local indicators regardless of their position)</li>
+<li>promising results on many tasks&hellip;</li>
+<li>facing structured data of arbitrary sizes, such as sequences and trees: can encode by sacrificing most of the structural information :(</li>
+</ul>
+</li>
+<li>Recurrent and recursive architectures
+<ul>
+<li>work well with sequences and trees while preserving a lot of the structural information.</li>
+<li>recurrent networks: model sequence</li>
+<li>recursive networks: generalizations of recurrent networks, model trees</li>
+<li>an extension of recurrent networks: model stacks</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-feature-representation">3. Feature Representation</h2>
+<ul>
+<li>think of a feed-forward nn as function $\mathrm{NN}(\mathbf{x})$，input $d_{in}$ vec $\mathbf{x}$，output $d_{out}$ vec.</li>
+<li>the input $\mathbf{x}$ encodes features such as words, part-of-speech tags or other linguistic information</li>
+<li>each core feature is <em>embedded</em> as a vector into a $d$ dimensional space</li>
+<li>embeddings: the vector representation of each core feature, can be trained like the other parameter</li>
+<li>general structure for NLP classification system based on a feed-forward NN:
+<ol>
+<li>Extract core features $f_{1}, \ldots, f_{k}$</li>
+<li>$f_i \rightarrow v(f_i)$
+<ul>
+<li>Different feature types may be embedded into different spaces.</li>
+</ul>
+</li>
+<li>$v(f_1), \ldots, v(f_k) \rightarrow \mathbf{x}$
+<ul>
+<li>by concatenation, summation or a combination of both</li>
+</ul>
+</li>
+<li>Feed $\mathbf{x}$ to NN</li>
+</ol>
+</li>
+</ul>
+<h3 id="31-dense-vectors-vs-one-hot-representations">3.1 Dense Vectors vs. One-Hot Representations</h3>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/7969ee84d9104a209f16ffb1f668c24d.png"
+        data-srcset="../_resources/7969ee84d9104a209f16ffb1f668c24d.png, ../_resources/7969ee84d9104a209f16ffb1f668c24d.png 1.5x, ../_resources/7969ee84d9104a209f16ffb1f668c24d.png 2x"
+        data-sizes="auto"
+        alt="../_resources/7969ee84d9104a209f16ffb1f668c24d.png"
+        title="431f0696a20a8e6ae9e65842e0af2945.png" /></p>
+<ul>
+<li>One Hot:
+<ul>
+<li>Each feature is its own dimension.</li>
+<li>Dimensionality of one-hot vector is same as number of distinct features.</li>
+<li>Features are completely independent from one another.</li>
+</ul>
+</li>
+<li>Dense:
+<ul>
+<li>Each feature is a d-dimensional vector.</li>
+<li>Dimensionality of vector is $d$.</li>
+<li>Model training will cause similar features to have similar vectors – information is shared between similar features.</li>
+</ul>
+</li>
+<li>Benifit of Dense:
+<ul>
+<li>generalization power</li>
+<li>share statistical strength between similar features</li>
+</ul>
+</li>
+<li>如果特征比较少而训练数据大、特征相互没有联系，或者不希望不同特征共享统计信息，可以采用简单的one-hot。而大多数论文主张对所有特征采用稠密、可以训练的特征向量</li>
+<li>使用one-hot和dense表示在NN最终结果上差异不大，使用one-hot输入总是会使得first layer学习dense的嵌入表示</li>
+</ul>
+<h3 id="32-variable-number-of-features-continuous-bag-of-words">3.2 Variable Number of Features: Continuous Bag of Words</h3>
+<ul>
+<li>continuous bag of words (CBOW) : represent an unbounded number of features using a fixed size vector
+$$\operatorname{CBOW}\left(f_{1}, \ldots, f_{k}\right)=\frac{1}{k} \sum_{i=1}^{k} v\left(f_{i}\right)$$</li>
+<li>weighted CBOW:
+$$\operatorname{WCBOW}\left(f_{1}, \ldots, f_{k}\right)=\frac{1}{\sum_{i=1}^{k} a_{i}} \sum_{i=1}^{k} a_{i} v\left(f_{i}\right)$$</li>
+<li>eg. document classification: $f_i$ may correspond to a word, associated weight $a_i$ counld be the word&rsquo;s TF-IDF score.</li>
+<li>if $v(f_i)$ were one-hot, CBOW and WCBOW become traditional(weighted) bag-of-words.</li>
+</ul>
+<h3 id="33-distance-and-position-features">3.3 Distance and Position Features</h3>
+<ul>
+<li>distance features are encoded similarily to the other feature types (?)</li>
+</ul>
+<h3 id="34-feature-combinations">3.4 Feature Combinations</h3>
+<ul>
+<li>combination features are crucial in linear models, 因为提供了更多维度以线性区分
+<ul>
+<li>feature designer&rsquo;s dirty work :(</li>
+</ul>
+</li>
+<li>non-linear neural network only needs the core features
+<ul>
+<li>network will find feature combinations</li>
+<li>complexity scales linearly with network size</li>
+</ul>
+</li>
+<li>Kernel methods, in particulr polynomial kernels also allow only core features
+<ul>
+<li>vs. NN, kernel methods are convex, admiting exact solutions</li>
+<li>high complexity, which scales linearly with data size, too slow for practice and large datasets.</li>
+</ul>
+</li>
+</ul>
+<h3 id="35-dimensionality">3.5 Dimensionality</h3>
+<ul>
+<li>How many dimensions should we allocate for each feature?
+<ul>
+<li>no theoretical bounds or even best-practices</li>
+<li>In current research, the dimensionality of word-embedding vectors range between about 50 to a few hundreds, and, in some extreme cases, thousands.</li>
+<li>experiment and trade-off between speed and accuracy</li>
+</ul>
+</li>
+</ul>
+<h3 id="36-vector-sharing">3.6 Vector Sharing</h3>
+<ul>
+<li>Should the vector for “dog:previous-word” be the same as the vector of “dog:next-word”?
+<ul>
+<li>empirical question</li>
+</ul>
+</li>
+</ul>
+<h3 id="37-networks-output">3.7 Network&rsquo;s Output</h3>
+<ul>
+<li>scalar scores to items in a discrete set, same as traditional linear models</li>
+<li>there is $d \times k$ matrix associated with the output layer, 列是每一类的嵌入表示，列向量的相似度代表类相似度</li>
+</ul>
+<h3 id="38-historical-node">3.8 Historical Node</h3>
+<ul>
+<li>dense word vector for NN: Bengio et al. (2003)</li>
+<li>introduced to NLP:  Collobert, Weston and colleagues (2008, 2011)</li>
+<li>embeddings for represent not only words but arbitrary features: Chen and Manning (2014)</li>
+</ul>
+<h2 id="4-feed-forward-neural-networks">4. Feed-Forward Neural Networks</h2>
+<h3 id="41-a-brain-inspired-metaphor">4.1 A Brain-Inspired Metaphor</h3>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/e1ab762dfbb0463b9859ab3a9c23d19c.png"
+        data-srcset="../_resources/e1ab762dfbb0463b9859ab3a9c23d19c.png, ../_resources/e1ab762dfbb0463b9859ab3a9c23d19c.png 1.5x, ../_resources/e1ab762dfbb0463b9859ab3a9c23d19c.png 2x"
+        data-sizes="auto"
+        alt="../_resources/e1ab762dfbb0463b9859ab3a9c23d19c.png"
+        title="0989f977e54268d864d75ea410417787.png" /></p>
+<ul>
+<li>sigmoid shape: non-linear function</li>
+<li>fully-connected layer / affine layer: each neuron is connected to all neurons in the next layer</li>
+<li>each row -&gt; a vector</li>
+<li>$\mathbf{y}=\left(g\left(\mathbf{x} \mathbf{W}^{\mathbf{1}}\right)\right) \mathbf{W}^{\mathbf{2}}$</li>
+</ul>
+<h3 id="42-in-mathematical-notation">4.2 In Mathematical Notation</h3>
+<ul>
+<li>
+<p>perceptron: linear function of input</p>
+<p>$$\text { NN }_{\text {Perceptron }}(\mathbf{x})=\mathbf{x} \mathbf{W}+\mathbf{b} $$</p>
+<p>$$ \mathbf{x} \in \mathbb{R}^{d_{\text {in }}}, \mathbf{W} \in \mathbb{R}^{d_{\text {in }} \times d_{\text {out }}}, \quad \mathbf{b} \in \mathbb{R}^{d_{\text {out }}}$$</p>
+</li>
+<li>
+<p>Multi Layer Perceptron with one hidden-layer (MLP1)</p>
+<p>$$\mathrm{NN}_{\mathrm{MLP} 1}(\mathrm{x})=g\left(\mathrm{x} \mathbf{W}^{1}+\mathrm{b}^{1}\right) \mathbf{W}^{2}+\mathbf{b}^{2}$$</p>
+<p>$$\mathbf{x} \in \mathbb{R}^{d_{\text {in }}}, \quad \mathbf{W}^{1} \in \mathbb{R}^{d_{\text {in }} \times d_{1}}, \quad \mathbf{b}^{\mathbf{1}} \in \mathbb{R}^{d_{1}}, \quad \mathbf{W}^{2} \in \mathbb{R}^{d_{1} \times d_{2}}, \quad \mathbf{b}^{2} \in \mathbb{R}^{d_{2}}$$</p>
+<ul>
+<li>$g$: non-linearity / activation function, applied element-wise</li>
+</ul>
+</li>
+<li>
+<p>MLP with two hidden-layers</p>
+<p>$$\mathrm{NN}_{\mathrm{MLP} 2}(\mathrm{x})=\left(g^{2}\left(g^{1}\left(\mathrm{x} \mathbf{W}^{1}+\mathrm{b}^{1}\right) \mathbf{W}^{2}+\mathrm{b}^{2}\right)\right) \mathbf{W}^{3}$$</p>
+<ul>
+<li>or:
+$$\begin{aligned} \mathrm{NN}_{\mathrm{MLP} 2}(\mathrm{x}) &amp;=\mathrm{y} \\ \mathrm{h}^{1} &amp;=g^{1}\left(\mathrm{x} \mathbf{W}^{1}+\mathrm{b}^{1}\right) \\ \mathrm{h}^{2} &amp;=g^{2}\left(\mathbf{h}^{1} \mathbf{W}^{2}+\mathbf{b}^{2}\right) \\ \mathbf{y} &amp;=\mathbf{h}^{2} \mathbf{W}^{3} \end{aligned}$$</li>
+</ul>
+</li>
+<li>
+<p>deep networks: Networks with several hidden layers</p>
+</li>
+<li>
+<p>$\theta$: collection of all parameters</p>
+</li>
+</ul>
+<h3 id="43-representation-power">4.3 Representation Power</h3>
+<ul>
+<li>MLP1 is universal approximator: approximate all continuous functions (on a closed and bounded subset of $\mathbb{R}^{n}$) and discrete function (mapping from finite dimensional discrete space to another)
+<ul>
+<li>However, DEEP is needed for learnability</li>
+<li>MLP1 do not guarantee for finding correct function</li>
+</ul>
+</li>
+<li>further discussion: Bengio et al. (2015, Section 6.5)</li>
+</ul>
+<h3 id="44-common-non-linearities">4.4 Common Non-linearities</h3>
+<ul>
+<li>currently no good theory as to which non-linearity to apply in which condition</li>
+</ul>
+<h4 id="441-sigmoid">4.4.1 Sigmoid</h4>
+<p>$$
+\sigma(x)=1 /\left(1+e^{-x}\right)
+$$
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/c3735eb9678f4b2b9c0648515a1a698a.png"
+        data-srcset="../_resources/c3735eb9678f4b2b9c0648515a1a698a.png, ../_resources/c3735eb9678f4b2b9c0648515a1a698a.png 1.5x, ../_resources/c3735eb9678f4b2b9c0648515a1a698a.png 2x"
+        data-sizes="auto"
+        alt="../_resources/c3735eb9678f4b2b9c0648515a1a698a.png"
+        title="79ce1ad67e4ca7a27f07c28db859a4f1.png" /></p>
+<ul>
+<li>also called logistic function</li>
+<li>currently considered to be deprecated for use in internal layers of neural networks</li>
+</ul>
+<h4 id="442-hyperbolic-tangent-tanh">4.4.2 Hyperbolic Tangent (tanh)</h4>
+<p>$$
+\tanh (x)=\frac{e^{2 x}-1}{e^{2 x}+1}
+$$
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/3f31de9e390a4c63add9e870c4e4a7f5.png"
+        data-srcset="../_resources/3f31de9e390a4c63add9e870c4e4a7f5.png, ../_resources/3f31de9e390a4c63add9e870c4e4a7f5.png 1.5x, ../_resources/3f31de9e390a4c63add9e870c4e4a7f5.png 2x"
+        data-sizes="auto"
+        alt="../_resources/3f31de9e390a4c63add9e870c4e4a7f5.png"
+        title="53f31b40fdfed992e0ca4627f10f4bbf.png" /></p>
+<h4 id="443-hard-tanh">4.4.3 Hard tanh</h4>
+<p>$$
+\operatorname{hardtanh}(x)=\left{\begin{array}{ll}
+-1 &amp; x&lt;-1 \\
+1 &amp; x&gt;1 \\
+x &amp; \text { otherwise }
+\end{array}\right.
+$$</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/92d90019c513409687b22f5f68ecf8eb.png"
+        data-srcset="../_resources/92d90019c513409687b22f5f68ecf8eb.png, ../_resources/92d90019c513409687b22f5f68ecf8eb.png 1.5x, ../_resources/92d90019c513409687b22f5f68ecf8eb.png 2x"
+        data-sizes="auto"
+        alt="../_resources/92d90019c513409687b22f5f68ecf8eb.png"
+        title="f243ae244575e84eb1291529c881624b.png" /></p>
+<ul>
+<li>an approximation of the tanh function</li>
+<li>faster to compute and take derivatives of</li>
+</ul>
+<h4 id="444-rectifier-relu">4.4.4 Rectifier (ReLU)</h4>
+<p>The Rectifier activation function</p>
+<p>$$
+\operatorname{ReLU}(x)=\max (0, x)=\left{\begin{array}{ll}
+0 &amp; x&lt;0 \\
+x &amp; \text { otherwise }
+\end{array}\right.
+$$</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/042ae54cb4584afd9cde0577f087f391.png"
+        data-srcset="../_resources/042ae54cb4584afd9cde0577f087f391.png, ../_resources/042ae54cb4584afd9cde0577f087f391.png 1.5x, ../_resources/042ae54cb4584afd9cde0577f087f391.png 2x"
+        data-sizes="auto"
+        alt="../_resources/042ae54cb4584afd9cde0577f087f391.png"
+        title="0c042b2526d10ef1fef038d5a29cff57.png" /></p>
+<ul>
+<li>performs well for many tasks, especially when combined with the dropout regularization technique</li>
+<li>As a rule of thumb, ReLU units work better than tanh, and tanh works better than sigmoid.</li>
+</ul>
+<h3 id="45-output-transformations">4.5 Output Transformations</h3>
+<p>softmax:</p>
+<p>$$
+\begin{aligned}
+\mathbf{x} &amp;=x_{1}, \ldots, x_{k} \\
+\operatorname{softmax}\left(x_{i}\right) &amp;=\frac{e^{x_{i}}}{\sum_{j=1}^{k} e^{x_{j}}}
+\end{aligned}
+$$</p>
+<ul>
+<li>used when modeling a probability distribution over the possible output classes</li>
+<li>To be effective, it should be used in conjunction with a probabilistic training objective such as cross-entropy</li>
+<li>如在不含hidden layer的network上使用softmax，即multinomial logistic regression model，也即maximum-entropy classifier</li>
+</ul>
+<h3 id="46-embedding-layers">4.6 Embedding Layers</h3>
+<p>$c(\cdot)$: core features -&gt; input vector</p>
+<ul>
+<li>concatenate:
+$$
+\begin{aligned}
+\mathbf{x}=c\left(f_{1}, f_{2}, f_{3}\right) &amp;=\left[v\left(f_{1}\right) ; v\left(f_{2}\right) ; v\left(f_{3}\right)\right] \\
+\mathrm{NN}_{\mathrm{MLP} 1}(\mathbf{x}) &amp;=\mathrm{NN}_{\mathrm{MLP} 1}\left(c\left(f_{1}, f_{2}, f_{3}\right)\right) \\
+&amp;=\mathrm{N} \mathrm{N}_{\mathrm{MLP} 1}\left(\left[v\left(f_{1}\right) ; v\left(f_{2}\right) ; v\left(f_{3}\right)\right]\right) \\
+&amp;=\left(g\left(\left[v\left(f_{1}\right) ; v\left(f_{2}\right) ; v\left(f_{3}\right)\right] \mathbf{W}^{1}+\mathbf{b}^{1}\right)\right) \mathbf{W}^{2}+\mathbf{b}^{2}
+\end{aligned}
+$$</li>
+<li>sum:
+$$
+\begin{aligned}
+\mathbf{x}=c\left(f_{1}, f_{2}, f_{3}\right) &amp;=v\left(f_{1}\right)+v\left(f_{2}\right)+v\left(f_{3}\right) \\
+\mathrm{NN}_{\mathrm{MLP} 1}(\mathbf{x}) &amp;=\mathrm{NN}_{\mathrm{MLP} 1}\left(c\left(f_{1}, f_{2}, f_{3}\right)\right) \\
+&amp;=\mathrm{NN}_{\mathrm{MLP} 1}\left(v\left(f_{1}\right)+v\left(f_{2}\right)+v\left(f_{3}\right)\right) \\
+&amp;=\left(g\left(\left(v\left(f_{1}\right)+v\left(f_{2}\right)+v\left(f_{3}\right)\right) \mathbf{W}^{1}+\mathbf{b}^{1}\right)\right) \mathbf{W}^{2}+\mathbf{b}^{2}
+\end{aligned}
+$$</li>
+<li>embedding layer / lookup layer: $c$
+$$
+v\left(f_{i}\right)=\mathbf{f}_{\mathbf{i}} \mathbf{E}
+$$
+$$
+\operatorname{CBOW}\left(f_{1}, \ldots, f_{k}\right)=\sum_{i=1}^{k}\left(\mathbf{f}_{\mathbf{i}} \mathbf{E}\right)=\left(\sum_{i=1}^{k} \mathbf{f}_{\mathbf{i}}\right) \mathbf{E}
+$$</li>
+</ul>
+<h4 id="461-a-note-on-notation">4.6.1 A Note on Notation</h4>
+<p>$$
+([\mathbf{x} ; \mathbf{y} ; \mathbf{z}] \mathbf{W}+\mathbf{b})
+$$
+is same as affine transformation:
+$$
+(\mathrm{x} \mathbf{U}+\mathbf{y} \mathbf{V}+\mathbf{z} \mathbf{W}+\mathbf{b})
+$$</p>
+<h4 id="462-a-note-on-sparse-vs-dense-features">4.6.2 A Note on Sparse vs. Dense Features</h4>
+<p>“traditional” sparse representation for its input vectors, input:
+$$
+\mathbf{x}=\sum_{i=1}^{k} \mathbf{f}_{\mathbf{i}} \quad \mathbf{x} \in \mathbb{N}_{+}^{|V|}
+$$
+first layers:
+$$
+\begin{array}{l}
+\mathrm{xW}+\mathrm{b}=\left(\sum_{i=1}^{k} \mathrm{f}_{\mathrm{i}}\right) \mathbf{W} \\
+\mathbf{W} \in \mathbb{R}^{|V| \times d}, \quad \mathbf{b} \in \mathbb{R}^{d}
+\end{array}
+$$</p>
+<ul>
+<li>similar to embedding layer that produces CBOW</li>
+<li>difference:
+<ol>
+<li>the introduction of the bias vector b</li>
+<li>non-linear activation</li>
+<li>each feature receive a separate vector (row in $\mathbf{W}$) while embedding layer can share</li>
+<li>these differences are small and subtle</li>
+</ol>
+</li>
+</ul>
+<h3 id="47-loss-functions">4.7 Loss Functions</h3>
+<ul>
+<li>parameters of the network: the matrices $\mathbf{W^i}$, the biases $\mathbf{b^i}$ and commonly the embeddings $\mathbf{E}$</li>
+</ul>
+<h4 id="471-hinge-binary--margin-loss--svm-loss">4.7.1 Hinge (binary) / margin loss / SVM loss</h4>
+<p>合页损失（长得像合页）
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/2683ce413d6942d08b3b3e02aab07311.png"
+        data-srcset="../_resources/2683ce413d6942d08b3b3e02aab07311.png, ../_resources/2683ce413d6942d08b3b3e02aab07311.png 1.5x, ../_resources/2683ce413d6942d08b3b3e02aab07311.png 2x"
+        data-sizes="auto"
+        alt="../_resources/2683ce413d6942d08b3b3e02aab07311.png"
+        title="f5e592059171a3b8b1a92c17927b6334.png" />
+$$
+L_{\text {hinge(binary) }}(\hat{y}, y)=\max (0,1-y \cdot \hat{y})
+$$</p>
+<h4 id="472-hinge-multiclass">4.7.2 Hinge (multiclass)</h4>
+<p>$$
+\text { prediction }=\arg \max _{i} \hat{y}_{i}
+$$
+$t=\arg \max _{i} y_{i}$ the correct class, $k=\arg \max _{i \neq t} \hat{y}_{i}$ the highest scoring class such that $k \neq t$, multiclass hinge loss:
+$$
+L_{\text {hinge(multiclass) }}(\hat{\mathbf{y}}, \mathbf{y})=\max \left(0,1-\left(\hat{y}_{t}-\hat{y}_{k}\right)\right)
+$$</p>
+<ul>
+<li>Both the binary and multiclass hinge losses are intended to be used with a linear output layer</li>
+<li>The hinge losses are useful whenever we require a hard decision rule, and do not attempt to model class membership probability.</li>
+</ul>
+<h4 id="473-log-loss">4.7.3 Log Loss</h4>
+<p>“soft” version of the hinge loss with an infinite margin
+$$
+L_{l o g}(\hat{\mathbf{y}}, \mathbf{y})=\log \left(1+\exp \left(-\left(\hat{y}_{t}-\hat{y}_{k}\right)\right)\right.
+$$</p>
+<h4 id="474-categorical-cross-entropy-loss">4.7.4 Categorical Cross-Entropy Loss</h4>
+<ul>
+<li>also referred to as <em>negative log likelihood</em></li>
+<li>used when a probabilistic interpretation of the scores is desired
+$$
+\hat{y}_{i}=P(y=i \mid \mathbf{x})
+$$
+$$
+L_{\text {cross-entropy }}(\hat{\mathbf{y}}, \mathbf{y})=-\sum_{i} y_{i} \log \left(\hat{y}_{i}\right)
+$$</li>
+<li>hard classification problems: each training example has a single correct class assignment, $\mathbf{y}$ is one-hot:
+$$
+L_{\text {cross-entropy }(\text { hard classification })}(\hat{\mathbf{y}}, \mathbf{y})=-\log \left(\hat{y}_{t}\right)
+$$</li>
+<li>When using the cross-entropy loss, it is assumed that the network’s output is transformed using the softmax transformation</li>
+</ul>
+<h4 id="475-ranking-losses">4.7.5 Ranking Losses</h4>
+<p>With pairs of correct and incorrect (by corrupting a positive example) items x and x′, and our goal is to score correct items above incorrect ones.</p>
+<p>$$
+L_{\text {ranking }(\operatorname{margin})}\left(\mathbf{x}, \mathbf{x}^{\prime}\right)=\max \left(0,1-\left(\mathrm{NN}(\mathbf{x})-\mathrm{NN}\left(\mathbf{x}^{\prime}\right)\right)\right)
+$$</p>
+<p>$$
+L_{\text {ranking }(\log )}\left(\mathbf{x}, \mathbf{x}^{\prime}\right)=\log \left(1+\exp \left(-\left(\mathrm{NN}(\mathbf{x})-\mathrm{NN}\left(\mathbf{x}^{\prime}\right)\right)\right)\right)
+$$</p>
+<h2 id="5-word-embeddings">5. Word Embeddings</h2>
+<p>embeddings: representing each feature as a vector in a low dimensional space</p>
+<h3 id="51-random-initialization">5.1 Random Initialization</h3>
+<ul>
+<li>Random Initialization
+<ul>
+<li>[Mikolov et al., 2013]: $\left[-\frac{1}{2 d}, \frac{1}{2 d}\right]$</li>
+<li>xavier initialization (Section 6.3.1): $\left[-\frac{\sqrt{6}}{\sqrt{d}}, \frac{\sqrt{6}}{\sqrt{d}}\right]$</li>
+</ul>
+</li>
+<li>in practice
+<ul>
+<li>random initialization: for commonly occurring features, eg. part-of-speech tags or individual letters</li>
+<li>supervised or unsupervised pre-training: for potentially rare features, eg. features for individual words
+<ul>
+<li>treate pre-trained vectors as fixed or further tuned.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="52-supervised-task-specific-pre-training">5.2 Supervised Task-Specific Pre-training</h3>
+<ul>
+<li>use auxiliary task B (say, part-of-speech tagging) to pre-train word vectors for task A (eg. syntactic parsing)
+<ul>
+<li>or train jointly (Section 7)</li>
+</ul>
+</li>
+</ul>
+<h3 id="53-unsupervised-pre-training">5.3 Unsupervised Pre-training</h3>
+<ul>
+<li>distributional hypothesis (Harris, 1954): words are similar if they appear in similar contexts</li>
+<li>It is thus desired that the similarity between word vectors learned by the unsupervised algorithm captures the same aspects of similarity that are useful for performing the intended task of the network.</li>
+<li>unsupervised word-embedding algorithms
+<ul>
+<li>word2vec(Mikolov et al., 2013)</li>
+<li>GloVe (Pennington, Socher, &amp; Manning, 2014)</li>
+<li>the Collobert and Weston (2008, 2011) embeddings algorithm
+<ul>
+<li>all above based on stochastic gradient training</li>
+</ul>
+</li>
+<li>algorithms based on matrix factorization</li>
+</ul>
+</li>
+<li>the choice of auxiliary problem matters much more than the learning method</li>
+<li>software packages
+<ul>
+<li>word2vec, Gensim: word2vec model with word-windows based contexts</li>
+<li>word2vecf: allowing the use of arbitrary contexts</li>
+<li>GloVe: GloVe model</li>
+</ul>
+</li>
+<li>have many other applications in NLP beyond initializing word-embeddings layer of NN</li>
+</ul>
+<h3 id="54-training-objectives">5.4 Training Objectives</h3>
+<ol>
+<li>Language-modeling inspired approaches: model the conditional probability P(w|c)
+<ul>
+<li>Mikolov et al. (2013)</li>
+<li>Mnih and Kavukcuoglu (2013)</li>
+<li>GloVe (Pennington et al., 2014)</li>
+</ul>
+</li>
+<li>binary classification
+<ul>
+<li>Collobert and Weston (2008, 2011)</li>
+<li>Mikolov et al. (2013, 2014)</li>
+</ul>
+</li>
+</ol>
+<h3 id="55-the-choice-of-contexts">5.5 The Choice of Contexts</h3>
+<ul>
+<li>symmetric window rather than preivous words in original language model</li>
+</ul>
+<h4 id="551-window-approach">5.5.1 Window Approach</h4>
+<ul>
+<li>a sequence of 2k +1 words</li>
+<li>tow approach
+<ul>
+<li>one task: predict the focus word based on context words (represented using CBOW [Mikolov et al., 2013] or vector concatenation [Collobert &amp; Weston, 2008])</li>
+<li>2k tasks (skip-gram, often SOTA) [Mikolov et al., 2013]</li>
+</ul>
+</li>
+<li>Effect of Window Size
+<ul>
+<li>larger: topical similarities</li>
+<li>smaller: functional and syntatic similarities</li>
+</ul>
+</li>
+<li>Positional Windows
+<ul>
+<li>CBOW和skip-gram丢失了位置信息</li>
+<li>positional contexts, eg. “the:+2”</li>
+</ul>
+</li>
+<li>Variants</li>
+</ul>
+<h4 id="552-sentences-paragraphs-or-documents">5.5.2 Sentences, Paragraphs or Documents</h4>
+<p>skip-grams (or CBOW) is equivalent to using very large window sizes.</p>
+<ul>
+<li>capture topical similarity</li>
+</ul>
+<h4 id="553-syntactic-window">5.5.3 Syntactic Window</h4>
+<p>replace the linear context within a sentence with a syntactic one</p>
+<ul>
+<li>produce highly functional similarities</li>
+</ul>
+<h4 id="554-multilingual">5.5.4 Multilingual</h4>
+<p>using multilingual, translation based contexts</p>
+<h4 id="555-character-based-and-sub-word-representations">5.5.5 Character-Based and Sub-word Representations</h4>
+<p>derive the vector representation of a word from the characters that compose it</p>
+<ul>
+<li>motivation: unknown words problem</li>
+<li>challenging, as the 	relationship between form (characters) and function (syntax, semantics)in language is quite loose</li>
+</ul>
+<p>middle-ground: vector for word + vectors of sub-word</p>
+<h2 id="6-neural-network-training">6. Neural Network Training</h2>
+<h3 id="61-stochastic-gradient-training">6.1 Stochastic Gradient Training</h3>
+<p>SGD:
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/96fd77c92dda428d8886df81259824ab.png"
+        data-srcset="../_resources/96fd77c92dda428d8886df81259824ab.png, ../_resources/96fd77c92dda428d8886df81259824ab.png 1.5x, ../_resources/96fd77c92dda428d8886df81259824ab.png 2x"
+        data-sizes="auto"
+        alt="../_resources/96fd77c92dda428d8886df81259824ab.png"
+        title="06f1abad5c520405bced6294318326a1.png" /></p>
+<p>minibatch SGD:
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/8b47e46d704d4d218f1b895d01471f84.png"
+        data-srcset="../_resources/8b47e46d704d4d218f1b895d01471f84.png, ../_resources/8b47e46d704d4d218f1b895d01471f84.png 1.5x, ../_resources/8b47e46d704d4d218f1b895d01471f84.png 2x"
+        data-sizes="auto"
+        alt="../_resources/8b47e46d704d4d218f1b895d01471f84.png"
+        title="920b57eb34ee2cf477721260271558bf.png" /></p>
+<p>others:</p>
+<ul>
+<li>SGD + Momentum</li>
+<li>Nesterov Momentum</li>
+<li>Adaptive learning rate: AdaGrad, AdaDelta, Adam</li>
+</ul>
+<h3 id="62-the-computation-graph-abstraction">6.2 The Computation Graph Abstraction</h3>
+<p>computation graph: directed acyclic graph(DAG)</p>
+<p>example of compution:
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/52a2c7c10cc549ceb9a06c53ab702614.png"
+        data-srcset="../_resources/52a2c7c10cc549ceb9a06c53ab702614.png, ../_resources/52a2c7c10cc549ceb9a06c53ab702614.png 1.5x, ../_resources/52a2c7c10cc549ceb9a06c53ab702614.png 2x"
+        data-sizes="auto"
+        alt="../_resources/52a2c7c10cc549ceb9a06c53ab702614.png"
+        title="76e36a8491d33f37d8987e539687abf3.png" /></p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/2afb87661e1e4d91bab5414fe03cf177.png"
+        data-srcset="../_resources/2afb87661e1e4d91bab5414fe03cf177.png, ../_resources/2afb87661e1e4d91bab5414fe03cf177.png 1.5x, ../_resources/2afb87661e1e4d91bab5414fe03cf177.png 2x"
+        data-sizes="auto"
+        alt="../_resources/2afb87661e1e4d91bab5414fe03cf177.png"
+        title="436ce6d30d60df47ddb580ff6f24c2d8.png" /></p>
+<h4 id="621-forward-computation">6.2.1 Forward Computation</h4>
+<p>topological order:
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/38e5e73389804b25a40c9f3f74edba44.png"
+        data-srcset="../_resources/38e5e73389804b25a40c9f3f74edba44.png, ../_resources/38e5e73389804b25a40c9f3f74edba44.png 1.5x, ../_resources/38e5e73389804b25a40c9f3f74edba44.png 2x"
+        data-sizes="auto"
+        alt="../_resources/38e5e73389804b25a40c9f3f74edba44.png"
+        title="a938d97698f8b0e5bf2268f3cf713350.png" /></p>
+<h4 id="622-backward-computation-derivatives-backprop">6.2.2 Backward Computation (Derivatives, Backprop)</h4>
+<p>误差乘以偏导再求和
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/9e11d25f76cc4b4d99f4b4bf62ccd691.png"
+        data-srcset="../_resources/9e11d25f76cc4b4d99f4b4bf62ccd691.png, ../_resources/9e11d25f76cc4b4d99f4b4bf62ccd691.png 1.5x, ../_resources/9e11d25f76cc4b4d99f4b4bf62ccd691.png 2x"
+        data-sizes="auto"
+        alt="../_resources/9e11d25f76cc4b4d99f4b4bf62ccd691.png"
+        title="50d095a5430d3d900297146beaec36d0.png" /></p>
+<h4 id="623-software">6.2.3 Software</h4>
+<p>implement computation-graph model: Theano, Chainer, penne, CNN/pyCNN</p>
+<p>Theano has optimizing compiler</p>
+<ul>
+<li>pros: run efficiently on either the CPU or a GPU</li>
+<li>cons: compilation can be costly</li>
+</ul>
+<p>other packages dynamic CG &ldquo;on the fly&rdquo;:</p>
+<ul>
+<li>cons: speed may suffer</li>
+<li>especially convenient with recurrnt and recursive networds</li>
+</ul>
+<h4 id="624-implementation-recipe">6.2.4 Implementation Recipe</h4>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/75004299211c43dfacb5cbf307f5fb4b.png"
+        data-srcset="../_resources/75004299211c43dfacb5cbf307f5fb4b.png, ../_resources/75004299211c43dfacb5cbf307f5fb4b.png 1.5x, ../_resources/75004299211c43dfacb5cbf307f5fb4b.png 2x"
+        data-sizes="auto"
+        alt="../_resources/75004299211c43dfacb5cbf307f5fb4b.png"
+        title="cdbc0803aa3007b0b393a0a0a050ead8.png" /></p>
+<h4 id="625-network-composition">6.2.5 Network Composition</h4>
+<p>when networks&rsquo;s output is a vector, easy to compose</p>
+<h3 id="63-optimization-issues">6.3 Optimization Issues</h3>
+<p>further: Bengio et al. (2015, ch. 8)</p>
+<h4 id="631-initialization">6.3.1 Initialization</h4>
+<blockquote>
+<p>tips: When debugging, and for reproducibility of results, it is advised to used a fixed random seed.</p>
+</blockquote>
+<p>xavier initialization:
+$$
+\mathbf{W} \sim U\left[-\frac{\sqrt{6}}{\sqrt{d_{\mathrm{in}}+d_{\mathrm{out}}}},+\frac{\sqrt{6}}{\sqrt{d_{\mathrm{in}}+d_{\mathrm{out}}}}\right]
+$$</p>
+<ul>
+<li>too large or too small cause saturated</li>
+<li>internal covariate shift: use batch normalization, adjust inputs to fix the activation function (vice versa)
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/e09a8c859f3c4fed8ee747c455d6f12d.png"
+        data-srcset="../_resources/e09a8c859f3c4fed8ee747c455d6f12d.png, ../_resources/e09a8c859f3c4fed8ee747c455d6f12d.png 1.5x, ../_resources/e09a8c859f3c4fed8ee747c455d6f12d.png 2x"
+        data-sizes="auto"
+        alt="../_resources/e09a8c859f3c4fed8ee747c455d6f12d.png"
+        title="a65f913f43bf78fc110dd150f60970b6.png" />
+<a href="https://medium.com/@shiyan/xavier-initialization-and-batch-normalization-my-understanding-b5b91268c25c" target="_blank" rel="noopener noreffer "><font size=2><em>image source</em></font></a></li>
+</ul>
+<p>He et al. (2015): ReLU initialized by sampling from a zero-mean Gaussian distribution whose standard deviation is $\sqrt{\frac{2}{d_{\text {in }}}}$, works better than xavier in image classification</p>
+<h4 id="632-vanishing-and-exploding-gradients">6.3.2 Vanishing and Exploding Gradients</h4>
+<p>especially in deeper networks, recursive and recurrent networks</p>
+<p>solutions for vanishing (still open research):</p>
+<ul>
+<li>shallower</li>
+<li>step-wise training</li>
+<li>batch-normalization(for every minibatch, normalizing the inputs to each of the network layers to have zero mean and unit variance)</li>
+<li>specialized architectures for gradient flow (e.g.  LSTM and GRU)</li>
+</ul>
+<p>solution for exploding:</p>
+<ul>
+<li>clipping the gradients if their norm exceeds a given threshold</li>
+</ul>
+<h4 id="633-saturation-and-dead-neurons">6.3.3 Saturation and Dead Neurons</h4>
+<p>Saturated:</p>
+<ul>
+<li>layers with tanh and sigmoid</li>
+<li>output values all close to one</li>
+</ul>
+<p>Dead:</p>
+<ul>
+<li>layers with ReLU</li>
+<li>most or all values are negative and thus clipped at zero</li>
+</ul>
+<p>solutions:</p>
+<ul>
+<li>avoid large gradient (reduce learning rate)</li>
+<li>for saturated:
+<ul>
+<li>normalize after activation, $g(\mathbf{h})=\frac{\tanh (\mathbf{h})}{|\tanh (\mathbf{h})|}$</li>
+<li>batch normalization (important in CV)</li>
+</ul>
+</li>
+</ul>
+<h4 id="634-shuffling">6.3.4 Shuffling</h4>
+<p>shuffle the training examples before each pass</p>
+<h4 id="635-learning-rate">6.3.5 Learning Rate</h4>
+<p>rule of thumb: try $[0,1]$, e.g. 0.001, 0.01, 0.1, 1
+decrease rate once the loss stops improving</p>
+<p>Learning rate scheduling:</p>
+<ul>
+<li>learning rate / iter</li>
+<li>L´eon Bottou (2012): $\eta_{t}=\eta_{0}\left(1+\eta_{0} \lambda t\right)^{-1}$</li>
+</ul>
+<h4 id="636-minibatches">6.3.6 Minibatches</h4>
+<p>benefit from GPUs</p>
+<h3 id="64-regularization">6.4 Regularization</h3>
+<p>to alleviate overfitting</p>
+<p>add to objective function:
+$$
+\frac{\lambda}{2}|\theta|^{2}
+$$</p>
+<p>dropout: 每批训练中，忽略一半（或某层中一半）特征检测器（设为0），减少特征检测器（隐层结点）之间的相互作用。
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/76fa7c284f2d4fcfbb61d3ffdec23ad6.png"
+        data-srcset="../_resources/76fa7c284f2d4fcfbb61d3ffdec23ad6.png, ../_resources/76fa7c284f2d4fcfbb61d3ffdec23ad6.png 1.5x, ../_resources/76fa7c284f2d4fcfbb61d3ffdec23ad6.png 2x"
+        data-sizes="auto"
+        alt="../_resources/76fa7c284f2d4fcfbb61d3ffdec23ad6.png"
+        title="d7ebf9373b8572ef601c3691a3eb39c9.png" />
+<font size=2><em>Srivastava, Nitish, et al. ”Dropout: a simple way to prevent neural networks from overfitting”, JMLR 2014</em></font></p>
+<ul>
+<li>key factors in image classification, especially with ReLU</li>
+<li>also matters in NLP</li>
+</ul>
+<h2 id="7-cascading-and-multi-task-learning">7. Cascading and Multi-task Learning</h2>
+<h3 id="71-model-cascading">7.1 Model Cascading</h3>
+<p>build large networks with smaller component networks</p>
+<p>to cambat vanishing gradient and make the most of training material, bootstrap component networks&rsquo;s parameters by training separately</p>
+<h3 id="72-multi-task-learning">7.2 Multi-task Learning</h3>
+<p>e.g.  chunking, named entity recognition (NER) and language modeling are examples of synergistic tasks</p>
+<h2 id="8-structured-output-prediction">8. Structured Output Prediction</h2>
+<p>structured ouput: sequence, tree, graph
+e.g. sequence tagging, sequence segmentation(chunking, NER) and syntactic parsing.</p>
+<h3 id="81-greedy-structured-prediction">8.1 Greedy Structured Prediction</h3>
+<p>decompose into a sequence of local prediction problems (classifier)
+e.g.
+-left-to-right tagging models (Gimenez &amp; Marquez, 2004)</p>
+<ul>
+<li>greedy transition-based parsing (Nivre, 2008)</li>
+</ul>
+<p>cons: error propagation</p>
+<ul>
+<li>nonlinear NN classifier helps</li>
+<li>the easy-first approach in Goldberg &amp; Elhadad, 2010</li>
+<li>making training conditions more similar to testing conditions by exposing the training procedure to inputs that result from likely mistakes</li>
+</ul>
+<h3 id="82-search-based-structured-prediction">8.2 Search Based Structured Prediction</h3>
+<p>also: energy based learning (LeCun et al., 2006, Section 7)</p>
+<p>Search-based structured prediction is formulated as a search problem over possible structures:
+$$
+\operatorname{predict}(x)=\underset{y \in \mathcal{Y}(x)}{\arg \max } \operatorname{score}(x, y)
+$$</p>
+<p>scoring function:
+$$
+\operatorname{score}(x, y)=\mathbf{w} \cdot \Phi(x, y)
+$$</p>
+<ul>
+<li>Φ is a feature extraction function and w is a weight vector</li>
+</ul>
+<p>decomposed y:
+$$
+\Phi(x, y)=\sum_{p \in \operatorname{parts}(x, y)} \phi(p)
+$$
+$$
+\operatorname{score}(x, y)=\mathbf{w} \cdot \Phi(x, y)=\mathbf{w} \cdot \sum_{p \in y} \phi(p)=\sum_{p \in y} \mathbf{w} \cdot \phi(p)=\sum_{p \in y} \operatorname{score}(p)
+$$</p>
+<p>replace linear scoring function with NN:
+$$
+\operatorname{score}(x, y)=\sum_{p \in y} \operatorname{score}(p)=\sum_{p \in y} \mathrm{NN}(c(p))
+$$</p>
+<ul>
+<li>c(p) maps the part p into a $d_{in}$ dimensional vector</li>
+</ul>
+<p>eg. one-hidden-layer MLP:
+$$
+\operatorname{score}(x, y)=\sum_{p \in y} \mathrm{NN}_{\mathrm{MLP1}}(c(p))=\sum_{p \in y}\left(g\left(c(p) \mathbf{W}^{1}+\mathbf{b}^{1}\right)\right) \mathbf{w}
+$$</p>
+<p>find the best scoring structure $y&rsquo;$, generalized perceptron loss:
+$$
+\max _{y^{\prime}} \operatorname{score}\left(x, y^{\prime}\right)-\operatorname{score}(x, y)
+$$</p>
+<p>LeCun et al. (2006, Section 5), margin-based hinge loss:
+$$
+\max \left(0, m+\max _{y^{\prime} \neq y} \operatorname{score}\left(x, y^{\prime}\right)-\operatorname{score}(x, y)\right)
+$$</p>
+<h4 id="821-probabilistic-objective-crf">8.2.1 Probabilistic Objective (CRF)</h4>
+<p>conditional random fields, “CRF”: treat each parts scores as a <em>clique potential</em> and define score:
+$$
+\begin{aligned}
+\operatorname{score}_{\mathrm{CRF}}(x, y)=P(y \mid x) &amp;=\frac{\exp \left(\sum_{p \in y} \operatorname{score}(p)\right)}{\sum_{y^{\prime} \in \mathcal{Y}(x)} \exp \left(\sum_{p \in y^{\prime}} \operatorname{score}(p)\right)} \\
+&amp;=\frac{\exp \left(\sum_{p \in y} \operatorname{NN}(\phi(p))\right)}{\sum_{y^{\prime} \in \mathcal{Y}(x)} \exp \left(\sum_{p \in y^{\prime}} \operatorname{NN}(\phi(p))\right)}
+\end{aligned}
+$$</p>
+<p>loss for training example (x,y):
+$$
+-\log \operatorname{score}_{\mathrm{CRF}}(x, y)
+$$</p>
+<ul>
+<li>
+<p>分母需要计算所有指数多的可能结构，可以用DP, e.g.</p>
+<ul>
+<li>the forward-backward viterbi recurrences for sequences</li>
+<li>the CKY insideoutside recurrences for tree structures</li>
+</ul>
+</li>
+<li>
+<p>approximate methods for computing the partition function:</p>
+<ul>
+<li>eg. beam search (波束搜索) for inference</li>
+</ul>
+</li>
+</ul>
+<h4 id="822-reranking">8.2.2 Reranking</h4>
+<p>reranking framework: base model produce k-best scoring structures, complex model scores the candidates in the k-best list</p>
+<h4 id="823-memm-and-hybrid-approaches">8.2.3 MEMM and Hybrid Approaches</h4>
+<ul>
+<li>可以将MEMM中的logistic regression（Maximum Entropy）替换为MLP</li>
+<li>Hybrid between NN and linear models
+<ul>
+<li>Weiss et al. (2015): transition-based dependency parsing in a two-stage (MLP2 and NN) model</li>
+</ul>
+</li>
+</ul>
+<h2 id="9-convolutional-layers">9. Convolutional Layers</h2>
+<p>CBOW忽略了位置信息(&ldquo;good, not bad&rdquo; == &ldquo;bad, not good&rdquo;)</p>
+<ul>
+<li>embedding word-pairs (bi-grams) -&gt; huge embedding matrices, sparsity</li>
+<li>convolution-and-pooling (CNNs)</li>
+</ul>
+<p>CNN:</p>
+<ul>
+<li>evolved in CV (LeCun &amp; Bengio, 1995)</li>
+<li>bject detectors (Krizhevsky et al., 2012)</li>
+<li>images using 2-d, text using 1-d</li>
+<li>evolved in NLP, semantic-role labeling (Collobert, Weston and colleagues, 2011)</li>
+<li>sentiment and question-type classification (Kalchbrenner et al. (2014) and Kim (2014))</li>
+</ul>
+<h3 id="91-basic-convolution--pooling">9.1 Basic Convolution + Pooling</h3>
+<p>convolution: each k-word window -&gt; d-dimensional vector (filter)
+pooling: all d-dimensional vector -&gt; single d-dimensional vector (max or average)</p>
+<ul>
+<li>即滑窗学习有价值的k-grams</li>
+<li>是否在两端填充：
+<ul>
+<li>narrow convolution: m = n − k + 1 windows</li>
+<li>wide convolution: m = n + k + 1 windows</li>
+</ul>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/003198d8cf4b49dba20481a578e886b0.png"
+        data-srcset="../_resources/003198d8cf4b49dba20481a578e886b0.png, ../_resources/003198d8cf4b49dba20481a578e886b0.png 1.5x, ../_resources/003198d8cf4b49dba20481a578e886b0.png 2x"
+        data-sizes="auto"
+        alt="../_resources/003198d8cf4b49dba20481a578e886b0.png"
+        title="f2204506fa439d1131927109154ef78b.png" />
+convolution layer:</p>
+<ul>
+<li>m vectors p1, . . . , pm, $\mathbf{p}_{\mathbf{i}} \in \mathbb{R}^{d_{\text {conv }}}$
+$$
+\mathbf{p}_{\mathbf{i}}=g\left(\mathbf{w}_{\mathbf{i}} \mathbf{W}+\mathbf{b}\right)
+$$</li>
+<li>其中 $\mathbf{W} \in \mathbb{R}^{k \cdot d_{\mathrm{emb}} \times d_{\mathrm{conv}}}$</li>
+</ul>
+<p>max-pooling:
+$$
+c_{j}=\max _{1&lt;i \leq m} \mathbf{p}_{\mathbf{i}}[j]
+$$</p>
+<h3 id="92-dynamic-hierarchical-and-k-max-pooling">9.2 Dynamic, Hierarchical and k-max Pooling</h3>
+<p>根据领域知识将每个窗口对应的 $\mathbf{p}_i$ 划分为l组，每组分别pooling，再全部拼接</p>
+<p>e.g. 关系抽取任务，给定两个词判断其关系，可以将窗口划分为两词前、两词后、两词之间三个部分，分别提取特征</p>
+<p>hierarchy of convolutional layers</p>
+<p>k-max pooling:
+$$
+\left[\begin{array}{lll}
+1 &amp; 2 &amp; 3 \\
+9 &amp; 6 &amp; 5 \\
+2 &amp; 3 &amp; 1 \\
+7 &amp; 8 &amp; 1 \\
+3 &amp; 4 &amp; 1
+\end{array}\right]
+$$</p>
+<ul>
+<li>1-max:
+$$
+\left[\begin{array}{lll}
+9 &amp; 8 &amp; 5
+\end{array}\right]
+$$</li>
+<li>2-max:
+$$
+\left[\begin{array}{lll}
+9 &amp; 6 &amp; 3 \\
+7 &amp; 8 &amp; 5
+\end{array}\right]
+$$
+拼接为：
+$$
+\left[\begin{array}{llllll}
+9 &amp; 6 &amp; 3 &amp; 7 &amp; 8 &amp; 5
+\end{array}\right]
+$$</li>
+</ul>
+<h3 id="93-variations">9.3 Variations</h3>
+<p>parallel convolutional layers: e.g. 4个平行convolutional layers分别采用用2-5的窗口，分别pooling再拼接</p>
+<p>Ma et al. (2015) convolution on syntactic dependency trees</p>
+<p>Liu et al. (2015) convolutional on top of dependency paths extracted from dependency trees</p>
+<p>Le and Zuidema (2015) perform max pooling over vectors representing the different derivations leading to the same chart item in a chart parser</p>
+<h2 id="10-recurrent-neural-networks--modeling-sequences-and-stacks">10. Recurrent Neural Networks – Modeling Sequences and Stacks</h2>
+<p>对比：</p>
+<ul>
+<li>CBOW: 没有order of features</li>
+<li>CNNs: 局部order</li>
+<li>RNNs（Elman, 1990）: 全局order</li>
+</ul>
+<h3 id="101-the-rnn-abstraction">10.1 The RNN Abstraction</h3>
+<p>input:</p>
+<ul>
+<li>sequence of vectors $\mathbf{x}_{\mathbf{i}}, \ldots, \mathbf{x}_{\mathbf{j}}$</li>
+<li>initial state vector $\mathbf{s_o}$</li>
+</ul>
+<p>output:</p>
+<ul>
+<li>state vectors: $\mathbf{s}_{1}, \ldots, \mathbf{s}_{\mathbf{n}}$</li>
+<li>output vectors: $\mathbf{y}_{1}, \ldots, \mathbf{y}_{\mathbf{n}}$</li>
+</ul>
+<p>$\mathbf{y_i}$ for further prediction:
+$$
+p\left(e=j \mid \mathbf{x}_{\mathbf{1}: \mathbf{i}}\right)=\operatorname{softmax}\left(\mathbf{y}_{\mathbf{i}} \mathbf{W}+\mathbf{b}\right)[j]
+$$</p>
+<p>RNN don&rsquo;t need Markov assumption, and works better than n-gram.</p>
+<p>$$
+\begin{array}{c}
+\mathrm{RNN}\left(\mathrm{s}_{0}, \mathrm{x}_{1: \mathrm{n}}\right)=\mathrm{s}_{1: \mathrm{n}}, \mathrm{y}_{1: \mathrm{n}} \\
+\mathrm{s}_{\mathrm{i}}=R\left(\mathrm{~s}_{\mathrm{i}-1}, \mathrm{x}_{\mathrm{i}}\right) \\
+\mathrm{y}_{\mathrm{i}}=O\left(\mathrm{~s}_{\mathrm{i}}\right) \\
+\mathrm{x}_{\mathrm{i}} \in \mathbb{R}^{d_{i n}}, \quad \mathbf{y}_{\mathrm{i}} \in \mathbb{R}^{d_{\text {out }}}, \quad \mathrm{s}_{\mathrm{i}} \in \mathbb{R}^{f\left(d_{\text {out }}\right)}
+\end{array}
+$$
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/5fb0641348744180b6eb7b332ad93ae8.png"
+        data-srcset="../_resources/5fb0641348744180b6eb7b332ad93ae8.png, ../_resources/5fb0641348744180b6eb7b332ad93ae8.png 1.5x, ../_resources/5fb0641348744180b6eb7b332ad93ae8.png 2x"
+        data-sizes="auto"
+        alt="../_resources/5fb0641348744180b6eb7b332ad93ae8.png"
+        title="a062e071fc7e16a657ebea8d1f3e5fba.png" />
+unroll:
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/12f8753b4c954a8298fab550ff23f022.png"
+        data-srcset="../_resources/12f8753b4c954a8298fab550ff23f022.png, ../_resources/12f8753b4c954a8298fab550ff23f022.png 1.5x, ../_resources/12f8753b4c954a8298fab550ff23f022.png 2x"
+        data-sizes="auto"
+        alt="../_resources/12f8753b4c954a8298fab550ff23f022.png"
+        title="b24301e93071968e1c0919638a1b6dae.png" /></p>
+<ul>
+<li>$O$ function:
+<ul>
+<li>Simple RNN (Elman Rnn) / GRU: identity mapping</li>
+<li>LSTM: fixed subset of state</li>
+</ul>
+</li>
+</ul>
+<h3 id="102-rnn-training">10.2 RNN Training</h3>
+<p>backpropagation through time (BPTT): with unrolled computation graph.</p>
+<ul>
+<li>variants of BPTT:
+<ul>
+<li>k-size unrolling</li>
+<li>forward entire, backward k</li>
+</ul>
+</li>
+</ul>
+<h4 id="1021-acceptor-接收器">10.2.1 Acceptor 接收器</h4>
+<p>接收整个句子，从final output决策，loss根据$\mathbf{y}_{\mathbf{n}}=O\left(\mathbf{s}_{\mathbf{n}}\right)$定义，再BP回序列其他部分</p>
+<ul>
+<li>eg. part-of-speech, sentiment analysis, non-phrase classfication
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/b45a05c972a84f25a3dd2655cb084254.png"
+        data-srcset="../_resources/b45a05c972a84f25a3dd2655cb084254.png, ../_resources/b45a05c972a84f25a3dd2655cb084254.png 1.5x, ../_resources/b45a05c972a84f25a3dd2655cb084254.png 2x"
+        data-sizes="auto"
+        alt="../_resources/b45a05c972a84f25a3dd2655cb084254.png"
+        title="7624bc0a7d2dedfb41517b4c3b445cb1.png" /></li>
+<li>序列过长时，由于梯度消失，很难训练</li>
+<li>输入没有指明重点（？），很难训练</li>
+</ul>
+<h4 id="1022-encoder-编码器">10.2.2 Encoder 编码器</h4>
+<p>也是只用final output，但将$\mathbf{y_n}$作为整个序列的信息，与其他信息一起使用。</p>
+<h4 id="1023-transducer-转换器">10.2.3 Transducer 转换器</h4>
+<p>an output for each input
+e.g.</p>
+<ul>
+<li>sequence tagger (SOTA CCG super-tagger: (Xu et al., 2015))</li>
+<li>language modeling</li>
+</ul>
+<p>loss (or average / weighted average):
+$$
+L\left(\mathbf{y} \hat{\mathbf{1}: \mathbf{n}}, \mathbf{y}_{\mathbf{1}: \mathbf{n}}\right)=\sum_{i=1}^{n} L_{\text {local }}\left(\hat{\mathbf{y}}_{\mathbf{i}}, \mathbf{y}_{\mathbf{i}}\right)
+$$
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/4fad65096efd49e787795dfb35bdbe94.png"
+        data-srcset="../_resources/4fad65096efd49e787795dfb35bdbe94.png, ../_resources/4fad65096efd49e787795dfb35bdbe94.png 1.5x, ../_resources/4fad65096efd49e787795dfb35bdbe94.png 2x"
+        data-sizes="auto"
+        alt="../_resources/4fad65096efd49e787795dfb35bdbe94.png"
+        title="ef1300f8afe316783212b53d0df88f0d.png" /></p>
+<p>RNN transduces relax the Markov assumption and condition on the entire history. (powerful!)</p>
+<ul>
+<li>generative character-level RNN models  (Sutskever, Martens, &amp; Hinton, 2011)</li>
+<li>生成的文本相比n-gram捕捉了更多性质，e.g. 句子长度、括号匹配 Karpathy, (Johnson, and Li, 2015)</li>
+</ul>
+<h4 id="1024-encoder---decoder">10.2.4 Encoder - Decoder</h4>
+<p>encoder output as auxiliary input to decoder (transducer-like)
+eg.</p>
+<ul>
+<li>machine-translation, great using LSTM (Sutskever et al., 2014)
+<ul>
+<li>输入句子倒置，使得$\mathbf{X_n}$对应开头，翻译时一一对应，效果更好</li>
+</ul>
+</li>
+<li>sequence transduction</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/0798f9afbff542738f6cba5adbd34fbe.png"
+        data-srcset="../_resources/0798f9afbff542738f6cba5adbd34fbe.png, ../_resources/0798f9afbff542738f6cba5adbd34fbe.png 1.5x, ../_resources/0798f9afbff542738f6cba5adbd34fbe.png 2x"
+        data-sizes="auto"
+        alt="../_resources/0798f9afbff542738f6cba5adbd34fbe.png"
+        title="ec9fae4ca729e85f9e8b384b4c37308a.png" /></p>
+<h3 id="103-multi-layer-stacked-rnns">10.3 Multi-layer (Stacked) RNNs</h3>
+<p>also called deep RNNs
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/248167b42a8846288d3dfd8493afea0c.png"
+        data-srcset="../_resources/248167b42a8846288d3dfd8493afea0c.png, ../_resources/248167b42a8846288d3dfd8493afea0c.png 1.5x, ../_resources/248167b42a8846288d3dfd8493afea0c.png 2x"
+        data-sizes="auto"
+        alt="../_resources/248167b42a8846288d3dfd8493afea0c.png"
+        title="074f1ada1b1003e0a72bd2db4ac538a8.png" /></p>
+<p>deep RNNs works better than shallower ones on some tasks:</p>
+<ul>
+<li>Sutskever et al. (2014) 4-layers RNN for machine-translation</li>
+<li>Irsoy and Cardie (2014) biRNN with several layers</li>
+</ul>
+<h3 id="104-bidirectional-rnns-birnn">10.4 Bidirectional RNNs (biRNN)</h3>
+<p>(Schuster &amp; Paliwal, 1997; Graves, 2008)</p>
+<p>biRNN relaxes the fixed window size assumption, allowing to look arbitrarily far at both the past and the future</p>
+<p>two <strong>independent</strong> RNN:</p>
+<ul>
+<li>$\mathrm{RNN}\left(R^{f}, O^{f}\right)$ input $\mathbf{X}_{\mathbf{1}: \mathbf{n}}$</li>
+<li>$\mathrm{RNN}\left(R^{b}, O^{b}\right)$ input $\mathbf{X}_{\mathbf{n}: \mathbf{1}}$</li>
+</ul>
+<p>output:
+$$
+\mathbf{y}_{\mathbf{i}}=\left[\mathbf{y}_{\mathbf{i}}^{\mathbf{f}} ; \mathbf{y}_{\mathbf{i}}^{\mathbf{b}}\right]=\left[O^{f}\left(\mathbf{s}_{\mathbf{i}}^{\mathbf{f}}\right) ; O^{b}\left(\mathbf{s}_{\mathbf{i}}^{\mathbf{b}}\right)\right]
+$$</p>
+<p>biRNNs for sequence tagging (Irsoy and Cardie, 2014)</p>
+<h3 id="105-rnns-for-representing-stacks">10.5 RNNs for Representing Stacks</h3>
+<p>main intuition: Encode the stack sequence</p>
+<ul>
+<li>push: $\mathrm{s}_{\mathrm{i+1}}=R(\mathrm{s}_{\mathrm{i}}, \mathrm{x_{i+1}})$</li>
+<li>pop: persistent-stack (immutable) data-structure</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/0e07f74170304c6db0e4f7987cc4ea5b.png"
+        data-srcset="../_resources/0e07f74170304c6db0e4f7987cc4ea5b.png, ../_resources/0e07f74170304c6db0e4f7987cc4ea5b.png 1.5x, ../_resources/0e07f74170304c6db0e4f7987cc4ea5b.png 2x"
+        data-sizes="auto"
+        alt="../_resources/0e07f74170304c6db0e4f7987cc4ea5b.png"
+        title="8217eb9a9ae0718871d6c7cccc5f9caa.png" /></p>
+<h3 id="106-a-note-on-reading-the-literature">10.6 A Note on Reading the Literature</h3>
+<p>Many aspects of the models are not yet standardized, be careful with ambiguous.</p>
+<h2 id="11-concrete-rnn-architectures">11. Concrete RNN Architectures</h2>
+<h3 id="111-simple-rnn-srnn">11.1 Simple RNN (SRNN)</h3>
+<p>also: Elman Network (Elman, 1990)</p>
+<p>$$
+\begin{array}{c}
+\mathbf{S}_{\mathbf{i}}=R_{\mathrm{SRNN}}\left(\mathbf{s}_{\mathbf{i}-\mathbf{1}}, \mathbf{x}_{\mathbf{i}}\right)=g\left(\mathbf{x}_{\mathbf{i}} \mathbf{W}^{\mathbf{x}}+\mathbf{s}_{\mathbf{i}-\mathbf{1}} \mathbf{W}^{\mathbf{s}}+\mathbf{b}\right) \\
+\mathbf{y}_{\mathbf{i}}=O_{\mathrm{SRNN}}\left(\mathbf{s}_{\mathbf{i}}\right)=\mathbf{s}_{\mathbf{i}} \\
+\mathbf{s}_{\mathbf{i}}, \mathbf{y}_{\mathbf{i}} \in \mathbb{R}^{d_{s}}, \mathbf{x}_{\mathbf{i}} \in \mathbb{R}^{d_{x}}, \mathbf{W}^{\mathbf{x}} \in \mathbb{R}^{d_{x} \times d_{s}}, \mathbf{W}^{\mathbf{s}} \in \mathbb{R}^{d_{s} \times d_{s}}, \mathbf{b} \in \mathbb{R}^{d_{s}}
+\end{array}
+$$</p>
+<ul>
+<li>strong result in sequence tagging (Xu et al., 2015) and language modeling</li>
+<li>hard to train for vanishing gradients</li>
+</ul>
+<p>more discussion: PhD thesis by Mikolov (2012)</p>
+<h3 id="112-long-short-term-memory-lstm">11.2 Long Short-Term Memory (LSTM)</h3>
+<p>(Hochreiter &amp; Schmidhuber, 1997)</p>
+<p>S-RNN hard to capture long-range dependencies, LSTM can solve this vanishing gradients problem.</p>
+<ul>
+<li>memory cells: preserve gradients across time</li>
+<li>gating components: smooth mathematical functions that simulate logical gates, control access to the memory cells</li>
+<li>gete: (after sigmoid) vector $\mathrm{g} \in[0,1]^{n}$</li>
+</ul>
+<p>$$\begin{aligned} \mathbf{s}_{\mathbf{j}}=R_{\mathrm{LSTM}}\left(\mathbf{s}_{\mathbf{j}-\mathbf{1}}, \mathbf{x}_{\mathbf{j}}\right) &amp;=\left[\mathbf{c}_{\mathbf{j}} ; \mathbf{h}_{\mathbf{j}}\right] \\ \mathbf{c}_{\mathbf{j}} &amp;=\mathbf{c}_{\mathbf{j}-\mathbf{1}} \odot \mathbf{f}+\mathbf{g} \odot \mathbf{i} \\ \mathbf{h}_{\mathbf{j}} &amp;=\tanh \left(\mathbf{c}_{\mathbf{j}}\right) \odot \mathbf{o} \\ \mathbf{i} &amp;=\sigma\left(\mathbf{x}_{\mathbf{j}} \mathbf{W}^{\mathbf{x} \mathbf{i}}+\mathbf{h}_{\mathbf{j}-\mathbf{1}} \mathbf{W}^{\mathbf{h i}}\right) \\ \mathbf{f} &amp;=\sigma\left(\mathbf{x}_{\mathbf{j}} \mathbf{W}^{\mathbf{x f}}+\mathbf{h}_{\mathbf{j}-\mathbf{1}} \mathbf{W}^{\mathbf{h f}}\right) \\ \mathbf{o} &amp;=\sigma\left(\mathbf{x}_{\mathbf{j}} \mathbf{W}^{\mathbf{x} \mathbf{o}}+\mathbf{h}_{\mathbf{j}-\mathbf{1}} \mathbf{W}^{\mathbf{h o}}\right) \\ \mathbf{g} &amp;=\tanh \left(\mathbf{x}_{\mathbf{j}} \mathbf{W}^{\mathbf{x g}}+\mathbf{h}_{\mathbf{j}-\mathbf{1}} \mathbf{W}^{\mathbf{h g}}\right) \\ \mathbf{y}_{\mathbf{j}}=O_{\mathrm{LSTM}}\left(\mathbf{s}_{\mathbf{j}}\right) &amp;=\mathbf{h}_{\mathbf{j}} \end{aligned}$$</p>
+<p>$$\mathbf{j} \in \mathbb{R}^{2 \cdot d_{h}}, \mathbf{x}_{\mathbf{i}} \in \mathbb{R}^{d_{x}}, \mathbf{c}_{\mathbf{j}}, \mathbf{h}_{\mathbf{j}}, \mathbf{i}, \mathbf{f}, \mathbf{o}, \mathbf{g} \in \mathbb{R}^{d_{h}}, \mathbf{W}^{\mathbf{x} \circ} \in \mathbb{R}^{d_{x} \times d_{h}}, \mathbf{W}^{\mathbf{h} \circ} \in \mathbb{R}^{d_{h} \times d_{h}}$$</p>
+<p>结构详解：https://colah.github.io/posts/2015-08-Understanding-LSTMs/</p>
+<ul>
+<li>
+<p>f：遗忘门
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/3e58144e12c147c3ab66e58722e91c8f.png"
+        data-srcset="../_resources/3e58144e12c147c3ab66e58722e91c8f.png, ../_resources/3e58144e12c147c3ab66e58722e91c8f.png 1.5x, ../_resources/3e58144e12c147c3ab66e58722e91c8f.png 2x"
+        data-sizes="auto"
+        alt="../_resources/3e58144e12c147c3ab66e58722e91c8f.png"
+        title="35088973a70318d3199151aa44cacb36.png" /></p>
+</li>
+<li>
+<p>i：记忆/输入门
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/32abdb9b7d294c078767cbab5dbf3c86.png"
+        data-srcset="../_resources/32abdb9b7d294c078767cbab5dbf3c86.png, ../_resources/32abdb9b7d294c078767cbab5dbf3c86.png 1.5x, ../_resources/32abdb9b7d294c078767cbab5dbf3c86.png 2x"
+        data-sizes="auto"
+        alt="../_resources/32abdb9b7d294c078767cbab5dbf3c86.png"
+        title="e8bbf4f28da874d79a3505e9224581c7.png" /></p>
+<ul>
+<li>更新Cell：
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/a9435ef2b5794b948e8d612fa23be284.png"
+        data-srcset="../_resources/a9435ef2b5794b948e8d612fa23be284.png, ../_resources/a9435ef2b5794b948e8d612fa23be284.png 1.5x, ../_resources/a9435ef2b5794b948e8d612fa23be284.png 2x"
+        data-sizes="auto"
+        alt="../_resources/a9435ef2b5794b948e8d612fa23be284.png"
+        title="0e497d13407a222abcb98c95b3890a7d.png" /></li>
+</ul>
+</li>
+<li>
+<p>o：输出门
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/6390f54be36640ebb67207260da85ca8.png"
+        data-srcset="../_resources/6390f54be36640ebb67207260da85ca8.png, ../_resources/6390f54be36640ebb67207260da85ca8.png 1.5x, ../_resources/6390f54be36640ebb67207260da85ca8.png 2x"
+        data-sizes="auto"
+        alt="../_resources/6390f54be36640ebb67207260da85ca8.png"
+        title="5b0b34bea9d7d12e3511a0483da6b3c7.png" /></p>
+</li>
+<li>
+<p>further: PhD thesis by Alex Graves (2008)</p>
+</li>
+<li>
+<p>LSTM character-level language model: Karpathy et al. (2015)</p>
+</li>
+<li>
+<p>motivation: Sections 4.2 and 4.3 in the detailed course notes of Cho (2015)</p>
+</li>
+<li>
+<p>variants: Greff, Srivastava, Koutn´ık, Steunebrink, and Schmidhuber (2015)</p>
+</li>
+</ul>
+<p>Practical Considerations:</p>
+<ul>
+<li>initialize the bias term of the forget gate to be close to one when training (Jozefowicz et al., 2015)</li>
+<li>dropout only on the non-recurrent connection (Zaremba et al., 2014)</li>
+</ul>
+<h3 id="113-gated-recurrent-unit-gru">11.3 Gated Recurrent Unit (GRU)</h3>
+<p>a simpler alternative to the LSTM, also based on a gating mechanism</p>
+<p>$$\begin{aligned} \mathbf{s}_{\mathbf{j}}=R_{\mathrm{GRU}}\left(\mathbf{s}_{\mathbf{j}-\mathbf{1}}, \mathbf{x}_{\mathbf{j}}\right) &amp;=(\mathbf{1}-\mathbf{z}) \odot \mathbf{s}_{\mathbf{j}-\mathbf{1}}+\mathbf{z} \odot \tilde{\mathbf{s}_{\mathbf{j}}} \\ \mathbf{z} &amp;=\sigma\left(\mathbf{x}_{\mathbf{j}} \mathbf{W}^{\mathbf{x} \mathbf{z}}+\mathbf{s}_{\mathbf{j}-\mathbf{1}} \mathbf{W}^{\mathbf{s z}}\right) \\ \mathbf{r} &amp;=\sigma\left(\mathbf{x}_{\mathbf{j}} \mathbf{W}^{\mathbf{x r}}+\mathbf{s}_{\mathbf{j}-\mathbf{1}} \mathbf{W}^{\mathbf{s r}}\right) \\ \tilde{\mathbf{s}}_{\mathbf{j}} &amp;=\tanh \left(\mathbf{x}_{\mathbf{j}} \mathbf{W}^{\mathbf{x s}}+\left(\mathbf{s}_{\mathbf{j}-\mathbf{1}} \odot \mathbf{r}\right) \mathbf{W}^{\mathrm{sg}}\right) \\ \mathbf{y}_{\mathbf{j}}=O_{\mathrm{GRU}}\left(\mathbf{s}_{\mathbf{j}}\right) &amp;=\mathbf{s}_{\mathbf{j}} \end{aligned}$$</p>
+<p>$$\mathbf{s}_{\mathbf{j}}, \tilde{\mathbf{s}}_{\mathbf{j}} \in \mathbb{R}^{d_{s}}, \mathbf{x}_{\mathbf{i}} \in \mathbb{R}^{d_{x}}, \mathbf{z}, \mathbf{r} \in \mathbb{R}^{d_{s}}, \mathbf{W}^{\mathbf{x} \circ} \in \mathbb{R}^{d_{x} \times d_{s}}, \mathbf{W}^{\mathbf{s} \circ} \in \mathbb{R}^{d_{s} \times d_{s}}$$</p>
+<p>effective in language modeling and machine translation</p>
+<h3 id="114-other-variants">11.4 Other Variants</h3>
+<p>Mikolov et al. (2014):  split the state vector si into a slow changing component $c_i$(“context units”) and a fast changing component $h_i$</p>
+<p>Le, Jaitly, and Hinton (2015): set the activation function of the S-RNN to a ReLU, and initialize the biases b as zeroes and the matrix Ws as the identify matrix</p>
+<h2 id="12-modeling-trees--recursive-neural-networks">12. Modeling Trees – Recursive Neural Networks</h2>
+<p>recursive neural network (RecNN): RNN from sequences to (binary) trees</p>
+<p>tree node $p$ encodes the entrie subtree rooted at $p$
+$$
+\operatorname{vec}(p)=f\left(\operatorname{vec}\left(c_{1}\right), \operatorname{vec}\left(c_{2}\right)\right)
+$$
+<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/9683730675e14e45a2f9e914f4cc2906.png"
+        data-srcset="../_resources/9683730675e14e45a2f9e914f4cc2906.png, ../_resources/9683730675e14e45a2f9e914f4cc2906.png 1.5x, ../_resources/9683730675e14e45a2f9e914f4cc2906.png 2x"
+        data-sizes="auto"
+        alt="../_resources/9683730675e14e45a2f9e914f4cc2906.png"
+        title="a4f364f16781994a6c418647f36859a3.png" /></p>
+<h3 id="121-formal-definition">12.1 Formal Definition</h3>
+<p>解析树：</p>
+<ul>
+<li>unlabeled: 三元组集合 $(i, k, j)$</li>
+<li>labeled：六元组集合 $(A \rightarrow B, C, i, k, j)$</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../_resources/168e6593158c4f0e8b710caca7cb27f8.png"
+        data-srcset="../_resources/168e6593158c4f0e8b710caca7cb27f8.png, ../_resources/168e6593158c4f0e8b710caca7cb27f8.png 1.5x, ../_resources/168e6593158c4f0e8b710caca7cb27f8.png 2x"
+        data-sizes="auto"
+        alt="../_resources/168e6593158c4f0e8b710caca7cb27f8.png"
+        title="66029a3beb85c4c497cd0b4b2d951141.png" /></p>
+<p>$$
+\begin{aligned}
+\operatorname{RecNN}\left(x_{1}, \ldots, x_{n}, \mathcal{T}\right) &amp;=\left{\mathbf{s}_{\mathbf{i}: \mathbf{j}}^{\mathbf{A}} \in \mathbb{R}^{d} \mid q_{i: j}^{A} \in \mathcal{T}\right} \\
+\mathbf{s}_{\mathbf{i}: \mathbf{i}}^{\mathbf{A}} &amp;=v\left(x_{i}\right) \\
+\mathbf{s}_{\mathbf{i}: \mathbf{j}}^{\mathbf{A}} &amp;=R\left(A, B, C, \mathbf{s}_{\mathbf{i}: \mathbf{k}}^{\mathbf{B}}, \mathbf{s}_{\mathbf{k}+\mathbf{1} :\mathbf{j}}^{\mathbf{C}}\right) \quad q_{i: k}^{B} \in \mathcal{T}, \quad q_{k+1: j}^{C} \in \mathcal{T}
+\end{aligned}
+$$</p>
+<p>组合函数$R$:
+$$
+R\left(A, B, C, \mathbf{s}_{\mathbf{i}: \mathbf{k}}^{\mathbf{B}}, \mathbf{s}_{\mathbf{k}+\mathbf{1}:\mathbf{j}}^{\mathbf{C}}\right)=g\left(\left[\mathbf{s}_{\mathbf{i}: \mathbf{k}}^{\mathbf{B}} ; \mathbf{s}_{\mathbf{k}+\mathbf{1}: \mathbf{j}}^{\mathbf{C}}\right] \mathbf{W}\right)
+$$</p>
+<p>带有标签（label embeddings）的组合函数$R$:
+$$
+R\left(A, B, C, \mathbf{s}_{\mathbf{i}: \mathbf{k}}^{\mathbf{B}}, \mathbf{s}_{\mathbf{k}+\mathbf{1} : \mathbf{j}} \mathbf{C}\right)=g\left(\left[\mathbf{s}_{\mathbf{i}: \mathbf{k}}^{\mathbf{B}} ; \mathbf{s}_{\mathbf{k}+\mathbf{1} : \mathbf{j}}^{\mathbf{C}} ; v(A) ; v(B)\right] \mathbf{W}\right)
+$$</p>
+<p>也可以对每一对B、C采用不同的W:
+$$
+R\left(A, B, C, \mathbf{s}_{\mathbf{i}: \mathbf{k}}^{\mathbf{B}}, \mathbf{s}_{\mathbf{k}+\mathbf{1}: \mathbf{j}}^{\mathbf{C}}\right)=g\left(\left[\mathbf{s}_{\mathbf{i}: \mathbf{k}}^{\mathbf{B}} ; \mathbf{s}_{\mathbf{k}+\mathbf{1} : \mathbf{j}}^{\mathbf{C}}\right] \mathbf{W}^{\mathbf{B C}}\right)
+$$</p>
+<h3 id="122-extensions-and-variations">12.2 Extensions and Variations</h3>
+<ul>
+<li>Tree-shaped LSTMs</li>
+<li>recursive matrix-vector model</li>
+<li>recursive neural tensor network</li>
+</ul>
+<h3 id="123-training-recursive-neural-networks">12.3 Training Recursive Neural Networks</h3>
+<p>Loss: loss on root or any node or a set of nodes</p>
+<p>one can treat the RecNN as an Encoder</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-09-20&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/642b07ecb6648c08b75db0eddb11f73562fd3f2d" target="_blank" title="commit by ZubinGou(zebgou@gmail.com) 642b07ecb6648c08b75db0eddb11f73562fd3f2d: fix">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>642b07e</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/blog/nnlp-notes/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/nnlp-notes/" data-title="NNLP: A Primer on Neural Network Models for Natural Language Processing" data-hashtags="NNLP,NLP,Neural Network,notes"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/nnlp-notes/" data-hashtag="NNLP"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/nnlp-notes/" data-title="NNLP: A Primer on Neural Network Models for Natural Language Processing"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/nnlp-notes/" data-title="NNLP: A Primer on Neural Network Models for Natural Language Processing"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/nnlp-notes/" data-title="NNLP: A Primer on Neural Network Models for Natural Language Processing"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
-        { {- end -} }
-
-        { {- /* Content */ -} }
-        <div class="content" id="content">
-            { {- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
         </div>
+    </div>
 
-        { {- /* Footer */ -} }
-        { {- partial "single/footer.html" . -} }
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/nnlp/">NNLP</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/neural-network/">Neural Network</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
+        </section>
+    </div>
 
-        { {- /* Comment */ -} }
-        { {- partial "comment.html" . -} }
-    </article>
-{ {- end -} }
+    <div class="post-nav"><a href="/blog/nndl-book-ch6-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="prev" rel="prev" title="《神经网络与深度学习》第6章 - 循环神经网络"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>《神经网络与深度学习》第6章 - 循环神经网络</a>
+            <a href="/blog/nndl-book-ch5-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="next" rel="next" title="《神经网络与深度学习》第5章 - 卷积神经网络">《神经网络与深度学习》第5章 - 卷积神经网络<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
+</html>

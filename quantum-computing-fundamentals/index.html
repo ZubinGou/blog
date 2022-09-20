@@ -1,101 +1,442 @@
-{ {- define "title" } }{ { .Title } } - { { .Site.Title } }{ { end -} }
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Quantum Computing Fundamentals - Zubin`s Blog</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="Quantum Computing Fundamentals" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zubingou.github.io/blog/quantum-computing-fundamentals/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-11-26T14:55:06+08:00" />
+<meta property="article:modified_time" content="2022-09-20T15:00:01+08:00" /><meta property="og:site_name" content="My cool site" />
 
-{ {- define "content" -} }
-    { {- $params := .Scratch.Get "params" -} }
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
 
-    { {- $toc := $params.toc -} }
-    { {- if eq $toc true -} }
-        { {- $toc = .Site.Params.page.toc | default dict -} }
-    { {- else if eq $toc false -} }
-        { {- $toc = dict "enable" false -} }
-    { {- end -} }
+<meta name="twitter:title" content="Quantum Computing Fundamentals"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/quantum-computing-fundamentals/" /><link rel="prev" href="https://zubingou.github.io/blog/crash-course-economics-notes/" /><link rel="next" href="https://zubingou.github.io/blog/snlp-ch1-%E7%BB%AA%E8%AE%BA/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Quantum Computing Fundamentals",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zubingou.github.io\/blog\/quantum-computing-fundamentals\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "Quantum","wordcount":  2994 ,
+        "url": "https:\/\/zubingou.github.io\/blog\/quantum-computing-fundamentals\/","datePublished": "2020-11-26T14:55:06+08:00","dateModified": "2022-09-20T15:00:01+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-    { {- /* Auto TOC */ -} }
-    { {- if ne $toc.enable false -} }
-        <div class="toc" id="toc-auto">
-            <h2 class="toc-title">{ { T "contents" } }</h2>
-            <div class="toc-content{ { if eq $toc.auto false } } always-active{ { end } }" id="toc-content-auto"></div>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/" title="Zubin`s Blog">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
         </div>
-    { {- end -} }
-
-    <article class="page single">
-        { {- /* Title */ -} }
-        <h1 class="single-title animate__animated animate__flipInX">{ { .Title | emojify } }</h1>
-
-        { {- /* Subtitle */ -} }
-        { {- with $params.subtitle -} }
-            <h2 class="single-subtitle">{ { . } }</h2>
-        { {- end -} }
-
-        { {- /* Meta */ -} }
-        <div class="post-meta">
-            <div class="post-meta-line">
-                { {- $author := $params.author | default .Site.Author.name | default (T "author") -} }
-                { {- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -} }
-                <span class="post-author">
-                    { {- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -} }
-                    { {- partial "plugin/a.html" $options -} }
-                </span>
-
-                { {- $categories := slice -} }
-                { {- range .Params.categories -} }
-                    { {- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -} }
-                    { {- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw" aria-hidden="true"></i>%v</a>` $category.RelPermalink $category.Title) -} }
-                { {- end -} }
-                { {- with delimit $categories "&nbsp;" -} }
-                    &nbsp;<span class="post-category">
-                        { {- dict "Categories" . | T "includedInCategories" | safeHTML -} }
-                    </span>
-                { {- end -} }
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/" title="Zubin`s Blog">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
             </div>
-            <div class="post-meta-line">
-                { {- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -} }
-                    <i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{ { . } }">{ { . } }</time>&nbsp;
-                { {- end -} }
-                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{ { T "wordCount" .WordCount } }&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{ { T "readingTime" .ReadingTime } }&nbsp;
-                { {- $comment := .Scratch.Get "comment" | default dict -} }
-                { {- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -} }
-                    <span id="{ { .RelPermalink } }" class="leancloud_visitors" data-flag-title="{ { .Title } }">
-                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{ { T "views" } }
-                    </span>&nbsp;
-                { {- end -} }
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
             </div>
         </div>
-
-        { {- /* Featured image */ -} }
-        { {- $image := $params.featuredimage -} }
-        { {- with .Resources.GetMatch "featured-image" -} }
-            { {- $image = .RelPermalink -} }
-        { {- end -} }
-        { {- with $image -} }
-            <div class="featured-image">
-                { {- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -} }
-            </div>
-        { {- end -} }
-
-        { {- /* Static TOC */ -} }
-        { {- if ne $toc.enable false -} }
-            <div class="details toc" id="toc-static"  data-kept="{ { if $toc.keepStatic } }true{ { end } }">
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Quantum Computing Fundamentals</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/notes/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Notes</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2020-11-26">2020-11-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2994 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
-                    <span>{ { T "contents" } }</span>
+                    <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static">
-                    { {- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
-                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#learning-material">Learning Material</a></li>
+    <li><a href="#历史">历史</a></li>
+    <li><a href="#基础">基础</a>
+      <ul>
+        <li><a href="#量子力学理论基础">量子力学理论基础</a></li>
+        <li><a href="#量子程序">量子程序</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="learning-material">Learning Material</h2>
+<ul>
+<li><a href="https://quantumalgorithmzoo.org/" target="_blank" rel="noopener noreffer ">https://quantumalgorithmzoo.org/</a></li>
+<li><a href="https://qiskit.org//" target="_blank" rel="noopener noreffer ">https://qiskit.org//</a></li>
+</ul>
+<h2 id="历史">历史</h2>
+<ul>
+<li>量子：一个物理量如果存在最小的不可分割的基本单位，则这个物理量是量子化的，并把最小单位称为量子。</li>
+<li>量子不是粒子，可以理解为“经典”的反义词。</li>
+<li>量子力学
+<ul>
+<li>等价
+<ul>
+<li>波动力学</li>
+<li>矩阵力学</li>
+</ul>
+</li>
+<li>基本方程：薛定谔方程</li>
+<li>测量影响了粒子本身的状态</li>
+</ul>
+</li>
+<li>量子信息科学</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/44d0ebf582164cf2bbba45fee2b9dcbc.png"
+        data-srcset="../../_resources/44d0ebf582164cf2bbba45fee2b9dcbc.png, ../../_resources/44d0ebf582164cf2bbba45fee2b9dcbc.png 1.5x, ../../_resources/44d0ebf582164cf2bbba45fee2b9dcbc.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/44d0ebf582164cf2bbba45fee2b9dcbc.png"
+        title="3bf3e8e8d1751bbb7566f64283e5a755.png" /></p>
+<h2 id="基础">基础</h2>
+<h3 id="量子力学理论基础">量子力学理论基础</h3>
+<ul>
+<li>希尔伯特空间（Hilbert space）即完备的内积空间，也就是说一个带有内积的完备向量空间</li>
+<li>量子态可以由Hilbert空间的态矢量表示，量子态的可观测量可以用厄米算符来代表</li>
+<li>态矢 State Vector（狄拉克符号）
+<ul>
+<li>左矢（bra）：$\langle\psi|=\left[\mathrm{c}_{1}^{*}, c_{2}^{*}, \ldots, c_{n}^{*}\right]$</li>
+<li>右矢（ket）：$|\psi\rangle=\left[c_{1}, c_{2}, \ldots, c_{n}\right]^{T}$</li>
+<li>相同态矢则左右矢互为共轭转置</li>
+</ul>
+</li>
+<li>运算
+<ul>
+<li>内积：$\langle\alpha \mid \beta\rangle=\sum_{i=1}^{n} a_{i}^{*} b_{i}$</li>
+<li>外积：$|\alpha\rangle\langle\beta|=\left[\begin{array}{c}a_{i} b_{j}^{*} \\ \end{array}\right]_{n \times n}$</li>
+<li>张量积（Kronecker product）：$A \otimes B \equiv\left[\begin{array}{cccc}A_{11} B &amp; A_{12} B &amp; \cdots &amp; A_{1 n} B \\ A_{21} B &amp; A_{22} B &amp; \cdots &amp; A_{2 n} B \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ A_{m 1} B &amp; A_{m 2} B &amp; \cdots &amp; A_{m n} B\end{array}\right]$</li>
+</ul>
+</li>
+<li>能量不同的量子态：
+<ul>
+<li>激发态（excited state）：$|e\rangle=\left[\begin{array}{l}1 \\ 0\end{array}\right]$</li>
+<li>基态（ground state）：$|g\rangle=\left[\begin{array}{l}0 \\ 1\end{array}\right]$</li>
+</ul>
+</li>
+<li>量子比特（quantum bits）：
+<ul>
+<li>$|0\rangle = |e\rangle$</li>
+<li>$|1\rangle = |g\rangle$</li>
+<li>任何叠加态都可以写成其线性组合：$|\psi\rangle=\alpha|0\rangle+\beta|1\rangle$
+<ul>
+<li>$\alpha$、$\beta$称为振幅，满足归一化条件：$|\alpha|^{2}+|\beta|^{2}=1$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>封闭的(closed)量子系统的演化（evolution）由酉变换（unitary transformation）来描述：$\left|\psi_{2}\right\rangle=U\left|\psi_{1}\right\rangle$。即量子态演化本质是矩阵乘法。
+<ul>
+<li>酉矩阵：$U U^{*}=I$，正交矩阵的推广，可逆</li>
+<li>各种形式的酉矩阵被称作量子门。eg. Puali Matrixes（spin matrices）:
+<ul>
+<li>$\sigma_{0} \equiv I \equiv\left[\begin{array}{ll}1 &amp; 0 \\ 0 &amp; 1\end{array}\right]$</li>
+<li>$\sigma_{1} \equiv \sigma_{x} \equiv X \equiv\left[\begin{array}{ll}0 &amp; 1 \\ 1 &amp; 0\end{array}\right]$ （quantum NOT gate）</li>
+<li>$\sigma_{2} \equiv \sigma_{y} \equiv Y \equiv\left[\begin{array}{cc}0 &amp; -i \\ i &amp; 0\end{array}\right]$</li>
+<li>$\sigma_{3} \equiv \sigma_{z} \equiv Z \equiv\left[\begin{array}{cc}1 &amp; 0 \\ 0 &amp; -1\end{array}\right]$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Superposition State And Measurement
+<ul>
+<li>任何一个态可以写成基在复数空间的线性组合：$|\psi\rangle=\alpha|0\rangle+\beta e^{i \theta}|1\rangle$</li>
+<li>测量：将态投影到另一个态上，概率是其内积的平方：$P_{\alpha}=|\langle\psi \mid \alpha\rangle|^{2}$</li>
+<li>其他概率投影到正交态：$P_{\alpha \perp}=1-P_{\alpha}$</li>
+</ul>
+</li>
+<li>Phase, Pure State and Mixed State
+<ul>
+<li>无法通过测量得到相位信息$\theta$，量子态的相位是相干性的表现</li>
+<li>纯态：具有概率和相位（量子相干性）的量子态，系统的状态由波函数或态矢量描述</li>
+<li>混合态：纯态的概率叠加，失去了（部分或全部）相位信息，系统的状态由密度矩阵描述</li>
+</ul>
+</li>
+<li>Density Matrix And Bloch Sphere
+<ul>
+<li>密度矩阵：
+<ul>
+<li>纯态：$\rho=|\psi\rangle\langle\psi|$</li>
+<li>混合态：$\rho=\sum_{i} P_{i}\left|\psi_{i}\right\rangle\left\langle\psi_{i}\right|$</li>
+<li>$\rho = \rho^2$当仅当纯态</li>
+<li>密度矩阵是对波函数和经典概率分布的推广</li>
+<li>孤立系统的密度矩阵满足幺正演化方程，开放系统的密度矩阵演化满足量子主方程</li>
+<li>$b_i$是一组规范正交基，密度矩阵每个元素$\varrho_{i j}=\left\langle b_{i}|\rho| b_{j}\right\rangle=\sum_{k} w_{k}\left\langle b_{i} \mid \psi_{k}\right\rangle\left\langle\psi_{k} \mid b_{j}\right\rangle$</li>
+<li>可观测量A的期望为$\langle A\rangle=\sum_{i} w_{i}\left\langle\psi_{i}|A| \psi_{i}\right\rangle=\sum_{i}\left\langle b_{i}|\rho A| b_{i}\right\rangle=\operatorname{tr}(\rho A)$</li>
+<li>密度算符：线性、非负、自伴、迹为1</li>
+<li></li>
+</ul>
+</li>
+<li>Bloch sphere <img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/29b2976731b145e3ba04838a3987cc8b.png"
+        data-srcset="../../_resources/29b2976731b145e3ba04838a3987cc8b.png, ../../_resources/29b2976731b145e3ba04838a3987cc8b.png 1.5x, ../../_resources/29b2976731b145e3ba04838a3987cc8b.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/29b2976731b145e3ba04838a3987cc8b.png"
+        title="1ebabacb149e5ebe60398313c1ed4417.png" />
+<ul>
+<li>纯态为球面上的点
+<ul>
+<li>Z坐标衡量概率</li>
+</ul>
+</li>
+<li>混合态为球内的点
+<ul>
+<li>最大的混合态是球心，不存在任何叠加性</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>观测量和计算基下的测量
+<ul>
+<li>可观测量（类似于位置、动量）由自伴算子（self-adjoint operators）来表征，自伴有时也称为Hermitian
+<ul>
+<li>自伴算子：厄米算符（Hermitian operator），等于自己的厄米共轭的算符：$M^{\dagger}=M$</li>
+</ul>
+</li>
+<li>哈密顿量（Hamiltonian）：质量、电荷，作为参数引入系统</li>
+<li>测量算子满足完备性方程（completeness equation）：$\sum_{i} M_{i}^{\dagger} M_{i}=I$</li>
+<li>测量方式
+<ul>
+<li>投影测量（projective measurements）</li>
+<li>POVM 测量（Positive Operator-Valued Measure）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>复合系统和联合测量
+<ul>
+<li>复合系统：拥有两个或两个以上的量子比特的量子系统</li>
+<li>张量积：两个向量空间形成一个更大向量空间的运算
+<ul>
+<li>满足：分配律、复数系数交换律</li>
+<li>由子系统生成复合系统（Composite system）</li>
+</ul>
+</li>
+<li>纠缠（entanglement）：态$|\psi\rangle \in H_{1} \otimes H_{2}$，不存在$|\alpha\rangle \in H_{1},|\beta\rangle \in H_{2}$，使得$|\psi\rangle=|\alpha\rangle \otimes|\beta\rangle$。</li>
+</ul>
+</li>
+<li>复合系统的状态演化
+<ul>
+<li>两能级的量子系统的状态是通过酉变换来实现演化</li>
+<li>复合系统量子态的演化：子系统中量子态的酉变换的张量积</li>
+</ul>
+</li>
+</ul>
+<h3 id="量子程序">量子程序</h3>
+<ul>
+<li>量子逻辑门</li>
+<li>酉变换
+<ul>
+<li>$\langle\psi|=\left\langle\varphi\right| U ^{\dagger}$</li>
+<li>$\langle\psi|=\left\langle\varphi\right| U ^{\dagger}$</li>
+<li>两个矢量的内积经过同一个酉变换之后保持不变：$\langle\varphi|\psi\rangle=\langle\varphi|U ^{\dagger}U| \psi\rangle$</li>
+</ul>
+</li>
+<li>矩阵的指数函数
+<ul>
+<li>$A^{n}=\operatorname{diag}\left(A_{11}^{n}, A_{22}^{n}, A_{33}^{n} \ldots\right)$</li>
+<li>$\mathrm{A}^{n}=\mathrm{UD}^{n} \mathrm{U}^{\dagger}$</li>
+<li>$e^A=Ue^DU^\dagger$</li>
+<li>以A为生成元的酉变换：$U(\theta)=e^{-i\theta A}$
+<ul>
+<li>以单位矩阵为生成元，构成一种特殊的酉变换：作用与态矢相当于态矢整体乘一个系数，在密度矩阵中该系数会被消去。</li>
+<li>该系数称为量子态的整体相位，对系统没有任何影响，因任何测量和操作都无法分辨两个相同的密度矩阵。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>单量子比特逻辑门
+<ul>
+<li>Pauli matrices（spin matrix）：
+<ul>
+<li>$X=\sigma_{x}=\left(\begin{array}{cc}0 &amp; 1 \\ 1 &amp; 0\end{array}\right)$ 非门</li>
+<li>$Y=\sigma_{y}=\left(\begin{array}{cc}0 &amp; -i \\ i &amp; 0\end{array}\right)$ 绕Y旋转$\pi$度</li>
+<li>$Z=\sigma_{z}=\left(\begin{array}{cc}1 &amp; 0 \\ 0 &amp; -1\end{array}\right)$ 绕Z旋转$\pi$度</li>
+<li>泡利矩阵的线性组合是完备的二维酉变换的生成元：$\mathrm{U}=\mathrm{e}^{-i \theta\left(a \sigma_{x}+b \sigma_{y}+c \sigma_{z}\right)}$</li>
+</ul>
+</li>
+<li>Hadamard（H）门：$\mathrm{H}=\frac{1}{\sqrt{2}}\left[\begin{array}{cc}1 &amp; 1 \\ 1 &amp; -1\end{array}\right]$</li>
+<li>Rotation Operators：
+<ul>
+<li>RX($\theta$)：$R X(\theta)=e^{\frac{-i \theta X}{2}}=\cos \left(\frac{\theta}{2}\right) I-i \sin \left(\frac{\theta}{2}\right) X=\left[\begin{array}{cc}\cos \left(\frac{\theta}{2}\right) &amp; -i \sin \left(\frac{\theta}{2}\right) \\ -i \sin \left(\frac{\theta}{2}\right) &amp; \cos \left(\frac{\theta}{2}\right)\end{array}\right]$</li>
+<li>RY($\theta$)：$R Y(\theta)=e^{\frac{-i \theta Y}{2}}=\cos \left(\frac{\theta}{2}\right) I-i \sin \left(\frac{\theta}{2}\right) Y=\left[\begin{array}{cc}\cos \left(\frac{\theta}{2}\right) &amp; -\sin \left(\frac{\theta}{2}\right) \\ \sin \left(\frac{\theta}{2}\right) &amp; \cos \left(\frac{\theta}{2}\right)\end{array}\right]$</li>
+<li>RZ($\theta$)：$R Z(\theta)=e^{\frac{-i \theta Z}{2}}=\cos \left(\frac{\theta}{2}\right) I-i \sin \left(\frac{\theta}{2}\right) Z=\left[\begin{array}{cc}e^{\frac{-i \theta}{2}} &amp; 0 \\ 0 &amp; e^{\frac{i \theta}{2}}\end{array}\right] \sim \left[\begin{array}{cc}1 &amp; \\ &amp; e^{i \theta}\end{array}\right]$</li>
+<li>RX, RY, RZ意味着量子态在布洛赫球上分别绕X, Y, Z旋转$\theta$角度，所以RX、RY带来概率幅的变化，RZ只有相位的变化。这三种操作使量子态在球上自由移动。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>多量子和比特逻辑门
+<ul>
+<li>所有逻辑操作都是酉变换，所以输入、输出比特数量相等</li>
+<li>$|01\rangle$中0为高位，1为低位，左高右低</li>
+<li>CNOT门
+<ul>
+<li>$C N O T=\left[\begin{array}{cccc}1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0\end{array}\right]$ <img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/89401fef998f43a4bfe19f3175c5fe22.png"
+        data-srcset="../../_resources/89401fef998f43a4bfe19f3175c5fe22.png, ../../_resources/89401fef998f43a4bfe19f3175c5fe22.png 1.5x, ../../_resources/89401fef998f43a4bfe19f3175c5fe22.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/89401fef998f43a4bfe19f3175c5fe22.png"
+        title="0a7c5be5883beb468deabf1037ed2d7b.png" /></li>
+<li>$C N O T=\left[\begin{array}{cccc}1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0\end{array}\right]$ <img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/9105b64524c64f99a41269e286f414e8.png"
+        data-srcset="../../_resources/9105b64524c64f99a41269e286f414e8.png, ../../_resources/9105b64524c64f99a41269e286f414e8.png 1.5x, ../../_resources/9105b64524c64f99a41269e286f414e8.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/9105b64524c64f99a41269e286f414e8.png"
+        title="82873c46406725d526a2715d3acad834.png" /></li>
+</ul>
+</li>
+<li>CR门：控制相位门（Controlled phase gate）
+<ul>
+<li>$C R(\theta)=\left[\begin{array}{cccc}1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; e^{i \theta}\end{array}\right]$</li>
+</ul>
+</li>
+<li>ISWAP门：交换两个比特的状态
+<ul>
+<li>由 $\sigma_{x} \otimes \sigma_{x}+\sigma_{y} \otimes \sigma_{y}$ 作为生成元生成</li>
+<li>$i S W A P(\theta)=\left[\begin{array}{cccc}1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; \cos (\theta) &amp; -i \sin (\theta) &amp; 0 \\ 0 &amp; -i \sin (\theta) &amp; \cos (\theta) &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1\end{array}\right]$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>量子线路与测量操作</li>
+<li>量子计算的if和while
+<ul>
+<li>基于测量的跳转</li>
+<li>基于量子信息的if和while</li>
+</ul>
+</li>
+<li>量子逻辑门知识图谱：<img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/054c05e24c854fd89f4b2771b32caa7c.png"
+        data-srcset="../../_resources/054c05e24c854fd89f4b2771b32caa7c.png, ../../_resources/054c05e24c854fd89f4b2771b32caa7c.png 1.5x, ../../_resources/054c05e24c854fd89f4b2771b32caa7c.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/054c05e24c854fd89f4b2771b32caa7c.png"
+        title="921d0d390158641d6144e487880d66f7.png" /></li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-09-20&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/642b07ecb6648c08b75db0eddb11f73562fd3f2d" target="_blank" title="commit by ZubinGou(zebgou@gmail.com) 642b07ecb6648c08b75db0eddb11f73562fd3f2d: fix">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>642b07e</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/blog/quantum-computing-fundamentals/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/quantum-computing-fundamentals/" data-title="Quantum Computing Fundamentals" data-hashtags="Quantum"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/quantum-computing-fundamentals/" data-hashtag="Quantum"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/quantum-computing-fundamentals/" data-title="Quantum Computing Fundamentals"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/quantum-computing-fundamentals/" data-title="Quantum Computing Fundamentals"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/quantum-computing-fundamentals/" data-title="Quantum Computing Fundamentals"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
-        { {- end -} }
-
-        { {- /* Content */ -} }
-        <div class="content" id="content">
-            { {- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
         </div>
+    </div>
 
-        { {- /* Footer */ -} }
-        { {- partial "single/footer.html" . -} }
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/quantum/">Quantum</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
+        </section>
+    </div>
 
-        { {- /* Comment */ -} }
-        { {- partial "comment.html" . -} }
-    </article>
-{ {- end -} }
+    <div class="post-nav"><a href="/blog/crash-course-economics-notes/" class="prev" rel="prev" title="Crash Course Economics Notes"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Crash Course Economics Notes</a>
+            <a href="/blog/snlp-ch1-%E7%BB%AA%E8%AE%BA/" class="next" rel="next" title="《统计自然语言处理》第1章 - 绪论">《统计自然语言处理》第1章 - 绪论<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
+</html>

@@ -1,101 +1,389 @@
-{ {- define "title" } }{ { .Title } } - { { .Site.Title } }{ { end -} }
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>《统计自然语言处理》第3章 - 形式语言与自动机 - Zubin`s Blog</title><meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="《统计自然语言处理》第3章 - 形式语言与自动机" />
+<meta property="og:description" content="ch3 形式语言与自动机 注：本章笔记参考（王柏、杨娟）《形式语言与自动机》 3.1 基本概念 图、树、字符串 3.2 形式语言 语言定义和运算 字母表 T：字符的有限集合" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zubingou.github.io/blog/snlp-ch3-%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA/" /><meta property="og:image" content="https://zubingou.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-01-15T13:56:11+08:00" />
+<meta property="article:modified_time" content="2021-01-15T13:56:11+08:00" /><meta property="og:site_name" content="My cool site" />
 
-{ {- define "content" -} }
-    { {- $params := .Scratch.Get "params" -} }
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zubingou.github.io/logo.png"/>
 
-    { {- $toc := $params.toc -} }
-    { {- if eq $toc true -} }
-        { {- $toc = .Site.Params.page.toc | default dict -} }
-    { {- else if eq $toc false -} }
-        { {- $toc = dict "enable" false -} }
-    { {- end -} }
+<meta name="twitter:title" content="《统计自然语言处理》第3章 - 形式语言与自动机"/>
+<meta name="twitter:description" content="ch3 形式语言与自动机 注：本章笔记参考（王柏、杨娟）《形式语言与自动机》 3.1 基本概念 图、树、字符串 3.2 形式语言 语言定义和运算 字母表 T：字符的有限集合"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zubingou.github.io/blog/snlp-ch3-%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA/" /><link rel="prev" href="https://zubingou.github.io/blog/snlp-ch5-%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" /><link rel="next" href="https://zubingou.github.io/blog/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《统计自然语言处理》第3章 - 形式语言与自动机",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zubingou.github.io\/blog\/snlp-ch3-%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zubingou.github.io\/blog\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "统计自然语言处理, NLP, statistics, notes","wordcount":  1333 ,
+        "url": "https:\/\/zubingou.github.io\/blog\/snlp-ch3-%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA\/","datePublished": "2021-01-15T13:56:11+08:00","dateModified": "2021-01-15T13:56:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "ZubinGou","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/zubingou.github.io\/blog\/images\/avatar.png",
+                    "width":  304 ,
+                    "height":  304 
+                }},"author": {
+                "@type": "Person",
+                "name": "ZubinGou"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-    { {- /* Auto TOC */ -} }
-    { {- if ne $toc.enable false -} }
-        <div class="toc" id="toc-auto">
-            <h2 class="toc-title">{ { T "contents" } }</h2>
-            <div class="toc-content{ { if eq $toc.auto false } } always-active{ { end } }" id="toc-content-auto"></div>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/" title="Zubin`s Blog">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
         </div>
-    { {- end -} }
-
-    <article class="page single">
-        { {- /* Title */ -} }
-        <h1 class="single-title animate__animated animate__flipInX">{ { .Title | emojify } }</h1>
-
-        { {- /* Subtitle */ -} }
-        { {- with $params.subtitle -} }
-            <h2 class="single-subtitle">{ { . } }</h2>
-        { {- end -} }
-
-        { {- /* Meta */ -} }
-        <div class="post-meta">
-            <div class="post-meta-line">
-                { {- $author := $params.author | default .Site.Author.name | default (T "author") -} }
-                { {- $authorLink := $params.authorlink | default .Site.Author.link | default .Site.Home.RelPermalink -} }
-                <span class="post-author">
-                    { {- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -} }
-                    { {- partial "plugin/a.html" $options -} }
-                </span>
-
-                { {- $categories := slice -} }
-                { {- range .Params.categories -} }
-                    { {- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -} }
-                    { {- $categories = $categories | append (printf `<a href="%v"><i class="far fa-folder fa-fw" aria-hidden="true"></i>%v</a>` $category.RelPermalink $category.Title) -} }
-                { {- end -} }
-                { {- with delimit $categories "&nbsp;" -} }
-                    &nbsp;<span class="post-category">
-                        { {- dict "Categories" . | T "includedInCategories" | safeHTML -} }
-                    </span>
-                { {- end -} }
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/posts/"> 所有文章 </a><a class="menu-item" href="/blog/tags/"> 标签 </a><a class="menu-item" href="/blog/categories/"> 分类 </a><a class="menu-item" href="https://zubingou.github.io" rel="noopener noreffer" target="_blank"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/" title="Zubin`s Blog">Zubin`s <span class="header-title-post"><i class='fas fa-paw'></i></span></a>
             </div>
-            <div class="post-meta-line">
-                { {- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -} }
-                    <i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{ { . } }">{ { . } }</time>&nbsp;
-                { {- end -} }
-                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{ { T "wordCount" .WordCount } }&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{ { T "readingTime" .ReadingTime } }&nbsp;
-                { {- $comment := .Scratch.Get "comment" | default dict -} }
-                { {- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -} }
-                    <span id="{ { .RelPermalink } }" class="leancloud_visitors" data-flag-title="{ { .Title } }">
-                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{ { T "views" } }
-                    </span>&nbsp;
-                { {- end -} }
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
             </div>
         </div>
-
-        { {- /* Featured image */ -} }
-        { {- $image := $params.featuredimage -} }
-        { {- with .Resources.GetMatch "featured-image" -} }
-            { {- $image = .RelPermalink -} }
-        { {- end -} }
-        { {- with $image -} }
-            <div class="featured-image">
-                { {- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -} }
-            </div>
-        { {- end -} }
-
-        { {- /* Static TOC */ -} }
-        { {- if ne $toc.enable false -} }
-            <div class="details toc" id="toc-static"  data-kept="{ { if $toc.keepStatic } }true{ { end } }">
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/blog/posts/" title="">所有文章</a><a class="menu-item" href="/blog/tags/" title="">标签</a><a class="menu-item" href="/blog/categories/" title="">分类</a><a class="menu-item" href="https://zubingou.github.io" title="" rel="noopener noreffer" target="_blank">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《统计自然语言处理》第3章 - 形式语言与自动机</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://binko.me" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>ZubinGou</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/nlp/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>NLP</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-01-15">2021-01-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1333 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
-                    <span>{ { T "contents" } }</span>
+                    <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static">
-                    { {- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
-                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#ch3-形式语言与自动机">ch3 形式语言与自动机</a>
+      <ul>
+        <li><a href="#31-基本概念">3.1 基本概念</a></li>
+        <li><a href="#32-形式语言">3.2 形式语言</a>
+          <ul>
+            <li><a href="#语言定义和运算">语言定义和运算</a></li>
+            <li><a href="#文法">文法</a></li>
+            <li><a href="#cfg识别句子的派生树">CFG识别句子的派生树</a></li>
+          </ul>
+        </li>
+        <li><a href="#33-自动机">3.3 自动机</a>
+          <ul>
+            <li><a href="#1有限自动机fa">（1）有限自动机FA</a></li>
+            <li><a href="#2正则文法与自动机">（2）正则文法与自动机</a></li>
+            <li><a href="#3cfg与下推自动机pda">（3）CFG与下推自动机PDA</a></li>
+            <li><a href="#4图灵机tm">（4）图灵机TM</a></li>
+            <li><a href="#5线性限界自动机lba">（5）线性限界自动机LBA</a></li>
+          </ul>
+        </li>
+        <li><a href="#34-自动机在nlp中的应用">3.4 自动机在NLP中的应用</a>
+          <ul>
+            <li><a href="#单词拼写检查">单词拼写检查</a></li>
+            <li><a href="#单词形态分析">单词形态分析</a></li>
+            <li><a href="#词性消歧part-of-speech-tagging">词性消歧（part-of-speech tagging）</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="ch3-形式语言与自动机">ch3 形式语言与自动机</h2>
+<p>注：本章笔记参考（王柏、杨娟）《形式语言与自动机》</p>
+<h3 id="31-基本概念">3.1 基本概念</h3>
+<p>图、树、字符串</p>
+<h3 id="32-形式语言">3.2 形式语言</h3>
+<h4 id="语言定义和运算">语言定义和运算</h4>
+<ul>
+<li>字母表 T：字符的有限集合。</li>
+<li>字符串：T中字符构成序列。</li>
+<li>字符串运算：concatenation, 逆 $\omega^T$ 或 $\overline{\omega}$、幂、闭包（$T^*, T^+$）</li>
+<li>语言：设T为字母表，任何<strong>集合</strong>$L \subseteq T^*$是字母表T上的一个语言。</li>
+<li>语言运算：并、交、补、差、积、幂</li>
+</ul>
+<h4 id="文法">文法</h4>
+<p>（1）概念</p>
+<ul>
+<li>文法：定义语言的数学模型</li>
+<li>表示方法：
+<ul>
+<li>有限集合：列举法</li>
+<li>无线集合：文法产生系统、机器识别系统</li>
+</ul>
+</li>
+<li>元语言：描述语言的语言，文法是一种元语言</li>
+<li>对象语言：描述的语言</li>
+</ul>
+<p>（2）Chomsky文法体系</p>
+<ul>
+<li>可被替代 -&gt;</li>
+<li>G = (N, T, P, S)
+<ul>
+<li>N 非终结符的有限集合</li>
+<li>T 终结符的有限集合</li>
+<li>P 生成式有限集合</li>
+<li>S 起始符</li>
+</ul>
+</li>
+</ul>
+<p>（3）推倒与句型</p>
+<ul>
+<li>直接推导：由生成式$A\rightarrow \beta$得直接推导：$\alpha A\gamma \Rightarrow \alpha\beta\gamma$</li>
+<li>推导序列：称$\alpha_{0}\Rightarrow\alpha_{1}\Rightarrow\ldots\Rightarrow\alpha_{n}$长度为n的推导序列</li>
+<li>推导出：$\alpha \xRightarrow[G]{*} \alpha^{\prime}$, $\alpha \xRightarrow[G]{+} \alpha^{\prime}$</li>
+<li>句型：推导序列每一步产生的字符串</li>
+<li>句子：只含有终结符句型</li>
+<li>语言：句子的集合</li>
+</ul>
+<p>（4）Chomsky文法分类
+按产生式的形式分类：</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>别称</th>
+<th>特点</th>
+<th>对应语言</th>
+<th>对应自动机</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0型文法</td>
+<td>无限制文法PSG</td>
+<td>无限制</td>
+<td>递归可枚举语言</td>
+<td>图灵机TM</td>
+</tr>
+<tr>
+<td>1型文法</td>
+<td>上下文有关文法CSG</td>
+<td>左长小于右</td>
+<td>上下文有关语言CSL</td>
+<td>线性有界自动机LBA</td>
+</tr>
+<tr>
+<td>2型文法</td>
+<td>上下文无关文法CFG</td>
+<td>左长等于1</td>
+<td>上下文无关语言CFL</td>
+<td>下推自动机PDA</td>
+</tr>
+<tr>
+<td>3型文法</td>
+<td>正则RG、左/右线性RLG/LLG</td>
+<td>左/右线性</td>
+<td>正则语言RL</td>
+<td>有限自动机FA</td>
+</tr>
+</tbody>
+</table>
+<p>关系：$L\left(G_{0}\right) \supseteqq L\left(G_{1}\right) \supseteqq L\left(G_{2}\right) \supseteqq L\left(G_{3}\right)$</p>
+<h4 id="cfg识别句子的派生树">CFG识别句子的派生树</h4>
+<ul>
+<li>派生树也称语法树（syntactic tree）、分析树（parsing tree）、推导树</li>
+<li><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/b4612b03745f49809e94b8e93cac2093.png"
+        data-srcset="../../_resources/b4612b03745f49809e94b8e93cac2093.png, ../../_resources/b4612b03745f49809e94b8e93cac2093.png 1.5x, ../../_resources/b4612b03745f49809e94b8e93cac2093.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/b4612b03745f49809e94b8e93cac2093.png"
+        title="ced65054c416e6cbd535089e2171d7a4.png" /></li>
+<li>二义性文法：文法G对于同一个句子的分析树 &gt;= 2</li>
+</ul>
+<h3 id="33-自动机">3.3 自动机</h3>
+<h4 id="1有限自动机fa">（1）有限自动机FA</h4>
+<ul>
+<li>DFA与NFA</li>
+</ul>
+<h4 id="2正则文法与自动机">（2）正则文法与自动机</h4>
+<ul>
+<li>RG &lt;-&gt; FA</li>
+</ul>
+<h4 id="3cfg与下推自动机pda">（3）CFG与下推自动机PDA</h4>
+<ul>
+<li><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/5f05d95a47474b2c87311952f2d443d1.png"
+        data-srcset="../../_resources/5f05d95a47474b2c87311952f2d443d1.png, ../../_resources/5f05d95a47474b2c87311952f2d443d1.png 1.5x, ../../_resources/5f05d95a47474b2c87311952f2d443d1.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/5f05d95a47474b2c87311952f2d443d1.png"
+        title="f5bdc4ae48dc4b81d634b31c29955b88.png" /></li>
+<li>CNF(Chomsky Normal Form)文法格式：$A \rightarrow BC \mid a$</li>
+<li>2型文法（CFG）可以转换为等价CNF</li>
+<li>CFG &lt;-&gt; PDA</li>
+</ul>
+<h4 id="4图灵机tm">（4）图灵机TM</h4>
+<ul>
+<li>图灵机与双向有限自动机的区别：图灵机可以改变“带(tape)”上的符号</li>
+<li>0型文法 &lt;-&gt; TM</li>
+</ul>
+<h4 id="5线性限界自动机lba">（5）线性限界自动机LBA</h4>
+<ul>
+<li>
+<p>LBA：确定的单带图灵机，其读／写头不能超越原输入带上字符串的初始和终止位置</p>
+</li>
+<li>
+<p>各类自动机的区别：信息存储空间的差异。</p>
+<ul>
+<li>FA：状态</li>
+<li>PDA：状态 + 堆栈</li>
+<li>LBA：状态 + 输入/输出带</li>
+<li>TM：无限制</li>
+</ul>
+</li>
+</ul>
+<h3 id="34-自动机在nlp中的应用">3.4 自动机在NLP中的应用</h3>
+<ul>
+<li>有限自动机又称为有限状态机（finite state machine, FSM）</li>
+</ul>
+<h4 id="单词拼写检查">单词拼写检查</h4>
+<ul>
+<li>[Oflazer,1996]FA用于拼写检查，[Damerau,1964]最小编辑距离</li>
+</ul>
+<h4 id="单词形态分析">单词形态分析</h4>
+<ul>
+<li>有限状态转换机（finite state transducer, FST）
+<ul>
+<li>FST在状态转移时输出，而FA/FSM只转移，不输出</li>
+</ul>
+</li>
+<li><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="../../_resources/d77b3664794e4a9c8fcebaecd69fa676.png"
+        data-srcset="../../_resources/d77b3664794e4a9c8fcebaecd69fa676.png, ../../_resources/d77b3664794e4a9c8fcebaecd69fa676.png 1.5x, ../../_resources/d77b3664794e4a9c8fcebaecd69fa676.png 2x"
+        data-sizes="auto"
+        alt="../../_resources/d77b3664794e4a9c8fcebaecd69fa676.png"
+        title="06b65a903a22905c54b4310958db0eac.png" />
+<ul>
+<li>识别heavy单词原型</li>
+<li>产生如下两条关于单词heavy的形态分析规则：
+<ul>
+<li>heavier→heavy＋er</li>
+<li>heaviest→heavy＋est</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="词性消歧part-of-speech-tagging">词性消歧（part-of-speech tagging）</h4>
+<ul>
+<li>词性标注方法之一：FST [Roche and Schabes, 1995]
+<ol>
+<li>词性标注规则 -&gt; FST</li>
+<li>FST -&gt; 扩展为全局操作</li>
+<li>合并FST为一个</li>
+<li>将FST转化为确定的FST</li>
+</ol>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-01-15</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/blog/snlp-ch3-%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zubingou.github.io/blog/snlp-ch3-%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA/" data-title="《统计自然语言处理》第3章 - 形式语言与自动机" data-hashtags="统计自然语言处理,NLP,statistics,notes"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zubingou.github.io/blog/snlp-ch3-%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA/" data-hashtag="统计自然语言处理"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zubingou.github.io/blog/snlp-ch3-%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA/" data-title="《统计自然语言处理》第3章 - 形式语言与自动机"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zubingou.github.io/blog/snlp-ch3-%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA/" data-title="《统计自然语言处理》第3章 - 形式语言与自动机"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zubingou.github.io/blog/snlp-ch3-%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA/" data-title="《统计自然语言处理》第3章 - 形式语言与自动机"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
-        { {- end -} }
-
-        { {- /* Content */ -} }
-        <div class="content" id="content">
-            { {- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -} }
         </div>
+    </div>
 
-        { {- /* Footer */ -} }
-        { {- partial "single/footer.html" . -} }
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/%E7%BB%9F%E8%AE%A1%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">统计自然语言处理</a>,&nbsp;<a href="/blog/tags/nlp/">NLP</a>,&nbsp;<a href="/blog/tags/statistics/">statistics</a>,&nbsp;<a href="/blog/tags/notes/">Notes</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
+        </section>
+    </div>
 
-        { {- /* Comment */ -} }
-        { {- partial "comment.html" . -} }
-    </article>
-{ {- end -} }
+    <div class="post-nav"><a href="/blog/snlp-ch5-%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="prev" rel="prev" title="《统计自然语言处理》第5章 - 语言模型"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>《统计自然语言处理》第5章 - 语言模型</a>
+            <a href="/blog/snlp-ch6-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" class="next" rel="next" title="《统计自然语言处理》第6章 - 概率图模型">《统计自然语言处理》第6章 - 概率图模型<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/blog/" target="_blank">ZubinGou</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ZubinGou/blog-comment"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"BGWYRG74JP","algoliaIndex":"binko","algoliaSearchKey":"1048a43ee01931f87e76ac2d1955675f","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
+</html>
