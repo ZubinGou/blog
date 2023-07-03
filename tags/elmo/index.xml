@@ -11,8 +11,8 @@
     <author>ZubinGou</author>
     <guid>https://zubingou.github.io/blog/nlp-paperselmo_-deep-contextualized-word-represe/</guid>
     <description><![CDATA[[Peters et al., NAACL 2018a]
- use bidirectional language model to train contextual word vector. use these vector as pre-train part of existing models, improve SOTA across six tasks. analysis showing that exposing the deep internals of the pre-trained network is crucial  1 Introduction pre-trained word representations should model both:
- complex characteristic of word use (e.g., syntax and semantics) how these uses vary across linguistic contexts (i.e., to model polysemy)  ELMo: Embeddings from Language Models]]></description>
+use bidirectional language model to train contextual word vector. use these vector as pre-train part of existing models, improve SOTA across six tasks. analysis showing that exposing the deep internals of the pre-trained network is crucial 1 Introduction pre-trained word representations should model both:
+complex characteristic of word use (e.g., syntax and semantics) how these uses vary across linguistic contexts (i.e., to model polysemy) ELMo: Embeddings from Language Models]]></description>
 </item>
 </channel>
 </rss>
